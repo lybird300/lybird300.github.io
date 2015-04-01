@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The Journey has begun..."
+title: "The journey has begun..."
 date: 2015-04-01
 ---
 
