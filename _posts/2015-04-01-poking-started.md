@@ -4,7 +4,7 @@ title: "The Very First Day"
 date: 2015-04-01
 ---
 
-Today is the April Fool's Day in 2015 and the first day that I start poking into computer simulations for population and evolutionary genetics. The person bold enough to hire me for this job, <a href="http://www.med.unc.edu/genetics/faculty/wilhelmsen">Dr. Kirk Wilhelmsen</a>, stopped by after lunch. "Whatever you don't know, I will teach you," he said when he left. This world-known geneticist and neurologist offered to give me a one-hour exclusive class every Friday. "Geez," I said to myself, "you'd better not screw up, Yuan."
+Today is the April Fool's Day in 2015 and the first day that I start poking into computer simulations for population and evolutionary genetics. The person bold enough to hire me for this job, <a href="http://www.med.unc.edu/genetics/faculty/wilhelmsen">Dr. Kirk Wilhelmsen</a>, stopped by after lunch. "Whatever you don't know, I will teach you," he said when he left. This world-known geneticist and neurologist offered to give me a one-hour exclusive lecture every Friday. "Geez," I said to myself, "you'd better not screw up, Yuan."
 
 The two main reasons for wanting to simulate genetic data are, first, to gain insight into the effects that underlying demographic and mutational parameters may have on the genetic data one sees, and, secondly, to create test datasets for assessing the power of alternative genetic analysis methods. There is <a href="http://www.nature.com/nrg/journal/v13/n2/full/nrg3130.html">a recent review on this area</a> from a geneticist point of view. The article also points out several other review articles, which, according to the author, focus more on technical aspects.
 
