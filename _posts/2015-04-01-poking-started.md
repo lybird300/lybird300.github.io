@@ -12,6 +12,7 @@ The two main reasons for wanting to simulate genetic data are, first, to gain in
 
 The key challenges that all simulation algorithms face are: (1) speed — typically one wants to do lots of simulations, so they need to be fast; (2) scalability — with the advent of genome-wide genotyping and large-scale sequencing, there is a need for simulation programs to match; and (3) flexibility — can the program cope with different demographic histories, population structure, recombination, selection, mutation models and disease models?
 
+As for future research interests, the simulation of <b>copy number variation</b> and/or microsatellite data at larger genomic scales, and of more complex disease models allowing covariates and linked loci, remain areas that deserve further exploration. (Note:  the performance of any methods trying to tackle the challenges of complex disease mapping should be evaluated by large scale simulation studies)
 
 References
 Liu, Youfang, Georgios Athanasiadis, and Michael E. Weale. "A survey of genetic simulation software for population and epidemiological studies." Hum Genomics 3.1 (2008): 79-86.
