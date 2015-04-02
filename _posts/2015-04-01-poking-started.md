@@ -12,8 +12,6 @@ The two main reasons for wanting to simulate genetic data are, first, to gain in
 
 The key challenges that all simulation algorithms face are: (1) speed — typically one wants to do lots of simulations, so they need to be fast; (2) scalability — with the advent of genome-wide genotyping and large-scale sequencing, there is a need for simulation programs to match; and (3) flexibility — can the program cope with different demographic histories, population structure, recombination, selection, mutation models and disease models?
 
-The Cosi program (Schaffner et al., 2005) implements a coalescent model similar to the MS program (Hudson, 1990) but
-allowing for complex demographic histories and variable recombination rates.
 
 References
 Liu, Youfang, Georgios Athanasiadis, and Michael E. Weale. "A survey of genetic simulation software for population and epidemiological studies." Hum Genomics 3.1 (2008): 79-86.
