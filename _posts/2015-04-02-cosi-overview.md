@@ -17,16 +17,16 @@ Mutations are simulated assuming an infinite-sites model.Conditional on the gene
 The algorithm simulates the genealogy of a sample of sequences, conditional on parameters such as the population size, the recombination rate, and rates of migration between subpopulations.
 Mutation: sequence, When multiple sub-populations are simulated, the program allows for migration among subpopulations.
 allow for user specified demographic events such as population bottlenecks 
-Recombination: V, allow recombination rates to vary so as to mimic the pattern of hotspots along the genome
+Recombination: V, allow recombination rates to vary by defining a genetic map or <a href="http://en.wikipedia.org/wiki/Recombination_hotspot">hotspots</a> along the genome
 It cannot generate chromosomal length regions
 allow the number of mutations to be fixed so that the probability that a mutation occurs on a particular branch is proportional to its length.
-M/D UD
-MS RM
-Fec RD
-Lifecycle: NA
-PG Ex
-Events: Population size, CE,MM
-Selection: SBS
+Migration: User-defined matrix
+Mating system: Random Mating
+<a href="http://en.wikipedia.org/wiki/Fecundity">Fecundity</a>: Random Distribution
+Life cycle: Not applicable
+Population growth: Exponential growth
+Events allowed: change in population size, colonization or extinction (change in number of populations), migration matrix
+Selection: Single biallelic site
 
 cannot distinguish...since they have the same total scaled mutation rate. For example, (1) simulate 1,000 sequences from a population of 20,000. Each sequence consists of 2,000 independent loci each of lkb long. Mutation rate is 10-8 per base pair per generation, (2) simulate 1,000 sequences from a population of 1,000. Each sequence consists of 40,000 independent loci each of lkb long with the same mutation rate in (1).
 
