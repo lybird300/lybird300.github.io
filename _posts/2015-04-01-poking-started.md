@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "The journey has begun..."
+title: "The Very First Day"
 date: 2015-04-01
 ---
 
-Today I start poking into computer simulations for population and evolutionary genetics studies. 
+Today is the April Fool's Day in 2015 (lol) and the first day that I start poking into computer simulations for population and evolutionary genetics. The person who's bold enough to hire me for this work, <a href="http://www.med.unc.edu/genetics/faculty/wilhelmsen">Dr. Kirk Wilhelmsen</a>, stopped by after lunch and talked with me for a while. "Whatever you don't know, I will teach you," he said. "Wow...a world-known geneticist gives you a 1-hour exclusive class every Friday," I said to myself, "you'd better not screw up this opportunity."
 
 <a href="http://www.nature.com/nrg/journal/v13/n2/full/nrg3130.html">A recent review on this area</a> from a geneticist point of view. This article also points out several other review articles, which, according to the author, focus more on technical aspects.
 
