@@ -4,7 +4,9 @@ title: "The journey has begun..."
 date: 2015-04-01
 ---
 
-Today I start poking into COSI. 
+Today I start poking into computer simulations for population and evolutionary genetics studies. 
+
+<a href="http://www.nature.com/nrg/journal/v13/n2/full/nrg3130.html">A recent review on this area</a> from a geneticist point of view. This article also points out several other review articles, which, according to the author, focus more on technical aspects.
 
 The two main reasons for wanting to simulate genetic data are, first, to gain insight into the effects that underlying demographic and mutational parameters may have on the genetic data one sees, and, secondly, to create test datasets for assessing the power of alternative genetic analysis methods.
 
