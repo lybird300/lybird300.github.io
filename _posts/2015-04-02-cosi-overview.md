@@ -19,6 +19,44 @@ Mutations are simulated assuming an infinite-sites model.Conditional on the gene
 
 <h2>Capabilities/Limiations</h2>
 The algorithm simulates the genealogy of a sample of sequences, conditional on parameters such as the population size, the recombination rate, and rates of migration between subpopulations. Below is a list of 
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Value</th>
+    <th>Reference</th>
+  </tr>
+   <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+     <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+     <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+   <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
 Mutation: sequence, When multiple sub-populations are simulated, the program allows for migration among subpopulations.
 allow for user specified demographic events such as population bottlenecks 
 Recombination: V, allow recombination rates to vary by defining a genetic map or <a href="http://en.wikipedia.org/wiki/Recombination_hotspot">hotspots</a> along the genome
