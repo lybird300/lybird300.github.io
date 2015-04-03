@@ -4,7 +4,7 @@ title: "COSI Overview"
 date: 2015-04-02
 ---
 
-The Cosi program (Schaffner et al., 2005) implements a coalescent model similar to the widely used <a href="http://home.uchicago.edu/rhudson1/source/mksamples.html">MS program</a> (Hudson, 1990) but allows for complex demographic histories and variable recombination rates. Both MS and Cosi implement the standard coalescent approach that simulates genealogical events backward in time. Simulated events typically include the coalescence of two DNA sequences into a single ancestral lineage, recombination within a sequence, or migration between populations. Since all these events are typically rare, coalescent simulators assume that they never occur simultaneously and assume many generations pass between consecutive events. Time between events is explicitly modeled and used to skip over generations with no genealogical events of interest. The algorithm proceeds until all sequences coalesce to their most recent common ancestor (MRCA) and the resulting genealogy is used to place mutation events along the various sequences.
+The <a href="https://popmodels.cancercontrol.cancer.gov/gsr/packages/cosi/">Cosi</a> program (Schaffner et al., 2005) implements a coalescent model similar to the widely used <a href="http://home.uchicago.edu/rhudson1/source/mksamples.html">MS program</a> (Hudson, 1990) but allows for complex demographic histories and variable recombination rates. Both MS and Cosi implement the standard coalescent approach that simulates genealogical events backward in time. Simulated events typically include the coalescence of two DNA sequences into a single ancestral lineage, recombination within a sequence, or migration between populations. Since all these events are typically rare, coalescent simulators assume that they never occur simultaneously and assume many generations pass between consecutive events. Time between events is explicitly modeled and used to skip over generations with no genealogical events of interest. The algorithm proceeds until all sequences coalesce to their most recent common ancestor (MRCA) and the resulting genealogy is used to place mutation events along the various sequences.
 
 Cosi has been calibrated (i.e., figure out the values of model parameters by fitting the model to some empirical data) using genome-wide human population data for different populations (deCODE genetic map). The resultant model is referred to as the "bestfit" model and the obtained parameter values (default) are listed in Table 1 in <a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1310645/">Schaffner et al's paper</a>.
 
@@ -46,20 +46,20 @@ The algorithm simulates the genealogy of a sample of sequences, conditional on p
     <td></td>
   </tr>
   <tr>
-    <td></td>
+    <td>pop_define</td>
     <td></td>
     <td></td>
     <td></td>
   </tr>
    <tr>
     <td>pop_size</td>
-    <td></td>
+    <td>effective population size</td>
     <td></td>
     <td></td>
   </tr>
     <tr>
-    <td></td>
-    <td></td>
+    <td>sample_size</td>
+    <td>the number of sampled chromosomes</td>
     <td></td>
     <td></td>
   </tr>
