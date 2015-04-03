@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "COSI Manual"
+title: "COSI (More details)"
 date: 2015-04-03
 ---
 
