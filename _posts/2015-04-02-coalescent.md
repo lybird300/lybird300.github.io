@@ -4,7 +4,11 @@ title: "Coalescent models: Basics and Extensions"
 date: 2015-04-02
 ---
 
+<h2>Basic Coalescent</h2>
 
+<h2>Extensions</h2>
+
+<h3></h3>
 
 The table below lists. Parameter names are as they are in the "param" file.
 
@@ -99,10 +103,7 @@ The parameters of cosi are predefined and stored in a separate file named "param
 
 <pre class="prettyprint pre-scrollable"><code>hihi</code></pre>
 
-<h2>Performance</h2>
-Cosi is suitable for short genomic segments or gene sequences (<2-3Mb) but become very slow for larger regions (> 100Mb). As sequences get longer, many more coalescent, recombination and migration events occur and the time intervals between them diminish. For longer sequences and large sample sizes, little computational efficiency is gained by skipping over uninteresting generations and substantial computational effort is expended tracking recombination events and their positions, and allocating memory to track the many ancestral fragments of each sequence as they repeatedly recombine and coalesce with each other. As genome-wide studies become a reality, efficient tools for simulating large sequences are essential. Thus, it is necessary to improve cosi's performance in this aspect.
 
-An improved algorithm -- <a href="http://csg.sph.umich.edu/liang/genome/">GENOME</a> (While in the standard coalescent algorithm, each coalescence event involves exactly two sequences that coalesce to a common ancestor, in GENOME, multiple sequences can coalesce to a common ancestor simultaneously. The interested readers are also refered to the author's doctoral dissertation -- "Efficient methods for analysis of genome scale data")
 
 <h2>References</h2>
 <ul>
