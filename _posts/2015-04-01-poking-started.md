@@ -16,6 +16,6 @@ Allele Frequency spectrum
 
 As for future research interests, the simulation of <b>copy number variation</b> and/or microsatellite data at larger genomic scales, and of more complex disease models allowing covariates and linked loci, remain areas that deserve further exploration. (Note:  the performance of any methods trying to tackle the challenges of complex disease mapping should be evaluated by large scale simulation studies)
 
-References
+<h2>References</h2>
 Liu, Youfang, Georgios Athanasiadis, and Michael E. Weale. "A survey of genetic simulation software for population and epidemiological studies." Hum Genomics 3.1 (2008): 79-86.
 Hoban, Sean, Giorgio Bertorelle, and Oscar E. Gaggiotti. "Computer simulations: tools for population and evolutionary genetics." Nature Reviews Genetics 13.2 (2012): 110-122.
