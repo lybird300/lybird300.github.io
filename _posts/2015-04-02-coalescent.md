@@ -19,8 +19,9 @@ At the heart of population genetics is the use of gene genealogy, a tree structu
 
 A geneology is completely summarized by the entire topology (who relates to whom) and the length of each branch (intervals between two subsequent convergence/divergence events). The coalescent approach generates the genealogy backwards, instead of forwards, for a sample of sequences (rather than the entire population. This approach introduces computational and analytical convenience because the history of the entire population includes sequences that are extinct or we have not sampled.
 
-The reproduction in the population giving rise to the genealogical relationship among genes is often described following the Wright-Fisher model, which assumes:
-1. Nonoverlapping generations
+The reproduction in the population giving rise to the genealogical relationship among genes is often described following the Wright-Fisher model, which makes the following assumptions:
+<ul>
+<li>Nonoverlapping generations: all of the individuals in the population die each generation and are replaced by offspring. The population size (<i>pop_size</i>) is assumed to be constant over time and finite.
 2. Random reproduction (Poisson distributed number of offspring)
 3. Constant population size of N individuals
 4. Random mating (no structure)
