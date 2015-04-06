@@ -1,8 +1,13 @@
 ---
 layout: post
-title: "Coalescent models: Basics and Extensions"
+title: "Overview of the Coalescent Theory"
 date: 2015-04-02
 ---
+Population genetics is the study of the forces that create and maintain genetic variation. At the heart of it is the use of gene genealogy, a tree structure describes the evolutionary history (e.g., divergence) of a particular set of DNA sequences and their relatedness. Since the shape of the genealogy depends on population history, selection, etc, geneticsts have been using it to infer or predict DNA sequence variation. Due to the uncertainty elements of reproduction, the central part of genealogical data analysis is a stochastic characterisation of the genealogies that relate the sequences.
+
+A geneology is completely summarized by the entire topology (who relates to whom) and the length of each branch (intervals between two subsequent convergence/divergence events). The coalescent approach generates the genealogy backwards, instead of forwards, for a sample of sequences (rather than the entire population). It traces the ancestral lineages, which are the series of genetic ancestors of the samples at a locus, back through time. The history of a sample of size <b>n</b> comprises n − 1 coalescent events. Each coalescent event decreases the number of ancestral lineages by one. This takes the sample from the present day when there are n lineages through a series of steps in which the number of lineages decreases from n to n − 1, then from n − 1 to n − 2, etc., then finally from two to one. At each coalescent event, two of the lineages fuse into one common-ancestral lineage. The result is a bifurcating tree. This approach introduces computational and analytical convenience because the history of the entire population includes sequences that are extinct or we have not sampled. 
+
+This post will briefly introduce the coalescent theory, including its history, the basic model, and important extensions.
 
 <h2>History</h2>
 Gustave Malécot (in the 1940’s) introduced the idea of following a pair of gene copies back to their common ancestor and the notion of <b>identity by descent (IDB)</b>: If we pick two genes from a <b>Wright-Fisher (WF)</b> population, how long ago on average did the two genes share their <b>most recent common ancestor (MRCA)</b>? Genealogical approaches to samples larger than two appeared in response to the first direct measurements of molecular variation (Harris 1966; Lewontin and Hubby 1966). Since then there have been some seminal work:
@@ -15,17 +20,19 @@ Gustave Malécot (in the 1940’s) introduced the idea of following a pair of ge
 </ul>
 
 <h2>Basics</h2>
-At the heart of population genetics is the use of gene genealogy, a tree structure describes the evolutionary history (e.g., divergence) of a particular set of DNA sequences and their relatedness. Since the shape of the genealogy depends on population history, selection, etc, geneticsts have been using it to infer or predict DNA sequence variation. Due to the uncertainty elements of reproduction, the central part of genealogical data analysis is a stochastic characterisation of the genealogies that relate the sequences. Evaluating the probability of a given data set then consists of two steps: First, model reproduction in the population which leads to a probabilistic description of the genealogical relationship of the sampled data. Second, each genealogy will generate the data with a specific probability when combined with a model of the mutation process.
-
-A geneology is completely summarized by the entire topology (who relates to whom) and the length of each branch (intervals between two subsequent convergence/divergence events). The coalescent approach generates the genealogy backwards, instead of forwards, for a sample of sequences (rather than the entire population. This approach introduces computational and analytical convenience because the history of the entire population includes sequences that are extinct or we have not sampled.
-
-The reproduction in the population giving rise to the genealogical relationship among genes is often described following the Wright-Fisher model, which makes the following assumptions:
+A widely used model that describes reproduction in a population, which gives rise to the genealogies of that population, is the Wright-Fisher model. This model makes the following assumptions on population evolution:
 <ul>
-<li>Nonoverlapping generations: all of the individuals in the population die each generation and are replaced by offspring. The population size (<i>pop_size</i>) is assumed to be constant over time and finite.
-2. Random reproduction (Poisson distributed number of offspring)
-3. Constant population size of N individuals
-4. Random mating (no structure)
+<li>Nonoverlapping generations: all of the individuals in the population die each generation and are replaced by offspring.</li>
+<li>Constant population size through time: the population size <b>N</b> (note: population size is different from sample size) is assumed to be constant over time and finite. When the individuals that constitute the population are haploid organisms, the population will consist of N copies of the <b>genome</b> (the genome of an organism is its whole hereditary information and is encoded in the DNA or RNA). In case of diploid organisms (e.g., humans), there will be 2N copies.</li>
+<li>Random mating (no structure): next generation is drawn randomly from a large gamete pool. Statistically, the next generation is formed from the current generation by uniformly sampling with replacement</li>
+<li>Neutral mutation: </li>
+</ul>
+The pure Wright-Fisher model results in a decay of genetic variation. Since the population is finite in size and reproduction is a random process, some individuals may not contribute any offspring to the next generation. This random loss of genetic lineages forward in time is called <b>genetic drift</b>, which reduces the diversity of the population diversity. One measure of population diversity is <b>heterozygosity</b>, defined as the probability that two genes chosen at random from the population have different alleles. Assuming a gene has two allelic states denoted A and a, genetic drift eventually leads to either A or a being lost from the population. When this happens, the surviving allele is said to be fixed in the population. The effect of genetic drift is compensated by mutation, a process by which the allelic state of a gene occasionally changes from one to another (e.g., from A to a).
 
+The number of genes required in the Wright-Fisher model for it to behave like a real population (under aforementioned assumptions) is called the <b>effective population size</b> (Ne) of that population.
+
+Algorithm
+The algorithm consists of two steps: First, model reproduction in the population which leads to a probabilistic description of the genealogical relationship of the sampled data. Second, generate the data by combining the genealogy with a model of the mutation process (mutation is .
 
 <h2>Extensions</h2>
 
