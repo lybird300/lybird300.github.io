@@ -4,7 +4,7 @@ title: "Coalescent models: Basics and Extensions"
 date: 2015-04-02
 ---
 
-<h2>History of coalescent theory</h2>
+<h2>History</h2>
 Gustave Malécot (in the 1940’s) introduced the idea of following a pair of gene copies back to their common ancestor and the notion of <b>identity by descent (IDB)</b>: If we pick two genes from a <b>Wright-Fisher (WF)</b> population, how long ago on average did the two genes share their <b>most recent common ancestor (MRCA)</b>? Genealogical approaches to samples larger than two appeared in response to the first direct measurements of molecular variation (Harris 1966; Lewontin and Hubby 1966). Since then there have been some seminal work:
 <ul>
 <li>Ewens (1972): Derived the distribution of allele counts in a sample under the infinite-alleles model of selectively neutral mutation</li>
@@ -14,7 +14,7 @@ Gustave Malécot (in the 1940’s) introduced the idea of following a pair of ge
 <li>Hudson (1990) wrote a wonderful review of coalescent theory and made available an <b>algorithm</b> to simulate data under different population models. Other reviews include: Fu and Li (1999) and Nordborg (2001). Reviews are the place to start reading if you want to delve deeper into this subject.</li>
 </ul>
 
-<h2>Basic coalescent</h2>
+<h2>Basics</h2>
 At the heart of population genetics is the use of gene genealogy, a tree structure describes the evolutionary history (e.g., divergence) of a particular set of DNA sequences and their relatedness. Since the shape of the genealogy depends on population history, selection, etc, geneticsts have been using it to infer or predict DNA sequence variation. Due to the uncertainty elements of reproduction, the central part of genealogical data analysis is a stochastic characterisation of the genealogies that relate the sequences. Evaluating the probability of a given data set then consists of two steps: First, model reproduction in the population which leads to a probabilistic description of the genealogical relationship of the sampled data. Second, each genealogy will generate the data with a specific probability when combined with a model of the mutation process.
 
 A geneology is completely summarized by the entire topology (who relates to whom) and the length of each branch (intervals between two subsequent convergence/divergence events). The coalescent approach generates the genealogy backwards, instead of forwards, for a sample of sequences (rather than the entire population. This approach introduces computational and analytical convenience because the history of the entire population includes sequences that are extinct or we have not sampled.
