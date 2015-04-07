@@ -40,16 +40,25 @@ The basic/standard Wright-Fisher model results in a decay of genetic variation. 
 
 The number of genes required in the Wright-Fisher model for it to behave like a real population (under aforementioned assumptions) is called the <b>effective population size</b> (Ne) of that population.
 
-Parameters (as denoted in the literature/as the input of <a href="http://lybird300.github.io/2015/04/04/CoJava.html">CoJava</a> if applicable)
+Parameters (as denoted in the literature/as the input of <a href="http://lybird300.github.io/2015/04/04/CoJava.html">Cosi or CoJava</a> if applicable)
 <ul>
-<li>N/pop_size</li>
-<li>n/sample_size</li>
-<li></li>
+<li>n/sample_size: the number of DNA sequences (or genes/chromosomes/haplotypes depending on the context) being sampled</li>
+<li>N/pop_size: the number of individuals in the population; thus, diploid populations each has 2N sequences</li>
+<li>t: in the Wright–Fisher model time is measured in discrete units, generations. It is conceptually and computationally advantageous to consider continuous time approximations. A natural choice for the coalescent has been to scale in continuous time, so that one unit of time corresponds to the average time for two genes to find a common ancestor, which was just shown to be 2N generations. Using any of these transformations of time, the coalescent becomes independent of the population
+size.</li>
 </ul>
-Algorithm
-The algorithm consists of two steps: First, model reproduction in the population which leads to a probabilistic description of the genealogical relationship of the sampled data. Second, generate the data by combining the genealogy with a model of the mutation process (mutation is .
+<pre class="prettyprint pre-scrollable"><code>
+Algorithm 1: the basic coalescent (a stochastic process that samples genealogies for n DNA sequences)
+<ol>
+<li>Start with k = n genes<li>
+<li>Simulate the waiting time to next coalescent event</li>
+<li>Choose a random pair (i, j) with 1 ≤ i < j ≤ k uniformly among the possible pairs</li>
+<li>Merge i and j into one gene and decrease the sample size by one, k--</li>
+<li>If k > 1 go to step 2, otherwise stop</li>
+</ol>
+</code></pre>
 
-<pre class="prettyprint pre-scrollable"><code>hihi</code></pre>
+
 
 <h2>Extensions</h2>
 
