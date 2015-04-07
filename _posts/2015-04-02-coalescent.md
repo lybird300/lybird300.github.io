@@ -48,9 +48,9 @@ Parameters (as denoted in the literature/as the input of <a href="http://lybird3
 size.</li>
 </ul>
 <pre class="prettyprint pre-scrollable"><code>
-Algorithm 1: the basic coalescent (a stochastic process that samples genealogies for n DNA sequences)
+<b>Algorithm 1</b>: the basic coalescent (a stochastic process that samples genealogies for n DNA sequences)
 <ol>
-<li>Start with k = n genes<li>
+<li>Start with k = n genes</li>
 <li>Simulate the waiting time to next coalescent event</li>
 <li>Choose a random pair (i, j) with 1 ≤ i < j ≤ k uniformly among the possible pairs</li>
 <li>Merge i and j into one gene and decrease the sample size by one, k--</li>
