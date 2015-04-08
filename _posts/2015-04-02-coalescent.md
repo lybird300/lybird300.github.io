@@ -44,21 +44,24 @@ Parameters (as denoted in the literature/as the input of <a href="http://lybird3
 <ul>
 <li>n/sample_size: the number of DNA sequences (or genes/chromosomes/haplotypes depending on the context) being sampled</li>
 <li>N/pop_size: the number of individuals in the population; thus, diploid populations each has 2N sequences</li>
-<li>t: in the Wright–Fisher model time is measured in discrete units, generations. It is conceptually and computationally advantageous to consider continuous time approximations. A natural choice for the coalescent has been to scale in continuous time, so that one unit of time corresponds to the average time for two genes to find a common ancestor, which was just shown to be 2N generations. Using any of these transformations of time, the coalescent becomes independent of the population
-size.</li>
+<li>T: continuous time measured in units of 2N generations (2N generations are the average time for two genes to find a common ancestor; transforming time in this way thus makes the coalescent independent of population size)</li>
+<li>k/: the number of sequences at one generation in the genealogy, or the number of corresponding nodes in the subgraph of an <a href="http://www.math.canterbury.ac.nz/~r.sainudiin/recomb/ima.pdf">ARG (Ancestral Recombination Graph)</a></li>
 </ul>
 <pre class="prettyprint pre-scrollable"><code>
 <b>Algorithm 1</b>: the basic coalescent (a stochastic process that samples genealogies for n DNA sequences)
 <ol>
-<li>Start with k = n genes</li>
+<li>Start with k = n sequences</li>
 <li>Simulate the waiting time to next coalescent event</li>
 <li>Choose a random pair (i, j) with 1 ≤ i < j ≤ k uniformly among the possible pairs</li>
 <li>Merge i and j into one gene and decrease the sample size by one, k--</li>
-<li>If k > 1 go to step 2, otherwise stop</li>
+<li>If k > 1 go to Step 2, otherwise stop</li>
 </ol>
 </code></pre>
+Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences is k(k-1)/(4N). For more details, please refer to the resources listed at the end of this post. 
 
-
+Mutation
+Infinite sites Model
+Every mutation occurs at a different site
 
 <h2>Extensions</h2>
 
@@ -168,5 +171,7 @@ The parameters of cosi are predefined and stored in a separate file named "param
 <li>Hudson, R. R. (1990). Gene genealogies and the coalescent process. Oxford surveys in evolutionary biology, 7(1), 44.</li>
 <li>Nordborg, M. (2001). <a href="http://www.cs.berkeley.edu/~jordan/sail/readings/nordborg.pdf">Coalescent theory</a>. In Handbook of statistical genetics. (A computer scientist's review on population genetics models based on the coalescent theory)</li>
 <li>Durrett, Richard. Probability models for DNA sequence evolution. Springer Science & Business Media, 2008</li>
+<li><a href="http://genome.sph.umich.edu/wiki/Biostatistics_666:_Main_Page">Biostatistics 666</a> Lecture notes, University of Michigan</li>
+<li><a href="http://bio.classes.ucsc.edu/bio107/">Bio 107</a> Lecture notes, University of California at Santa Cruz</li>
 </ul>
 
