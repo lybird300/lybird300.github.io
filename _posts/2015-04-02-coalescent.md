@@ -37,27 +37,28 @@ The basic/standard Wright-Fisher model results in a decay of genetic variation. 
 </div>
 
 
-
 The number of genes required in the Wright-Fisher model for it to behave like a real population (under aforementioned assumptions) is called the <b>effective population size</b> (Ne) of that population.
 
 Parameters (as denoted in the literature/as the input of <a href="http://lybird300.github.io/2015/04/04/CoJava.html">Cosi or CoJava</a> if applicable)
 <ul>
 <li>n/sample_size: the number of DNA sequences (or genes/chromosomes/haplotypes depending on the context) being sampled</li>
 <li>N/pop_size: the number of individuals in the population; thus, diploid populations each has 2N sequences</li>
-<li>T: continuous time measured in units of 2N generations (2N generations are the average time for two genes to find a common ancestor; transforming time in this way thus makes the coalescent independent of population size)</li>
-<li>k/: the number of sequences at one generation in the genealogy, or the number of corresponding nodes in the subgraph of an <a href="http://www.math.canterbury.ac.nz/~r.sainudiin/recomb/ima.pdf">ARG (Ancestral Recombination Graph)</a></li>
+<li>T: continuous time measured in units of 2N generations (2N generations are the average time for two genes to find a common ancestor). Modeling time in this way makes the coalescent independent of population sizen N</li>
+<li>k/numnodes: the number of sequences at one generation in the genealogy, or the number of corresponding nodes in the subgraph of an <a href="http://www.math.canterbury.ac.nz/~r.sainudiin/recomb/ima.pdf">ARG (Ancestral Recombination Graph)</a></li>
 </ul>
 <pre class="prettyprint pre-scrollable"><code>
-<b>Algorithm 1</b>: the basic coalescent (a stochastic process that samples genealogies for n DNA sequences)
+<b>Algorithm 1</b>: the basic coalescent (a stochastic process that generates genealogies for n DNA sequences)
 <ol>
 <li>Start with k = n sequences</li>
-<li>Simulate the waiting time to next coalescent event</li>
-<li>Choose a random pair (i, j) with 1 ≤ i < j ≤ k uniformly among the possible pairs</li>
+<li>Simulate the waiting time to next coalescent event, <font color="red">T(k) ~ Exp(-k*(k-1)/2)(?)</font></li>
+<li>Choose a random pair (i, j) with 1 ≤ i < j ≤ k uniformly among k(k-1)/2 possible pairs</li>
 <li>Merge i and j into one gene and decrease the sample size by one, k--</li>
 <li>If k > 1 go to Step 2, otherwise stop</li>
 </ol>
 </code></pre>
-Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences is k(k-1)/(4N). For more details, please refer to the resources listed at the end of this post. 
+Note: Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences (i.e., for k genes to have k-1 ancesters in the previous generation) is approximately k(k-1)/(4N). Thus, the amount of waiting time (measured in 2N-generation units) during which there are k lineages, T(k), has approximately an exponential distribution with mean 2/(k(k-1)).
+Related functions in CoJava: /geneticEvents/coalesce.java/coalesceGetRate(), 
+For more information, please refer to the resources listed at the end of this post. 
 
 Mutation
 Infinite sites Model
