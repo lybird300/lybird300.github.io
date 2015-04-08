@@ -7,7 +7,7 @@ Population genetics is the study of the forces that create and maintain genetic 
 
 A geneology is completely summarized by the entire topology (who relates to whom) and the length of each branch (intervals between two subsequent convergence/divergence events). The coalescent approach generates the genealogy backwards, instead of forwards, for a sample of sequences (rather than the entire population). It traces the ancestral lineages, which are the series of genetic ancestors of the samples at a locus, back through time. The history of a sample of size <b>n</b> comprises n − 1 coalescent events. Each coalescent event decreases the number of ancestral lineages by one. This takes the sample from the present day when there are n lineages through a series of steps in which the number of lineages decreases from n to n − 1, then from n − 1 to n − 2, etc., then finally from two to one. At each coalescent event, two of the lineages fuse into one common-ancestral lineage. The result is a bifurcating tree. This approach introduces computational and analytical convenience because the history of the entire population includes sequences that are extinct or we have not sampled. 
 
-This post will briefly introduce the coalescent theory, including its history, the basic model, and important extensions.
+This post will briefly introduce the coalescent theory, including its history, the basic model, and important extensions. For details such as theorems and their proofs, please refer to the resources provided at the end of this page. 
 
 <h2>History</h2>
 Gustave Malécot (in the 1940’s) introduced the idea of following a pair of gene copies back to their common ancestor and the notion of <b>identity by descent (IDB)</b>: If we pick two genes from a <b>Wright-Fisher (WF)</b> population, how long ago on average did the two genes share their <b>most recent common ancestor (MRCA)</b>? Genealogical approaches to samples larger than two appeared in response to the first direct measurements of molecular variation (Harris 1966; Lewontin and Hubby 1966). Since then there have been some seminal work:
@@ -16,14 +16,14 @@ Gustave Malécot (in the 1940’s) introduced the idea of following a pair of ge
 <li>Watterson (1975): gave an explicitly genealogical derivation of the <b>number of segregating sites</b>, or polymorphic sites, in a sample of sequences under <b>the infinite-sites model of mutation without recombination</b>.</li>
 <li>Kingman (1982a; 1982b; 1982c): proved the existence of the coalescent process. Showed that the ‘n-coalescent’ holds for a wide range of populations with different breeding structures.</li>
 <li>Tajima (1983): Derived the expectation of the average number of pairwise differences in a sample. As it turns out, this is an estimate of the composite parameter: θ = 4Neμ</li>
-<li>Hudson (1990) wrote a wonderful review of coalescent theory and made available an <b>algorithm</b> to simulate data under different population models. Other reviews include: Fu and Li (1999) and Nordborg (2001). Reviews are the place to start reading if you want to delve deeper into this subject.</li>
+<li>Hudson (1990) wrote a wonderful review of coalescent theory and made available an <b>algorithm</b> to simulate data under different population models.</li>
 </ul>
 
 <h2>Basics</h2>
 A widely used model that describes reproduction in a population, which gives rise to the genealogies of that population, is the Wright-Fisher model. This model makes the following assumptions on population evolution:
 <ul>
 <li>Discrete and nonoverlapping generations: all of the individuals in the population die each generation and are replaced by offspring.</li>
-<li>Constant population size through time: the population size <b>N</b> (note: population size is different from sample size) is assumed to be constant over time and finite. When the individuals that constitute the population are haploid organisms (they have only one copy of genetic materials), the population will consist of N copies of the <b>genome</b> (the genome of an organism is its whole hereditary information and is encoded in the DNA or RNA). In case of diploid organisms (e.g., humans, with two copies of genetic materials), there will be 2N copies.</li>
+<li>Constant population size through time: the population size <b>N</b> (different from sample size) is assumed to be constant over time and finite. When the individuals that constitute the population are haploid organisms (they have only one copy of genetic materials), the population will consist of N copies of the <b>genome</b> (the genome of an organism is its whole hereditary information and is encoded in the DNA or RNA). In case of diploid organisms (e.g., humans, with two copies of genetic materials), there will be 2N copies.</li>
 <li>Random mating (no structure): next generation is drawn randomly from a large gamete pool. Statistically, the next generation is formed from the current generation by uniformly sampling with replacement</li>
 <li>Neutral mutation: the mutation changes the DNA sequence but not an individual’s ability to survive and to produce offspring</li>
 </ul>
@@ -36,31 +36,43 @@ The basic/standard Wright-Fisher model results in a decay of genetic variation. 
 </ul>
 </div>
 
-
 The number of genes required in the Wright-Fisher model for it to behave like a real population (under aforementioned assumptions) is called the <b>effective population size</b> (Ne) of that population.
 
 Parameters (as denoted in the literature/as the input of <a href="http://lybird300.github.io/2015/04/04/CoJava.html">Cosi or CoJava</a> if applicable)
 <ul>
 <li>n/sample_size: the number of DNA sequences (or genes/chromosomes/haplotypes depending on the context) being sampled</li>
 <li>N/pop_size: the number of individuals in the population; thus, diploid populations each has 2N sequences</li>
-<li>T: continuous time measured in units of 2N generations (2N generations are the average time for two genes to find a common ancestor). Modeling time in this way makes the coalescent independent of population sizen N</li>
 <li>k/numnodes: the number of sequences at one generation in the genealogy, or the number of corresponding nodes in the subgraph of an <a href="http://www.math.canterbury.ac.nz/~r.sainudiin/recomb/ima.pdf">ARG (Ancestral Recombination Graph)</a></li>
+<li>T: continuous time measured in units of 2N generations (2N generations are the average time for two genes to find a common ancestor). Modeling time in this way makes the coalescent independent of population sizen N</li>
+<li>λ/rate: When using an exponential distribution to approximate time to next coalescent event, λ is the decay rate of the exponential distribution</li>
 </ul>
 <pre class="prettyprint pre-scrollable"><code>
 <b>Algorithm 1</b>: the basic coalescent (a stochastic process that generates genealogies for n DNA sequences)
 <ol>
 <li>Start with k = n sequences</li>
-<li>Simulate the waiting time to next coalescent event, <font color="red">T(k) ~ Exp(-k*(k-1)/2)(?)</font></li>
+<li>Simulate the waiting time to next coalescent event, <font color="red">T(k) ~ Exp(-k(k-1)/2)(?)</font></li>
 <li>Choose a random pair (i, j) with 1 ≤ i < j ≤ k uniformly among k(k-1)/2 possible pairs</li>
 <li>Merge i and j into one gene and decrease the sample size by one, k--</li>
 <li>If k > 1 go to Step 2, otherwise stop</li>
 </ol>
 </code></pre>
-Note: Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences (i.e., for k genes to have k-1 ancesters in the previous generation) is approximately k(k-1)/(4N). Thus, the amount of waiting time (measured in 2N-generation units) during which there are k lineages, T(k), has approximately an exponential distribution with mean 2/(k(k-1)).
+Note: Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences (i.e., for k genes to have k-1 ancesters in the previous generation) is approximately k(k-1)/(4N). Thus, the amount of waiting time (measured in 2N-generation units) during which there are k lineages, T(k), has approximately an exponential distribution with mean 2/(k(k-1)). The decay rate λ = k(k-1)/2
 Related functions in CoJava: /geneticEvents/coalesce.java/coalesceGetRate(), 
-For more information, please refer to the resources listed at the end of this post. 
 
-Mutation
+Adding mutations
+Strictly neutral mutations (i.e., mutations that have not and will not affect fitness) should not affect the geneologies of random samples, because they, by definition, have no effect on the number of offsprings or the tendency to migrate of individuals bearing these mutations. As a result, Moreover, the statistical properties of geneologies are independent of the specific mutation model (e.g., infinite-allele, infinite-site, or finite-site model).
+Sum of all the branch lengths represents total evolutionary time availabl. Mutations are randomly placed on branches proportional to their length. We can compute that total length of the genealogy, T, as by summing over the product of the coalescent intervals, T(i), and the number of lineages that share that interval, i:
+
+Parameters
+<ul>
+<li>Ttot/: the total length of the genealogy</li>
+<li>S: the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sequences (in the sample) differ; we can think of it as the total number of mutations along the entire geneology</li>
+<li>μ/: mutation rate per sequence per generation (note: a common measure of sequence length is base pair (bp), so sometimes mutation rate is provided as per base pair)</li>
+<li></li>
+</ul>
+Resesarchers have investigated various mutation models such as . The following discussion will focus on the latter. This model assumes that mutations always occur at distinct sites (i.e., no recurrent mutations).
+Under the infinite-sites model, the expected number of polymorphic sites, E[S], is:
+TNSEμ=][
 Infinite sites Model
 Every mutation occurs at a different site
 
@@ -160,7 +172,7 @@ Selection: Single biallelic site
 
 cannot distinguish...since they have the same total scaled mutation rate. For example, (1) simulate 1,000 sequences from a population of 20,000. Each sequence consists of 2,000 independent loci each of lkb long. Mutation rate is 10-8 per base pair per generation, (2) simulate 1,000 sequences from a population of 1,000. Each sequence consists of 40,000 independent loci each of lkb long with the same mutation rate in (1).
 
-The parameters of cosi are predefined and stored in a separate file named "params". Cosi(v1.2) supports parameters such as mutation rate, gene conversion rate and sequence length. It also allows users to define the sampled populations, their effective population size (in the present) and demographic history, as well as the number of sampled chromosomes.
+
 
 
 
