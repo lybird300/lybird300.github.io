@@ -59,109 +59,42 @@ Parameters (as denoted in the literature/as the input of <a href="http://lybird3
 Note: Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences (i.e., for k genes to have k-1 ancesters in the previous generation) is approximately k(k-1)/(4N). Thus, the amount of waiting time (measured in 2N-generation units) during which there are k lineages, T(k), has approximately an exponential distribution with mean 2/(k(k-1)). The decay rate λ = k(k-1)/2
 Related functions in CoJava: /geneticEvents/coalesce.java/coalesceGetRate(), 
 
-Adding mutations
-Strictly neutral mutations (i.e., mutations that have not and will not affect fitness) should not affect the geneologies of random samples, because they, by definition, have no effect on the number of offsprings or the tendency to migrate of individuals bearing these mutations. As a result, Moreover, the statistical properties of geneologies are independent of the specific mutation model (e.g., infinite-allele, infinite-site, or finite-site model).
-Sum of all the branch lengths represents total evolutionary time availabl. Mutations are randomly placed on branches proportional to their length. We can compute that total length of the genealogy, T, as by summing over the product of the coalescent intervals, T(i), and the number of lineages that share that interval, i:
-
+<h2>Adding mutations</h2>
+Strictly neutral mutations (i.e., mutations that have not and will not affect fitness) should not affect the geneologies of random samples, because they, by definition, have no effect on the number of offsprings or the tendency to migrate of individuals bearing these mutations. This property has two consequences.The first consequence is an efficient computer algorithm. Since the neutral mutation process can be separated from the genealogical process, the coalescent process may be modeled by first generating the random genealogy of the individuals backward in time, and then superimposing mutations forward in time. Secondly, the statistical properties of geneologies are independent of the specific mutation model (e.g., infinite-allele, infinite-site, or finite-site model). The discussion below will base on the infinite sites model, which assumes that mutations always occur at distinct sites (i.e., no recurrent mutations). Thus, all mutations are distinguishable.
+ represents  Mutations are randomly placed on branches proportional to their length. We can compute that total length of the genealogy, T, as by :
+Conditional on the genealogical tree, mutations are placed on the branches. The number of mutations on each branch follows a Poisson distribution with mean equal to the product of the mutation rate and the branch length.
+allow the number of mutations to be fixed so that the probability that a mutation occurs on a particular branch is proportional to its length.
 Parameters
 <ul>
-<li>Ttot/: the total length of the genealogy</li>
+<li>Ttot/: total evolutionary time available, represented by the total branch lengths of a genealogy. We can compute it by summing over the product of each coalescent interval, T(i), and the number of lineages sharing that interval, i. In other words, E[Ttot] = <img src=""/></li>
 <li>S: the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sequences (in the sample) differ; we can think of it as the total number of mutations along the entire geneology</li>
-<li>μ/: mutation rate per sequence per generation (note: a common measure of sequence length is base pair (bp), so sometimes mutation rate is provided as per base pair)</li>
+<li>μ/: mutation rate per sequence per generation (sometimes mutation rate is provided as per base pair (bp), which is a common measure of sequence length)</li>
 <li></li>
 </ul>
-Resesarchers have investigated various mutation models such as . The following discussion will focus on the latter. This model assumes that mutations always occur at distinct sites (i.e., no recurrent mutations).
-Under the infinite-sites model, the expected number of polymorphic sites, E[S], is:
+ 
+Under the infinite-sites model, the expected number of segregating sites, E[S], is:
 TNSEμ=][
 Infinite sites Model
 Every mutation occurs at a different site
 
 <h2>Extensions</h2>
 
-WF model with recombination
+Considering recombination
 When diploid individuals reproduce, there are two parents, each of which contributes one of each of its pairs of
 chromosomes. One parent’s contribution is a combination of its two <a href="http://www.phschool.com/science/biology_place/labbench/lab3/homologs.html">homologous chromosomes</a> when they undergo recombination.
 <h3></h3>
 
-The table below lists. Parameter names are as they are in the "param" file.
-
 
 <h2>Assumptions/Theoretical foundations</h2>
-The time to an event is continuous
-Population size is much larger than sample size.
+
 Bifurcate tree approximation
-Mutations are simulated assuming an infinite-sites model.Conditional on the genealogical tree, mutations are placed on the branches. The number of mutations on each branch follows a Poisson distribution with mean equal to the product of the mutation rate and the branch length.
+Mutations are simulated assuming an infinite-sites model.
 
-
-<h2>Capabilities/Limiations</h2>
-The algorithm simulates the genealogy of a sample of sequences, conditional on parameters such as the population size, the recombination rate, and rates of migration between subpopulations. Below is a list of 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Description</th>
-    <th>Value</th>
-    <th>Reference</th>
-  </tr>
-  <tr>
-    <td>length </td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>mutation_rate</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>gene_conversion_rate</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>pop_define</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-   <tr>
-    <td>pop_size</td>
-    <td>effective population size</td>
-    <td></td>
-    <td></td>
-  </tr>
-    <tr>
-    <td>sample_size</td>
-    <td>the number of sampled chromosomes</td>
-    <td></td>
-    <td></td>
-  </tr>
-    <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-    <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-    <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
 Mutation: sequence, When multiple sub-populations are simulated, the program allows for migration among subpopulations.
 allow for user specified demographic events such as population bottlenecks 
 Recombination: V, allow recombination rates to vary by defining a genetic map or <a href="http://en.wikipedia.org/wiki/Recombination_hotspot">hotspots</a> along the genome
 It cannot generate chromosomal length regions
-allow the number of mutations to be fixed so that the probability that a mutation occurs on a particular branch is proportional to its length.
+
 Migration: User-defined matrix
 Mating system: Random Mating
 <a href="http://en.wikipedia.org/wiki/Fecundity">Fecundity</a>: Random Distribution
