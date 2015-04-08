@@ -66,7 +66,7 @@ Conditional on the genealogical tree, mutations are placed on the branches. The 
 allow the number of mutations to be fixed so that the probability that a mutation occurs on a particular branch is proportional to its length.
 Parameters
 <ul>
-<li>Ttot/: total evolutionary time available, represented by the total branch lengths of a genealogy. We can compute it by summing over the product of each coalescent interval, T(i), and the number of lineages sharing that interval, i. In other words, E[Ttot] = <img src=""/></li>
+<li>Ttot/: total evolutionary time available, represented by the total branch lengths of a genealogy. We can compute it by summing over the product of each coalescent interval, T(i), and the number of lineages sharing that interval, i. In other words, E[Ttot] = <img alt="ETtot" src="https://cloud.githubusercontent.com/assets/5496192/7055536/24ee7f6e-de12-11e4-90d0-08034246bb86.png"/></li>
 <li>S: the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sequences (in the sample) differ; we can think of it as the total number of mutations along the entire geneology</li>
 <li>μ/: mutation rate per sequence per generation (sometimes mutation rate is provided as per base pair (bp), which is a common measure of sequence length)</li>
 <li></li>
