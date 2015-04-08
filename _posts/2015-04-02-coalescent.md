@@ -26,6 +26,7 @@ A widely used model that describes reproduction in a population, which gives ris
 <li>Constant population size through time: the population size <b>N</b> (different from sample size) is assumed to be constant over time and finite. When the individuals that constitute the population are haploid organisms (they have only one copy of genetic materials), the population will consist of N copies of the <b>genome</b> (the genome of an organism is its whole hereditary information and is encoded in the DNA or RNA). In case of diploid organisms (e.g., humans, with two copies of genetic materials), there will be 2N copies.</li>
 <li>Random mating (no structure): next generation is drawn randomly from a large gamete pool. Statistically, the next generation is formed from the current generation by uniformly sampling with replacement</li>
 <li>Neutral mutation: the mutation changes the DNA sequence but not an individual’s ability to survive and to produce offspring</li>
+<li>Population size N is large: most results concerning this model will be approximate (referred to as diffusion approximation), ignoring terms of O(1/N^2) relative to O(1/N). For example, one example following this assumption is that we do not consider the simultaneous coalescence of more than two DNA sequences (thus the generative genealogical tree is a bifurcate tree.</li>
 </ul>
 The basic/standard Wright-Fisher model results in a decay of genetic variation. Since the population is finite in size and reproduction is a random process, some individuals may not contribute any offspring to the next generation. This random loss of genetic lineages forward in time is called <b>genetic drift</b>, which reduces the diversity of the population diversity. One measure of population diversity is <b>heterozygosity</b>, defined as the probability that two genes chosen at random from the population have different alleles. Alleles are different versions of the genetic information encoded at a location in the genome of an organism (aka, genetic locus). A common example of genetic locus is the sequence of nucleotides that makes up a gene. Thus, two sequences of the same gene are different alleles if they are not identical.Assuming a gene has two allelic states (denoted A and a), genetic drift eventually leads to either A or a being lost from the population. When this happens, the surviving allele is said to be fixed in the population. The effect of genetic drift is compensated by mutation, a process by which the allelic state of a gene occasionally changes from one to another (e.g., from A to a).
 
@@ -60,24 +61,23 @@ Note: Step 2 utilizes the property that when n is much smaller than N, the proba
 Related functions in CoJava: /geneticEvents/coalesce.java/coalesceGetRate(), 
 
 <h2>Adding mutations</h2>
-Strictly neutral mutations (i.e., mutations that have not and will not affect fitness) should not affect the geneologies of random samples, because they, by definition, have no effect on the number of offsprings or the tendency to migrate of individuals bearing these mutations. This property has two consequences.The first consequence is an efficient computer algorithm. Since the neutral mutation process can be separated from the genealogical process, the coalescent process may be modeled by first generating the random genealogy of the individuals backward in time, and then superimposing mutations forward in time. Secondly, the statistical properties of geneologies are independent of the specific mutation model (e.g., infinite-allele, infinite-site, or finite-site model). The discussion below will base on the infinite sites model, which assumes that mutations always occur at distinct sites (i.e., no recurrent mutations). Thus, all mutations are distinguishable.
- represents  Mutations are randomly placed on branches proportional to their length. We can compute that total length of the genealogy, T, as by :
-Conditional on the genealogical tree, mutations are placed on the branches. The number of mutations on each branch follows a Poisson distribution with mean equal to the product of the mutation rate and the branch length.
+Strictly neutral mutations (i.e., mutations that have not and will not affect fitness) should not affect the geneologies of random samples, because they, by definition, have no effect on the number of offsprings or the tendency to migrate of individuals bearing these mutations. This property has two consequences.The first consequence is an efficient computer algorithm. Since the neutral mutation process can be separated from the genealogical process, the coalescent process may be modeled by first generating the random genealogy of the individuals backward in time, and then superimposing mutations forward in time. Secondly, the statistical properties of geneologies are independent of the specific mutation model (e.g., infinite-allele, infinite-site, or finite-site model). The discussion below will base on the infinite sites model, which assumes that mutations always occur at distinct sites (i.e., no recurrent mutations) and therefore all mutations are distinguishable.
+Conditional on the genealogical tree, mutations are randomly placed on the branches. The number of mutations on each branch follows a Poisson distribution with mean equal to the product of the mutation rate and the branch length.
 allow the number of mutations to be fixed so that the probability that a mutation occurs on a particular branch is proportional to its length.
 Parameters
 <ul>
-<li>Ttot/: total evolutionary time available, represented by the total branch lengths of a genealogy. We can compute it by summing over the product of each coalescent interval, T(i), and the number of lineages sharing that interval, i. In other words, E[Ttot] = <img alt="ETtot" src="https://cloud.githubusercontent.com/assets/5496192/7055536/24ee7f6e-de12-11e4-90d0-08034246bb86.png"/></li>
-<li>S: the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sequences (in the sample) differ; we can think of it as the total number of mutations along the entire geneology</li>
+<li>Ttot/: total evolutionary time available, represented by the total branch lengths of a genealogy. We can compute it by summing over the product of each coalescent interval, T(k), and the number of lineages sharing that interval, k:<br/><img alt="ETtot" src=""/></li>
+<li>S: the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sequences (in the sample) differ; we can think of it as the total number of mutations along the entire geneology. Under the infinite-sites model, the expected number of segregating sites is<br/><img alt="ES" src=""/>: </li>
 <li>μ/: mutation rate per sequence per generation (sometimes mutation rate is provided as per base pair (bp), which is a common measure of sequence length)</li>
 <li></li>
 </ul>
  
-Under the infinite-sites model, the expected number of segregating sites, E[S], is:
-TNSEμ=][
-Infinite sites Model
-Every mutation occurs at a different site
 
-<h2>Extensions</h2>
+1. Fluctuations in population size
+2. Migration/isolation models (structured coalescent)
+3. Recombination (recombination graph)
+4. Selection (ancestral selection graph)
+5. Metapopulations (extinction/recolonization)
 
 Considering recombination
 When diploid individuals reproduce, there are two parents, each of which contributes one of each of its pairs of
@@ -87,8 +87,7 @@ chromosomes. One parent’s contribution is a combination of its two <a href="ht
 
 <h2>Assumptions/Theoretical foundations</h2>
 
-Bifurcate tree approximation
-Mutations are simulated assuming an infinite-sites model.
+
 
 Mutation: sequence, When multiple sub-populations are simulated, the program allows for migration among subpopulations.
 allow for user specified demographic events such as population bottlenecks 
