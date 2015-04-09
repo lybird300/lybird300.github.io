@@ -3,9 +3,9 @@ layout: post
 title: "Overview of the Coalescent Theory"
 date: 2015-04-02
 ---
-Population genetics is the study of the forces that create and maintain genetic variation. At the heart of it is the use of gene genealogy, a tree structure describes the evolutionary history (e.g., divergence) of a particular set of DNA sequences and their relatedness. Since the shape of the genealogy depends on population history, selection, etc, geneticsts have been using it to infer or predict DNA sequence variation. Due to the uncertainty elements of reproduction, the central part of genealogical data analysis is a stochastic characterisation of the genealogies that relate the sequences.
+Population genetics is the study of the forces that create and maintain genetic variation. At the heart of it is the use of gene genealogy, a tree structure describes the evolutionary history (e.g., divergence) of a particular set of DNA sequences and their relatedness. Since the shape of the genealogy depends on population history, selection, etc, geneticists have been using it to infer or predict DNA sequence variation. Due to the uncertainty elements of reproduction, the central part of genealogical data analysis is a stochastic characterization of the genealogies that relate the sequences.
 
-A geneology is completely summarized by the entire topology (who relates to whom) and the length of each branch (intervals between two subsequent convergence/divergence events). The coalescent approach generates the genealogy backwards, instead of forwards, for a sample of sequences (rather than the entire population). It traces the ancestral lineages, which are the series of genetic ancestors of the samples at a locus, back through time. The history of a sample of size <b>n</b> comprises n − 1 coalescent events. Each coalescent event decreases the number of ancestral lineages by one. This takes the sample from the present day when there are n lineages through a series of steps in which the number of lineages decreases from n to n − 1, then from n − 1 to n − 2, etc., then finally from two to one. At each coalescent event, two of the lineages fuse into one common-ancestral lineage. The result is a bifurcating tree. This approach introduces computational and analytical convenience because the history of the entire population includes sequences that are extinct or we have not sampled. 
+A genealogy is completely summarized by the entire topology (who relates to whom) and the length of each branch (intervals between two subsequent convergence/divergence events). The coalescent approach generates the genealogy backwards, instead of forwards, for a sample of sequences (rather than the entire population). It traces the ancestral lineages, which are the series of genetic ancestors of the samples at a locus, back through time. The history of a sample of size <b>n</b> comprises n − 1 coalescent events. Each coalescent event decreases the number of ancestral lineages by one. This takes the sample from the present day when there are n lineages through a series of steps in which the number of lineages decreases from n to n − 1, then from n − 1 to n − 2, etc., then finally from two to one. At each coalescent event, two of the lineages fuse into one common-ancestral lineage. The result is a bifurcating tree. This approach introduces computational and analytical convenience because the history of the entire population includes sequences that are extinct or we have not sampled. 
 
 This post will briefly introduce the coalescent theory, including its history, the basic model, and important extensions. For details such as theorems and their proofs, please refer to the resources provided at the end of this page. 
 
@@ -22,7 +22,7 @@ Gustave Malécot (in the 1940’s) introduced the idea of following a pair of ge
 <h2>Basics</h2>
 A widely used model that describes reproduction in a population, which gives rise to the genealogies of that population, is the Wright-Fisher model. This model makes the following assumptions on population evolution:
 <ul>
-<li>Discrete and nonoverlapping generations: all of the individuals in the population die each generation and are replaced by offspring.</li>
+<li>Discrete and non-overlapping generations: all of the individuals in the population die each generation and are replaced by offspring.</li>
 <li>Constant population size through time: the population size <b>N</b> (different from sample size) is assumed to be constant over time and finite. When the individuals that constitute the population are haploid organisms (they have only one copy of genetic materials), the population will consist of N copies of the <b>genome</b> (the genome of an organism is its whole hereditary information and is encoded in the DNA or RNA). In case of diploid organisms (e.g., humans, with two copies of genetic materials), there will be 2N copies.</li>
 <li>Random mating (no structure): next generation is drawn randomly from a large gamete pool. Statistically, the next generation is formed from the current generation by uniformly sampling with replacement</li>
 <li>Neutral mutation: the mutation changes the DNA sequence but not an individual’s ability to survive and to produce offspring</li>
@@ -57,21 +57,23 @@ Parameters (as denoted in the literature/as the input of <a href="http://lybird3
 <li>If k > 1 go to Step 2, otherwise stop</li>
 </ol>
 </code></pre>
-Note: Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences (i.e., for k genes to have k-1 ancesters in the previous generation) is approximately k(k-1)/(4N). Thus, the amount of waiting time (measured in 2N-generation units) during which there are k lineages, T(k), has approximately an exponential distribution with mean 2/(k(k-1)). The decay rate λ = k(k-1)/2
+Note: Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences (i.e., for k genes to have k-1 ancestors in the previous generation) is approximately k(k-1)/(4N). Thus, the amount of waiting time (measured in 2N-generation units) during which there are k lineages, T(k), has approximately an exponential distribution with mean 2/(k(k-1)). The decay rate λ = k(k-1)/2
 Related functions in CoJava: /geneticEvents/coalesce.java/coalesceGetRate(), 
 
 <h2>Adding mutations</h2>
-Strictly neutral mutations (i.e., mutations that have not and will not affect fitness) should not affect the geneologies of random samples, because they, by definition, have no effect on the number of offsprings or the tendency to migrate of individuals bearing these mutations. This property has two consequences.The first consequence is an efficient computer algorithm. Since the neutral mutation process can be separated from the genealogical process, the coalescent process may be modeled by first generating the random genealogy of the individuals backward in time, and then superimposing mutations forward in time. Secondly, the statistical properties of geneologies are independent of the specific mutation model (e.g., infinite-allele, infinite-site, or finite-site model). The discussion below will base on the infinite sites model, which assumes that mutations always occur at distinct sites (i.e., no recurrent mutations) and therefore all mutations are distinguishable.
-Conditional on the genealogical tree, mutations are randomly placed on the branches. The number of mutations on each branch follows a Poisson distribution with mean equal to the product of the mutation rate and the branch length.
-allow the number of mutations to be fixed so that the probability that a mutation occurs on a particular branch is proportional to its length.
+We consider strictly neutral mutations that will not affect an individual's fitness (the individual's ability to survive and to produce offspring). Such mutations should not affect the simulated genealogies, because they have no effect on the number of offspring or individuals' tendency to migrate. This property has two consequences.The first consequence is an efficient computer algorithm, in which the coalescent process is modeled by separating the neutral mutation process from the the genealogical process. We can first generate the random genealogy of the individuals backward in time, and then superimpose mutations forward in time. The second consequence is that we can choose from various mutation models (e.g., infinite-allele, infinite-site, or finite-site model) without influencing the statistical properties of resultant genealogies. Here we focus on the infinite sites model, which assumes that mutations always occur at distinct sites and therefore all mutations are distinguishable (i.e., no recurrent or reverse mutations).
 Parameters
 <ul>
-<li>Ttot/: total evolutionary time available, represented by the total branch lengths of a genealogy. We can compute it by summing over the product of each coalescent interval, T(k), and the number of lineages sharing that interval, k:<br/><img alt="ETtot" src=""/></li>
-<li>S: the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sequences (in the sample) differ; we can think of it as the total number of mutations along the entire geneology. Under the infinite-sites model, the expected number of segregating sites is<br/><img alt="ES" src=""/>: </li>
+<li>Ttot/: total evolutionary time available, represented by the total branch lengths of a genealogy. We can compute it by summing over the product of each coalescent interval T(k) (see above) and the number of lineages sharing that interval k: <br/><img alt="ETtot" src="https://cloud.githubusercontent.com/assets/5496192/7070529/9819a4a0-dead-11e4-8dad-3fe8d0803b9d.png"/></li>
+<li>S: the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sequences (in the sample) differ. We can think of it as the total number of mutations imposed on the entire genealogy. In the infinite-sites model, the expected number of segregating sites for a diploid sample is:<br/><img alt="ES" src="https://cloud.githubusercontent.com/assets/5496192/7070710/a3e54c20-deae-11e4-94a6-aeb8be95f3cc.png"/></li>
 <li>μ/: mutation rate per sequence per generation (sometimes mutation rate is provided as per base pair (bp), which is a common measure of sequence length)</li>
 <li></li>
 </ul>
- 
+Algorithm
+Conditional on the genealogical tree, mutations are randomly placed on the branches. The number of mutations on each branch follows a Poisson distribution with mean equal to the product of the mutation rate and the branch length.
+Note: 
+Related functions in CoJava: /geneticEvents
+
 
 1. Fluctuations in population size
 2. Migration/isolation models (structured coalescent)
@@ -89,7 +91,7 @@ chromosomes. One parent’s contribution is a combination of its two <a href="ht
 
 
 
-Mutation: sequence, When multiple sub-populations are simulated, the program allows for migration among subpopulations.
+Mutation: sequence, When multiple sub-populations are simulated, the program allows for migration among sub-populations.
 allow for user specified demographic events such as population bottlenecks 
 Recombination: V, allow recombination rates to vary by defining a genetic map or <a href="http://en.wikipedia.org/wiki/Recombination_hotspot">hotspots</a> along the genome
 It cannot generate chromosomal length regions
