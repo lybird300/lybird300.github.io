@@ -88,6 +88,10 @@ mutation.
 • Population growth. In the human population, which has experienced a
 period of exponential growth, then the coalescence rate will be initially
 small, and the genealogical tree will have tips that are longer than usual.
+Population subdivision. Imagine two isolated populations that exchange
+migrants infrequently. If we sample 10 individuals from each population,
+then the two subsamples will coalesce as usual and then eventually the
+their two ancestral lineages will coalesce.
 
 1. Fluctuations in population size
 2. Migration/isolation models (structured coalescent)
