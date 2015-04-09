@@ -44,7 +44,7 @@ Parameters (as denoted in the literature/as the input of <a href="http://lybird3
 <li>n/sample_size: the number of DNA sequences (or genes/chromosomes/haplotypes depending on the context) being sampled</li>
 <li>N/pop_size: the number of individuals in the population; thus, diploid populations each has 2N sequences</li>
 <li>k/numnodes: the number of sequences at one generation in the genealogy, or the number of corresponding nodes in the subgraph of an <a href="http://www.math.canterbury.ac.nz/~r.sainudiin/recomb/ima.pdf">ARG (Ancestral Recombination Graph)</a></li>
-<li>T: continuous time measured in units of 2N generations (2N generations are the average time for two genes to find a common ancestor). Modeling time in this way makes the coalescent independent of population sizen N</li>
+<li>T/gen: continuous time measured in units of 2N generations (2N generations are the average time for two genes to find a common ancestor). Modeling time in this way makes the coalescent independent of population sizen N</li>
 <li>λ/rate: When using an exponential distribution to approximate time to next coalescent event, λ is the decay rate of the exponential distribution</li>
 </ul>
 <pre class="prettyprint pre-scrollable"><code>
@@ -57,23 +57,37 @@ Parameters (as denoted in the literature/as the input of <a href="http://lybird3
 <li>If k > 1 go to Step 2, otherwise stop</li>
 </ol>
 </code></pre>
-Note: Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences (i.e., for k genes to have k-1 ancestors in the previous generation) is approximately k(k-1)/(4N). Thus, the amount of waiting time (measured in 2N-generation units) during which there are k lineages, T(k), has approximately an exponential distribution with mean 2/(k(k-1)). The decay rate λ = k(k-1)/2
-Related functions in CoJava: /geneticEvents/coalesce.java/coalesceGetRate(), 
+Note: Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences (i.e., for k genes to have k-1 ancestors in the previous generation) is approximately k(k-1)/(4N). Thus, the amount of waiting time (measured in 2N-generation units) during which there are k lineages, T(k), has approximately an exponential distribution with mean 2/(k(k-1)). The decay rate of the exponential distributin λ = k(k-1)/2. 
+Primary CoJava functions: 
+Update the ARG: /populationStructures/demography.java/coalesceByName()
 
 <h2>Adding mutations</h2>
-We consider strictly neutral mutations that will not affect an individual's fitness (the individual's ability to survive and to produce offspring). Such mutations should not affect the simulated genealogies, because they have no effect on the number of offspring or individuals' tendency to migrate. This property has two consequences.The first consequence is an efficient computer algorithm, in which the coalescent process is modeled by separating the neutral mutation process from the the genealogical process. We can first generate the random genealogy of the individuals backward in time, and then superimpose mutations forward in time. The second consequence is that we can choose from various mutation models (e.g., infinite-allele, infinite-site, or finite-site model) without influencing the statistical properties of resultant genealogies. Here we focus on the infinite sites model, which assumes that mutations always occur at distinct sites and therefore all mutations are distinguishable (i.e., no recurrent or reverse mutations).
+<p>We consider strictly neutral mutations that will not affect an individual's fitness (the individual's ability to survive and to produce offspring). Such mutations should not affect the simulated genealogies, because they have no effect on the number of offspring or individuals' tendency to migrate. This property has two consequences.The first consequence is an efficient computer algorithm, in which the coalescent process is modeled by separating the neutral mutation process from the the genealogical process. We can first generate the random genealogy of the individuals backward in time, and then superimpose mutations forward in time. The second consequence is that we can choose from various mutation models (e.g., infinite-allele, infinite-site, or finite-site model) without influencing the statistical properties of resultant genealogies. Here we focus on the infinite sites model, which assumes that mutations always occur at distinct sites and therefore all mutations are distinguishable (i.e., no recurrent or reverse mutations).</p>
 Parameters
 <ul>
 <li>Ttot/: total evolutionary time available, represented by the total branch lengths of a genealogy. We can compute it by summing over the product of each coalescent interval T(k) (see above) and the number of lineages sharing that interval k: <br/><img alt="ETtot" src="https://cloud.githubusercontent.com/assets/5496192/7070529/9819a4a0-dead-11e4-8dad-3fe8d0803b9d.png"/></li>
-<li>S: the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sequences (in the sample) differ. We can think of it as the total number of mutations imposed on the entire genealogy. In the infinite-sites model, the expected number of segregating sites for a diploid sample is:<br/><img alt="ES" src="https://cloud.githubusercontent.com/assets/5496192/7070710/a3e54c20-deae-11e4-94a6-aeb8be95f3cc.png"/></li>
 <li>μ/: mutation rate per sequence per generation (sometimes mutation rate is provided as per base pair (bp), which is a common measure of sequence length)</li>
+<li>S: the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sequences (in the sample) differ. We can think of it as the total number of mutations imposed on the entire genealogy. In the infinite-sites model, the expected number of segregating sites for a diploid sample is:<br/><img alt="ES" src="https://cloud.githubusercontent.com/assets/5496192/7070710/a3e54c20-deae-11e4-94a6-aeb8be95f3cc.png"/></li>
 <li></li>
 </ul>
 Algorithm
-Conditional on the genealogical tree, mutations are randomly placed on the branches. The number of mutations on each branch follows a Poisson distribution with mean equal to the product of the mutation rate and the branch length.
-Note: 
-Related functions in CoJava: /geneticEvents
+Introduce a Poisson number of mutations on branch
+Note: Conditional on the genealogical tree, mutations are randomly placed on the branches. The number of mutations on each branch follows a Poisson distribution with mean equal to the product of μ and the branch length (in the unit of 2N).
+Primary CoJava functions: /coalSimulator/sim.java/simMutate()
 
+Population bottleneck. If, as we work backwards in time, there is a sudden
+decrease in the population size, then the coalescence rate will become large.
+Situations that can cause this are the founding of a new population by a
+small number of migrants or, what is essentially the same, improving a
+crop species by choosing a few individuals with desirable properties.
+• Selective sweep. This term refers to the appearance of a favorable mutation
+that rises in frequency until it takes over the population. In the absence
+of recombination, this is a severe population bottleneck because the entire
+population will trace its ancestry to the individual with the favorable
+mutation.
+• Population growth. In the human population, which has experienced a
+period of exponential growth, then the coalescence rate will be initially
+small, and the genealogical tree will have tips that are longer than usual.
 
 1. Fluctuations in population size
 2. Migration/isolation models (structured coalescent)
@@ -85,9 +99,6 @@ Considering recombination
 When diploid individuals reproduce, there are two parents, each of which contributes one of each of its pairs of
 chromosomes. One parent’s contribution is a combination of its two <a href="http://www.phschool.com/science/biology_place/labbench/lab3/homologs.html">homologous chromosomes</a> when they undergo recombination.
 <h3></h3>
-
-
-<h2>Assumptions/Theoretical foundations</h2>
 
 
 
