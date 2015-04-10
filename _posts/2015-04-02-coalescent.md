@@ -41,15 +41,14 @@ The number of genes required in the Wright-Fisher model for it to behave like a 
 
 Parameters (as denoted in the literature/as the input of <a href="http://lybird300.github.io/2015/04/04/CoJava.html">Cosi or CoJava</a> if applicable)
 <ul>
-<li>n/sample_size: the number of DNA sequences (or genes/chromosomes/haplotypes depending on the context) being sampled</li>
-<li>N/pop_size: the number of individuals in the population; thus, diploid populations each has 2N sequences</li>
-<li>k/numnodes: the number of sequences at one generation in the genealogy, or the number of corresponding nodes in the subgraph of an <a href="http://www.math.canterbury.ac.nz/~r.sainudiin/recomb/ima.pdf">ARG (Ancestral Recombination Graph)</a></li>
-<li>T/gen: continuous time measured in units of 2N generations (2N generations are the average time for two genes to find a common ancestor). Modeling time in this way makes the coalescent independent of population sizen N</li>
-<li>λ/rate: When using an exponential distribution to approximate time to next coalescent event, λ is the decay rate of the exponential distribution</li>
+<li>n | sample_size: the number of DNA sequences (or genes/chromosomes/haplotypes depending on the context) being sampled</li>
+<li>N | pop_size: the number of individuals in the population; thus, diploid populations each has 2N sequences</li>
+<li>k | numnodes: the number of sequences at one generation in the genealogy, or the number of corresponding nodes in the subgraph of an <a href="http://www.math.canterbury.ac.nz/~r.sainudiin/recomb/ima.pdf">ARG (Ancestral Recombination Graph)</a></li>
+<li>T | gen: continuous time measured in units of 2N generations (2N generations are the average time for two genes to find a common ancestor). Modeling time in this way makes the coalescent independent of population sizen N</li>
+<li>λ | rate: When using an exponential distribution to approximate time to next coalescent event, λ is the defining param of the exponential distribution</li>
 </ul>
-<pre class="prettyprint pre-scrollable"><code>
 <b>Algorithm 1</b>: the basic coalescent (a stochastic process that generates genealogies for n DNA sequences)
-<ol>
+<pre class="prettyprint pre-scrollable"><code><ol>
 <li>Start with k = n sequences</li>
 <li>Simulate the waiting time to next coalescent event, <font color="red">T(k) ~ Exp(-k(k-1)/2)(?)</font></li>
 <li>Choose a random pair (i, j) with 1 ≤ i < j ≤ k uniformly among k(k-1)/2 possible pairs</li>
@@ -65,14 +64,13 @@ Update the ARG: /populationStructures/demography.java/coalesceByName()
 <p>We consider strictly neutral mutations that will not affect an individual's fitness (the individual's ability to survive and to produce offspring). Such mutations should not affect the simulated genealogies, because they have no effect on the number of offspring or individuals' tendency to migrate. This property has two consequences.The first consequence is an efficient computer algorithm, in which the coalescent process is modeled by separating the neutral mutation process from the the genealogical process. We can first generate the random genealogy of the individuals backward in time, and then superimpose mutations forward in time. The second consequence is that we can choose from various mutation models (e.g., infinite-allele, infinite-site, or finite-site model) without influencing the statistical properties of resultant genealogies. Here we focus on the infinite sites model, which assumes that mutations always occur at distinct sites and therefore all mutations are distinguishable (i.e., no recurrent or reverse mutations).</p>
 Parameters
 <ul>
-<li>Ttot/: total evolutionary time available, represented by the total branch lengths of a genealogy. We can compute it by summing over the product of each coalescent interval T(k) (see above) and the number of lineages sharing that interval k: <br/><img alt="ETtot" src="https://cloud.githubusercontent.com/assets/5496192/7070529/9819a4a0-dead-11e4-8dad-3fe8d0803b9d.png"/></li>
-<li>μ/: mutation rate per sequence per generation (sometimes mutation rate is provided as per base pair (bp), which is a common measure of sequence length)</li>
-<li>S: the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sequences (in the sample) differ. We can think of it as the total number of mutations imposed on the entire genealogy. In the infinite-sites model, the expected number of segregating sites for a diploid sample is:<br/><img alt="ES" src="https://cloud.githubusercontent.com/assets/5496192/7075088/5e9e7faa-decd-11e4-8143-8c6a864beaee.png"/></li>
+<li>Ttot | : total evolutionary time available, represented by the total branch lengths of a genealogy. We can compute it by summing over the product of each coalescent interval T(k) (see above) and the number of lineages sharing that interval k: <br/><img alt="ETtot" src="https://cloud.githubusercontent.com/assets/5496192/7070529/9819a4a0-dead-11e4-8dad-3fe8d0803b9d.png"/></li>
+<li>μ | mutation_rate (input param)*length(input param): mutation rate per sequence per generation (sometimes mutation rate is provided as per base pair (bp), which is a common measure of sequence length)</li>
+<li>S | : the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sequences (in the sample) differ. We can think of it as the total number of mutations imposed on the entire genealogy. In the infinite-sites model, the expected number of segregating sites for a diploid sample is:<br/><img alt="ES" src="https://cloud.githubusercontent.com/assets/5496192/7075088/5e9e7faa-decd-11e4-8143-8c6a864beaee.png"/></li>
 <li></li>
 </ul>
-Algorithm
-Introduce a Poisson number of mutations on branch
-Note: Conditional on the genealogical tree, mutations are randomly placed on the branches. The number of mutations on each branch follows a Poisson distribution with mean equal to the product of μ and the branch length (in the unit of 2N).
+<b>Algorithm 2</b>: imposing mutations on the generated genealogy
+Conditional on the genealogical tree, mutations are randomly placed on the branches. The number of mutations on each branch follows a Poisson distribution with mean equal to the product of mutation rate per base pair, length of DNA sequence, and the length of genealogy tree branch (in the unit of 2N). (Note: the mean of <a href="http://en.wikipedia.org/wiki/Poisson_distribution">Poisson distribution</a> is equal to its defining param λ)
 Primary CoJava functions: /coalSimulator/sim.java/simMutate()
 
 Population bottleneck. If, as we work backwards in time, there is a sudden
