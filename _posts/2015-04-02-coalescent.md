@@ -27,6 +27,7 @@ A widely used model that describes reproduction in a population, which gives ris
 <li>Random mating (no structure): next generation is drawn randomly from a large gamete pool. Statistically, the next generation is formed from the current generation by uniformly sampling with replacement</li>
 <li>Neutral mutation: the mutation changes the DNA sequence but not an individual’s ability to survive and to produce offspring</li>
 <li>Population size N is large: most results concerning this model will be approximate (referred to as diffusion approximation), ignoring terms of O(1/N^2) relative to O(1/N). For example, one example following this assumption is that we do not consider the simultaneous coalescence of more than two DNA sequences (thus the generative genealogical tree is a bifurcate tree.</li>
+<li>No recombination: true for single bases and perhaps short regions</li>
 </ul>
 The basic/standard Wright-Fisher model results in a decay of genetic variation. Since the population is finite in size and reproduction is a random process, some individuals may not contribute any offspring to the next generation. This random loss of genetic lineages forward in time is called <b>genetic drift</b>, which reduces the diversity of the population diversity. One measure of population diversity is <b>heterozygosity</b>, defined as the probability that two genes chosen at random from the population have different alleles. Alleles are different versions of the genetic information encoded at a location in the genome of an organism (aka, genetic locus). A common example of genetic locus is the sequence of nucleotides that makes up a gene. Thus, two sequences of the same gene are different alleles if they are not identical.Assuming a gene has two allelic states (denoted A and a), genetic drift eventually leads to either A or a being lost from the population. When this happens, the surviving allele is said to be fixed in the population. The effect of genetic drift is compensated by mutation, a process by which the allelic state of a gene occasionally changes from one to another (e.g., from A to a).
 
@@ -48,16 +49,15 @@ Parameters (as denoted in the literature/as the input of <a href="http://lybird3
 <li>λ | rate: When using an exponential distribution to approximate time to next coalescent event, λ is the defining param of the exponential distribution</li>
 </ul>
 <b>Algorithm 1</b>: the basic coalescent (a stochastic process that generates genealogies for n DNA sequences)
-<pre class="prettyprint pre-scrollable"><code><ol>
+<ol>
 <li>Start with k = n sequences</li>
-<li>Simulate the waiting time to next coalescent event, <font color="red">T(k) ~ Exp(-k(k-1)/2)(?)</font></li>
+<li>Simulate the waiting time to next coalescent event, <font color="red">T(k) ~ Exp(2/(k(k-1)))</font></li>
 <li>Choose a random pair (i, j) with 1 ≤ i < j ≤ k uniformly among k(k-1)/2 possible pairs</li>
 <li>Merge i and j into one gene and decrease the sample size by one, k--</li>
 <li>If k > 1 go to Step 2, otherwise stop</li>
 </ol>
-</code></pre>
-Note: Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences (i.e., for k genes to have k-1 ancestors in the previous generation) is approximately k(k-1)/(4N). Thus, the amount of waiting time (measured in 2N-generation units) during which there are k lineages, T(k), has approximately an exponential distribution with mean 2/(k(k-1)). The decay rate of the exponential distributin λ = k(k-1)/2. 
-Primary CoJava functions: 
+<p>Note: Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences (i.e., for k genes to have k-1 ancestors in the previous generation) is approximately k(k-1)/(4N). Thus, the amount of waiting time (measured in 2N-generation units) during which there are k lineages, T(k), has approximately an exponential distribution with mean 2/(k(k-1)). The decay rate of the exponential distribution λ = k(k-1)/2.</p>
+<b>Primary CoJava functions</b> 
 Update the ARG: /populationStructures/demography.java/coalesceByName()
 
 <h2>Adding mutations</h2>
@@ -67,11 +67,16 @@ Parameters
 <li>Ttot | : total evolutionary time available, represented by the total branch lengths of a genealogy. We can compute it by summing over the product of each coalescent interval T(k) (see above) and the number of lineages sharing that interval k: <br/><img alt="ETtot" src="https://cloud.githubusercontent.com/assets/5496192/7070529/9819a4a0-dead-11e4-8dad-3fe8d0803b9d.png"/></li>
 <li>μ | mutation_rate (input param)*length(input param): mutation rate per sequence per generation (sometimes mutation rate is provided as per base pair (bp), which is a common measure of sequence length)</li>
 <li>S | : the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sequences (in the sample) differ. We can think of it as the total number of mutations imposed on the entire genealogy. In the infinite-sites model, the expected number of segregating sites for a diploid sample is:<br/><img alt="ES" src="https://cloud.githubusercontent.com/assets/5496192/7075088/5e9e7faa-decd-11e4-8143-8c6a864beaee.png"/></li>
-<li></li>
 </ul>
-<b>Algorithm 2</b>: imposing mutations on the generated genealogy
-Conditional on the genealogical tree, mutations are randomly placed on the branches. The number of mutations on each branch follows a Poisson distribution with mean equal to the product of mutation rate per base pair, length of DNA sequence, and the length of genealogy tree branch (in the unit of 2N). (Note: the mean of <a href="http://en.wikipedia.org/wiki/Poisson_distribution">Poisson distribution</a> is equal to its defining param λ)
-Primary CoJava functions: /coalSimulator/sim.java/simMutate()
+<b>Algorithm 2</b>: adding mutations to the generated genealogy
+<p>Conditional on the genealogical tree, mutations are randomly placed on the branches. The number of mutations on each branch follows a Poisson distribution with mean equal to the product of mutation rate per base pair, length of DNA sequence, and the length of genealogy tree branch (in the unit of 2N). (Note: the mean of <a href="http://en.wikipedia.org/wiki/Poisson_distribution">Poisson distribution</a> is equal to its defining param λ)</p>
+<b>Primary CoJava classes or functions</b>
+/coalSimulator/sim.java/simMutate()
+create mutations and put them in a list: /geneticEvent/mutations.java
+
+<h2>Considering recombination and gene conversion</h2>
+When diploid individuals reproduce, there are two parents, each of which contributes one of each of its pairs of
+chromosomes. One parent’s contribution is a combination of its two <a href="http://www.phschool.com/science/biology_place/labbench/lab3/homologs.html">homologous chromosomes</a> when they undergo recombination.
 
 Population bottleneck. If, as we work backwards in time, there is a sudden
 decrease in the population size, then the coalescence rate will become large.
@@ -97,10 +102,7 @@ their two ancestral lineages will coalesce.
 4. Selection (ancestral selection graph)
 5. Metapopulations (extinction/recolonization)
 
-Considering recombination
-When diploid individuals reproduce, there are two parents, each of which contributes one of each of its pairs of
-chromosomes. One parent’s contribution is a combination of its two <a href="http://www.phschool.com/science/biology_place/labbench/lab3/homologs.html">homologous chromosomes</a> when they undergo recombination.
-<h3></h3>
+
 
 
 
