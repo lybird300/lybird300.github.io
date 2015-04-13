@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "Overview of the Coalescent Theory"
+title: "Coalescent Theory"
 date: 2015-04-02
 ---
 A genealogy is completely summarized by the entire topology (who relates to whom) and the length of each branch (intervals between two subsequent convergence/divergence events). The coalescent approach generates the genealogy backwards, instead of forwards, for a sample of sequences (rather than the entire population). It traces the ancestral lineages, which are the series of genetic ancestors of the samples at a locus, back through time. The history of a sample of size <b>n</b> comprises n − 1 coalescent events. Each coalescent event decreases the number of ancestral lineages by one. This takes the sample from the present day when there are n lineages through a series of steps in which the number of lineages decreases from n to n − 1, then from n − 1 to n − 2, etc., then finally from two to one. At each coalescent event, two of the lineages fuse into one common-ancestral lineage. The result is a bifurcating tree. This approach introduces computational and analytical convenience because the history of the entire population includes sequences that are extinct or we have not sampled. 
 
-This post will briefly introduce the coalescent theory, including its history, the basic model, and important extensions. For details such as theorems and their proofs, please refer to the resources provided at the end of this page. 
+This post will briefly introduce the coalescent theory, including its history, the basic model, and important extensions. For details such as theorems and their proofs, please refer to the resources provided at the end of this page.
+
+<blockquote>All models are wrong. We make tentative assumptions about the real world which we know are false but which we believe may be useful.(Box 1976)</blockquote>
 
 <h2>History</h2>
 Gustave Malécot (in the 1940’s) introduced the idea of following a pair of gene copies back to their common ancestor and the notion of <b>identity by descent (IDB)</b>: If we pick two genes from a <b>Wright-Fisher (WF)</b> population, how long ago on average did the two genes share their <b>most recent common ancestor (MRCA)</b>? Genealogical approaches to samples larger than two appeared in response to the first direct measurements of molecular variation (Harris 1966; Lewontin and Hubby 1966). Since then there have been some seminal work:
