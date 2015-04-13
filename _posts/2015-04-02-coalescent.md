@@ -5,11 +5,6 @@ date: 2015-04-02
 ---
 A genealogy is completely summarized by the entire topology (who relates to whom) and the length of each branch (intervals between two subsequent convergence/divergence events). The coalescent approach generates the genealogy backwards, instead of forwards, for a sample of sequences (rather than the entire population). It traces the ancestral lineages, which are the series of genetic ancestors of the samples at a locus, back through time. The history of a sample of size <b>n</b> comprises n − 1 coalescent events. Each coalescent event decreases the number of ancestral lineages by one. This takes the sample from the present day when there are n lineages through a series of steps in which the number of lineages decreases from n to n − 1, then from n − 1 to n − 2, etc., then finally from two to one. At each coalescent event, two of the lineages fuse into one common-ancestral lineage. The result is a bifurcating tree. This approach introduces computational and analytical convenience because the history of the entire population includes sequences that are extinct or we have not sampled. 
 
-This post will briefly introduce the coalescent theory, including its history, the basic model, and important extensions. For details such as theorems and their proofs, please refer to the resources provided at the end of this page.
-
-<blockquote>All models are wrong. We make tentative assumptions about the real world which we know are false but which we believe may be useful.(Box 1976)</blockquote>
-
-<h2>History</h2>
 Gustave Malécot (in the 1940’s) introduced the idea of following a pair of gene copies back to their common ancestor and the notion of <b>identity by descent (IDB)</b>: If we pick two genes from a <b>Wright-Fisher (WF)</b> population, how long ago on average did the two genes share their <b>most recent common ancestor (MRCA)</b>? Genealogical approaches to samples larger than two appeared in response to the first direct measurements of molecular variation (Harris 1966; Lewontin and Hubby 1966). Since then there have been some seminal work:
 <ul>
 <li>Ewens (1972): Derived the distribution of allele counts in a sample under the infinite-alleles model of selectively neutral mutation</li>
@@ -18,6 +13,10 @@ Gustave Malécot (in the 1940’s) introduced the idea of following a pair of ge
 <li>Tajima (1983): Derived the expectation of the average number of pairwise differences in a sample. As it turns out, this is an estimate of the composite parameter: θ = 4Neμ</li>
 <li>Hudson (1990) wrote a wonderful review of coalescent theory and made available an <b>algorithm</b> to simulate data under different population models.</li>
 </ul>
+
+The rest of this post will briefly introduce the coalescent theory, including the basic model, and important extensions. For details such as theorems and their proofs, please refer to the resources provided at the end of this page.
+
+<blockquote>All models are wrong. We make tentative assumptions about the real world which we know are false but which we believe may be useful.(Box 1976)</blockquote>
 
 <h2>Basics</h2>
 A widely used model that describes reproduction in a population, which gives rise to the genealogies of that population, is the Wright-Fisher model. This model makes the following assumptions on population evolution:
@@ -78,6 +77,9 @@ create mutations and put them in a list: /geneticEvent/mutations.java
 <h2>Considering recombination and gene conversion</h2>
 When diploid individuals reproduce, there are two parents, each of which contributes one of each of its pairs of
 chromosomes. One parent’s contribution is a combination of its two <a href="http://www.phschool.com/science/biology_place/labbench/lab3/homologs.html">homologous chromosomes</a> when they undergo recombination.
+
+Recombination is the major process that breaks down the associations between SNPs. It is unclear whether haplotype block boundaries are due to recombination hotspots, or are simply the result of recombination events that happened to occur there. If the blocks are due to hotspots, then perhaps they will be common across populations. If the blocks are due to regular recombination events, then populations may or may not share them, depending on how long ago the recombination events occurred. When large chromosomal regions are examined, the regions with high association have less recombination and less genetic variation. 
+
 
 Each recombination event increases the number of lineages by one, and because lineages recombine independently, the total rate of recombination when there are k lineages is kρ/2. Each coalescence event decreases the number of lineages by one, and the total rate of coalescence when there are k lineages is k(k − 1)/2, as we have seen previously. Since lineages are “born” at a linear rate, and “die” at a quadratic rate, the number of lineages is guaranteed to stay finite and will even hit one, occasionally (there will then temporarily be a single ancestral chromosome again
 
