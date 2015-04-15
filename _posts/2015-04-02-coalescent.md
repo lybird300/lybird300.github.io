@@ -14,7 +14,7 @@ Gustave Malécot (in the 1940’s) introduced the idea of following a pair of ge
 <li>Hudson (1990) wrote a wonderful review of coalescent theory and made available an <b>algorithm</b> to simulate data under different population models.</li>
 </ul>
 
-The rest of this post will briefly introduce the coalescent theory, including the basic model, and important extensions. For details such as theorems and their proofs, please refer to the resources provided at the end of this page.
+The rest of this post will briefly introduce the coalescent theory, including the basic model, and important extensions. For details such as theorems and their proofs, please refer to the resources provided at the end of this page. Before we start, it is very important to keep in mind that
 
 <blockquote>All models are wrong. We make tentative assumptions about the real world which we know are false but which we believe may be useful.(Box 1976)</blockquote>
 
@@ -23,46 +23,43 @@ A widely used model that describes reproduction in a population, which gives ris
 <ul>
 <li>Discrete and non-overlapping generations: all of the individuals in the population die each generation and are replaced by offspring.</li>
 <li>Constant population size through time: the population size <b>N</b> (different from sample size) is assumed to be constant over time and finite. When the individuals that constitute the population are haploid organisms (they have only one copy of genetic materials), the population will consist of N copies of the <b>genome</b> (the genome of an organism is its whole hereditary information and is encoded in the DNA or RNA). In case of diploid organisms (e.g., humans, with two copies of genetic materials), there will be 2N copies.</li>
-<li>Random mating (no structure): next generation is drawn randomly from a large gamete pool. Statistically, the next generation is formed from the current generation by uniformly sampling with replacement</li>
+<li>Random mating (no structure): next generation is drawn randomly from a large gamete pool. Statistically, the next generation is formed from the current generation by uniformly sampling with replacement. Thus, the evolutionary process can be traced back as the sequences in every generation randomly picking their parents in the previous generation.</li>
 <li>Neutral mutation: the mutation changes the DNA sequence but not an individual’s ability to survive and to produce offspring</li>
 <li>Population size N is large: most results concerning this model will be approximate (referred to as diffusion approximation), ignoring terms of O(1/N^2) relative to O(1/N). For example, one example following this assumption is that we do not consider the simultaneous coalescence of more than two DNA sequences (thus the generative genealogical tree is a bifurcate tree.</li>
-<li>No recombination: true for single bases and perhaps short regions</li>
+<li>No recombination: only true for single bases and perhaps short regions</li>
 </ul>
-The basic/standard Wright-Fisher model results in a decay of genetic variation. Since the population is finite in size and reproduction is a random process, some individuals may not contribute any offspring to the next generation. This random loss of genetic lineages forward in time is called <b>genetic drift</b>, which reduces the diversity of the population diversity. One measure of population diversity is <b>heterozygosity</b>, defined as the probability that two genes chosen at random from the population have different alleles. Alleles are different versions of the genetic information encoded at a location in the genome of an organism (aka, genetic locus). A common example of genetic locus is the sequence of nucleotides that makes up a gene. Thus, two sequences of the same gene are different alleles if they are not identical.Assuming a gene has two allelic states (denoted A and a), genetic drift eventually leads to either A or a being lost from the population. When this happens, the surviving allele is said to be fixed in the population. The effect of genetic drift is compensated by mutation, a process by which the allelic state of a gene occasionally changes from one to another (e.g., from A to a).
+The basic/standard Wright-Fisher model results in a decay of genetic variation. Since the population is finite in size and reproduction is a random process, some individuals may not contribute any offspring to the next generation. This random loss of genetic lineages forward in time is called <b>genetic drift</b>, which reduces the diversity of the population diversity. One measure of population diversity is <b>heterozygosity</b>, defined as the probability that two genes chosen at random from the population have different alleles. Alleles are different versions of the genetic information encoded at a location in the genome of an organism (aka, genetic locus). A common example of genetic locus is the sequence of nucleotides that makes up a gene. Thus, two sequences of the same gene are different alleles if they are not identical. Assuming a gene has two allelic states (denoted A and a), genetic drift eventually leads to either A or a being lost from the population. When this happens, the surviving allele is said to be fixed in the population. The effect of genetic drift is compensated by mutation, a process by which the allelic state of a gene occasionally changes from one to another (e.g., from A to a).
 
-<div id="term">
-<ul>
-<li>SNP: single nucleotide polymorphism</li>
-<li>Haplotype: a set of DNA variations, or polymorphisms, that tend to be inherited together. A haplotype can refer to a combination of alleles or to a set of SNPs found on the same chromosome</li>
-</ul>
-</div>
 
-The number of genes required in the Wright-Fisher model for it to behave like a real population (under aforementioned assumptions) is called the <b>effective population size</b> (Ne) of that population.
 
 Parameters (as denoted in the literature/as the input of <a href="http://lybird300.github.io/2015/04/04/CoJava.html">Cosi or CoJava</a> if applicable)
 <ul>
 <li>n | sample_size: the number of DNA sequences (or genes/chromosomes/haplotypes depending on the context) being sampled</li>
 <li>N | pop_size: the number of individuals in the population; thus, diploid populations each has 2N sequences</li>
 <li>k | numnodes: the number of sequences at one generation in the genealogy, or the number of corresponding nodes in the subgraph of an <a href="http://www.math.canterbury.ac.nz/~r.sainudiin/recomb/ima.pdf">ARG (Ancestral Recombination Graph)</a></li>
-<li>T | gen: continuous time measured in units of 2N generations (2N generations are the average time for two genes to find a common ancestor). Modeling time in this way makes the coalescent independent of population sizen N</li>
+<li>t | gen: continuous time measured in units of 2N generations (2N generations are the average time for two genes to find a common ancestor). Modeling time in this way makes the coalescent independent of population sizen N</li>
 <li>λ | rate: When using an exponential distribution to approximate time to next coalescent event, λ is the defining param of the exponential distribution</li>
 </ul>
 <b>Algorithm 1</b>: the basic coalescent (a stochastic process that generates genealogies for n DNA sequences)
 <ol>
 <li>Start with k = n sequences</li>
-<li>Simulate the waiting time to next coalescent event, <font color="red">T(k) ~ Exp(2/(k(k-1)))</font></li>
+<li>Simulate the waiting time to next coalescent event, T(k) ~ exp((k(k-1))/2), that is, Prob(T(k) <= t) = 1 - exp(-λ*t) where λ = k(k-1)/2 </li>
 <li>Choose a random pair (i, j) with 1 ≤ i < j ≤ k uniformly among k(k-1)/2 possible pairs</li>
 <li>Merge i and j into one gene and decrease the sample size by one, k--</li>
 <li>If k > 1 go to Step 2, otherwise stop</li>
 </ol>
-<p>Note: Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences (i.e., for k genes to have k-1 ancestors in the previous generation) is approximately k(k-1)/(4N). Thus, the amount of waiting time (measured in 2N-generation units) during which there are k lineages, T(k), has approximately an exponential distribution with mean 2/(k(k-1)). The decay rate of the exponential distribution λ = k(k-1)/2.</p>
+<b>Note</b>
+Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences (i.e., for k genes to have k-1 ancestors in the previous generation) is approximately k(k-1)/(4N). Thus, the amount of waiting time (measured in 2N-generation units) during which there are k lineages, T(k), has approximately an exponential distribution with mean k(k-1)/2. This mean is equal to λ, the decay rate of the exponential distribution.
+
 <b>Primary CoJava functions</b> 
 Update the ARG: /populationStructures/demography.java/coalesceByName()
+
+Obviously the Wright-Fisher model makes non-realistic assumptions, some of which need to be changed for the purpose of haplotype polymorphism studies. Specifically, since mutations are the sources of polymorphism, they must be incorporated into the model. Recombination is important because it creates the boundaries of haplotypes. Next we will add mutations, recombination, and other elements to the basic coalescent process (the one based on Wright-Fisher model).
 
 <h2>Adding mutations</h2>
 <img alt="mutation" src="https://cloud.githubusercontent.com/assets/5496192/7108656/3cdaa94e-e15b-11e4-81de-4807091b966b.PNG" />
 <p>We consider strictly neutral mutations that will not affect an individual's fitness (the individual's ability to survive and to produce offspring). Such mutations should not affect the simulated genealogies, because they have no effect on the number of offspring or individuals' tendency to migrate. This property has two consequences.The first consequence is an efficient computer algorithm, in which the coalescent process is modeled by separating the neutral mutation process from the the genealogical process. We can first generate the random genealogy of the individuals backward in time, and then superimpose mutations forward in time. The second consequence is that we can choose from various mutation models (e.g., infinite-allele, infinite-site, or finite-site model) without influencing the statistical properties of resultant genealogies. Here we focus on the infinite sites model, which assumes that mutations always occur at distinct sites. Therefore, all descendants must carry the mutated value, and all others must carry the ancestral value. All mutations are distinguishable (i.e., no recurrent or reverse mutations). </p>
-Parameters
+<b>Parameters</b>
 <ul>
 <li>Ttot | : total evolutionary time available, represented by the total branch lengths of a genealogy. We can compute it by summing over the product of each coalescent interval T(k) (see above) and the number of lineages sharing that interval k: <br/><img alt="ETtot" src="https://cloud.githubusercontent.com/assets/5496192/7070529/9819a4a0-dead-11e4-8dad-3fe8d0803b9d.png"/></li>
 <li>μ | mutation_rate (input param)*length(input param): mutation rate per sequence per generation (sometimes mutation rate is provided as per base pair (bp), which is a common measure of sequence length)</li>
@@ -80,9 +77,9 @@ chromosomes. One parent’s contribution is a combination of its two <a href="ht
 
 Recombination is the major process that breaks down the associations between SNPs. It is unclear whether haplotype block boundaries are due to recombination hotspots, or are simply the result of recombination events that happened to occur there. If the blocks are due to hotspots, then perhaps they will be common across populations. If the blocks are due to regular recombination events, then populations may or may not share them, depending on how long ago the recombination events occurred. When large chromosomal regions are examined, the regions with high association have less recombination and less genetic variation. 
 
-
 Each recombination event increases the number of lineages by one, and because lineages recombine independently, the total rate of recombination when there are k lineages is kρ/2. Each coalescence event decreases the number of lineages by one, and the total rate of coalescence when there are k lineages is k(k − 1)/2, as we have seen previously. Since lineages are “born” at a linear rate, and “die” at a quadratic rate, the number of lineages is guaranteed to stay finite and will even hit one, occasionally (there will then temporarily be a single ancestral chromosome again
 
+The number of genes required in the Wright-Fisher model for it to behave like a real population (under aforementioned assumptions) is called the <b>effective population size</b> (Ne) of that population.
 Population bottleneck. If, as we work backwards in time, there is a sudden
 decrease in the population size, then the coalescence rate will become large.
 Situations that can cause this are the founding of a new population by a
