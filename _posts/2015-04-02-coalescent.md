@@ -65,7 +65,7 @@ In principle a mutation model should contain a process describing insertions, de
 <ul>
 <li>Ttot | : total evolutionary time available, represented by the total branch lengths of a genealogy. We can compute it by summing over the product of each coalescent interval T(k) (see above) and the number of lineages sharing that interval k: <br/><img alt="ETtot" src="https://cloud.githubusercontent.com/assets/5496192/7070529/9819a4a0-dead-11e4-8dad-3fe8d0803b9d.png"/></li>
 <li>μ | mutation_rate (input param)*length(input param): mutation rate per sequence per generation (sometimes mutation rate is provided as per base pair (bp), which is a common measure of sequence length)</li>
-<li>S | : the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sequences (in the sample) differ. We can think of it as the total number of mutations imposed on the entire genealogy. In the infinite-sites model, the expected number of segregating sites for a diploid sample is:<br/><img alt="ES" src="https://cloud.githubusercontent.com/assets/5496192/7075088/5e9e7faa-decd-11e4-8143-8c6a864beaee.png"/></li>
+<li>S | : the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sequences (in the sample) differ. We can think of it as the total number of mutations imposed on the entire genealogy. In the infinite-sites model, the expected number of segregating sites for a diploid sample is:<br/><img alt="ES" src="https://cloud.githubusercontent.com/assets/5496192/7075088/5e9e7faa-decd-11e4-8143-8c6a864beaee.png"/> (θ is often called the scaled mutation rate)</li>
 </ul>
 <b>Algorithm 2</b>: adding mutations to the generated genealogy
 <p>Conditional on the genealogical tree, mutations are randomly placed on the branches. The number of mutations on each branch follows a Poisson distribution with mean equal to the product of mutation rate per base pair, length of DNA sequence, and the length of genealogy tree branch (in the unit of 2N). (Note: the mean of <a href="http://en.wikipedia.org/wiki/Poisson_distribution">Poisson distribution</a> is equal to its defining param λ)</p>
@@ -80,6 +80,8 @@ chromosomes. One parent’s contribution is a combination of its two <a href="ht
 Recombination is the major process that breaks down the associations between SNPs. It is unclear whether haplotype block boundaries are due to recombination hotspots, or are simply the result of recombination events that happened to occur there. If the blocks are due to hotspots, then perhaps they will be common across populations. If the blocks are due to regular recombination events, then populations may or may not share them, depending on how long ago the recombination events occurred. When large chromosomal regions are examined, the regions with high association have less recombination and less genetic variation. 
 
 Each recombination event increases the number of lineages by one, and because lineages recombine independently, the total rate of recombination when there are k lineages is kρ/2. Each coalescence event decreases the number of lineages by one, and the total rate of coalescence when there are k lineages is k(k − 1)/2, as we have seen previously. Since lineages are “born” at a linear rate, and “die” at a quadratic rate, the number of lineages is guaranteed to stay finite and will even hit one, occasionally (there will then temporarily be a single ancestral chromosome again
+
+Recombination: V, allow recombination rates to vary by defining a genetic map or <a href="http://en.wikipedia.org/wiki/Recombination_hotspot">hotspots</a> along the genome
 
 <b>Generating (artificial) sequences</b>
 The number of genes required in the Wright-Fisher model for it to behave like a real population (under aforementioned assumptions) is called the <b>effective population size</b> (Ne) of that population.
@@ -97,8 +99,6 @@ The number of genes required in the Wright-Fisher model for it to behave like a 
 
 Mutation: sequence, When multiple sub-populations are simulated, the program allows for migration among sub-populations.
 allow for user specified demographic events such as population bottlenecks 
-Recombination: V, allow recombination rates to vary by defining a genetic map or <a href="http://en.wikipedia.org/wiki/Recombination_hotspot">hotspots</a> along the genome
-It cannot generate chromosomal length regions
 
 Migration: User-defined matrix
 Mating system: Random Mating
@@ -112,6 +112,10 @@ cannot distinguish...since they have the same total scaled mutation rate. For ex
 
 
 
+<b>A unified framework</b>
+The coalescent theory ustilizes the Markov property, which states that the state of a specific next step in a discrete-time or continuous-time process only depends on the present state of the process. In genetics it is natural to assumes that the probability of a future event depends only on the current situation. When time is continuously measured, the Markov process is closely related with the exponential distribution. If a random variable U follows an exponential distribution, i.e., U ~ Exp(λ), then Prob(U <= t) = 1 - exp(-λ*t). λ > 0 is the parameter of the distribution, often called the rate parameter. Let X1, ..., Xn be independent exponentially distributed random variables with rate parameters λ1, ..., λn. A property of exponential distributions is that min{X1, ..., Xn} is also exponentially distributed, with parameter λ = λ1 + ... + λn. The index of the variable which achieves the minimum is distributed according to the law Prob(Xk=min{X1, ..., Xn}) = λk/(λ1 + ... + λn).
+
+This property is important for constructing a unified framework
 
 
 
