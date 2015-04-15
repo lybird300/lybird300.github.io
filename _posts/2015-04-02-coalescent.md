@@ -14,9 +14,7 @@ Gustave Malécot (in the 1940’s) introduced the idea of following a pair of ge
 <li>Hudson (1990) wrote a wonderful review of coalescent theory and made available an <b>algorithm</b> to simulate data under different population models.</li>
 </ul>
 
-The rest of this post will briefly introduce the coalescent theory, including the basic model, and important extensions. For details such as theorems and their proofs, please refer to the resources provided at the end of this page. Before we start, it is very important to keep in mind that
-
-<blockquote>All models are wrong. We make tentative assumptions about the real world which we know are false but which we believe may be useful.(Box 1976)</blockquote>
+The rest of this post will briefly introduce the coalescent theory, including the basic model, and important extensions. For details such as theorems and their proofs, please refer to the resources provided at the end of this page. Before we start, it is very important to keep in mind that "<blockquote>all models are wrong. We make tentative assumptions about the real world which we know are false but which we believe may be useful.(Box 1976)</blockquote>" Thus, we need to make clear the underlying assumptions.
 
 <h2>Basics</h2>
 A widely used model that describes reproduction in a population, which gives rise to the genealogies of that population, is the Wright-Fisher model. This model makes the following assumptions on population evolution:
@@ -53,7 +51,7 @@ Step 2 utilizes the property that when n is much smaller than N, the probability
 <br/>
 Update the ARG: /populationStructures/demography.java/coalesceByName()
 
-Obviously the Wright-Fisher model makes non-realistic assumptions, some of which need to be changed for the purpose of haplotype polymorphism studies. Specifically, since mutations are the sources of polymorphism, they must be incorporated into the model. Recombination is important because it creates the boundaries of haplotypes. Next we will add mutations, recombination, and other elements to the basic coalescent process (based on the Wright-Fisher model). They either change the rate of coalescence or the shape of genealogical trees (or graph)
+Obviously the Wright-Fisher model makes non-realistic assumptions, some of which need to be changed for the purpose of haplotype polymorphism studies. Specifically, since mutations are the sources of polymorphism, they must be incorporated into the model. Recombination is important because it creates the boundaries of haplotypes. Next we will add mutations, recombination, and other elements to the basic coalescent process (the one based on Wright-Fisher model).
 
 <h2>Adding mutations</h2>
 <img alt="mutation" src="https://cloud.githubusercontent.com/assets/5496192/7108656/3cdaa94e-e15b-11e4-81de-4807091b966b.PNG" />
