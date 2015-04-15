@@ -30,9 +30,7 @@ A widely used model that describes reproduction in a population, which gives ris
 </ul>
 The basic/standard Wright-Fisher model results in a decay of genetic variation. Since the population is finite in size and reproduction is a random process, some individuals may not contribute any offspring to the next generation. This random loss of genetic lineages forward in time is called <b>genetic drift</b>, which reduces the diversity of the population diversity. One measure of population diversity is <b>heterozygosity</b>, defined as the probability that two genes chosen at random from the population have different alleles. Alleles are different versions of the genetic information encoded at a location in the genome of an organism (aka, genetic locus). A common example of genetic locus is the sequence of nucleotides that makes up a gene. Thus, two sequences of the same gene are different alleles if they are not identical. Assuming a gene has two allelic states (denoted A and a), genetic drift eventually leads to either A or a being lost from the population. When this happens, the surviving allele is said to be fixed in the population. The effect of genetic drift is compensated by mutation, a process by which the allelic state of a gene occasionally changes from one to another (e.g., from A to a).
 
-
-
-Parameters (as denoted in the literature/as the input of <a href="http://lybird300.github.io/2015/04/04/CoJava.html">Cosi or CoJava</a> if applicable)
+<b>Parameters</b> (as denoted in the literature/as the input of <a href="http://lybird300.github.io/2015/04/04/CoJava.html">Cosi or CoJava</a> if applicable)
 <ul>
 <li>n | sample_size: the number of DNA sequences (or genes/chromosomes/haplotypes depending on the context) being sampled</li>
 <li>N | pop_size: the number of individuals in the population; thus, diploid populations each has 2N sequences</li>
@@ -48,10 +46,11 @@ Parameters (as denoted in the literature/as the input of <a href="http://lybird3
 <li>Merge i and j into one gene and decrease the sample size by one, k--</li>
 <li>If k > 1 go to Step 2, otherwise stop</li>
 </ol>
-<b>Note</b>
+<b>Note</b>:
 Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences (i.e., for k genes to have k-1 ancestors in the previous generation) is approximately k(k-1)/(4N). Thus, the amount of waiting time (measured in 2N-generation units) during which there are k lineages, T(k), has approximately an exponential distribution with mean k(k-1)/2. This mean is equal to λ, the decay rate of the exponential distribution.
 
 <b>Primary CoJava functions</b> 
+<br/>
 Update the ARG: /populationStructures/demography.java/coalesceByName()
 
 Obviously the Wright-Fisher model makes non-realistic assumptions, some of which need to be changed for the purpose of haplotype polymorphism studies. Specifically, since mutations are the sources of polymorphism, they must be incorporated into the model. Recombination is important because it creates the boundaries of haplotypes. Next we will add mutations, recombination, and other elements to the basic coalescent process (the one based on Wright-Fisher model).
