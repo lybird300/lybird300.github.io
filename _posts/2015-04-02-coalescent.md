@@ -83,23 +83,7 @@ Each recombination event increases the number of lineages by one, and because li
 
 <b>Generating (artificial) sequences</b>
 The number of genes required in the Wright-Fisher model for it to behave like a real population (under aforementioned assumptions) is called the <b>effective population size</b> (Ne) of that population.
-Population bottleneck. If, as we work backwards in time, there is a sudden
-decrease in the population size, then the coalescence rate will become large.
-Situations that can cause this are the founding of a new population by a
-small number of migrants or, what is essentially the same, improving a
-crop species by choosing a few individuals with desirable properties.
-• Selective sweep. This term refers to the appearance of a favorable mutation
-that rises in frequency until it takes over the population. In the absence
-of recombination, this is a severe population bottleneck because the entire
-population will trace its ancestry to the individual with the favorable
-mutation.
-• Population growth. In the human population, which has experienced a
-period of exponential growth, then the coalescence rate will be initially
-small, and the genealogical tree will have tips that are longer than usual.
-Population subdivision. Imagine two isolated populations that exchange
-migrants infrequently. If we sample 10 individuals from each population,
-then the two subsamples will coalesce as usual and then eventually the
-their two ancestral lineages will coalesce.
+
 
 1. Fluctuations in population size
 2. Migration/isolation models (structured coalescent)
