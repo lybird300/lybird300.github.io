@@ -53,7 +53,7 @@ Step 2 utilizes the property that when n is much smaller than N, the probability
 <br/>
 Update the ARG: /populationStructures/demography.java/coalesceByName()
 
-Obviously the Wright-Fisher model makes non-realistic assumptions, some of which need to be changed for the purpose of haplotype polymorphism studies. Specifically, since mutations are the sources of polymorphism, they must be incorporated into the model. Recombination is important because it creates the boundaries of haplotypes. Next we will add mutations, recombination, and other elements to the basic coalescent process (the one based on Wright-Fisher model).
+Obviously the Wright-Fisher model makes non-realistic assumptions, some of which need to be changed for the purpose of haplotype polymorphism studies. Specifically, since mutations are the sources of polymorphism, they must be incorporated into the model. Recombination is important because it creates the boundaries of haplotypes. Next we will add mutations, recombination, and other elements to the basic coalescent process (based on the Wright-Fisher model). They either change the rate of coalescence or the shape of genealogical trees (or graph)
 
 <h2>Adding mutations</h2>
 <img alt="mutation" src="https://cloud.githubusercontent.com/assets/5496192/7108656/3cdaa94e-e15b-11e4-81de-4807091b966b.PNG" />
