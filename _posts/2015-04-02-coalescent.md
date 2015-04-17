@@ -16,7 +16,7 @@ Gustave Malécot (in the 1940’s) introduced the idea of following a pair of ge
 <li>Hudson (1990) wrote a wonderful review of coalescent theory and made available an <b>algorithm</b> to simulate data under different population models.</li>
 </ul>
 
-In the rest of this post, I will briefly introduce the coalescent approach, including basic components and important extensions. I will first discuss how to implement the coalescent events that relates the sample of DNA sequences via their common ancestry, assuming that the process follows the Wright-Fisher model. Then the assumptions of this model are gradually relaxed or changed to fit our goal of studying haplotype polymorphism. Specifically, since mutations are the sources of polymorphism, they must be incorporated into the model. Recombination is another indispensable element because it creates the boundaries of haplotypes (by breaking down the associations between SNPs) and linkage disequalibrium. I will also add some other genetic or population events. <b><TBC></b> These events consists of a stochastic process that produces not only a set of simulated DNA sequences but also their genealogical relationship and evolutionary histories.
+In the rest of this post, I will briefly introduce the coalescent approach, including basic components and important extensions. I will first discuss how to implement the coalescent events that relates the sample of DNA sequences via their common ancestry, assuming that the process follows the Wright-Fisher model. Then the assumptions of this model are relaxed or changed one by one to fit our goal of studying haplotype polymorphism. For example, mutations must be incorporated into the model as they are the sources of polymorphism. Recombination is another indispensable element because it creates the boundaries of haplotypes (by breaking down the associations between SNPs) and linkage disequalibrium. I will also add some other genetic or population events. <b><TBC></b> These events consists of a stochastic process that produces not only a set of simulated DNA sequences but also their genealogical relationship and evolutionary histories.
 
 This process is assumed to have the so-called Markov property -- the state of a specific next step in the process only depends on the present state. In genetics it is natural to assumes that the probability of a future event depends only on the current situation. When time is continuously measured, the Markov process is closely related with the exponential distribution. If a random variable U follows an exponential distribution, often denoted U ~ Exp(λ), then Prob(U <= t) = 1 - exp(-λ*t), where λ > 0 is the parameter of the distribution called the rate parameter. Let X1, ..., Xn be independent exponentially distributed random variables with rate parameters λ1, ..., λn. A property of exponential distributions is that min{X1, ..., Xn} is also exponentially distributed, with parameter λ = λ1 + ... + λn. The index of the variable which achieves the minimum is distributed according to the law Prob(Xk=min{X1, ..., Xn}) = λk/(λ1 + ... + λn). As will be more clear below, this property is important for constructing a unified model incorporating aforementioned various evolutionary events, which are often assumed to be independent. For more information, please refer to the resources provided at the end of this post.
 
@@ -32,7 +32,7 @@ The Wright-Fisher model provides a dynamic description of the evolution of an id
 </ul>
 A reproduction process following the Wright-Fisher model results in a decay of genetic variation. Since the population is finite in size and reproduction is a random process, some individuals may not contribute any offspring to the next generation. This random loss of genetic lineages forward in time is called <b>genetic drift</b>, which reduces the diversity of the population diversity. One measure of population diversity is <b>heterozygosity</b>, defined as the probability that two genes chosen at random from the population have different alleles. Alleles are different versions of the genetic information encoded at a location in the genome of an organism (aka, genetic locus). A common example of genetic locus is the sequence of nucleotides that makes up a gene. Thus, two sequences of the same gene are different alleles if they are not identical. Assuming a gene has two allelic states (denoted A and a), genetic drift eventually leads to either A or a being lost from the population. When this happens, the surviving allele is said to be fixed in the population. The effect of genetic drift is compensated by mutation, a process by which the allelic state of a gene occasionally changes from one to another (e.g., from A to a). 
 
-<h2>Implementing Coalescent Events</h2>
+<h2>Coalescent Events</h2>
 <b>Parameters</b> (as denoted in the literature/as the input of <a href="http://lybird300.github.io/2015/04/04/CoJava.html">Cosi or CoJava</a> if applicable)
 <ul>
 <li>n | sample_size: the number of DNA sequences (or genes/chromosomes/haplotypes depending on the context) being sampled</li>
@@ -56,7 +56,7 @@ Step 2 utilizes the property that when n is much smaller than N, the probability
 <br/>
 Update the ARG: /populationStructures/demography.java/coalesceByName()
 
-<h2>Adding mutations</h2>
+<h2>Mutation events</h2>
 <img alt="mutation" src="https://cloud.githubusercontent.com/assets/5496192/7108656/3cdaa94e-e15b-11e4-81de-4807091b966b.PNG" />
 <p>We consider strictly neutral mutations that will not affect an individual's fitness (the individual's ability to survive and to produce offspring). Such mutations should not affect the simulated genealogies, because they have no effect on the number of offspring or individuals' tendency to migrate. This has two consequences.The first consequence is an efficient computer algorithm, in which the coalescent process is modeled by separating the neutral mutation process from the the genealogical process. We can first generate the random genealogy of the individuals backward in time, and then superimpose mutations forward in time. The second consequence is that we can choose from various mutation models (e.g., infinite-allele, infinite-site, or finite-site model) without influencing the statistical properties of resultant genealogies.</p>
 
@@ -73,15 +73,24 @@ Update the ARG: /populationStructures/demography.java/coalesceByName()
 <ol>
 <li>Execute Algorithm 1 to simulate the genealogy of n sequences</li>
 <li>For each branch draw a number, Mt, from a Poisson distribution with intensity tθ/2, where t is the length of the branch. Later there will be Mt mutation events added to this branch. </li>
-<li></li>
-(For infinite sites models) Add Mt mutations to the descendant sequence of each branch. The position of a mutation is chosen randomly along the sequence.
+<li>Starting at the root, move forward in time and modify the sequences produced in Step 1. <b>For infinite sites models</b>, add Mt mutations to the descendant sequence of each branch; the position of a mutation is randomly chosen along the sequence.</li>
 </ol>
 
 <b>Primary CoJava classes or functions</b>
+/geneticEvent/mutations.java
 /coalSimulator/sim.java/simMutate()
-create mutations and put them in a list: /geneticEvent/mutations.java
 
-<h2>Considering recombination and gene conversion</h2>
+<h2>Variable population size</h2>
+Now we will try to relax the WF (Wright-Fisher) model assumption that population size is constant. Real populations vary in size over time. From a modeling perspective, the changes can be deterministic (i.e., we know exactly what they are) or stochastic (there are additional random deviations caused by environmental or other factors). Here we assume the changes are deterministic without random deviations. Given a constant population size (N), the probability that two genes find a common ancestor (also the probability that lineages coalesce by 1) remains as p = 1/2N (see above). Given a changeable N, N(t), this probability is also changing, p(t) = 1/2N(t). That means lineages coalesce more quickly (as we go back in time) when the population is smaller. One way to take the <b>variable coalescent rate</b> into account is to generate genealogies following the constant size coalescent process and then to stretch or compress local time p(t) by comparing it with p(0). For example, if p(t) is smaller than p(0) by a factor of two, then local time N(t) should be stretched by a factor of two to accommodate this change.
+
+COSI (see my next post) can handle exponential population growth and user specified population bottlenecks. Exponential population growth is the simplest and most natural pattern of population growth. It assumes N(t) = N*exp(-βt), where β = 2Nb is the scaled growth rate. (Note: during the coalescent process, we are modeling an exponentially growing population as an exponentially declining on back in time.)
+
+<b>Generating (artificial) sequences</b>
+The number of genes required in the Wright-Fisher model for it to behave like a real population (under aforementioned assumptions) is called the <b>effective population size</b> (Ne) of that population.
+
+<b>Parameters</b>
+N(t) | : the population size at time t. Under the deterministic assumption, N(t) is a function of t only. N(0) = N. Since t is continuous time, we also allow N(t) to not be an integer. 
+<h2>Recombination and gene conversion events</h2>
 When diploid individuals reproduce, there are two parents, each of which contributes one of each of its pairs of
 chromosomes. One parent’s contribution is a combination of its two <a href="http://www.phschool.com/science/biology_place/labbench/lab3/homologs.html">homologous chromosomes</a> when they undergo recombination.
 
@@ -91,11 +100,10 @@ Each recombination event increases the number of lineages by one, and because li
 
 Recombination: V, allow recombination rates to vary by defining a genetic map or <a href="http://en.wikipedia.org/wiki/Recombination_hotspot">hotspots</a> along the genome
 
-<b>Generating (artificial) sequences</b>
-The number of genes required in the Wright-Fisher model for it to behave like a real population (under aforementioned assumptions) is called the <b>effective population size</b> (Ne) of that population.
 
 
-1. Fluctuations in population size
+
+
 2. Migration/isolation models (structured coalescent)
 3. Recombination (recombination graph)
 4. Selection (ancestral selection graph)
@@ -106,7 +114,7 @@ The number of genes required in the Wright-Fisher model for it to behave like a 
 
 
 Mutation: sequence, When multiple sub-populations are simulated, the program allows for migration among sub-populations.
-allow for user specified demographic events such as population bottlenecks 
+
 
 Migration: User-defined matrix
 Mating system: Random Mating
@@ -117,13 +125,6 @@ Events allowed: change in population size, colonization or extinction (change in
 Selection: Single biallelic site
 
 cannot distinguish...since they have the same total scaled mutation rate. For example, (1) simulate 1,000 sequences from a population of 20,000. Each sequence consists of 2,000 independent loci each of lkb long. Mutation rate is 10-8 per base pair per generation, (2) simulate 1,000 sequences from a population of 1,000. Each sequence consists of 40,000 independent loci each of lkb long with the same mutation rate in (1).
-
-
-
-<b>A unified framework</b>
-
-
-This property is important for constructing a unified framework
 
 
 
