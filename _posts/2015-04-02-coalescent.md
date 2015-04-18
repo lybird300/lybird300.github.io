@@ -85,6 +85,10 @@ Now we will try to relax the WF (Wright-Fisher) model assumption that population
 
 COSI (see my next post) can handle exponential population growth and user specified population bottlenecks. Exponential population growth is the simplest and most natural pattern of population growth. It assumes N(t) = N*exp(-βt), where β = 2Nb is the scaled growth rate. (Note: during the coalescent process, we are modeling an exponentially growing population as an exponentially declining on back in time.)
 
+<h2>Population structure</h2>
+Migration/isolation models (structured coalescent)
+
+
 <b>Generating (artificial) sequences</b>
 The number of genes required in the Wright-Fisher model for it to behave like a real population (under aforementioned assumptions) is called the <b>effective population size</b> (Ne) of that population.
 
@@ -93,6 +97,9 @@ N(t) | : the population size at time t. Under the deterministic assumption, N(t)
 <h2>Recombination and gene conversion events</h2>
 When diploid individuals reproduce, there are two parents, each of which contributes one of each of its pairs of
 chromosomes. One parent’s contribution is a combination of its two <a href="http://www.phschool.com/science/biology_place/labbench/lab3/homologs.html">homologous chromosomes</a> when they undergo recombination.
+
+
+
 
 Recombination is the major process that breaks down the associations between SNPs. It is unclear whether haplotype block boundaries are due to recombination hotspots, or are simply the result of recombination events that happened to occur there. If the blocks are due to hotspots, then perhaps they will be common across populations. If the blocks are due to regular recombination events, then populations may or may not share them, depending on how long ago the recombination events occurred. When large chromosomal regions are examined, the regions with high association have less recombination and less genetic variation. 
 
@@ -104,7 +111,6 @@ Recombination: V, allow recombination rates to vary by defining a genetic map or
 
 
 
-2. Migration/isolation models (structured coalescent)
 3. Recombination (recombination graph)
 4. Selection (ancestral selection graph)
 5. Metapopulations (extinction/recolonization)
