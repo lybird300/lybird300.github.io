@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Coalescent Theory (Part 1)"
+title: "Coalescent Theory (1) -- genetic events"
 date: 2015-04-02
 ---
 <blockquote>"All models are wrong. We make tentative assumptions about the real world which we know are false but which we believe may be useful." -- Box</blockquote>
@@ -80,26 +80,36 @@ Update the ARG: /populationStructures/demography.java/coalesceByName()
 /geneticEvent/mutations.java
 /coalSimulator/sim.java/simMutate()
 
-<h2>Variable population size</h2>
-Now we will try to relax the WF (Wright-Fisher) model assumption that population size is constant. Real populations vary in size over time. From a modeling perspective, the changes can be deterministic (i.e., we know exactly what they are) or stochastic (there are additional random deviations caused by environmental or other factors). Here we assume the changes are deterministic without random deviations. Given a constant population size (N), the probability that two genes find a common ancestor (also the probability that lineages coalesce by 1) remains as p = 1/2N (see above). Given a changeable N, N(t), this probability is also changing, p(t) = 1/2N(t). That means lineages coalesce more quickly (as we go back in time) when the population is smaller. One way to take the <b>variable coalescent rate</b> into account is to generate genealogies following the constant size coalescent process and then to stretch or compress local time p(t) by comparing it with p(0). For example, if p(t) is smaller than p(0) by a factor of two, then local time N(t) should be stretched by a factor of two to accommodate this change.
+<b>Generating (artificial) sequences</b>
 
-COSI (see my next post) can handle exponential population growth and user specified population bottlenecks. Exponential population growth is the simplest and most natural pattern of population growth. It assumes N(t) = N*exp(-βt), where β = 2Nb is the scaled growth rate. (Note: during the coalescent process, we are modeling an exponentially growing population as an exponentially declining on back in time.)
 
-<b>Parameters</b>
-N(t) | : the population size at time t. Under the deterministic assumption, N(t) is a function of t only. N(0) = N. Since t is continuous time, we also allow N(t) to not be an integer.
-
-<h2>Population structure</h2>
-Migration/isolation models (structured coalescent)
+<h2>Recombination and gene conversion events</h2>
+When diploid individuals reproduce, there are two parents, each of which contributes one of each of its pairs of
+chromosomes. One parent’s contribution is a combination of its two <a href="http://www.phschool.com/science/biology_place/labbench/lab3/homologs.html">homologous chromosomes</a> when they undergo recombination.
 
 
 
 
+Recombination is the major process that breaks down the associations between SNPs. It is unclear whether haplotype block boundaries are due to recombination hotspots, or are simply the result of recombination events that happened to occur there. If the blocks are due to hotspots, then perhaps they will be common across populations. If the blocks are due to regular recombination events, then populations may or may not share them, depending on how long ago the recombination events occurred. When large chromosomal regions are examined, the regions with high association have less recombination and less genetic variation. 
+
+Each recombination event increases the number of lineages by one, and because lineages recombine independently, the total rate of recombination when there are k lineages is kρ/2, ρ = 4Nr. Each coalescence event decreases the number of lineages by one, and the total rate of coalescence when there are k lineages is k(k − 1)/2, as we have seen previously. Since lineages are “born” at a linear rate, and “die” at a quadratic rate, the number of lineages is guaranteed to stay finite and will even hit one, occasionally (there will then temporarily be a single ancestral chromosome again
+
+Recombination: V, allow recombination rates to vary by defining a genetic map or <a href="http://en.wikipedia.org/wiki/Recombination_hotspot">hotspots</a> along the genome
+
+<b>Parameters</b> 
+<b>Algorithm </b>
+<ol>
+<li></li>
+</ol>
+<b>Primary CoJava functions</b> 
+<br/>
+Find the recombination location on the sequence: geneticEvents/RecombWorker.java/recombExecute()
+Update the ARG: /populationStructures/demography.java/recombineByIndex()
+Create ancestral sequences: /populationStructures/nodeWorker.java/nodeRecombine()
 
 
 
 
-3. Recombination (recombination graph)
-4. Selection (ancestral selection graph)
 5. Metapopulations (extinction/recolonization)
 
 
