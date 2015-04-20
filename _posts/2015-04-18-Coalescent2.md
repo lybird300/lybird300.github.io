@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Coalescent Theory (2) -- population events"
-date: 2015-04-02
+date: 2015-04-03
 ---
 
 The number of genes required in the Wright-Fisher model for it to behave like a real population (under aforementioned assumptions) is called the <b>effective population size</b> (Ne) of that population.
