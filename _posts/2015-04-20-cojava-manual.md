@@ -14,7 +14,7 @@ The program must be invoked with the following command-line arguments
 </ul>
 
 <h2>A parameter file example</h2>
-<p>
+<pre class="prettyprint pre-scrollable"><code>
 # sample file
 # comments have #s in front of them
 # newlines don't matter.
@@ -86,4 +86,4 @@ pop_event bottleneck "OoA bottleneck" 1 3499 .085
 pop_event split "out of Africa" 5 1 3500
 
 pop_event change_size "african pop size" 5 17000 12500
-</p>
+</code></pre>
