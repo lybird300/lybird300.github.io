@@ -84,18 +84,16 @@ By default, Cosi and CoJava is a finite-sites simulation in that mutations occur
 <h2>Recombination and gene conversion events</h2>
 When diploid individuals reproduce, there are two parents, each of which contributes one of its two <a href="http://www.phschool.com/science/biology_place/labbench/lab3/homologs.html">homologous chromosomes</a>, or a combination of both when they undergo recombination. As shown in the figure below, an individual obtains a chromosome from a parent and the chromosome has two different ancestor sequences, each from one grandparent.
 <br/><img alt="cross-over" src="https://cloud.githubusercontent.com/assets/5496192/7258041/eb9ec8a2-e827-11e4-96b0-7b2cb6d1db0f.png" />
-As in the standard WF model, we ignore the existence of individuals and focus on DNA sequences. Since a recombination event splits the genetic material of a sampled sequence onto two different ancestors (but each single point on the sequence has exactly one thread connecting all its ancestors), it is formulated as opposite and competing to an coalescent event, which combines two sample sequences into one ancestor. 
+As in the standard WF model, we ignore the existence of individuals and focus on DNA sequences. Since a recombination event splits the genetic material of a sampled sequence onto two different ancestors (but each single point on the sequence has exactly one thread connecting all its ancestors), it is formulated as opposite and competing to an coalescent event, which combines two sample sequences into one ancestor. (Recall that different types of events are treated as competing in the general coalescent framework.)
 <img src="https://cloud.githubusercontent.com/assets/5496192/7117355/14e99006-e1c6-11e4-9808-74ae386ebced.PNG" />
-
+Assuming lineages recombine independently, the total rate of recombination when there are k lineages is kρ/2. Since lineages increase at a linear rate and decreases at a quadratic rate (the total rate of coalescence whenever there are k lineages is k(k − 1)/2), the number of lineages is guaranteed to stay finite and will eventually hit one. It is also noteworthy that we often assume that a sequence is unlikely to get involved in a recombination event and a coalescent event at the same time. This situation has a probabilyty of 
 
 <b>Parameters</b>
-<li>r: recombination rate (<b>not the sample size n</b>). Analogous to the definition of the scaled mutation rate, we often define the scaled recombination rate as ρ = 4Nr. </li>
+<li>r: recombination rate as the probability of one recombination per generation (<b>not the sample size n</b>). Analogous to the definition of the scaled mutation rate, we often define the scaled recombination rate as ρ = 4Nr. </li>
 <b>Algorithm </b>
 <ol>
 <li></li>
 </ol>
-<b>Note</b>
-Assuming lineages recombine independently, the total rate of recombination when there are k lineages is kρ/2. Recall that the total rate of coalescence whenever there are k lineages is k(k − 1)/2. Since lineages are “born” at a linear rate and “die” at a quadratic rate, the number of lineages is guaranteed to stay finite and will eventually hit one.
 <b>Primary CoJava functions</b> 
 <br/>
 Find the recombination location on the sequence: geneticEvents/RecombWorker.java/recombExecute()
