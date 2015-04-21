@@ -18,7 +18,7 @@ Gustave Malécot (in the 1940’s) introduced the idea of following a pair of ge
 
 In the rest of this post, I will briefly introduce the coalescent approach, including basic components and important extensions. I will first discuss how to implement the coalescent events that relates the sample of DNA sequences via their common ancestry, assuming that the process follows the Wright-Fisher model. Then the assumptions of this model are relaxed or changed one by one to fit our goal of studying haplotype polymorphism. For example, mutations must be incorporated into the model as they are the sources of polymorphism. Recombination is another indispensable element because it creates the boundaries of haplotypes (by breaking down the associations between SNPs) and linkage disequalibrium. I will also add some other genetic or population events. <b><TBC></b> These events consists of a stochastic process that produces not only a set of simulated DNA sequences but also their genealogical relationship and evolutionary histories.
 
-This process is assumed to have the so-called Markov property -- the state of a specific next step in the process only depends on the present state. In genetics it is natural to assumes that the probability of a future event depends only on the current situation. When time is continuously measured, the Markov process is closely related with the exponential distribution. If a random variable U follows an exponential distribution, often denoted U ~ Exp(λ), then Prob(U <= t) = 1 - exp(-λ*t), where λ > 0 is the parameter of the distribution called the rate parameter. Let X1, ..., Xn be independent exponentially distributed random variables with rate parameters λ1, ..., λn. A property of exponential distributions is that min{X1, ..., Xn} is also exponentially distributed, with parameter λ = λ1 + ... + λn. The index of the variable which achieves the minimum is distributed according to the law Prob(Xk=min{X1, ..., Xn}) = λk/(λ1 + ... + λn). As will be more clear below, this property is important for constructing a unified model incorporating aforementioned various evolutionary events, which are often assumed to be independent. For more information, please refer to the resources provided at the end of this post.
+This process is assumed to have the so-called Markov property -- the state of a specific next step in the process only depends on the present state (i.e., memory-less). In genetics it is natural to assumes that the probability of a future event depends only on the current situation. When time is continuously measured (as a non-negative real value), the above process is called a continuous-time Markov chain/process and is closely related with the exponential distribution (the only continuous distribution that is memory-less). If a random variable U follows an exponential distribution, denoted U ~ Exp(λ), then Prob(U <= t) = 1 - exp(-λ*t), where λ > 0 is the parameter of the distribution called the rate parameter. Let X1, ..., Xn be independent exponentially distributed random variables with rate parameters λ1, ..., λn. A property of exponential distributions is that min{X1, ..., Xn} is also exponentially distributed, with parameter λ = λ1 + ... + λn. The index of the variable which achieves the minimum is distributed according to the law Prob(Xk=min{X1, ..., Xn}) = λk/(λ1 + ... + λn). As will be more clear below, this property is important for constructing a unified model incorporating aforementioned various evolutionary events, which are often assumed to be independent. Generally, there are multiple types of events (see below) compete to occur during the coalescent process. The time interval between each type of events has an exponential distribution parameterized by the rate of this specific type of events(scaled on population size N). The time interval between two subsequent events (not necessarily the same type) is the minimum of all exponential distributions, which itself is also an exponential distribution with a parameter given by summation. For more information, please refer to the resources provided at the end of this post.
 
 <h2>The Wright-Fisher model</h2>
 The Wright-Fisher model provides a dynamic description of the evolution of an idealized population and the transmission of genes from one generation to the next. This basic model of reproduction makes the following assumptions:
@@ -65,8 +65,8 @@ Update the ARG: /populationStructures/demography.java/coalesceByName()
 <b>Parameters</b>
 <ul>
 <li>Ttot | : total evolutionary time available, represented by the total branch lengths of a genealogy. We can compute it by summing over the product of each coalescent interval T(k) (see above) and the number of lineages sharing that interval k: <br/><img alt="ETtot" src="https://cloud.githubusercontent.com/assets/5496192/7070529/9819a4a0-dead-11e4-8dad-3fe8d0803b9d.png"/></li>
-<li>μ | mutation_rate (input param)*length of a sequence (input param): mutation rate per sequence per generation (sometimes mutation rate is provided as per base pair (bp); bp is a common measure of sequence length)</li>
-<li>S | : the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sample sequences differ. We can think of it as the total number of mutations to be imposed on the entire genealogy. In the infinite-sites model, the expected number of segregating sites for a diploid sample is:<br/><img alt="ES" src="https://cloud.githubusercontent.com/assets/5496192/7075088/5e9e7faa-decd-11e4-8143-8c6a864beaee.png"/> (θ is often called the scaled mutation rate)</li>
+<li>μ | theta: mutation rate per sequence per generation. It is the product of mutation rate per base pair (bp) and sequence length (in terms of bp). The latter two are both input parameters of CoJava.</li>
+<li>S | : the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sample sequences differ. We can think of it as the total number of mutations to be imposed on the entire genealogy. In the infinite-sites model, the expected number of segregating sites for a diploid sample is (θ is often referred to as the SCALED mutation rate):<br/><img alt="ES" src="https://cloud.githubusercontent.com/assets/5496192/7075088/5e9e7faa-decd-11e4-8143-8c6a864beaee.png"/> </li>
 <li> t | : the length of a branch in the genealogy, calculated as difference between the scaled time at the ancestral node (i.e., in the unit of 2N) and that at the descendant node. The number of mutations on each branch follows a <a href="http://en.wikipedia.org/wiki/Poisson_distribution">Poisson distribution</a> with arrival intensity tθ/2. </li>
 </ul>
 <b>Algorithm 2</b>
@@ -79,9 +79,7 @@ Update the ARG: /populationStructures/demography.java/coalesceByName()
 <b>Primary CoJava classes or functions</b>
 /geneticEvent/mutations.java
 /coalSimulator/sim.java/simMutate()
-
-<b>Generating (artificial) sequences</b>
-
+By default, Cosi and CoJava is a finite-sites simulation in that mutations occur at discrete sites and if multiple mutations occur at a single site, only the first one is retained. However, setting the parameter "infinite_sites" to yes (see the exemplary param file in <a href="http://lybird300.github.io/2015/04/20/cojava-manual.html">this post</a>) converts the output positions to floating point, with all mutations retained. Moreover, both programs allow users to set up the (fixed) number of mutations.
 
 <h2>Recombination and gene conversion events</h2>
 When diploid individuals reproduce, there are two parents, each of which contributes one of each of its pairs of
@@ -110,13 +108,10 @@ Create ancestral sequences: /populationStructures/nodeWorker.java/nodeRecombine(
 
 
 
-5. Metapopulations (extinction/recolonization)
+<b>Generating (artificial) sequences</b>
 
 
 
-
-
-Mutation: sequence, When multiple sub-populations are simulated, the program allows for migration among sub-populations.
 
 
 Migration: User-defined matrix
