@@ -57,4 +57,6 @@ MRCA a small piece of chromosome surrounding the
 mutation. Different haplotypes might carry different
 pieces, depending on the history of recombination. Alleles at polymorphic marker loci within the region
 covered by these pieces of chromosome will be in LD with
-the mutation. 
+the mutation.
+
+Recombination is the major process that breaks down the associations between SNPs. It is unclear whether haplotype block boundaries are due to recombination hotspots, or are simply the result of recombination events that happened to occur there. If the blocks are due to hotspots, then perhaps they will be common across populations. If the blocks are due to regular recombination events, then populations may or may not share them, depending on how long ago the recombination events occurred. When large chromosomal regions are examined, the regions with high association have less recombination and less genetic variation. 
