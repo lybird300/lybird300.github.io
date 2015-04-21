@@ -86,13 +86,25 @@ When diploid individuals reproduce, there are two parents, each of which contrib
 <br/><img alt="cross-over" src="https://cloud.githubusercontent.com/assets/5496192/7258041/eb9ec8a2-e827-11e4-96b0-7b2cb6d1db0f.png" />
 As in the standard WF model, we ignore the existence of individuals and focus on DNA sequences. Since a recombination event splits the genetic material of a sampled sequence onto two different ancestors (but each single point on the sequence has exactly one thread connecting all its ancestors), it is formulated as opposite and competing to an coalescent event, which combines two sample sequences into one ancestor. (Recall that different types of events are treated as competing in the general coalescent framework.)
 <img src="https://cloud.githubusercontent.com/assets/5496192/7117355/14e99006-e1c6-11e4-9808-74ae386ebced.PNG" />
-Assuming lineages recombine independently, the total rate of recombination when there are k lineages is kρ/2. Since lineages increase at a linear rate and decreases at a quadratic rate (the total rate of coalescence whenever there are k lineages is k(k − 1)/2), the number of lineages is guaranteed to stay finite and will eventually hit one. It is also noteworthy that we often assume that a sequence is unlikely to get involved in a recombination event and a coalescent event at the same time. This situation has a probabilyty of 
+Assuming lineages recombine independently, the total rate of recombination when there are k lineages is kρ/2. Since lineages increase at a linear rate and decreases at a quadratic rate (the total rate of coalescence whenever there are k lineages is k(k − 1)/2), the number of lineages is guaranteed to stay finite and will eventually hit one. Notably, we often assume that a sequence is unlikely to get involved in a recombination event and a coalescent event at the same time. This situation has a probability of 
 
 <b>Parameters</b>
 <li>r: recombination rate as the probability of one recombination per generation (<b>not the sample size n</b>). Analogous to the definition of the scaled mutation rate, we often define the scaled recombination rate as ρ = 4Nr. </li>
-<b>Algorithm </b>
+<b>Algorithm </b>: a WF model with recombination
 <ol>
-<li></li>
+<li>Start with k = n genes.</li>
+<li>For k sequences with ancestral material, draw a random number from the exponential distribution with parameter k(k-1)/2 + kρ/2. This is the time to the next event.</li>
+<li>With probability (k − 1)/(k − 1 + ρ) the event is a coalescence event,
+otherwise it is a recombination event.</li>
+<li>If it is recombination, draw a random sequence and a random point on
+the sequence. Create an ancestor sequence with the ancestral material
+to the left of the chosen point and a second ancestor with the ancestral
+material to the right of the recombination point. Increase the number of
+ancestral sequences k by one and go to 1.</li>
+<li>If it is a coalescence event choose two sequences among ancestral
+sequences at random and merge them into one sequence inheriting the
+ancestral material to both of the sequences. Decrease k by one. If k = 1
+end the process, otherwise go to 1.</li>
 </ol>
 <b>Primary CoJava functions</b> 
 <br/>
