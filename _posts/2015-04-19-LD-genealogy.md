@@ -3,32 +3,24 @@ layout: post
 title: "Linkage Disequlibrium (LD) mapping and coalescent"
 date: 2015-04-19
 ---
-LD plays a fundamental role in the fine
-scale mapping of human disease loci,
-
-The technique known as association mapping
-differs from traditional pedigree studies in that marker-disease associations
-are sought in populations of unrelated individuals. To explain the idea behind
-this approach, imagine that a disease causing mutation has just occurred in a
-population. The chromosome on which this mutation occurred contains specific
-alleles in neighboring polymorphic loci. At first, the mutation will only be
-observed in conjuction with these alleles, so the association (or LD) with these
-alleles will be high. Through time these associations will dissipate because of
-recombination, but the closest loci will experience the fewest recombinations
-and hence retain the highest levels of LD. Thus, by looking for significant correlations
-between disease state and alleles, we can hope to identify the region
-in which the disease causing genetic mutation lies.
-
-Linkage disequilibrium refers to the nonrandom
-association of alleles in haplotypes. Such associations
-underlie all forms of genetic mapping. 
 
 
+The technique known as association mapping differs from traditional pedigree studies in that marker-disease associations
+are sought in populations of unrelated individuals. To explain the idea behind this approach, imagine that a disease causing mutation has just occurred in a population. The chromosome on which this mutation occurred contains specific alleles in neighboring polymorphic loci. At first, the mutation will only be observed in conjuction with these alleles, so the association with these alleles will be high. Through time these associations will dissipate because of recombination, but the closest loci will experience the fewest recombinations and hence retain the highest levels of LD. Thus, by looking for significant correlations between disease state and alleles, we can hope to identify the region in which the disease causing genetic mutation lies.
 
-However,
-whereas linkage analysis is based upon associations in
-well-characterized pedigrees, LD refers to associations
-within populations of ‘unrelated’individuals. There
+Linkage disequilibrium (LD) refers to the nonrandom association of alleles in haplotypes. Such associations underlie all forms of genetic mapping (a process of establishing the locations of genes on the chromosomes), including the fine scale mapping of human disease loci.
+
+Genetic Linkage occurs when particular genetic loci or alleles for genes are inherited jointly. Genetic loci on the same chromosome are physically connected and tend to segregate together during meiosis, and are thus genetically linked.
+
+Linkage Mapping has been successfully been applied for the identification of a large number of rare, single gene human diseases. However, the resolution of the method is determined by the number of meiosis oberved in pidigree, which is not very big number.
+Recombination rate will also be very low in the nearby region.
+(Limited meiosis)
+The region is likely to cover several Mb of DNA sequence and
+to contain several hundred genes.
+
+
+whereas linkage analysis is based upon associations in well-characterized pedigrees, LD refers to associations
+within populations of ‘unrelated’ individuals. There
 is nonetheless a close relationship between the two
 approaches, because the ‘unrelated’individuals in
 a population are unrelated only in a relative and
@@ -46,8 +38,17 @@ exchange megabase chunks of chromosomes, LD
 studies deal with segments measured in kilobases.  When dealing with unrelated individuals,
 however, the pedigree is almost completely unknown.
 
-Genetic polymorphism is the result of mutations along the
-branches of genealogical trees. 
+For human populations
+might be 4,000 and 40,000 generations. It must contains
+more meiosis.
+The more meiosis, and the more the recombination happens,
+and the shorter the relative region is.
+A number of genetic markers are typed at known position.
+It becomes possible, in principle at least, to map a trait of
+interest much more accurately.
+
+
+Genetic polymorphism is the result of mutations along the branches of genealogical trees. 
 
 All existing copies of a unique
 mutation can be traced back to the most-recent common
@@ -60,3 +61,11 @@ covered by these pieces of chromosome will be in LD with
 the mutation.
 
 Recombination is the major process that breaks down the associations between SNPs. It is unclear whether haplotype block boundaries are due to recombination hotspots, or are simply the result of recombination events that happened to occur there. If the blocks are due to hotspots, then perhaps they will be common across populations. If the blocks are due to regular recombination events, then populations may or may not share them, depending on how long ago the recombination events occurred. When large chromosomal regions are examined, the regions with high association have less recombination and less genetic variation. 
+
+SNPs are the preferred marker type of LD mapping because of their abundancy in the genome, however, large differences in the
+density of SNPs exist over the genome with regard to the genealogical process, mutation rate, selective regimes, and the per base pair recombination and gene conversion rates.
+
+None of the markers are individually strongly associated with
+phenotype.
+Considering whole haplotypes consisting of several adjacent
+markers rather than single markers one at a time
