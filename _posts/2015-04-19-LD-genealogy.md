@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Linkage Disequlibrium (LD) mapping and coalescent"
-date: 2015-04-01
+date: 2015-04-19
 ---
 LD plays a fundamental role in the fine
 scale mapping of human disease loci,
