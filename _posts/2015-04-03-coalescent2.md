@@ -12,8 +12,8 @@ Now we will relax the WF (Wright-Fisher) model assumption that population size i
 COSI (see my next post) can handle exponential population growth and user specified population bottlenecks. Exponential population growth (in the coalescent model as exponential decline in population size back in time) is the simplest and most natural pattern of population growth. It assumes N(t) = N*exp(-βt), where β = 2Nb is the scaled growth rate. 
 
 
-Popultion bottlenecks 
-
+A popultion bottleneck is a sudden reduction in effective population size. It is normally associated with external catastrophs sicj as an ice age pr severe disease, but can also be associated with the colonization of a new habitat. In studying bottlenecks, we often assume the population sizes are piecewise constant. As shown in the figure below, the current population size is N1, at some point in the past it is reduced to fN1 for an amount of time tB, measured in units of 2N1 generations, and then returns to an ancestral population size of N0.
+<img alt="bottleNeck" src="https://cloud.githubusercontent.com/assets/5496192/7300771/37607d28-e9ac-11e4-8bc0-a1ef6523e4b2.PNG" />
 <b>Parameters</b>
 N(t) | : the population size at time t. Under the deterministic assumption, N(t) is a function of t only. N(0) = N. Since t is continuous time, we also allow N(t) to not be an integer.
 
