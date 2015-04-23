@@ -63,9 +63,9 @@ the mutation.
 Recombination is the major process that breaks down the associations between SNPs. It is unclear whether haplotype block boundaries are due to recombination hotspots, or are simply the result of recombination events that happened to occur there. If the blocks are due to hotspots, then perhaps they will be common across populations. If the blocks are due to regular recombination events, then populations may or may not share them, depending on how long ago the recombination events occurred. When large chromosomal regions are examined, the regions with high association have less recombination and less genetic variation. 
 
 SNPs are the preferred marker type of LD mapping because of their abundancy in the genome, however, large differences in the
-density of SNPs exist over the genome with regard to the genealogical process, mutation rate, selective regimes, and the per base pair recombination and gene conversion rates.
+density of SNPs exist over the genome with regard to the genealogical process, mutation rate, selective regimes, and the  recombination and gene conversion rates per base pair.Considering whole haplotypes consisting of several adjacent
+markers rather than single markers one at a time
 
 None of the markers are individually strongly associated with
 phenotype.
-Considering whole haplotypes consisting of several adjacent
-markers rather than single markers one at a time
+
