@@ -25,9 +25,9 @@ When multiple sub-populations are simulated, the program allows for migration am
 <h2>Selective Sweep</h2>
 <b>Selective sweep</b> is used loosely to mean the fixation of a positively selected allele or the attendant reduction in variation. Th
 
-<h2>A general framework</h2>
-p(G|parameter) =
-II
-All time intervals uj
-f(waiting time) Prob (event happens)
+<h2>Putting all things together</h2>
+<b>Primary CoJava functions</b> 
+Calculate the waiting time: /Random/poisson.java/poissonGetNext(double rate)
+This function generates a random variable that is exponentially distributed (with the given rate), and The process is a poisson process. Take a look at <a href="http://www.stats.ox.ac.uk/~didelot/popgen/Chapter2.pdf">Chapter 2</a> of John Wakeley's "Coalescent theory: an introduction" too see how exponential and poisson distributions are related to the coalescent theory in different ways. 
+	 *  
 
