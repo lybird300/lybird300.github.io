@@ -53,6 +53,10 @@ A reproduction process following the Wright-Fisher model results in a decay of g
 </ol>
 <b>Note</b>:
 Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences (i.e., for k genes to have k-1 ancestors in the previous generation) is approximately k(k-1)/(4N). Thus, the amount of waiting time (measured in 2N-generation units) during which there are k lineages, T(k), has approximately an exponential distribution with mean k(k-1)/2. The mean of an exponential distribution is equal to the decay rate of the same distribution (i.e., λ).
+Since you have access to a uniform random number generator, generating a random number distributed with other distribution whose CDF you know is easy using the inversion method.
+So, generate a uniform random number, u, in [0,1), then calculate x by:
+x = log(1-u)/(−λ),
+where λ is the rate parameter of the exponential distribution. Now, x is a random number with an exponential distribution. Note that log above is ln, the natural logarithm.
 
 <b>Primary CoJava functions</b> 
 <br/>
@@ -147,6 +151,7 @@ cannot distinguish...since they have the same total scaled mutation rate. For ex
 <li>Hudson, R. R. (1990). Gene genealogies and the coalescent process. Oxford surveys in evolutionary biology, 7(1), 44.</li>
 <li>Nordborg, M. (2001). <a href="http://www.cs.berkeley.edu/~jordan/sail/readings/nordborg.pdf">Coalescent theory</a>. In Handbook of statistical genetics. (A computer scientist's review on population genetics models based on the coalescent theory)</li>
 <li>Durrett, Richard. Probability models for DNA sequence evolution. Springer Science & Business Media, 2008</li>
+<li>Wakeley, John. Coalescent theory: an introduction. Vol. 1. Greenwood Village, Colorado: Roberts & Company Publishers, 2009.</li>
 <li><a href="http://genome.sph.umich.edu/wiki/Biostatistics_666:_Main_Page">Biostatistics 666</a> Lecture notes, University of Michigan</li>
 <li><a href="http://bio.classes.ucsc.edu/bio107/">Bio 107</a> Lecture notes, University of California at Santa Cruz</li>
 </ul>
