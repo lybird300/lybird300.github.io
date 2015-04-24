@@ -53,10 +53,7 @@ A reproduction process following the Wright-Fisher model results in a decay of g
 </ol>
 <b>Note</b>:
 Step 2 utilizes the property that when n is much smaller than N, the probability of a coalescence event in a given generation with k sequences (i.e., for k genes to have k-1 ancestors in the previous generation) is approximately k(k-1)/(4N). Thus, the amount of waiting time (measured in 2N-generation units) during which there are k lineages, T(k), has approximately an exponential distribution with mean k(k-1)/2. The mean of an exponential distribution is equal to the decay rate of the same distribution (i.e., λ).
-Since you have access to a uniform random number generator, generating a random number distributed with other distribution whose CDF you know is easy using the inversion method.
-So, generate a uniform random number, u, in [0,1), then calculate x by:
-x = log(1-u)/(−λ),
-where λ is the rate parameter of the exponential distribution. Now, x is a random number with an exponential distribution. Note that log above is ln, the natural logarithm.
+We generate a random number with an exponential distribution (say x) by first generating a uniform random number, u, in [0,1), and then calculating x by: x = ln(1-u)/(−λ), where λ is the rate parameter of the exponential distribution.
 
 <b>Primary CoJava functions</b> 
 <br/>
@@ -123,15 +120,13 @@ Cosi and CoJava allow user to define the recombination rate, which can be to var
 
 <h2> Gene conversion events</h2>
 Theoretically, gene conversion is an event in which a portion of the sequence of one chromosome is altered to form a copy of another homologous sequence. It occurs as a result of mismatch repair of double-strand breaks during recombination (and thus is common at recombination hotspots), in which genetic information is copied from an intact sequence to the region of recombination that contains a double-strand break. The modeling of gene conversion one DNA sequence replaces a homologous sequence such that the sequences become identical after the conversion event. the ‘acceptor’ sequence is replaced, wholly or partly, by a sequence that is copied from the ‘donor’, whereas the sequence of the donor remains unaltered. 
+The biological mechanism of gene conversion is actually pretty cool. Take a look at here.
+<b>Parameters</b>
+<li> | geneConversionRate: an input parameter in CoJava</li>
+<li> | gcLength: length of gene-conversion tract, which is the portion of the ‘acceptor’ sequence copied from the ‘donor’. In practice, the length of the tract cannot be precisely known and often expressed in terms of the minimal and the maximal lengths. The former refers to the entire region spanned by converted discriminant nucleotides; the latter refers to the region delimited by the two nearest unconverted discriminant nucleotides between the donor and acceptor sequences.</li>
+<li> | gcRate: calculated by geneConversionRate * length of sequence * length of gene conversion tract</li>
 
-Gene-conversion tract is the portion of the ‘acceptor’ sequence copied from the ‘donor’. In practice, the length of the tract cannot be precisely known and often
-expressed in terms of the minimal and the maximal lengths. The former refers to the entire region spanned by converted discriminant nucleotides; the latter refers to the region delimited by the two nearest unconverted discriminant nucleotides between the donor and acceptor sequences.
 <b>Generating (artificial) sequences</b>
-
-
-
-
-
 Migration: User-defined matrix
 Mating system: Random Mating
 <a href="http://en.wikipedia.org/wiki/Fecundity">Fecundity</a>: Random Distribution
