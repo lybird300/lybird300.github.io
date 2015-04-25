@@ -3,9 +3,6 @@ layout: post
 title: "Coalescent Theory (2) -- population events"
 date: 2015-04-03
 ---
-
-The number of genes required in the Wright-Fisher model for it to behave like a real population (under aforementioned assumptions) is called the <b>effective population size</b> (Ne) of that population.
-
 <h2>Variable population size</h2>
 Now we will relax the WF (Wright-Fisher) model assumption that population size is constant. Real populations vary in size over time. From a modeling perspective, the changes can be deterministic (i.e., we know exactly what they are) or stochastic (there are additional random deviations caused by environmental or other factors). Here we assume the changes are deterministic without random deviations. Given a constant population size (N), the probability that two genes find a common ancestor (also the probability that lineages coalesce by 1) remains as p = 1/2N (see above). Given a changeable N, N(t), this probability is also changing, p(t) = 1/2N(t). That means lineages coalesce more quickly (as we go back in time) when the population is smaller. One way to take the <b>variable coalescent rate</b> into account is to generate genealogies following the constant size coalescent process and then to stretch or compress local time p(t) by comparing it with p(0). For example, if p(t) is smaller than p(0) by a factor of two, then local time N(t) should be stretched by a factor of two to accommodate this change.
 
@@ -16,6 +13,10 @@ N(t) | : the population size at time t. Under the deterministic assumption, N(t)
 
 A population bottleneck is a sudden reduction in effective population size. It is normally associated with external catastrophes such as an ice age pr severe disease, but can also be associated with the colonization of a new habitat. In studying bottlenecks, we often assume the population sizes are piecewise constant. As shown in the figure below, the current population size is N1, at some point in the past it is reduced to fN1 for an amount of time tB, measured in units of 2N1 generations, and then returns to an ancestral population size of N2.
 <img alt="bottleNeck" src="https://cloud.githubusercontent.com/assets/5496192/7304150/541c6cbc-e9c3-11e4-82e2-461ff43bdb53.PNG" />
+Cosi and CoJava apply a slightly more complicated model that violates the WF model's random mating assumption by considering inbreeding (i.e., mating with relatives) during tB.
+<b>Parameters</b>
+Ne | effective population size: the number of genes required in the Wright-Fisher model for it to behave like a real population.
+f | inbreeding coefficient: the probability that two alleles at a randomly chosen locus are identical by descent (IBD, IBD = copies of same alleles from common ancestor). The intuition is that inbreeding decreases the number of heterozygotes in the population (each generation of selfing decreases the number of heterozygotes by 1/2). 
 
 <h2>Population structure</h2>
 Migration/isolation models (structured coalescent)
