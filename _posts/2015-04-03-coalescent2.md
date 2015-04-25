@@ -11,12 +11,12 @@ COSI (see my next post) can handle exponential population growth and user specif
 <b>Parameters</b>
 N(t) | : the population size at time t. Under the deterministic assumption, N(t) is a function of t only. N(0) = N. Since t is continuous time, we also allow N(t) to not be an integer.
 
-A population bottleneck is a sudden reduction in effective population size. It is normally associated with external catastrophes such as an ice age pr severe disease, but can also be associated with the colonization of a new habitat. In studying bottlenecks, we often assume the population sizes are piecewise constant. As shown in the figure below, the current population size is N1, at some point in the past it is reduced to fN1 for an amount of time tB, measured in units of 2N1 generations, and then returns to an ancestral population size of N2.
+A population bottleneck is a sudden reduction in <b>effective population size</b> (the number of individuals in a population who contribute offspring to the next generation). It is normally associated with external catastrophes such as an ice age pr severe disease, but can also be associated with the colonization of a new habitat. In studying bottlenecks, we often assume the effective population sizes are piecewise constant. As shown in the following example, the current population size is N1. At some point in the past it is reduced to fN1 for an amount of time tB (measured in units of 2N1 generations) and then returns to an ancestral population size of N2.
 <img alt="bottleNeck" src="https://cloud.githubusercontent.com/assets/5496192/7304150/541c6cbc-e9c3-11e4-82e2-461ff43bdb53.PNG" />
-Cosi and CoJava apply a slightly more complicated model that violates the WF model's random mating assumption by considering inbreeding (i.e., mating with relatives) during tB.
+Cosi and CoJava apply a slightly more complicated model, which infers effective population size from inbreeding coefficient (as an input parameter), although logically the latter depends on the former. Inbreeding means mating with relatives and is a violation of the WF model's random mating assumption.
 <b>Parameters</b>
-Ne | effective population size: the number of genes required in the Wright-Fisher model for it to behave like a real population.
-f | inbreeding coefficient: the probability that two alleles at a randomly chosen locus are identical by descent (IBD, IBD = copies of same alleles from common ancestor). The intuition is that inbreeding decreases the number of heterozygotes in the population (each generation of selfing decreases the number of heterozygotes by 1/2). 
+Ne | effectiveN: effective population size
+f | coeff: inbreeding coefficient, the probability that two alleles at a randomly chosen locus are identical by descent (IBD, IBD = copies of same alleles from common ancestor). The intuition is that inbreeding decreases the number of heterozygotes in the population (each generation of selfing decreases the number of heterozygotes by 1/2). 
 
 <h2>Population structure</h2>
 Migration/isolation models (structured coalescent)
