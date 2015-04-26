@@ -3,6 +3,7 @@ layout: post
 title: "Linkage Disequlibrium (LD) mapping and coalescent"
 date: 2015-04-19
 ---
+First, 
 <h2>IBD (Identical By Descent) vs IBS (Identical By State)</h2>
 The term IBS, Identical by State, refers to the situation that two DNA segments are identical at all possible allele positions, no matter how that matching occurred. The two segments can be IBD (if the matching alleles are inherited from a common ancestor in a genealogical timeframe) or not (if the segment is ubiquitous within a specific population). To understand the latter situation, think about right/left-handedness. Ten percent of the population are left-handed. If you are right-handed and meet another person that is right-handed, does that mean you are relatives? Of course not. You might further argue that IBS segments essentially IBD, because every allele that modern people (Homo sapiens sapiens) got from Lucy’s people (Australopithecus afarensis). True, but when we talk about IBD, we often restrict ourselves to a genealogical time frame (about 500 to possibly slightly more than 1000 years, or the last 20 generations).
 
