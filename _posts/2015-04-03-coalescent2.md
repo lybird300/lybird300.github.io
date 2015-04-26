@@ -12,7 +12,7 @@ COSI (see my next post) can handle exponential population growth and user specif
 N(t) | : the population size at time t. Under the deterministic assumption, N(t) is a function of t only. N(0) = N. Since t is continuous time, we also allow N(t) to not be an integer.
 
 A population bottleneck is a sudden reduction in <b>effective population size</b> (the number of individuals in a population who contribute offspring to the next generation). It is normally associated with external catastrophes such as an ice age pr severe disease, but can also be associated with the colonization of a new habitat. In studying bottlenecks, we often assume the effective population sizes are piecewise constant. As shown in the following example, the current population size is N1. At some point in the past it is reduced to fN1 for an amount of time tB (measured in units of 2N1 generations) and then returns to an ancestral population size of N2.
-<img alt="bottleNeck" src="https://cloud.githubusercontent.com/assets/5496192/7304150/541c6cbc-e9c3-11e4-82e2-461ff43bdb53.PNG" />
+<img alt="bottleNeck" src="https://cloud.githubusercontent.com/assets/5496192/7304150/541c6cbc-e9c3-11e4-82e2-461ff43bdb53.PNG" /><br/>
 Cosi and CoJava apply a slightly more complicated model, which infers effective population size from inbreeding coefficient (as an input parameter), although logically the latter depends on the former. Inbreeding means mating with relatives and is a violation of the WF model's random mating assumption.
 <b>Parameters</b>
 Ne | effectiveN: effective population size
@@ -24,7 +24,25 @@ Migration/isolation models (structured coalescent)
 When multiple sub-populations are simulated, the program allows for migration among sub-populations.
 
 <h2>Selective Sweep</h2>
-<b>Selective sweep</b> is used loosely to mean the fixation of a positively selected allele or the attendant reduction in variation. Th
+
+<b>Selective sweep</b> is used loosely to mean the fixation of a positively selected allele or the attendant reduction in variation. In other words, a favorable mutation appears, rises in frequency, and eventually takes over the population. 
+
+Consider a population that is currently not polymorphic, but in which a
+selective sweep recently took place. During the sweep, there were two allelic
+classes just like in the balancing selection model above. The difference is that
+these classes changed in size over time. In particular, the class corresponding
+to the allele that is currently fixed in the population will shrink rapidly back in
+time. The genealogy of the selected locus itself (in the “point” sense used above)
+will therefore behave as if it were part of a population that has expanded from
+a very small size (cf. Figure 6). Indeed, unlike “real” populations, the allelic
+class will have grown from a size of one. A linked point must have grown in
+the same way, unless recombination in a heterozygote took place between the
+point and the selected locus. Whether this happens or not will depend on how
+quickly the new allele increased. Typically, it depends on the ratio r/s, where s
+is the selective advantage of the new allele, and r is the relevant recombination
+probability.
+
+In the absence of recombination, this is a severe population bottleneck because the entire population will trace its ancestry to the individual with the favorable mutation.
 
 <h2>Putting all things together</h2>
 <b>Primary CoJava functions</b> 
