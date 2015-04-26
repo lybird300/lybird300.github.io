@@ -3,6 +3,17 @@ layout: post
 title: "Linkage Disequlibrium (LD) mapping and coalescent"
 date: 2015-04-19
 ---
+<h2>IBD (Identical By Descent) vs IBS (Identical By State)</h2>
+The term IBS, Identical by State, refers to the situation that two DNA segments are identical at all possible allele positions, no matter how that matching occurred. The two segments can be IBD (if the matching alleles are inherited from a common ancestor in a genealogical timeframe) or not (if the segment is ubiquitous within a specific population). To understand the latter situation, think about right/left-handedness. Ten percent of the population are left-handed. If you are right-handed and meet another person that is right-handed, does that mean you are relatives? Of course not. You might further argue that IBS segments essentially IBD, because every allele that modern people (Homo sapiens sapiens) got from Lucy’s people (Australopithecus afarensis). True, but when we talk about IBD, we often restrict ourselves to a genealogical time frame (about 500 to possibly slightly more than 1000 years, or the last 20 generations).
+
+There are several ways certain sequences become very common in a population. That sequence could be very old and because it provided a very slight advantage to those that had it, it remained intact for thousands of years. But because the advantage was small enough, those that didn’t have the exact same sequence could also thrive and reproduce but at a slightly lower rate. Another way is when a population goes through an evolutionary bottleneck. This is where the population gets very small for whatever reason — disease, famine, or isolation such as when small group migrates to a new land — and then expands to fill its niche again. When this happens, the assortment of alleles that are available is sharply reduced. In these cases, many people can have similar alleles that are IBS but their common ancestor would have to be traced all the way back to the bottleneck. When the bottle neck is far enough back that no (or few) genealogical records persist, those segments are now considered IBS.
+
+If your father and your mother both have the same sequence one of their chromosome pairs and both you and your sister inherit one copy of that sequence from different parents, then that segment is IBS between you and your sister and not IBD. But <b>there is no way to determine that happened</b>. The more similar or inbred the population that your parents come from were, the more likely this is to happen. Also note that current DNA typing techniques cannot say which one of the two chromosomes each allele came from. For example, if you are <b>A</b>A <b>G</b>G <b>A</b>A <b>C</b>C you will match me when I am <b>A</b>G <b>A</b>G <b>A</b>G <b>C</b>T, but there is no guarantee that A G A C came from the same chromosome (e.g., it could be A--G on one chromosome and A--C on the other). To be more confident in our conclusion, a much longer match is often needed. 
+
+
+
+
+
 rare events, need fine-scale mapping (IBD help find finer region) and powerful statistical test
 
 The technique known as association mapping differs from traditional pedigree studies in that marker-disease associations
