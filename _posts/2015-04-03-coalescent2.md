@@ -25,15 +25,14 @@ When multiple sub-populations are simulated, the program allows for migration am
 
 <h2>Selective Sweep</h2>
 
-<b>Selective sweep</b> is used loosely to mean the fixation of a positively selected allele or the attendant reduction in variation. In other words, a favorable mutation appears, rises in frequency, and eventually takes over the population. 
+<b>Selective sweep</b> is used loosely to mean the fixation of a positively selected allele or the attendant reduction in variation. In other words, a favorable mutation appears, rises in frequency, and eventually takes over the population. As the prevalence of the new mutation increases, neutral and nearly neutral genetic variation linked to it will also become more prevalent. This phenomenon is called <b>genetic hitchhiking</b> because alleles present on the chromosome on which the original mutation occurred will tend to increase in frequency and fix as well. A strong selective sweep results in a chromosome region of the genome where the positively selected haplotype (the mutated allele and its neighbors) is eventually the only one that exists , thus reducing genetic variations in that region. Selective sweeps are expected to affect
+a bigger region given lower recombination rate.
 
 Consider a population that is currently not polymorphic, but in which a
 selective sweep recently took place. During the sweep, there were two allelic
-classes just like in the balancing selection model above. The difference is that
-these classes changed in size over time. In particular, the class corresponding
+classes which changed in size over time. In particular, the class corresponding
 to the allele that is currently fixed in the population will shrink rapidly back in
-time. The genealogy of the selected locus itself (in the “point” sense used above)
-will therefore behave as if it were part of a population that has expanded from
+time. The genealogy of the selected locus itself (in the “point” sense used above) will therefore behave as if it were part of a population that has expanded from
 a very small size (cf. Figure 6). Indeed, unlike “real” populations, the allelic
 class will have grown from a size of one. A linked point must have grown in
 the same way, unless recombination in a heterozygote took place between the
@@ -42,7 +41,9 @@ quickly the new allele increased. Typically, it depends on the ratio r/s, where 
 is the selective advantage of the new allele, and r is the relevant recombination
 probability.
 
-In the absence of recombination, this is a severe population bottleneck because the entire population will trace its ancestry to the individual with the favorable mutation.
+Close to the selected
+site, coalescence times will have a tendency to be short. Shorter coalescence times mean less time for mutations to occur, so a local
+reduction in variability is expected.
 
 <h2>Putting all things together</h2>
 <b>Primary CoJava functions</b> 
