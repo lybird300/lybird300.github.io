@@ -68,7 +68,7 @@ Update the ARG: /populationStructures/demography.java/coalesceByName()
 <b>Parameters</b>
 <ul>
 <li>Ttot | : total evolutionary time available, represented by the total branch lengths of a genealogy. We can compute it by summing over the product of each coalescent interval T(k) (see above) and the number of lineages sharing that interval k: <br/><img alt="ETtot" src="https://cloud.githubusercontent.com/assets/5496192/7070529/9819a4a0-dead-11e4-8dad-3fe8d0803b9d.png"/></li>
-<li>μ | theta: mutation rate per sequence per generation. It is the product of mutation rate per base pair (bp) and sequence length (in terms of bp). The latter two are both input parameters of CoJava.</li>
+<li>μ | theta: mutation rate per sequence per generation. It is the product of mutation rate at a single nucleotode site, i.e., per base pair (bp), and sequence length (in terms of bp). The latter two are both input parameters of CoJava.</li>
 <li>S | : the number of segregating sites, i.e., the number of DNA sequence positions where some pair of sample sequences differ. We can think of it as the total number of mutations to be imposed on the entire genealogy. In the infinite-sites model, the expected number of segregating sites for a diploid sample is (θ is often referred to as the SCALED mutation rate):<br/><img alt="ES" src="https://cloud.githubusercontent.com/assets/5496192/7075088/5e9e7faa-decd-11e4-8143-8c6a864beaee.png"/> </li>
 <li> t | : the length of a branch in the genealogy, calculated as difference between the scaled time at the ancestral node (i.e., in the unit of 2N) and that at the descendant node. The number of mutations on each branch follows a <a href="http://en.wikipedia.org/wiki/Poisson_distribution">Poisson distribution</a> with arrival intensity tθ/2. </li>
 </ul>
@@ -90,7 +90,7 @@ When diploid individuals reproduce, there are two parents, each of which contrib
 As in the standard WF model, we ignore the existence of individuals and focus on DNA sequences. Since a recombination event splits the genetic material of a sampled sequence onto two different ancestors (but each single point on the sequence has exactly one thread connecting all its ancestors), it is formulated as opposite and competing to an coalescent event, which combines two sample sequences into one ancestor. (Recall that different types of events are treated as competing in the general coalescent framework.)
 <img src="https://cloud.githubusercontent.com/assets/5496192/7117355/14e99006-e1c6-11e4-9808-74ae386ebced.PNG" />
 <b>Parameters</b>
-<li>r: recombination rate as the probability of one recombination per generation (<b>not the sample size n</b>). Analogous to the definition of the scaled mutation rate, we often define the scaled recombination rate as ρ = 4Nr. </li>
+<li>r: recombination rate as the probability of a recombination event between two adjacent nucleotide sites per generation (between a parent and a child). Analogous to the definition of the scaled mutation rate, we often define the scaled recombination rate as ρ = 4Nr (<b>population size N, not the sample size n</b>). </li>
 <b>Algorithm 3</b>: a WF model with recombination
 <ol>
 <li>Start with k = n genes.</li>
