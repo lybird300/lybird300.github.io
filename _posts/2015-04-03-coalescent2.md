@@ -24,30 +24,69 @@ Migration/isolation models (structured coalescent)
 When multiple sub-populations are simulated, the program allows for migration among sub-populations.
 
 <h2>Selective Sweep</h2>
+The standard coalescent assumes neutral mutations. recent findings motivate the development of coalescent approaches to modeling selective sweeps.
+the effects of positive selective sweeps on genetic variation Positive natural selection for adaptive traits has been the primary source of
+excitement among workers studying the genomic effects of selection. In addition to
+estimating the overall prevalence of positive selection, effort has focused on identifying
+recently selected loci. This is possible because the fixation of an advantageous allele at
+one locus affects loci nearby, in a phenomenon is known as genetic ‘hitch-hiking’ The primary signal of this is a
+reduction in variation around the site of selection, but a number of subtler effects occur as
+well (Nielsen, 2005). The term ‘selective sweep’ is used loosely to mean the fixation of a
+positively selected allele or the attendant reduction in variation.
 
-<b>Selective sweep</b> is used loosely to mean the fixation of a positively selected allele or the attendant reduction in variation. In other words, a favorable mutation appears, rises in frequency, and eventually takes over the population. As the prevalence of the new mutation increases, neutral and nearly neutral genetic variation linked to it will also become more prevalent. This phenomenon is called <b>genetic hitchhiking</b> because alleles present on the chromosome on which the original mutation occurred will tend to increase in frequency and fix as well. A strong selective sweep results in a chromosome region of the genome where the positively selected haplotype (the mutated allele and its neighbors) is eventually the only one that exists , thus reducing genetic variations in that region. Selective sweeps are expected to affect
+The fitness of an individual is the number of offspring it leaves. The
+fitness of a gene is the number of copies it leaves. The fitness of an allele is the average fitness of genes of that allelic type.
+
+
+
+ the case of alleles that have a fitness advantage or disadvantage, as
+parameterized by a selection coefficient s.
+
+A new mutation that has a positive effect will replace some of the variability
+present in the population. All linked sites will suffer a drop in effective
+population size.
+A new mutation that has a negative effect and will be most likely removed ,
+also resulting in a reduction of variability (and population size) 
+
+
+<b>Selective sweep</b> is used loosely to mean the fixation of a positively selected allele or the attendant reduction in variation. In other words, a favorable mutation appears, rises in frequency, and eventually takes over the population. As the prevalence of the new mutation increases, neutral and nearly neutral genetic variation linked to it will also become more prevalent. This phenomenon is called <b>genetic hitchhiking</b> because alleles present on the chromosome on which the original mutation occurred will tend to increase in frequency and fix as well. A strong selective sweep results in a chromosome region of the genome where the positively selected haplotype (the mutated allele and its neighbors) is eventually the only one that exists, thus reducing genetic variations in that region. Selective sweeps are expected to affect
 a bigger region given lower recombination rate.
 
 Consider a population that is currently not polymorphic, but in which a
 selective sweep recently took place. During the sweep, there were two allelic
 classes which changed in size over time. In particular, the class corresponding
 to the allele that is currently fixed in the population will shrink rapidly back in
-time. The genealogy of the selected locus itself (in the “point” sense used above) will therefore behave as if it were part of a population that has expanded from
-a very small size (cf. Figure 6). Indeed, unlike “real” populations, the allelic
+time. The genealogy of the selected locus itself (in the “point” sense used above) will therefore behave as if it were part of a population that has expanded from a very small size. Indeed, unlike “real” populations, the allelic
 class will have grown from a size of one. A linked point must have grown in
-the same way, unless recombination in a heterozygote took place between the
+the same way, unless recombination took place between the
 point and the selected locus. Whether this happens or not will depend on how
 quickly the new allele increased. Typically, it depends on the ratio r/s, where s
 is the selective advantage of the new allele, and r is the relevant recombination
 probability.
 
-Close to the selected
-site, coalescence times will have a tendency to be short. Shorter coalescence times mean less time for mutations to occur, so a local
+Close to the selected site, coalescence times will have a tendency to be short. Shorter coalescence times mean less time for mutations to occur, so a local
 reduction in variability is expected.
 
-<h2>Putting all things together</h2>
+The basis of the Wright-Fisher model is that during reproduction each individual produces an
+essentially infinite number of offspring and it is from these offspring that the new generation is sampled. The proportion of types in the effectively infinite pool of offspring in the neutral world is exactly the same as in the parental generation, but in the selective world, if there are i a alleles and (N −i) A alleles in the parental generation then the pool of potential offspring will have a proportion (1 + s)i/((1 + s)i + N − i) of a alleles. We say that a, A have relative fitness 1 + s : 1; s is called selection coefficient. If s > 0 : a is said to be beneficial; if s < 0 : a is said to be deteriorate.
+
+<b>Parameter</b>
+<ul>
+<li>s | : the a alleles and A alleles have relative fitnesses 1 + s : 1. </li>
+</ul>
+
+
+<h2>Putting things together</h2>
+Given the goal of our research project, what kind of coalescent model should we construct to test CHAT?
+<ol>
+<li>Selection: empirical studies show that rare variants under negative selection pressure may be relatively more important than common variants under balancing selection in the genetic architecture of neurodegenerative disease such as Parkinson's disease,</li>
+</ol>
+
 <b>Primary CoJava functions</b> 
 Calculate the waiting time: /Random/poisson.java/poissonGetNext(double rate)
-This function generates a random variable that is exponentially distributed (with the given rate), and The process is a poisson process. Take a look at <a href="http://www.stats.ox.ac.uk/~didelot/popgen/Chapter2.pdf">Chapter 2</a> of John Wakeley's "Coalescent theory: an introduction" too see how exponential and poisson distributions are related to the coalescent theory in different ways. 
-	 *  
+This function generates a random variable that is exponentially distributed (with the given rate), and the process is a poisson process. Take a look at <a href="http://www.stats.ox.ac.uk/~didelot/popgen/Chapter2.pdf">Chapter 2</a> of John Wakeley's "Coalescent theory: an introduction" too see how exponential and poisson distributions are related to the coalescent theory in different ways. 
 
+<h2>References</h2>
+<ul>
+<li>Wakeley, John. "Natural selection and coalescent theory." Evolution since Darwin: the first 150 (2010): 119-149.</li>
+</ul>
