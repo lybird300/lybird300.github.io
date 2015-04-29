@@ -24,7 +24,7 @@ Migration/isolation models (structured coalescent)
 When multiple sub-populations are simulated, the program allows for migration among sub-populations.
 
 <h2>Selective Sweep</h2>
-The standard coalescent assumes neutral mutations. recent findings motivate the development of coalescent approaches to modeling selective sweeps.
+The standard coalescent model assumes neutral mutations, but recent empirical findings have motivated the incorporation of so-called "selective sweeps".
 the effects of positive selective sweeps on genetic variation Positive natural selection for adaptive traits has been the primary source of
 excitement among workers studying the genomic effects of selection. In addition to
 estimating the overall prevalence of positive selection, effort has focused on identifying
