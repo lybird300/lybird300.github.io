@@ -27,3 +27,6 @@ IBD analysis limitations: it is only suited to discover rare variants if all var
 
 The technique known as association mapping differs from traditional pedigree studies in that marker-disease associations
 are sought in populations of unrelated individuals. To explain the idea behind this approach, imagine that a disease causing mutation has just occurred in a population. The chromosome on which this mutation occurred contains specific alleles in neighboring polymorphic loci. At first, the mutation will only be observed in conjuction with these alleles, so the association with these alleles will be high. Through time these associations will dissipate because of recombination, but the closest loci will experience the fewest recombinations and hence retain the highest levels of LD. Thus, by looking for significant correlations between disease state and alleles, we can hope to identify the region in which the disease causing genetic mutation lies.
+
+The following figure summarizes the differences between IBD and IBS talked about in this post.
+<img alt="IBDvsIBS" src="https://cloud.githubusercontent.com/assets/5496192/7396806/1c8a22a4-ee72-11e4-8873-97a6e407f2bd.png" />
