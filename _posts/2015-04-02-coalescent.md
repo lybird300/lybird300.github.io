@@ -86,9 +86,9 @@ By default, Cosi and CoJava is a finite-sites simulation in that mutations occur
 
 <h2>Recombination events</h2>
 When diploid individuals reproduce, there are two parents, each of which contributes one of its two <a href="http://www.phschool.com/science/biology_place/labbench/lab3/homologs.html">homologous chromosomes</a>, or a combination of both when they undergo recombination. As shown in the figure below, an individual obtains a chromosome from a parent and the chromosome has two different ancestor sequences, each from one grandparent.
-<br/><img alt="cross-over" width="50%'' hight="50%" src="https://cloud.githubusercontent.com/assets/5496192/7258041/eb9ec8a2-e827-11e4-96b0-7b2cb6d1db0f.png" />
+<br/><img alt="cross-over" width="50%" hight="50%" src="https://cloud.githubusercontent.com/assets/5496192/7258041/eb9ec8a2-e827-11e4-96b0-7b2cb6d1db0f.png" />
 As in the standard WF model, we ignore the existence of individuals and focus on chromosomes. Since a recombination event splits the genetic material of a sampled sequence onto two different ancestors (but each single point on the sequence has exactly one thread connecting all its ancestors), it is formulated as opposite and competing to an coalescent event, which combines two sample sequences into one ancestor. The following figure shows the two types of events in a coalescent process.
-<br/><img src="https://cloud.githubusercontent.com/assets/5496192/7258043/ee298698-e827-11e4-8784-e9898bcf9ea6.png" /><br/>
+<br/><img width="50%" hight="50%" src="https://cloud.githubusercontent.com/assets/5496192/7258043/ee298698-e827-11e4-8784-e9898bcf9ea6.png" /><br/>
 <b>Parameters</b>
 <li>r: recombination rate as the probability of a recombination event between two adjacent nucleotide sites per generation (between a parent and a child). Analogous to the definition of the scaled mutation rate, we often define the scaled recombination rate as ρ = 4Nr (<b>population size N, not the sample size n</b>). </li>
 <b>Algorithm 3</b>: a WF model with recombination
@@ -122,7 +122,7 @@ Cosi and CoJava allow user to define the recombination rate, which can be to var
 Theoretically, gene conversion is an event in which a portion of the sequence of one chromosome is altered to form a copy of another homologous sequence. It occurs as a result of mismatch repair of double-strand breaks during recombination (and thus is common at recombination hotspots), in which genetic information is copied from an intact sequence to the region of recombination that contains a double-strand break. Despite its complicated and not fully understood biological mechanism, gene conversion is relatively easy to model regarding its consequence: Given two DNA sequences (they are homologous from a genetic point of view), the ‘acceptor’ sequence is replaced, wholly or partly, by a sequence copied from the ‘donor’, whereas the sequence of the donor remains unaltered. Thus, we can model gene conversion as two very close crossover points (using Algorithm 3) even though this rarely is the mechanical way it occurs.
 
 The figure below sketches the difference between cross-over and gene conversion in backward simulation. Note that there may only be one break point within the sequence if the tract extends beyond the end of the sequence, or if a tract initiates outside the sequence but ends within. In these cases, gene conversion will be indistinguishable from cross-over.
-<br/><img alt="twoRecombType" src="https://cloud.githubusercontent.com/assets/5496192/7300778/401a0024-e9ac-11e4-8c26-91b286d3834d.PNG"><br/>
+<br/><img alt="twoRecombType" src="https://cloud.githubusercontent.com/assets/5496192/7258049/f2d38068-e827-11e4-80f1-314f1f34d04c.PNG"><br/>
 
 <b>Parameters</b>
 <li> | geneConversionRate: an input parameter in CoJava</li>
