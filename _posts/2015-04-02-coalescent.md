@@ -86,9 +86,9 @@ By default, Cosi and CoJava is a finite-sites simulation in that mutations occur
 
 <h2>Recombination events</h2>
 When diploid individuals reproduce, there are two parents, each of which contributes one of its two <a href="http://www.phschool.com/science/biology_place/labbench/lab3/homologs.html">homologous chromosomes</a>, or a combination of both when they undergo recombination. As shown in the figure below, an individual obtains a chromosome from a parent and the chromosome has two different ancestor sequences, each from one grandparent.
-<br/><img alt="cross-over" src="https://cloud.githubusercontent.com/assets/5496192/7258041/eb9ec8a2-e827-11e4-96b0-7b2cb6d1db0f.png" />
+<br/><img alt="cross-over" width="50%'' hight="50%" src="https://cloud.githubusercontent.com/assets/5496192/7258041/eb9ec8a2-e827-11e4-96b0-7b2cb6d1db0f.png" />
 As in the standard WF model, we ignore the existence of individuals and focus on DNA sequences. Since a recombination event splits the genetic material of a sampled sequence onto two different ancestors (but each single point on the sequence has exactly one thread connecting all its ancestors), it is formulated as opposite and competing to an coalescent event, which combines two sample sequences into one ancestor. (Recall that different types of events are treated as competing in the general coalescent framework.)
-<img src="https://cloud.githubusercontent.com/assets/5496192/7117355/14e99006-e1c6-11e4-9808-74ae386ebced.PNG" />
+<img src="https://cloud.githubusercontent.com/assets/5496192/7416582/7d859bb2-ef2e-11e4-86d3-da383297d8a7.PNG" />
 <b>Parameters</b>
 <li>r: recombination rate as the probability of a recombination event between two adjacent nucleotide sites per generation (between a parent and a child). Analogous to the definition of the scaled mutation rate, we often define the scaled recombination rate as ρ = 4Nr (<b>population size N, not the sample size n</b>). </li>
 <b>Algorithm 3</b>: a WF model with recombination
