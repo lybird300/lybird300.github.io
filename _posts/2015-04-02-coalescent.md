@@ -87,8 +87,8 @@ By default, Cosi and CoJava is a finite-sites simulation in that mutations occur
 <h2>Recombination events</h2>
 When diploid individuals reproduce, there are two parents, each of which contributes one of its two <a href="http://www.phschool.com/science/biology_place/labbench/lab3/homologs.html">homologous chromosomes</a>, or a combination of both when they undergo recombination. As shown in the figure below, an individual obtains a chromosome from a parent and the chromosome has two different ancestor sequences, each from one grandparent.
 <br/><img alt="cross-over" width="50%'' hight="50%" src="https://cloud.githubusercontent.com/assets/5496192/7258041/eb9ec8a2-e827-11e4-96b0-7b2cb6d1db0f.png" />
-As in the standard WF model, we ignore the existence of individuals and focus on DNA sequences. Since a recombination event splits the genetic material of a sampled sequence onto two different ancestors (but each single point on the sequence has exactly one thread connecting all its ancestors), it is formulated as opposite and competing to an coalescent event, which combines two sample sequences into one ancestor. (Recall that different types of events are treated as competing in the general coalescent framework.)
-<img src="https://cloud.githubusercontent.com/assets/5496192/7416582/7d859bb2-ef2e-11e4-86d3-da383297d8a7.PNG" />
+As in the standard WF model, we ignore the existence of individuals and focus on chromosomes. Since a recombination event splits the genetic material of a sampled sequence onto two different ancestors (but each single point on the sequence has exactly one thread connecting all its ancestors), it is formulated as opposite and competing to an coalescent event, which combines two sample sequences into one ancestor. The following figure shows the two types of events in a coalescent process.
+<br/><img src="https://cloud.githubusercontent.com/assets/5496192/7258043/ee298698-e827-11e4-8784-e9898bcf9ea6.png" /><br/>
 <b>Parameters</b>
 <li>r: recombination rate as the probability of a recombination event between two adjacent nucleotide sites per generation (between a parent and a child). Analogous to the definition of the scaled mutation rate, we often define the scaled recombination rate as ρ = 4Nr (<b>population size N, not the sample size n</b>). </li>
 <b>Algorithm 3</b>: a WF model with recombination
@@ -109,7 +109,7 @@ end the process, otherwise go to 1.</li>
 </ol>
 <b>Note</b>
 Assuming lineages recombine independently, the total rate of recombination when there are k lineages is kρ/2. Thus, given only coalescence and recombination events, lineages increase at a linear rate and decreases at a quadratic rate (the total rate of coalescence whenever there are k lineages is k(k − 1)/2). As a result, the number of lineages is guaranteed to stay finite and will eventually hit one. Notably, we also assume that a sequence is unlikely to get involved in a recombination event and a coalescent event at the same time (as illustrated below), because their co-occurrence has a relatively low probability of 1/2N * r = ρ/(8N^2) when r = ρ/(4N), which is negligible for large N and fixed ρ.
-<img alt="negligible events" src="https://cloud.githubusercontent.com/assets/5496192/7277948/b34dd6fa-e8e0-11e4-9250-e043d2cd16ca.PNG" />
+<img alt="negligible events" src="https://cloud.githubusercontent.com/assets/5496192/7277948/b34dd6fa-e8e0-11e4-9250-e043d2cd16ca.PNG" /><br/>
 Actually we often assume away the co-occurrence of different types of events (recall that they are considered as competing events), given that population size (N) is big enough. (Note: there can be zero event at a specific generation).
 <b>Primary CoJava functions</b> 
 <br/>
@@ -119,16 +119,25 @@ Create ancestral sequences: /populationStructures/nodeWorker.java/nodeRecombine(
 Cosi and CoJava allow user to define the recombination rate, which can be to vary according to a predefined recombination file (see <a href="http://lybird300.github.io/2015/04/20/cojava-manual.html">this post</a>), which defines a genetic map or <a href="http://en.wikipedia.org/wiki/Recombination_hotspot">hotspots</a> along the genome
 
 <h2> Gene conversion events</h2>
-Theoretically, gene conversion is an event in which a portion of the sequence of one chromosome is altered to form a copy of another homologous sequence. It occurs as a result of mismatch repair of double-strand breaks during recombination (and thus is common at recombination hotspots), in which genetic information is copied from an intact sequence to the region of recombination that contains a double-strand break. Despite its complicated and not fully understood biological mechanism, gene conversion is relatively easy to model regarding its consequence: Given two DNA sequences (they are homologous from a genetic point of view), the ‘acceptor’ sequence is replaced, wholly or partly, by a sequence copied from the ‘donor’, whereas the sequence of the donor remains unaltered. Thus, we can model gene conversion as two very close crossover points even though this rarely is the mechanical way it occurs. The figure below sketches the difference between cross-over and gene conversion in backward simulation. Note that there may only be one break point within the sequence if the tract extends beyond the end of the sequence, or if a tract initiates outside the sequence but ends within. In these cases, gene conversion will be indistinguishable from cross-over.
-<br/><img alt="twoRecombType" src="https://cloud.githubusercontent.com/assets/5496192/7300778/401a0024-e9ac-11e4-8c26-91b286d3834d.PNG">
+Theoretically, gene conversion is an event in which a portion of the sequence of one chromosome is altered to form a copy of another homologous sequence. It occurs as a result of mismatch repair of double-strand breaks during recombination (and thus is common at recombination hotspots), in which genetic information is copied from an intact sequence to the region of recombination that contains a double-strand break. Despite its complicated and not fully understood biological mechanism, gene conversion is relatively easy to model regarding its consequence: Given two DNA sequences (they are homologous from a genetic point of view), the ‘acceptor’ sequence is replaced, wholly or partly, by a sequence copied from the ‘donor’, whereas the sequence of the donor remains unaltered. Thus, we can model gene conversion as two very close crossover points (using Algorithm 3) even though this rarely is the mechanical way it occurs.
+
+The figure below sketches the difference between cross-over and gene conversion in backward simulation. Note that there may only be one break point within the sequence if the tract extends beyond the end of the sequence, or if a tract initiates outside the sequence but ends within. In these cases, gene conversion will be indistinguishable from cross-over.
+<br/><img alt="twoRecombType" src="https://cloud.githubusercontent.com/assets/5496192/7300778/401a0024-e9ac-11e4-8c26-91b286d3834d.PNG"><br/>
 
 <b>Parameters</b>
 <li> | geneConversionRate: an input parameter in CoJava</li>
 <li> 1/Q | gcMeanTractLength: In practice, the exact length of gene-conversion tract (i.e., the portion of the ‘acceptor’ sequence copied from the ‘donor’) usually cannot be precisely known. Empirical evidence show that the tract length (in nucleotides or bp) is drawn from a geometric distribution. In the infinite sites approximation the tract length becomes exponentially distributed with intensity Q such that 1/Q is the mean length of the gene conversion tract.</li>
-<li> | gcRate: calculated by geneConversionRate * (length of sequence * length of gene conversion tract)</li>
+<li> | gcRate: calculated by geneConversionRate * (length of sequence + length of gene conversion tract)</li>
 
-<b>Algorithm</b>
-When a gene conversion event occurs, the first break point is chosen uniformly on the sequence, and the second break point is chosen a distance away from the first as determined by a random number from the tract length distribution. 
+<b>Algorithm 4</b>
+When a gene conversion event occurs, the first break point is chosen uniformly on the sequence, and the second break point is chosen a distance away from the first as determined by a random number from the tract length distribution.
+
+<b>Primary CoJava functions</b> 
+<br/> 
+Find conversion locations on the sequence: geneticEvents/gc.java/execute()
+Update the ARG: /populationStructures/demography.java/gcByIndex()
+Create ancestral sequences: /populationStructures/nodeWorker.java/nodeRecombine()
+
 
 Migration: User-defined matrix
 Mating system: Random Mating
