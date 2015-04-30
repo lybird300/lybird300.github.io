@@ -119,14 +119,15 @@ Create ancestral sequences: /populationStructures/nodeWorker.java/nodeRecombine(
 Cosi and CoJava allow user to define the recombination rate, which can be to vary according to a predefined recombination file (see <a href="http://lybird300.github.io/2015/04/20/cojava-manual.html">this post</a>), which defines a genetic map or <a href="http://en.wikipedia.org/wiki/Recombination_hotspot">hotspots</a> along the genome
 
 <h2> Gene conversion events</h2>
-Theoretically, gene conversion is an event in which a portion of the sequence of one chromosome is altered to form a copy of another homologous sequence. It occurs as a result of mismatch repair of double-strand breaks during recombination (and thus is common at recombination hotspots), in which genetic information is copied from an intact sequence to the region of recombination that contains a double-strand break. The modeling of gene conversion one DNA sequence replaces a homologous sequence such that the sequences become identical after the conversion event. the ‘acceptor’ sequence is replaced, wholly or partly, by a sequence that is copied from the ‘donor’, whereas the sequence of the donor remains unaltered. 
-The biological mechanism of gene conversion is actually pretty cool. Take a look at here.
+Theoretically, gene conversion is an event in which a portion of the sequence of one chromosome is altered to form a copy of another homologous sequence. It occurs as a result of mismatch repair of double-strand breaks during recombination (and thus is common at recombination hotspots), in which genetic information is copied from an intact sequence to the region of recombination that contains a double-strand break. Despite its complicated and not fully understood biological mechanism, gene conversion is relatively easy to model regarding its consequence: Given two DNA sequences (they are homologous from a genetic point of view), the ‘acceptor’ sequence is replaced, wholly or partly, by a sequence copied from the ‘donor’, whereas the sequence of the donor remains unaltered. Thus, we can model gene conversion as two very close crossover points even though this rarely is the mechanical way it occurs. The figure below sketches the difference between cross-over and gene conversion in backward simulation.
+<br/><img alt="twoRecombType" src="https://cloud.githubusercontent.com/assets/5496192/7300778/401a0024-e9ac-11e4-8c26-91b286d3834d.PNG">
+
 <b>Parameters</b>
 <li> | geneConversionRate: an input parameter in CoJava</li>
 <li> | gcLength: length of gene-conversion tract, which is the portion of the ‘acceptor’ sequence copied from the ‘donor’. In practice, the length of the tract cannot be precisely known and often expressed in terms of the minimal and the maximal lengths. The former refers to the entire region spanned by converted discriminant nucleotides; the latter refers to the region delimited by the two nearest unconverted discriminant nucleotides between the donor and acceptor sequences.</li>
 <li> | gcRate: calculated by geneConversionRate * length of sequence * length of gene conversion tract</li>
 
-<b>Generating (artificial) sequences</b>
+
 Migration: User-defined matrix
 Mating system: Random Mating
 <a href="http://en.wikipedia.org/wiki/Fecundity">Fecundity</a>: Random Distribution
