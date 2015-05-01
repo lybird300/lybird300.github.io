@@ -228,14 +228,64 @@ The out.hap-? file contains samples formatted as below:
 </table>
  and afterwards come
 the segregating sites, each position separated by a blank space.
-The out.pos-? file containing the information per each segregating sites contains the SNP number, the population
-label, the position of the site, and the frequency of each allele:
-SNP     CHROM   CHROM_POS       ALLELE1 FREQ1   ALLELE2 FREQ2
-1 1 127.3788 1 0.1154 2 0.8846
-2 1 215.9448 1 0.0000 2 1.0000
-3 1 229.8352 1 0.0000 2 1.0000
-4 1 623.0247 1 0.4231 2 0.5769
-5 1 463.2629 1 0.1538 2 0.8462
+The out.pos-? file containing the information of each segregating site (i.e., SNP). It contains SNP #, the chromosome number
+, the position of the site, and the frequency of each allele:
+<table border="0">
+  <tr>
+    <td>SNP #</td>
+    <td>Chrom #</td> 
+    <td>Chrom pos</td>
+    <td>Allele 1</td>
+    <td>Freq 1</td>
+    <td>Allele 2</td>
+    <td>Freq 2</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>1</td>
+    <td>127.3788</td>
+    <td>1</td>
+    <td>0.1154</td>
+    <td>2</td>
+    <td>0.8846</td>
+  </tr>
+    <tr>
+    <td>2</td>
+    <td>1</td>
+    <td>215.9448</td>
+    <td>1</td>
+    <td>0.0000</td>
+    <td>2</td>
+    <td>1.0000</td>
+  </tr>
+    <tr>
+    <td>3</td>
+    <td>1</td>
+    <td>229.8352</td>
+    <td>1</td>
+    <td>0.0000</td>
+    <td>2</td>
+    <td>1.0000</td>
+  </tr>
+    <tr>
+    <td>4</td>
+    <td>1</td>
+    <td>623.0247</td>
+    <td>1</td>
+    <td>0.4231</td>
+    <td>2</td>
+    <td>0.5769</td>
+  </tr>
+    <tr>
+    <td>5</td>
+    <td>1</td>
+    <td>463.2629</td>
+    <td>1</td>
+    <td>0.1538</td>
+    <td>2</td>
+    <td>0.8462</td>
+  </tr>
+</table>
 When using infiles in a cosi output format, the user must introduce in the program the two files
 provided for each population included in the analysis. The name of the haplotype files must contain a
 label followed by a dash, a number indicating the population code and a point:
