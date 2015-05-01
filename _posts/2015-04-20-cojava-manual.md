@@ -130,8 +130,6 @@ haplotypes and the information for each segregating site respectively.
 
 The out.hap-? file contains samples formatted as below:
 <table border="0">
-<col width="15%">
-<col width="15%">
   <tr>
     <td>Chrom #</td>
     <td>Pop # (same as ?)</td> 
@@ -230,7 +228,7 @@ The out.hap-? file contains samples formatted as below:
 </table>
  and afterwards come
 the segregating sites, each position separated by a blank space.
-The file containing the information per each segregating sites contains the SNP number, the population
+The out.pos-? file containing the information per each segregating sites contains the SNP number, the population
 label, the position of the site, and the frequency of each allele:
 SNP     CHROM   CHROM_POS       ALLELE1 FREQ1   ALLELE2 FREQ2
 1 1 127.3788 1 0.1154 2 0.8846
