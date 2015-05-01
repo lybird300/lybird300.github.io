@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Learning how to handle big data"
+title: "Handling big data (with R, Unix)"
 date: 2015-05-01
 ---
 
@@ -9,4 +9,5 @@ date: 2015-05-01
 <h2>References</h2>
 <ul>
 <li><a href="http://www.cureffi.org/2014/01/15/running-r-batch-mode-linux/">Running R in batch mode on Linux</a></li>
+<li><a href="http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html">Reading large tables into R</a></li>
 </ul>
