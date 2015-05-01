@@ -5,13 +5,13 @@ date: 2015-04-20
 ---
 <h2>Initiate CoJava</h2>
 The program must be invoked with the following command-line arguments
-<ul>
-<li>"-p" specify the parameter file that controls its behavior (required)</li>
-<li>"-o" specify the base name for output files.  Output consists of a pair of files for each sampled population, one containing a list of all variant sites (with position and allele frequencies), the other containing the haplotypes for that population.</li>
-<li>"-l" specify the log file that</li>
-<li>"-s" specify the seg file that</li>
-<li>"-proc" specify </li>
-</ul>
+<pre class="prettyprint pre-scrollable"><code>
+"-p" specify the parameter file that controls its behavior (required)
+"-o" specify the base name for output files.  Output consists of a pair of files for each sampled population, one containing a list of all variant sites (with position and allele frequencies), the other containing the haplotypes for that population.
+"-l" specify the log file that
+"-s" specify the seg file that
+"-proc" specify 
+</code></pre>
 
 <h2>Set up parameters</h2>
 <pre class="prettyprint pre-scrollable"><code>
@@ -124,5 +124,130 @@ pop_event sweep "selective sweep" 5 10000 .02 .5 .4
 </code></pre>
 
 <h2>Output files</h2>
+. Files params and recParams contain simulation parameters, such as the number of haplotypes you wish to generate for each population.
+cosi provides two output files for each simulated population, named out.hap-? and out.pos-? (replace the '?' with the desired population index --  1 european, 3 african-american, 4 asian, 5 african) which contain the
+haplotypes and the information for each segregating site respectively.
+
+The out.hap-? file contains samples formatted as below:
+<table border="0">
+<col width="15%">
+<col width="15%">
+  <tr>
+    <td>Chrom #</td>
+    <td>Pop # (same as ?)</td> 
+    <td></td>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>1</td> 
+    <td>2</td>
+    <td>2</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td>
+    <td>2</td>
+    <td>2</td>
+    <td>2</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td>
+  </tr>
+    <tr>
+    <td>1</td>
+    <td>1</td> 
+    <td>2</td>
+    <td>2</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td>
+    <td>2</td>
+    <td>2</td>
+    <td>2</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td>
+  </tr>
+    <tr>
+    <td>2</td>
+    <td>1</td> 
+    <td>2</td>
+    <td>2</td>
+    <td>1</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td>
+    <td>2</td>
+    <td>1</td>
+    <td>1</td>
+    <td>2</td>
+    <td>1</td>
+  </tr>
+    <tr>
+    <td>3</td>
+    <td>1</td> 
+    <td>2</td>
+    <td>2</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td>
+    <td>2</td>
+    <td>1</td>
+    <td>2</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td>
+  </tr>
+    <tr>
+    <td>4</td>
+    <td>1</td> 
+    <td>1</td>
+    <td>2</td>
+    <td>1</td>
+    <td>2</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td>
+    <td>2</td>
+    <td>1</td>
+    <td>1</td>
+    <td>2</td>
+  </tr>
+    <tr>
+    <td>5</td>
+    <td>1</td> 
+    <td>2</td>
+    <td>2</td>
+    <td>1</td>
+    <td>1</td>
+    <td>2</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td>
+  </tr>
+</table>
+ and afterwards come
+the segregating sites, each position separated by a blank space.
+The file containing the information per each segregating sites contains the SNP number, the population
+label, the position of the site, and the frequency of each allele:
+SNP     CHROM   CHROM_POS       ALLELE1 FREQ1   ALLELE2 FREQ2
+1 1 127.3788 1 0.1154 2 0.8846
+2 1 215.9448 1 0.0000 2 1.0000
+3 1 229.8352 1 0.0000 2 1.0000
+4 1 623.0247 1 0.4231 2 0.5769
+5 1 463.2629 1 0.1538 2 0.8462
+When using infiles in a cosi output format, the user must introduce in the program the two files
+provided for each population included in the analysis. The name of the haplotype files must contain a
+label followed by a dash, a number indicating the population code and a point:
+TC‐1.testCosi.1
+TC‐2.testCosi.1
+Information files must have the same label followed by a dot, the Word “pos”, a dash and the number
+indicating the population code:
+TC.pos‐1.testCosi.1
+TC.pos‐2.testCosi.1
+<pre class="prettyprint pre-scrollable"><code>
+</code></pre>
 
 <a href="">Java Doc</a>
