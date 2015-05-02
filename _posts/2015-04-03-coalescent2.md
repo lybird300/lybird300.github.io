@@ -76,10 +76,11 @@ essentially infinite number of offspring and it is from these offspring that the
 </ul>
 
 
-<h2>Putting things together</h2>
+<h2>Putting things together -- what to include?</h2>
 Given the goal of our research project, what kind of coalescent model should we construct to test CHAT?
 <ol>
 <li>Selection: empirical studies show that rare variants under negative selection pressure may be relatively more important than common variants under balancing selection in the genetic architecture of neurodegenerative disease such as Parkinson's disease,</li>
+<li>LD maps are sensitive to demographic factors and especially to time since the last major bottleneck.</li>
 </ol>
 
 <b>Primary CoJava functions</b> 
