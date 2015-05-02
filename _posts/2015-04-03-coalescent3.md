@@ -12,3 +12,5 @@ An ancestral recombination graph (ARG) for four sequences.
 http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1004342
 
 It only traces back DNA segments that appear in the sample.
+
+skip list. Check out <a href="https://www.youtube.com/watch?v=IXRzBVUgGl8">MIT Video Lecture on Skip Lists</a>
