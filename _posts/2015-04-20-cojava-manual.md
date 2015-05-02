@@ -124,9 +124,7 @@ pop_event sweep "selective sweep" 5 10000 .02 .5 .4
 </code></pre>
 
 <h2>Output files</h2>
-. Files params and recParams contain simulation parameters, such as the number of haplotypes you wish to generate for each population.
-cosi provides two output files for each simulated population, named out.hap-? and out.pos-? (replace the '?' with the desired population index --  1 european, 3 african-american, 4 asian, 5 african) which contain the
-haplotypes and the information for each segregating site respectively.
+cosi provides two output files for each simulated population, named out.hap-? and out.pos-? (replace the '?' with the desired population index --  1 european, 3 african-american, 4 asian, 5 african) which contain the haplotypes and the information for each segregating site respectively.
 
 The out.hap-? file contains samples formatted as below:
 <table border="0">
