@@ -116,8 +116,7 @@ pop_event bottleneck "asian bottleneck" 4 1998 .067
 pop_event bottleneck "european bottleneck" 1 1999 .02
 pop_event bottleneck "OoA bottleneck" 1 3499 .085
 
-#pop_event admix &lt;label&gt; &lt;admixed pop id&gt; &lt;source pop id&gt; &lt;T&gt; &lt;fraction of 
-    admixed chroms from source&gt;
+#pop_event admix &lt;label&gt; &lt;admixed pop id&gt; &lt;source pop id&gt; &lt;T&gt; &lt;fraction of admixed chroms from source&gt;
 pop_event admix "african american admix" 3 1 5. .2
 
 #pop_event split &lt;label&gt; &lt;source pop id&gt; &lt;new pop id&gt; &lt;T&gt;
