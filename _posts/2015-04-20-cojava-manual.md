@@ -6,11 +6,11 @@ date: 2015-04-20
 <h2>Initiate CoJava</h2>
 The program must be invoked with the following command-line arguments
 <pre class="prettyprint pre-scrollable"><code>
-"-p" specify the parameter file that controls its behavior (required)
-"-o" specify the base name for output files.  Output consists of a pair of files for each sampled population, one containing a list of all variant sites (with position and allele frequencies), the other containing the haplotypes for that population.
+"-p" (REQUIRED) specifies the parameter file, which is a text file that describes the demographic model to be simulated.
+"-o" (REQUIRED) specify the base name for output files.  Output consists of a pair of files for each sampled population, one containing a list of all variant sites (with position and allele frequencies), the other containing the haplotypes for that population.
 "-l" specify the log file that
 "-s" specify the seg file that
-"-proc" specify 
+"-proc" (REQUIRED) specify 
 </code></pre>
 
 <h2>Set up parameters</h2>
@@ -35,14 +35,18 @@ length 200
 # mutation_rate &lt;mutation rate per bp per generation&gt;
 mutation_rate 1.5e-8
 
-# recomb_file identifies the recombination map to be used, with the format
+# recomb_file specifies the file describing the genetic map to be used (<a href="http://lybird300.github.io/2015/04/21/gene-maps.html">a brief introduction of genetic map</a>). The file has two columns separated by whitespace:
 # &lt;position (kb)&gt; &lt;recomb prob per bp per generation&gt;
-# Each line specifies the recombination rate that will be used from that position until the next specified position, or the end of the sequence.
+# The first column gives a base-pair position; the second column sets the crossover recombination rate, per generation, from that point until either the end of the sequence region or the position specified by the next line.
+#The basepair positions in the first column must be in strictly increasing order. #The first line of the genetic map file also specifies the recombination rate from the beginning of the region to the base-pair position of that line.
 recomb_file model.test
 
+#Gene conversion is specified by the following parameters:
 #gene_conversion_rate &lt;rate of initiation per bp per generation&gt;
-#The length of gene conversion tract is fixed at 500 bp.
 gene_conversion_rate 4.5e-9
+#gene_conversion_relative_rate &lt;rate of gene conversion initiation relative to crossover recombination rate per generation&gt;
+#gene_conversion_mean_tract_length &lt;the mean length of gene conversion tract in bp&gt;
+#Default value is 500 bp
 
 # rare event rates 
 inversion_rate 1.0e-7
@@ -53,9 +57,12 @@ deletion_rate 1.0e-7
 # Any population that appears in the simulation, either as a source of samples or in the history of those samples, must be defined in the file; at least one sampled population is required.  
 # The syntax for defining a population is:
 # pop_define &lt;pop id&gt; &lt;label&gt;
+# <i>pop id</i> is an integer ID of the population, used to refer to the population when specifying demographic events.
+# <i>label</i> is human-readable name for the population (a string with no spaces and not put in quotes).
 # pop_size &lt;pop id&gt; &lt;size&gt;
+# <i>pop_size</i> indicates the effective present-day population size
 # sample_size &lt;pop id&gt; &lt;n sample&gt;
-
+# <i>sample_size</i> indicates the number of sampled 
 pop_define 1 european
 pop_define 3 african-american
 pop_define 4 asian
