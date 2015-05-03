@@ -130,7 +130,7 @@ pop_event sweep "selective sweep" 5 10000 .02 .5 .4
 
 </code></pre>
 
-<h2>Output files</h2>
+<a name="output"></a><h2>Output files</h2>
 cosi provides two output files for each simulated population, named out.hap-? and out.pos-? (replace the '?' with a specific population index --  1 european, 3 african-american, 4 asian, 5 african).
 
 The out.hap-? file contains the simulated samples (chromosomes/haplotypes). Each line corresponds to a sample, including ID of the chromosome (sample ID), label of the population this chromosome belongs to, and then the simulated sequence (sites separated by a blank space). The original state and the mutation are represented by "2" and "1" respectively. The file is formatted as below:
