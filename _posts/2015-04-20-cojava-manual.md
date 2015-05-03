@@ -5,7 +5,8 @@ date: 2015-04-20
 ---
 <h2>Initiate CoJava</h2>
 The program must be invoked with the following command-line arguments
-</br><pre><code>
+<br/>
+<pre><code>
 "-p" (REQUIRED) specifies the parameter file, which is a text file that describes the demographic model to be simulated.
 "-o" (REQUIRED) specify the base name for output files.  Output consists of a pair of files for each sampled population, one containing a list of all variant sites (with position and allele frequencies), the other containing the haplotypes for that population.
 "-l" specify the log file that
@@ -132,7 +133,7 @@ pop_event sweep "selective sweep" 5 10000 .02 .5 .4
 <h2>Output files</h2>
 cosi provides two output files for each simulated population, named out.hap-? and out.pos-? (replace the '?' with a specific population index --  1 european, 3 african-american, 4 asian, 5 african).
 
-The out.hap-? file contains the simulated samples (chromosomes/haplotypes). Each line corresponds to a sample, including ID of the chromosome (sample ID), label of the population this chromosome belongs to, and then the simulated sequence (sites separated by a blank space). The file is formatted as below:
+The out.hap-? file contains the simulated samples (chromosomes/haplotypes). Each line corresponds to a sample, including ID of the chromosome (sample ID), label of the population this chromosome belongs to, and then the simulated sequence (sites separated by a blank space). The original state and the mutation are represented by "2" and "1" respectively. The file is formatted as below:
 <table border="0">
   <tr>
     <th>Chrom #</th>
@@ -287,14 +288,5 @@ The out.pos-? file contains the information for each segregating site (i.e., SNP
     <td>0.8462</td>
   </tr>
 </table>
-When using infiles in a cosi output format, the user must introduce in the program the two files
-provided for each population included in the analysis. The name of the haplotype files must contain a
-label followed by a dash, a number indicating the population code and a point:
-TC‐1.testCosi.1
-TC‐2.testCosi.1
-Information files must have the same label followed by a dot, the Word “pos”, a dash and the number
-indicating the population code:
-TC.pos‐1.testCosi.1
-TC.pos‐2.testCosi.1
 
 <a href="">Java Doc</a>
