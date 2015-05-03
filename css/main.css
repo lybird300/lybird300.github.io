@@ -16,6 +16,7 @@ nav ul, footer ul {
 nav ul li, footer ul li {
     display: inline;
     margin-right: 20px;
+    font-size: 1.5em;
 }
 a {
     text-decoration: none;
@@ -40,7 +41,7 @@ footer {
 
 ul.posts { 
     margin: 20px auto 40px; 
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 ul.posts li {
@@ -48,7 +49,7 @@ ul.posts li {
 }
 ol.posts { 
     margin: 20px auto 40px; 
-    font-size: 2em;
+    font-size: 1.5em;
 }
 ol.posts li {
     list-style: none;
