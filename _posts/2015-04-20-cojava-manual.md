@@ -130,15 +130,18 @@ pop_event sweep "selective sweep" 5 10000 .02 .5 .4
 </code></pre>
 
 <h2>Output files</h2>
-cosi provides two output files for each simulated population, named out.hap-? and out.pos-? (replace the '?' with the desired population index --  1 european, 3 african-american, 4 asian, 5 african) which contain the haplotypes and the information for each segregating site respectively.
+cosi provides two output files for each simulated population, named out.hap-? and out.pos-? (replace the '?' with a specific population index --  1 european, 3 african-american, 4 asian, 5 african) which contain the haplotypes and the information for each segregating site (i.e., SNP) respectively.
 
-The out.hap-? file contains samples formatted as below:
+The out.hap-? file contains the simulated samples (chromosomes/haplotypes). Each line corresponds to a sample, including ID of the chromosome, population ID, and then the simulated sequence (sites separated by a blank space). The file is formatted as below:
 <table border="0">
+  <thead>
   <tr>
-    <td>Chrom #</td>
-    <td>Pop # (same as ?)</td> 
-    <td></td>
+    <th>Chrom #</th>
+    <th>Pop #</th> 
+    <th colspan="11">Simulated sequence</th>
   </tr>
+  </thead>
+  <tbody>
   <tr>
     <td>0</td>
     <td>1</td> 
@@ -229,11 +232,9 @@ The out.hap-? file contains samples formatted as below:
     <td>2</td>
     <td>2</td>
   </tr>
+  </tbody>
 </table>
- and afterwards come
-the segregating sites, each position separated by a blank space.
-The out.pos-? file containing the information of each segregating site (i.e., SNP). It contains SNP #, the chromosome number
-, the position of the site, and the frequency of each allele:
+The out.pos-? file contains the information of each segregating site (i.e., SNP), includling its ID (starting from 0), ID of the chromosome (i.e., sample ID) the SNP is on, chromosome position of the SNP, and the frequency of each allelic state of the SNP. The file has the following format:
 <table border="0">
   <tr>
     <td>SNP #</td>
