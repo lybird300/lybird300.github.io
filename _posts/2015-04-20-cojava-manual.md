@@ -293,7 +293,5 @@ Information files must have the same label followed by a dot, the Word “pos”
 indicating the population code:
 TC.pos‐1.testCosi.1
 TC.pos‐2.testCosi.1
-<pre class="prettyprint pre-scrollable"><code>
-</code></pre>
 
 <a href="">Java Doc</a>
