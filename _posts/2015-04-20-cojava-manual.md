@@ -3,6 +3,8 @@ layout: post
 title: "CoJava Manual"
 date: 2015-04-20
 ---
+The coalescent theory provides an efficient simulation tool for generating DNA samples drawn from populations.
+
 <h2>Initiate CoJava</h2>
 The program must be invoked with the following command-line arguments
 <br/>
