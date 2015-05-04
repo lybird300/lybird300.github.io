@@ -67,8 +67,7 @@ probability.
 Close to the selected site, coalescence times will have a tendency to be short. Shorter coalescence times mean less time for mutations to occur, so a local
 reduction in variability is expected.
 
-The basis of the Wright-Fisher model is that during reproduction each individual produces an
-essentially infinite number of offspring and it is from these offspring that the new generation is sampled. The proportion of types in the effectively infinite pool of offspring in the neutral world is exactly the same as in the parental generation, but in the selective world, if there are i a alleles and (N −i) A alleles in the parental generation then the pool of potential offspring will have a proportion (1 + s)i/((1 + s)i + N − i) of a alleles. We say that a, A have relative fitness 1 + s : 1; s is called selection coefficient. If s > 0 : a is said to be beneficial; if s < 0 : a is said to be deteriorate.
+The basis of the Wright-Fisher model is that during reproduction each individual produces an essentially infinite number of offspring and it is from these offspring that the new generation is sampled. The proportion of types in the effectively infinite pool of offspring in the neutral world is exactly the same as in the parental generation, but in the selective world, if there are i a alleles and (N −i) A alleles in the parental generation then the pool of potential offspring will have a proportion (1 + s)i/((1 + s)i + N − i) of a alleles. We say that a, A have relative fitness 1 + s : 1; s is called selection coefficient. If s > 0 : a is said to be beneficial; if s < 0 : a is said to be deteriorate.
 
 <b>Parameter</b>
 <ul>
