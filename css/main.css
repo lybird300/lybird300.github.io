@@ -59,4 +59,5 @@ ol.posts li {
   background-color: #fff8c0;
   font-size: 15px;
     white-space: pre-wrap;       /* CSS 3 */
+    padding: 10px;
 }
