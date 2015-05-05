@@ -81,6 +81,7 @@ Given the goal of our research project, what kind of coalescent model should we 
 <li>Selection: empirical studies show that rare variants under negative selection pressure may be relatively more important than common variants under balancing selection in the genetic architecture of neurodegenerative disease such as Parkinson's disease,</li>
 <li>LD maps are sensitive to demographic factors and especially to time since the last major bottleneck.</li>
 </ol>
+Interestingly, GWAS have had less success for putative neurodegenerative diseases such as Parkinson's disease. For these diseases, family-based approaches detecting rare variants have been more successful. This raises the possibility that <b>rare variants under negative selection pressure</b> are relatively more important in the genetic architecture of neurodegenerative processes, whereas <b>common variants under balancing selection</b> are more important in the genetic architecture of immunological processes.
 
 <b>Primary CoJava functions</b> 
 Calculate the waiting time: /Random/poisson.java/poissonGetNext(double rate)
