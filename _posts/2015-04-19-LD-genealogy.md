@@ -3,6 +3,15 @@ layout: post
 title: "Linkage Disequlibrium (LD) mapping and coalescent"
 date: 2015-04-19
 ---
+In a finite homogeneous population all individuals will
+be related to some extent. Individuals sharing a founder
+mutation will have higher degree of relatedness, or IBD, in
+the region around the founder mutation. In case-control
+samples, increased relatedness in a region only among the
+affected individuals is evidence in favor of the location of
+a causative mutation in that region. Identification of
+relatedness is, therefore, of great interest in medical
+genetics,
 
 Linkage disequilibrium (LD) refers to the nonrandom association of alleles in haplotypes. Such associations underlie all forms of genetic mapping (a process of establishing the locations of genes on the chromosomes), including the fine scale mapping of human disease loci.
 
