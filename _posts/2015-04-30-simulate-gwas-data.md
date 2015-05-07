@@ -17,11 +17,14 @@ It is becoming clear that many loci harbouring common alleles affecting common d
 
 effect sizes (relative risk per allele)：Slightly larger relative risks do become detectable in large samples. For example the power to detect an effect of size 1.3 jumps from almost zero with 1000 cases and 1000 controls to over 50% in a study three times the size.　a sample size of 2000 cases and 2000 controls and a relative risk at the causal SNP of 1.3
 
-case/control: In a Genome-Wide Association Study (GWAS) the genomes of a large group of individuals
+case/control: In a Genome-Wide disease association Study he genomes of a large group of individuals
 are examined to establish the presence of a significant association between a disease and
 particular genes. The group of individuals is divided in cases (people with the disease) and controls
 (people without). Randomly pairing haplotypes to form diplotypes, we
 prospectively generated case-control data sets
+
+
+In case-control association studies, the sample is highly nonrandom. Ascertainment of individuals that exhibit a disease enriches the sample for an underlying disease mutation, increasing its frequency in the sample, relative either to that in the population or to that expected in a random sample.
 
 
 Increasing evidence has suggested that rare and generally deleterious genetic variants might have a strong impact on the risk of not only rare Mendelian diseases, but also many common human diseases and related traits. According to the Common Disease/Many Rare Variants hypothesis, a common disease might be caused by multiple rare variants that are under relatively strong selection pressures. However, identifying such rare variants underlying the diseases remains to be challenging and is still an active research area. While genomewide association studies (GWAS) are incapable of identifying rare variants due to usually insufficient sample size, new methods keep emerging. Since simulation is widely used to evaluate, refine, and validate new methods, it is necessary to generate simulated data sets that can reflect realistic and critical characteristics of rare variants.
@@ -32,5 +35,7 @@ One important part is the integration of selection effects.
 
 <h2>References</h2>
 <ul>
+
 <li>Peng, Bo, and Xiaoming Liu. "Simulating sequences of the human genome with rare variants." Human heredity 70.4 (2010): 287.</li>
+<li>Wang, Ying, and Bruce Rannala. "In silico analysis of disease-association mapping strategies using the coalescent process and incorporating ascertainment and selection." The American Journal of Human Genetics 76.6 (2005): 1066-1073.</li>
 </ul>
