@@ -69,6 +69,36 @@ reduction in variability is expected.
 
 The basis of the Wright-Fisher model is that during reproduction each individual produces an essentially infinite number of offspring and it is from these offspring that the new generation is sampled. The proportion of types in the effectively infinite pool of offspring in the neutral world is exactly the same as in the parental generation, but in the selective world, if there are i a alleles and (N −i) A alleles in the parental generation then the pool of potential offspring will have a proportion (1 + s)i/((1 + s)i + N − i) of a alleles. We say that a, A have relative fitness 1 + s : 1; s is called selection coefficient. If s > 0 : a is said to be beneficial; if s < 0 : a is said to be deteriorate.
 
+In silico analysis of disease-association mapping strategies using the coalescent process and incorporating ascertainment and selection
+The Kimura and Takahata (1983) procedure for
+simulation of the sample path under neutral drift can be
+modified to incorporate selection. The allele frequency
+at the next generation, given the current frequency, is
+normally distributed, with expectation and variance determined
+by the diffusion model. The average change of
+allele frequency per generation under selection (with selection
+coefficient s 10) is M p sp(1  p), in accor- dp
+dance with a diffusion approximation (with no dominance).
+If population size (N) is constant, the variance
+of the change in allele frequency ( 2 ) that results from jdp
+random drift is p(1  p)/(2N). If we assume that the
+population has grown exponentially with rate r to the
+current population size (N0), then, at generation t in the
+past, 2 rt . Given the age and initial j p p(1  p)/(2N e ) dp 0
+frequency, , of the disease mutation, the  1/(2N erT ) 0
+change of frequency is simulated by generating a uniform
+random variable with mean M and variance j2 , con- dp dp
+ditional on nonextinction. If fewer than four copies of
+the disease allele are present in the population, the diffusion
+approximation is no longer accurate, and the
+number of alleles in the next generation is instead simulated
+as a Poisson random variable (with parameter
+per) by use of the branching-process approximation for
+a rare allele (see Ewens 1979). The method can be extended
+to other selection models by simply replacing the
+average rate of change of allele frequency under a diffusion
+model.
+
 <b>Parameter</b>
 <ul>
 <li>s | : the a alleles and A alleles have relative fitnesses 1 + s : 1. </li>
