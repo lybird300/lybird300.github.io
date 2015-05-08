@@ -3,14 +3,7 @@ layout: post
 title: "Simulating DNA sequences with Rare Variants"
 date: 2015-05-07
 ---
-Current GWAS are generally well-powered to detect
-common variants with modest effect sizes, but underpowered
-to detect rare variants, even with larger effect sizes. Methods such as imputation can add significant
-power to detect rarer variants [4], but are limited by the
-size of the reference panel used. The 1000 genomes project
-[5] will add significant power to detect rare variants,
-but will still not reliably cover every variant with minor
-allele frequency (MAF) ≤ 0.01 in the genome.
+Current GWAS are generally well-powered to detect common variants with modest effect sizes, but underpowered to detect rare variants, even with larger effect sizes. Methods such as imputation can add significant power to detect rarer variants [4], but are limited by the size of the reference panel used. The 1000 genomes project [5] will add significant power to detect rare variants, but will still not reliably cover every variant with minor allele frequency (MAF) ≤ 0.01 in the genome. An exciting recent development is the increasing feasibility of performing a full sequence analysis, which allows the testing of every variant in the genome. Costs have fallen several orders of magnitude in the last few years, meaning the concept of a large scale case-control study using the full sequences of participants will soon be feasible. New technology generally introduces new challenges, and sequence analysis is no exception. The sheer number of variables in such a study will mean problems in storage and analysis. The prior odds for a specific variant being associated are so low that a highly significant p-value threshold is needed to give confidence that a seemingly statistically significant result is a true positive
 
 
 Simulated data sets
