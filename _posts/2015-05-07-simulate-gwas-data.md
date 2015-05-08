@@ -1,8 +1,17 @@
 ---
 layout: post
 title: "Simulating DNA sequences with Rare Variants"
-date: 2015-04-30
+date: 2015-05-07
 ---
+Current GWAS are generally well-powered to detect
+common variants with modest effect sizes, but underpowered
+to detect rare variants, even with larger effect sizes. Methods such as imputation can add significant
+power to detect rarer variants [4], but are limited by the
+size of the reference panel used. The 1000 genomes project
+[5] will add significant power to detect rare variants,
+but will still not reliably cover every variant with minor
+allele frequency (MAF) ≤ 0.01 in the genome.
+
 
 Simulated data sets
 Ten replicates of a livestock data structure were simulated. The structure was designed to cover a spectrum of QTL distributions, relationship structures, and SNP chip densities and to mimic some of the scenarios in which genomic selection is applied. In each replicate sequence data for 4000 base haplotypes for each of 30 chromosomes was simulated using the MaCS (Chen et al. 2009). The 30 chromosomes were each 100 cM in length comprising approximately 108 base pairs and were simulated using a per site mutation rate of 2.5*10−8 and an effective population size (Ne) of 100 in the final generation of the sequence simulation. The reduction of Ne in the preceding generations was modeled with a Ne 1000 years ago of 1256, a Ne 10,000 years ago of 4350, and a Ne 100,000 years ago of 43,500 with linear changes in between. This reflects estimates by Villa-Angulo et al. (2009) for the Holstein population.
