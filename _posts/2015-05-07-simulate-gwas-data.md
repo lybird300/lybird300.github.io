@@ -37,7 +37,7 @@ One important part is the integration of selection effects.
 
 <h2>References</h2>
 <ul>
-
+<li><a href="http://scottmyourstone.blogspot.de/2013/10/read-simulators-review-with-emphasis-on.html">The in silico lens</a></li>
 <li>Peng, Bo, and Xiaoming Liu. "Simulating sequences of the human genome with rare variants." Human heredity 70.4 (2010): 287.</li>
 <li>Wang, Ying, and Bruce Rannala. "In silico analysis of disease-association mapping strategies using the coalescent process and incorporating ascertainment and selection." The American Journal of Human Genetics 76.6 (2005): 1066-1073.</li>
 </ul>
