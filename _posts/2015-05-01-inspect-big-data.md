@@ -9,17 +9,28 @@ To me, exploratory data analysis (EDA) is the most intriguing component of data 
 I first installed R-3.2.0 on the server and then used "read.table" to obtain the first line of "output.hap-1.test". Fifteen minutes later nothing was returned. It was still reading that single line!!! It seems that the only option left for me is to use Unix commands for EDA. Luckily, I'm not the only one who has encountered such a problem (see the references of this post). 
 
 <h2>Useful Unix Commands (Bash commands)</h2>
-Extract gz files
-<code>$ gzip -d file.gz</code>
-Extract tar.gz files
-<code>Syntax: tar options file.tar.gz<br/>Example: tar -xvf file.tar.gz </code>
+Extract gz files<br/>
+<code>$ gzip -d file.gz</code><br/>
+Extract tar.gz files<br/>
+Syntax: <code>tar options file.tar.gz</code><br/>
+Example: <code>tar -xvf file.tar.gz </code><br/>
 Where,
--z : Work on gzip compression automatically when reading archives.
--x : Extract archives.
--v : Produce verbose output i.e. display progress and extracted file list on screen.
--f : Read the archive from the archive to the specified file.
--t : List the files in the archive.
-Find out the 
+<ul>
+<li>-z : Work on gzip compression automatically when reading archives.</li>
+<li>-x : Extract archives.</li>
+<li>-v : Produce verbose output i.e. display progress and extracted file list on screen.</li>
+<li>-f : Read the archive from the archive to the specified file.</li>
+<li>-t : List the files in the archive.</li>
+</ul>
+Find out the number of rows and columns of a large file<br/>
+$ gzip -d file.gz
+Columns: 
+<code>awk '{print NF}' filename<br/>
+sort -nu<br/>
+tail -n 1 (for highest column count) or head -n 1 (for lowest column count)</code>
+Rows:
+<code>cat filename<br/>
+wc -l</code>
 
 <h2>References</h2>
 <ul>
