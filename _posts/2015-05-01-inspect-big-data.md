@@ -23,14 +23,10 @@ Where,
 <li>-t : List the files in the archive.</li>
 </ul>
 Find out the number of rows and columns of a large file<br/>
-$ gzip -d file.gz
 Columns: 
-<code>awk '{print NF}' filename<br/>
-sort -nu<br/>
-tail -n 1 (for highest column count) or head -n 1 (for lowest column count)</code>
+<code>awk: awk '{if( NF > max ) max = NF} END {print max}' filename</code><br/>
 Rows:
-<code>cat filename<br/>
-wc -l</code>
+<code>wc -l filename</code>
 
 <h2>References</h2>
 <ul>
