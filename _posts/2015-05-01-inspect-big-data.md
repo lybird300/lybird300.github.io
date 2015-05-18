@@ -8,7 +8,7 @@ To me, exploratory data analysis (EDA) is the most intriguing component of data 
 
 I first installed R-3.2.0 on the server and then used "read.table" to obtain the first line of "output.hap-1.test". Fifteen minutes later nothing was returned. It was still reading that single line!!! It seems that the only option left for me is to use Unix commands for EDA. Luckily, I'm not the only one who has encountered such a problem (see the references of this post). 
 
-<h2>Useful Unix Commands</h2>
+<h2>Useful Unix Commands (Bash commands)</h2>
 Extract gz files
 <code>$ gzip -d file.gz</code>
 Extract tar.gz files
@@ -19,7 +19,7 @@ Where,
 -v : Produce verbose output i.e. display progress and extracted file list on screen.
 -f : Read the archive from the archive to the specified file.
 -t : List the files in the archive.
-
+Find out the 
 
 <h2>References</h2>
 <ul>
