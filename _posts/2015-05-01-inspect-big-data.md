@@ -8,6 +8,18 @@ To me, exploratory data analysis (EDA) is the most intriguing component of data 
 
 I first installed R-3.2.0 on the server and then used "read.table" to obtain the first line of "output.hap-1.test". Fifteen minutes later nothing was returned. It was still reading that single line!!! It seems that the only option left for me is to use Unix commands for EDA. Luckily, I'm not the only one who has encountered such a problem (see the references of this post). 
 
+<h2>Useful Unix Commands</h2>
+Extract gz files
+<code>$ gzip -d file.gz</code>
+Extract tar.gz files
+<code>Syntax: tar options file.tar.gz<br/>Example: tar -xvf file.tar.gz </code>
+Where,
+-z : Work on gzip compression automatically when reading archives.
+-x : Extract archives.
+-v : Produce verbose output i.e. display progress and extracted file list on screen.
+-f : Read the archive from the archive to the specified file.
+-t : List the files in the archive.
+
 
 <h2>References</h2>
 <ul>
@@ -15,4 +27,5 @@ I first installed R-3.2.0 on the server and then used "read.table" to obtain the
 <li><a href="http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html">Reading large tables into R</a></li>
 <li><a href="http://www.drbunsen.org/explorations-in-unix/">Explorations in Unix</a></li>
 <li><a href="http://blog.ouseful.info/2011/06/04/playing-with-large-ish-csv-files-and-using-them-as-a-database-edina-openurl-logs/">Playing With Large (ish) CSV Files</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/08/10-awesome-examples-for-viewing-huge-log-files-in-unix/">10 Awesome Examples for Viewing Huge Log Files in Unix</a></li>
 </ul>
