@@ -1,15 +1,17 @@
 ---
 layout: post
-title: "Simulating DNA sequences with Rare Variants"
+title: "Simulating GWAS data"
 date: 2015-05-07
 ---
-Current GWAS are generally well-powered to detect common variants with modest effect sizes, but underpowered to detect rare variants, even with larger effect sizes. Methods such as imputation can add significant power to detect rarer variants [4], but are limited by the size of the reference panel used. The 1000 genomes project [5] will add significant power to detect rare variants, but will still not reliably cover every variant with minor allele frequency (MAF) ≤ 0.01 in the genome. An exciting recent development is the increasing feasibility of performing a full sequence analysis, which allows the testing of every variant in the genome. Costs have fallen several orders of magnitude in the last few years, meaning the concept of a large scale case-control study using the full sequences of participants will soon be feasible. New technology generally introduces new challenges, and sequence analysis is no exception. The sheer number of variables in such a study will mean problems in storage and analysis. The prior odds for a specific variant being associated are so low that a highly significant p-value threshold is needed to give confidence that a seemingly statistically significant result is a true positive
+Current GWAS are generally well-powered to detect common variants with modest effect sizes, but underpowered to detect rare variants, even with larger effect sizes. Methods such as imputation can add significant power to detect rarer variants, but are limited by the size of the reference panel used. The 1000 genomes project will add significant power to detect rare variants, but will still not reliably cover every variant with minor allele frequency (MAF) ≤ 0.01 in the genome. An exciting recent development is the increasing feasibility of performing a full sequence analysis, which allows the testing of every variant in the genome. Costs have fallen several orders of magnitude in the last few years, meaning the concept of a large scale case-control study using the full sequences of participants will soon be feasible. New technology generally introduces new challenges, and sequence analysis is no exception. The sheer number of variables in such a study will mean problems in storage and analysis. The prior odds for a specific variant being associated are so low that a highly significant p-value threshold is needed to give confidence that a seemingly statistically significant result is a true positive
 
 
-Simulated data sets
-Ten replicates of a livestock data structure were simulated. The structure was designed to cover a spectrum of QTL distributions, relationship structures, and SNP chip densities and to mimic some of the scenarios in which genomic selection is applied. In each replicate sequence data for 4000 base haplotypes for each of 30 chromosomes was simulated using the MaCS (Chen et al. 2009). The 30 chromosomes were each 100 cM in length comprising approximately 108 base pairs and were simulated using a per site mutation rate of 2.5*10−8 and an effective population size (Ne) of 100 in the final generation of the sequence simulation. The reduction of Ne in the preceding generations was modeled with a Ne 1000 years ago of 1256, a Ne 10,000 years ago of 4350, and a Ne 100,000 years ago of 43,500 with linear changes in between. This reflects estimates by Villa-Angulo et al. (2009) for the Holstein population.
+Sample sequence simulation
+A sample of 100,000 DNA sequences each comprising 20M base pairs was simulated using the COSI package. The mutation rate was 
 
-The total number of segregating sites across the resulting genome was approximately 1,670,000. A set of 9000 segregating sites were randomly selected from the sequence to be used as candidate QTL loci in two different ways, one a randomly sampled set and the other being a randomly sampled set with the restriction that their minor allele frequency could not exceed 0.30.
+ a per site mutation rate of 2.5*10−8 and an effective population size (Ne) of 100 in the final generation of the sequence simulation. The reduction of Ne in the preceding generations was modeled with a Ne 1000 years ago of 1256, a Ne 10,000 years ago of 4350, and a Ne 100,000 years ago of 43,500 with linear changes in between. This reflects estimates by Villa-Angulo et al. (2009) for the Holstein population.
+
+The total number of segregating sites across the resulting genome was approximately 1,670,000. 
 
 One option open to researchers who would like to increase power in the context of limited case series is just to increase the control collection. This strategy might include using cases for one disease as extra controls for another (assuming suitably different disease aetiologies and similar population history). We investigated the utility of such an approach by performing simulations with 1000 cases and an increasing number of control. the ability to reject the null hypothesis of no association increase considerably with the size of the control panel.
 
@@ -35,7 +37,7 @@ In addition to the genetic variations of human populations, other characteristic
 
 One important part is the integration of selection effects.
 
-<h2>Select tag SNPs</h2>
+<h2>Tag SNP selection</h2>
 A <b>tag SNP</b> is a representative single nucleotide polymorphism (SNP) in a region of the genome with high linkage disequilibrium that represents a group of SNPs called a haplotype. It is possible to identify genetic variation and association to phenotypes without genotyping every SNP in a chromosomal region. This reduces the expense and time of mapping genome areas associated with disease, since it eliminates the need to study every individual SNP. Tag SNPs are useful in whole-genome SNP association studies in which hundreds of thousands of SNPs across the entire genome are genotyped.
 
 When a group of SNPs are inherited together because of high LD there tends to be redundant information. The selection of a tag SNP as a representative of these groups reduces the amount of redundancy when analyzing parts of the genome associated with traits/diseases. The regions of the genome in high LD that harbor a specific set of SNPs that are inherited together are also known as haplotypes. Therefore tag SNPs are representative of all SNPs within a haplotype.
@@ -44,7 +46,7 @@ Almost every trait has both genetic and environmental influence. Heritability is
 
 Selection of maximum informative tag SNPs is an NP complex problem; however, algorithms have been devised to provide approximate solution (with limited errors). A tagging algorithm will attempt to locate tag SNPs in neighborhood N(t) of a target SNP t based on a metric that assesses the quality of tagging. The metric measures how well a tag SNP, as a representative of the SNPs in the neighborhood N(t), can predict the target SNP t. The goal of the algorithm is to find the minimal subset of tag SNPs with maximum informativness.
 
-<h2>Simulating errors</h2>
+<h2>Error simulation</h2>
 Next-generation sequencing (NGS) technology has evolved rapidly in the last five years, leading to the generation of hundreds of millions of sequences (reads) in a single run. The number of generated reads varies between 1 million for long reads generated by Roche/454 sequencer (≈400 base pairs (bps)) and 2.4 billion for short reads generated by Illumina/Solexa and ABI/SOLIDTM sequencers (≈75 bps). The invention of the high-throughput sequencers has led to a significant cost reduction, e.g., a Megabase of DNA sequence costs only <DOLLAR/>0.1. Nevertheless, there is still a lack of efficient and accurate tools and algorithms to align (map) the sequence reades generated by NGS machines to a reference genome. Neither are there commonly agreed criteria or procedures to evaluate and understand the strengths and weaknesses of exisitng ones. 
 
 Existing tools and algorithms use different mapping techniques and thus provides different trade-offs between speed and quality of the mapping. For instance, to reduce runtime, the quality is often compromised by neglecting base quality score, limiting the number of allowed mismatches, disabling gapped alignment or limiting the gap length, and/or ignoring SNP information.
@@ -58,7 +60,7 @@ c) Different error types and ratio between them. So not only substitution errors
 
 d) Platform specific errors. Some platform tend to introduce specific errors which are mostly dependent on the underlying sequence (e.g. homopolymers or specific patterns). 
 
-
+A set of 9000 segregating sites were randomly selected from the sequence to be used as candidate QTL loci in two different ways, one a randomly sampled set and the other being a randomly sampled set with the restriction that their minor allele frequency should exceed 0.05.
 
 
 <h2>References</h2>
