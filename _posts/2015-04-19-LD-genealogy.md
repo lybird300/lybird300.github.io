@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Linkage Disequlibrium (LD) mapping and coalescent"
+title: "Linkage Disequlibrium (LD) and genealogy"
 date: 2015-04-19
 ---
 Two loci are said to be in linkage equilibrium (LE) if their inheritance is an independent event. If the alleles at those loci are non-randomly inherited then we say that they are at linkage disequilibrium (LD). LD is most commonly caused by physical linkage of genes. When two genes are inherited on the same chromosome, depending on their distance and the likelihood of recombination between the loci they can be at high LD. However LD can be also observed due to functional interactions where even genes from different chromosomes can jointly confer evolutionary selected phenotype or can affect the viability of potential offspring. In families LD is highest because of the lowest numbers of recombination events (fewest number of meiosis events). This is especially true between inbred lines. In populations LD exists because of selection, physical closeness of the genes that causes low recombination rates or due to recent crossing or migration. On a population level, processes that influence linkage disequilibrium include genetic linkage, epistatic natural selection, rate of recombination, mutation, genetic drift, random mating, genetic hitchhiking and gene flow.
