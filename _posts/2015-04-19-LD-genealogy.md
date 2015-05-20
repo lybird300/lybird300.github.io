@@ -3,42 +3,14 @@ layout: post
 title: "Linkage Disequlibrium (LD) mapping and coalescent"
 date: 2015-04-19
 ---
-In a finite homogeneous population all individuals will
-be related to some extent. Individuals sharing a founder
-mutation will have higher degree of relatedness, or IBD, in
-the region around the founder mutation. In case-control
-samples, increased relatedness in a region only among the
-affected individuals is evidence in favor of the location of
-a causative mutation in that region. Identification of
-relatedness is, therefore, of great interest in medical
-genetics,
-
-Linkage disequilibrium (LD) refers to the nonrandom association of alleles in haplotypes. Such associations underlie all forms of genetic mapping (a process of establishing the locations of genes on the chromosomes), including the fine scale mapping of human disease loci.
-
 Two loci are said to be in linkage equilibrium (LE) if their inheritance is an independent event. If the alleles at those loci are non-randomly inherited then we say that they are at linkage disequilibrium (LD). LD is most commonly caused by physical linkage of genes. When two genes are inherited on the same chromosome, depending on their distance and the likelihood of recombination between the loci they can be at high LD. However LD can be also observed due to functional interactions where even genes from different chromosomes can jointly confer evolutionary selected phenotype or can affect the viability of potential offspring. In families LD is highest because of the lowest numbers of recombination events (fewest number of meiosis events). This is especially true between inbred lines. In populations LD exists because of selection, physical closeness of the genes that causes low recombination rates or due to recent crossing or migration. On a population level, processes that influence linkage disequilibrium include genetic linkage, epistatic natural selection, rate of recombination, mutation, genetic drift, random mating, genetic hitchhiking and gene flow.
 
-Genetic Linkage occurs when particular genetic loci or alleles for genes are inherited jointly. Genetic loci on the same chromosome are physically connected and tend to segregate together during meiosis, and are thus genetically linked.
-
-
-Genetic polymorphism is the result of mutations along the branches of genealogical trees. 
-
-LD is created by genetic drift, selection (hitchhiking?), and admixture; it is reduced by recombination and gene conversion
-
-All existing copies of a unique
-mutation can be traced back to the most-recent common
-ancestor (MRCA) of that mutation. Each haplotype that
-contains the mutation must also have inherited from the
-MRCA a small piece of chromosome surrounding the
-mutation. Different haplotypes might carry different
-pieces, depending on the history of recombination. Alleles at polymorphic marker loci within the region
-covered by these pieces of chromosome will be in LD with
-the mutation.
+Gene variations that cause human diseases are the result of mutations. All existing copies of a unique mutation can be traced back to the most-recent common ancestor (MRCA) of that mutation. The descendants of the individual with that chromosome may inherit the chromosome or different segments of the chromosome, depending on the history of recombination. But we know that descendants who have the same disease must have inherited a segment containing the disease mutation. Other loci within the region covered by these pieces of chromosome will be in LD with the mutation and alleles at these loci may become polymorphic markers of the disease-causing mutation.
 
 Recombination is the major process that breaks down the associations between SNPs. It is unclear whether haplotype block boundaries are due to recombination hotspots, or are simply the result of recombination events that happened to occur there. If the blocks are due to hotspots, then perhaps they will be common across populations. If the blocks are due to regular recombination events, then populations may or may not share them, depending on how long ago the recombination events occurred. When large chromosomal regions are examined, the regions with high association have less recombination and less genetic variation. 
 
-SNPs are the preferred marker type of LD mapping because of their abundancy in the genome, however, large differences in the
-density of SNPs exist over the genome with regard to the genealogical process, mutation rate, selective regimes, and the  recombination and gene conversion rates per base pair.Considering whole haplotypes consisting of several adjacent
-markers rather than single markers one at a time
+Traditional linkage analysis relies on well-characterized pedigrees to locate the mutation. Often the pedigree information we can obtain only trace back a few generations, and the number of meiosis observed in pedigree is not very big. We know that the more meiosis, the more opportunities for recombination to take place, and the shorter the co-inherited region surrounding the mutation. Limited meiosis means relatively low recombination rate in nearby regions of the mutation. Thus, traditional linkage analysis has relatively small resolution. It is likely to narrow down to chromosomes regions that cover several Mb of DNA sequence and contain several hundred genes. 
 
-None of the markers are individually strongly associated with phenotype.
+In contrast, association studies focus on unrelated individuals with the same disease. These individuals are unrelated in the sense that they are genetically distant after many generations, so there will be much more meiosis and much more opportunities for recombination to take place. Thus, association analysis allows for finer-scale localization/mapping of human disease loci than linkage analysis. Association studies can find surrounding segments measured in KBs.
 
+So in both linkage and association studies, what actually matters is the underlying genealogy. LD mapping essentially utilizes the genealogical distance between unrelated individuals, and it assumes the distance resulted from pure genetic events such as mutation and recombination. However, when we talk about population-wide gene evolution over tens of hundreds of generations, some other influential factors come into the picture, for example, natural selection, population structure, historical events such as migration and bottleneck. These factors jointly produce background expectations about human genome sequence variations that needed to be distinguished from common disease mutations.
