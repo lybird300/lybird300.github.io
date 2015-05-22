@@ -20,16 +20,15 @@ Use this option when you prefer a fixed number of mutation sites
 <pre><code>random_seed 183122717</code></pre>   
 This option specifies a particular random number seedUseful for debugging or recreating a previous run. If a seed of zero is supplied, or the keyword is not found, a random seed will be generated from the time and process id of the job. 
 
-<pre><code># length &lt;sequence length in bp (base pair)&gt;<br/>
+<pre><code># length &lt;sequence length in bp (base pair)&gt;
 length 200</code></pre>
 
-<pre><code># mutation_rate &lt;mutation rate per bp per generation&gt;<br/>
+<pre><code># mutation_rate &lt;mutation rate per bp per generation&gt;
 mutation_rate 1.5e-8</code></pre>
 
-<pre><code># recomb_file <file_name><br/>
+<pre><code># recomb_file &lt;file_name&gt;
 recomb_file model.test</code></pre>
-This option specifies the file describing the genetic map to be used (<a href="http://lybird300.github.io/2015/04/21/gene-maps.html">a brief introduction of genetic map</a>). The file has two columns separated by whitespace:
-<pre><code>&lt;position (kb)&gt; &lt;recomb prob per bp per generation&gt;</code></pre>
+This option specifies the file describing the genetic map to be used (<a href="http://lybird300.github.io/2015/04/21/gene-maps.html">a brief introduction of genetic map</a>). The file has two columns separated by whitespace:<pre><code>&lt;position (kb)&gt; &lt;recomb prob per bp per generation&gt;</code></pre>
 The first column gives a base-pair position; the second column sets the crossover recombination rate, per generation, from that point until either the end of the sequence region or the position specified by the next line. The basepair positions in the first column must be in strictly increasing order. #The first line of the genetic map file also specifies the recombination rate from the beginning of the region to the base-pair position of that line.
 
 Gene conversion is specified by the following parameters:
@@ -54,7 +53,7 @@ deletion_rate 1.0e-7
 # <i>pop_size</i> indicates the effective present-day population size
 # sample_size &lt;pop id&gt; &lt;n sample&gt;
 # <i>sample_size</i> indicates the number of sampled 
-pop_define 1 european
+<pre><code>pop_define 1 european
 pop_define 3 african-american
 pop_define 4 asian
 pop_define 5 african
@@ -73,12 +72,10 @@ sample_size 4 10
 
 #african
 pop_size 5 100000
-sample_size 5 10
+sample_size 5 10</code></pre>
 
-#Parameters that define the demographic history of the populations are as follows. They can be supplied in any order.
-#pop_event migration_rate &lt;label&gt; &lt;source pop id&gt; &lt;target pop id&gt; &lt;T&gt; &lt;probability per chrom per gen&gt;
-# time T is measured in generations and increases going into the past (present = 0); It can be fractional so is defined as a double value
-# Labels are used only to provide human readable output.
+Parameters that define the demographic history of the populations are as follows. They can be supplied in any order.
+<pre><code>#pop_event migration_rate &lt;label&gt; &lt;source pop id&gt; &lt;target pop id&gt; &lt;T&gt; &lt;probability per chrom per gen&gt;
 pop_event migration_rate "afr->eur migration" 5 1 0. .000032
 pop_event migration_rate "eur->afr migration" 1 5 0 .000032
 pop_event migration_rate "afr->as migration" 5 4 0. .000008
@@ -86,36 +83,36 @@ pop_event migration_rate "as->afr migration" 4 5 0 .000008
 pop_event migration_rate "afr->eur migration" 5 1 1996 0
 pop_event migration_rate "eur->afr migration" 1 5 1995 0
 pop_event migration_rate "afr->as migration" 5 4 1994 0
-pop_event migration_rate "as->afr migration" 4 5 1993 0
+pop_event migration_rate "as->afr migration" 4 5 1993 0</code></pre>
+time T is measured in generations and increases going into the past (present = 0); It can be fractional so is defined as a double value. Labels are used only to provide human readable output.
 
-# change_size sets the size for all times prior to T
-# pop_event change_size &lt;label&gt; &lt;pop id&gt; &lt;T&gt; &lt;size for time prior to T&gt;
+change_size sets the size for all times prior to T
+<pre><code>pop_event change_size &lt;label&gt; &lt;pop id&gt; &lt;T&gt; &lt;size for time prior to T&gt;
 pop_event change_size "agriculture - african" 5 200 24000
 pop_event change_size "agriculture - european" 1 350 7700
 pop_event change_size "agriculture - asian" 4 400 7700
-pop_event change_size "african pop size" 5 17000 12500
+pop_event change_size "african pop size" 5 17000 12500</code></pre>
 
-# exp_change_size is an exponential change
-#pop_event exp_change_size &lt;label&gt; &lt;pop id&gt; &lt;Tend&gt; &lt;Tstart&gt; &lt;final size&gt; &lt;start size&gt;
-pop_event exp_change_size "expansion" 1 50 500 10000 1000
-#The line above specifies an exponential population increase in population 1 that started 500 generations ago and ended 50 generations ago, increasing
-from 1000 to 10000.  Prior to 500 generations, the size remains at 1000 (unless changed by another pop_event parameter); more recently than 50 generations ago, the population size is whatever was set by the pop_size command.
+exp_change_size is an exponential change
+<pre><code>pop_event exp_change_size &lt;label&gt; &lt;pop id&gt; &lt;Tend&gt; &lt;Tstart&gt; &lt;final size&gt; &lt;start size&gt;
+pop_event exp_change_size "expansion" 1 50 500 10000 1000</code></pre>
+The line above specifies an exponential population increase in population 1 that started 500 generations ago and ended 50 generations ago, increasing from 1000 to 10000.  Prior to 500 generations, the size remains at 1000 (unless changed by another pop_event parameter); more recently than 50 generations ago, the population size is whatever was set by the pop_size command.
 
-#pop_event bottleneck &lt;label&gt; &lt;pop id&gt; &lt;T&gt; &lt;inbreeding coefficient&gt; 
+<pre><code>#pop_event bottleneck &lt;label&gt; &lt;pop id&gt; &lt;T&gt; &lt;inbreeding coefficient&gt; 
 pop_event bottleneck "african bottleneck" 5 1997 .008
 pop_event bottleneck "asian bottleneck" 4 1998 .067
 pop_event bottleneck "european bottleneck" 1 1999 .02
-pop_event bottleneck "OoA bottleneck" 1 3499 .085
+pop_event bottleneck "OoA bottleneck" 1 3499 .085</code></pre>
 
-#pop_event admix &lt;label&gt; &lt;admixed pop id&gt; &lt;source pop id&gt; &lt;T&gt; &lt;fraction of admixed chroms from source&gt;
-pop_event admix "african american admix" 3 1 5. .2
+<pre><code>#pop_event admix &lt;label&gt; &lt;admixed pop id&gt; &lt;source pop id&gt; &lt;T&gt; &lt;fraction of admixed chroms from source&gt;
+pop_event admix "african american admix" 3 1 5. .2</code></pre>
 
-#pop_event split &lt;label&gt; &lt;source pop id&gt; &lt;new pop id&gt; &lt;T&gt;
+<pre><code>#pop_event split &lt;label&gt; &lt;source pop id&gt; &lt;new pop id&gt; &lt;T&gt;
 pop_event split "african to aa" 5 3 7.0
 pop_event split "asian and european split" 1 4 2000
-pop_event split "out of Africa" 5 1 3500
+pop_event split "out of Africa" 5 1 3500</code></pre>
 
-#pop_event sweep &lt;label&gt; &lt;pop id&gt; &lt;end time&gt; &lt;selection coefficient&gt; &lt;position of selected allele (as fraction)&gt; &lt;final frequency&gt;
+<pre><code>#pop_event sweep &lt;label&gt; &lt;pop id&gt; &lt;end time&gt; &lt;selection coefficient&gt; &lt;position of selected allele (as fraction)&gt; &lt;final frequency&gt;
 pop_event sweep "selective sweep" 5 10000 .02 .5 .4</code></pre>
 
 <a name="output"></a><h2>Output files</h2>
