@@ -9,34 +9,31 @@ The program must be invoked with the following command-line arguments
 <li>"-o" (REQUIRED) specify the base name for output files. Output consists of a pair of files for each sampled population, one containing a list of all variant sites (with position and allele frequencies), the other containing the haplotypes for that population.</li><li>"-l" specify the log file that</li><li>"-s" specify the seg file that</li><li>"-proc" (REQUIRED) specify</li></ul>
 
 <h2>Set up parameters</h2>
-<pre><code># The parameter file defines the population structure and other input parameters, using keywords.<br/>  
-# Comments are indicated by "#" at the beginning of a line.
-# newlines don't matter.
+The parameter file defines the population structure and other input parameters, using keywords. In this file, comments are indicated by "#" at the beginning of a line. Newlines don't matter. The file includes the following options, which you can comment out by adding "#" to the beginning of each line.
 
-# Options that could be uncommented
-# infinite_sites yes
-# The default is a finite sites simulation, in that mutations occur at discrete sites; if multiple mutations occur <br/>at a single site, only the first one is retained. Setting "infinite_sites" to yes converts the output positions to <br/>floating point, with all mutations retained.
+<pre><code>infinite_sites yes</code></pre>
+The default is a finite sites simulation, in that mutations occur at discrete sites; if multiple mutations occur at a single site, only the first one is retained. Setting "infinite_sites" to yes converts the output positions to floating point, with all mutations retained.
 
-# number_mutation_sites 2000  
-# Use this option is you prefer a fixed number of mutation sites
+<pre><code>number_mutation_sites 2000</code></pre> 
+Use this option when you prefer a fixed number of mutation sites
 
-# random_seed 183122717   
-# This option specifies a particular random number seedUseful for debugging or recreating a previous run. If a seed <br/>of zero is supplied, <br/>or the keyword is not found, a random seed will be generated from the time and process id of <br/>the job. 
+<pre><code>random_seed 183122717</code></pre>   
+This option specifies a particular random number seedUseful for debugging or recreating a previous run. If a seed of zero is supplied, or the keyword is not found, a random seed will be generated from the time and process id of the job. 
 
-# length &lt;sequence length in bp (base pair)&gt;.
-length 200
+<pre><code># length &lt;sequence length in bp (base pair)&gt;<br/>
+length 200</code></pre>
 
-# mutation_rate &lt;mutation rate per bp per generation&gt;
-mutation_rate 1.5e-8
+<pre><code># mutation_rate &lt;mutation rate per bp per generation&gt;<br/>
+mutation_rate 1.5e-8</code></pre>
 
-# recomb_file <file_name>
-# This option specifies the file describing the genetic map to be used (<a href="http://lybird300.github.io/2015/04/21/gene-maps.html">a brief introduction of genetic map</a>). <br/>The file has two columns separated by whitespace: &lt;position (kb)&gt; &lt;recomb prob per bp per generation&gt;<br/>
-# The first column gives a base-pair position; the second column sets the crossover recombination rate, per generation, from that point until either the end of the sequence region or the position specified by the next line.
-#The basepair positions in the first column must be in strictly increasing order. #The first line of the genetic map file also specifies the recombination rate from the beginning of the region to the base-pair position of that line.
-recomb_file model.test
+<pre><code># recomb_file <file_name><br/>
+recomb_file model.test</code></pre>
+This option specifies the file describing the genetic map to be used (<a href="http://lybird300.github.io/2015/04/21/gene-maps.html">a brief introduction of genetic map</a>). The file has two columns separated by whitespace:
+<pre><code>&lt;position (kb)&gt; &lt;recomb prob per bp per generation&gt;</code></pre>
+The first column gives a base-pair position; the second column sets the crossover recombination rate, per generation, from that point until either the end of the sequence region or the position specified by the next line. The basepair positions in the first column must be in strictly increasing order. #The first line of the genetic map file also specifies the recombination rate from the beginning of the region to the base-pair position of that line.
 
-#Gene conversion is specified by the following parameters:
-#gene_conversion_rate &lt;rate of initiation per bp per generation&gt;
+Gene conversion is specified by the following parameters:
+<pre><code>#gene_conversion_rate &lt;rate of initiation per bp per generation&gt;<br/>
 gene_conversion_rate 4.5e-9
 #gene_conversion_relative_rate &lt;rate of gene conversion initiation relative to crossover recombination rate per generation&gt;
 #gene_conversion_mean_tract_length &lt;the mean length of gene conversion tract in bp&gt;
