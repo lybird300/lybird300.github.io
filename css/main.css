@@ -32,10 +32,10 @@ pre, code{
 	text-align: left;
 }
 pre {border: solid 1px blue;
-	font-size: 2 em; 
+	font-size: 1.5em; 
  	color: black; 
 	margin: 10px; 
 	padding:10px; 
 	background: #FFFFB3}
-code {font-size:1.5em; 
+code {font-size:1.3em; 
 	color: #008099}
