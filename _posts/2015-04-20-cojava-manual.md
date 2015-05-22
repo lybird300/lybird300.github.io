@@ -46,7 +46,7 @@ Any population that appears in the simulation, either as a source of samples or 
 <pre><code>pop_define &lt;pop id&gt; &lt;label&gt;
 pop_size &lt;pop id&gt; &lt;size&gt;
 sample_size &lt;pop id&gt; &lt;n sample&gt;</code></pre>
-<code>pop id</code> is an integer ID of the population, used to refer to the population when specifying demographic events. <code>label</code> is human-readable name for the population (a string with no spaces and not put in quotes).<code>pop_size</code> indicates the effective present-day population size. <code>sample_size</code> indicates the number of sampled individuals. For example,
+<code>pop id</code> is an integer ID of the population, used to refer to the population when specifying demographic events. <code>label</code> is human-readable name for the population (a string with no spaces and not put in quotes). <code>pop_size</code> indicates the effective present-day population size. <code>sample_size</code> indicates the number of sampled individuals. For example,
 <pre><code>pop_define 1 european
 pop_define 3 african-american
 pop_define 4 asian
@@ -68,7 +68,7 @@ sample_size 4 10
 pop_size 5 100000
 sample_size 5 10</code></pre>
 
-Parameters that define the demographic history of the populations are as follows. They can be supplied in any order.
+Parameters that define the demographic history of the populations are as follows and they can be supplied in any order.
 <pre><code>#pop_event migration_rate &lt;label&gt; &lt;source pop id&gt; &lt;target pop id&gt; &lt;T&gt; &lt;probability per chrom per gen&gt;
 pop_event migration_rate "afr->eur migration" 5 1 0. .000032
 pop_event migration_rate "eur->afr migration" 1 5 0 .000032
@@ -78,19 +78,18 @@ pop_event migration_rate "afr->eur migration" 5 1 1996 0
 pop_event migration_rate "eur->afr migration" 1 5 1995 0
 pop_event migration_rate "afr->as migration" 5 4 1994 0
 pop_event migration_rate "as->afr migration" 4 5 1993 0</code></pre>
-time T is measured in generations and increases going into the past (present = 0); It can be fractional so is defined as a double value. Labels are used only to provide human readable output.
+Time <code>T</code> is measured in generations and increases going into the past (present = 0); It can be fractional so is defined as a double value. Labels are used only to provide human readable output.
 
-change_size sets the size for all times prior to T
+You can also use<code>change_size</code> to set the population size for all times prior to <code>T</code>
 <pre><code>pop_event change_size &lt;label&gt; &lt;pop id&gt; &lt;T&gt; &lt;size for time prior to T&gt;
 pop_event change_size "agriculture - african" 5 200 24000
 pop_event change_size "agriculture - european" 1 350 7700
 pop_event change_size "agriculture - asian" 4 400 7700
 pop_event change_size "african pop size" 5 17000 12500</code></pre>
 
-exp_change_size is an exponential change
+<code>exp_change_size</code> is used to indicate an exponential change. The following example specifies an exponential population increase in population 1 that started 500 generations ago and ended 50 generations ago, increasing from 1000 to 10000. Prior to 500 generations, the size remains at 1000 (unless changed by another pop_event parameter); more recently than 50 generations ago, the population size is whatever was set by the pop_size command.
 <pre><code>pop_event exp_change_size &lt;label&gt; &lt;pop id&gt; &lt;Tend&gt; &lt;Tstart&gt; &lt;final size&gt; &lt;start size&gt;
 pop_event exp_change_size "expansion" 1 50 500 10000 1000</code></pre>
-The line above specifies an exponential population increase in population 1 that started 500 generations ago and ended 50 generations ago, increasing from 1000 to 10000.  Prior to 500 generations, the size remains at 1000 (unless changed by another pop_event parameter); more recently than 50 generations ago, the population size is whatever was set by the pop_size command.
 
 <pre><code>#pop_event bottleneck &lt;label&gt; &lt;pop id&gt; &lt;T&gt; &lt;inbreeding coefficient&gt; 
 pop_event bottleneck "african bottleneck" 5 1997 .008
