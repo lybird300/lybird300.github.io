@@ -53,7 +53,7 @@ In addition to the genetic variations of human populations, other characteristic
 One important part is the integration of selection effects.
 
 <h2>Choosing Markers</h2>
-
+We often exclude the causal variants from the sample, because it is very unlikely that the causal mutation itself is genotyped in a real genome-wide study.
 We can also use a Tag SNP selection algorithm such as <a href="http://www.broadinstitute.org/tagger-0">Tagger in Haploview</a>. A <b>tag SNP</b> is a representative single nucleotide polymorphism (SNP) in a region of the genome with high linkage disequilibrium that represents a group of SNPs called a haplotype. It is possible to identify genetic variation and association to phenotypes without genotyping every SNP in a chromosomal region. This reduces the expense and time of mapping genome areas associated with disease, since it eliminates the need to study every individual SNP. Tag SNPs are useful in whole-genome SNP association studies in which hundreds of thousands of SNPs across the entire genome are genotyped.
 
 When a group of SNPs are inherited together because of high LD there tends to be redundant information. The selection of a tag SNP as a representative of these groups reduces the amount of redundancy when analyzing parts of the genome associated with traits/diseases. The regions of the genome in high LD that harbor a specific set of SNPs that are inherited together are also known as haplotypes. Therefore tag SNPs are representative of all SNPs within a haplotype.
