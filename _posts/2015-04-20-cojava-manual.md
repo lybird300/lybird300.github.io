@@ -28,15 +28,16 @@ mutation_rate 1.5e-8</code></pre>
 
 <pre><code># recomb_file &lt;file_name&gt;
 recomb_file model.test</code></pre>
-This option specifies the file describing the genetic map to be used (<a href="http://lybird300.github.io/2015/04/21/gene-maps.html">a brief introduction of genetic map</a>). The file has two columns separated by whitespace:<pre><code>&lt;position (kb)&gt; &lt;recomb prob per bp per generation&gt;</code></pre>
+This option specifies the file describing the genetic map to be used (<a href="http://lybird300.github.io/2015/04/21/gene-maps.html">a brief introduction of genetic map</a>). The file has two columns separated by whitespace:
+<pre><code>&lt;position (kb)&gt; &lt;recomb prob per bp per generation&gt;</code></pre>
 The first column gives a base-pair position; the second column sets the crossover recombination rate, per generation, from that point until either the end of the sequence region or the position specified by the next line. The basepair positions in the first column must be in strictly increasing order. #The first line of the genetic map file also specifies the recombination rate from the beginning of the region to the base-pair position of that line.
 
 Gene conversion is specified by the following parameters:
-<pre><code>#gene_conversion_rate &lt;rate of initiation per bp per generation&gt;<br/>
+<pre><code>#gene_conversion_rate &lt;rate of initiation per bp per generation&gt;
 gene_conversion_rate 4.5e-9
 #gene_conversion_relative_rate &lt;rate of gene conversion initiation relative to crossover recombination rate per generation&gt;
 #gene_conversion_mean_tract_length &lt;the mean length of gene conversion tract in bp&gt;
-#Default value is 500 bp
+#Default value is 500 bp</code></pre>
 
 # rare event rates 
 inversion_rate 1.0e-7
