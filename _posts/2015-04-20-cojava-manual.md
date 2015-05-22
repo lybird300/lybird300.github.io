@@ -5,13 +5,7 @@ date: 2015-04-20
 ---
 <h2>Initiate CoJava</h2>
 The program must be invoked with the following command-line arguments
-<pre><code>
-"-p" (REQUIRED) specifies the parameter file, which is a text file that describes the demographic model to be simulated.
-"-o" (REQUIRED) specify the base name for output files.  Output consists of a pair of files for each sampled population, one containing a list of all variant sites (with position and allele frequencies), the other containing the haplotypes for that population.
-"-l" specify the log file that
-"-s" specify the seg file that
-"-proc" (REQUIRED) specify 
-</code></pre>
+<pre><code>"-p" (REQUIRED) specifies the parameter file, which is a text file that describes the demographic model to be simulated.<br/>"-o" (REQUIRED) specify the base name for output files.  Output consists of a pair of files for each sampled population, one containing a list of all variant sites (with position and allele frequencies), the other containing the haplotypes for that population.<br/>"-l" specify the log file that<br/>"-s" specify the seg file that<br/>"-proc" (REQUIRED) specify </code></pre>
 
 <h2>Set up parameters</h2>
 <pre><code>
@@ -126,7 +120,6 @@ pop_event split "out of Africa" 5 1 3500
 
 #pop_event sweep &lt;label&gt; &lt;pop id&gt; &lt;end time&gt; &lt;selection coefficient&gt; &lt;position of selected allele (as fraction)&gt; &lt;final frequency&gt;
 pop_event sweep "selective sweep" 5 10000 .02 .5 .4
-
 </code></pre>
 
 <a name="output"></a><h2>Output files</h2>
