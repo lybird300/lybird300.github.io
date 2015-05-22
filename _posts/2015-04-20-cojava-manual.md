@@ -52,19 +52,19 @@ pop_define 3 african-american
 pop_define 4 asian
 pop_define 5 african
 
-#european
+# European
 pop_size 1 100000
 sample_size 1 10
 
-#african american
+# African American
 pop_size 3 100000
 sample_size 3 10
 
-#asian
+# Asian
 pop_size 4 100000
 sample_size 4 10
 
-#african
+# African
 pop_size 5 100000
 sample_size 5 10</code></pre>
 
@@ -91,21 +91,21 @@ pop_event change_size "african pop size" 5 17000 12500</code></pre>
 <pre><code># pop_event exp_change_size &lt;label&gt; &lt;pop id&gt; &lt;Tend&gt; &lt;Tstart&gt; &lt;final size&gt; &lt;start size&gt;
 pop_event exp_change_size "expansion" 1 50 500 10000 1000</code></pre>
 
-<pre><code>#pop_event bottleneck &lt;label&gt; &lt;pop id&gt; &lt;T&gt; &lt;inbreeding coefficient&gt; 
+<pre><code># pop_event bottleneck &lt;label&gt; &lt;pop id&gt; &lt;T&gt; &lt;inbreeding coefficient&gt; 
 pop_event bottleneck "african bottleneck" 5 1997 .008
 pop_event bottleneck "asian bottleneck" 4 1998 .067
 pop_event bottleneck "european bottleneck" 1 1999 .02
 pop_event bottleneck "OoA bottleneck" 1 3499 .085</code></pre>
 
-<pre><code>#pop_event admix &lt;label&gt; &lt;admixed pop id&gt; &lt;source pop id&gt; &lt;T&gt; &lt;fraction of admixed chroms from source&gt;
+<pre><code># pop_event admix &lt;label&gt; &lt;admixed pop id&gt; &lt;source pop id&gt; &lt;T&gt; &lt;fraction of admixed chroms from source&gt;
 pop_event admix "african american admix" 3 1 5. .2</code></pre>
 
-<pre><code>#pop_event split &lt;label&gt; &lt;source pop id&gt; &lt;new pop id&gt; &lt;T&gt;
+<pre><code># pop_event split &lt;label&gt; &lt;source pop id&gt; &lt;new pop id&gt; &lt;T&gt;
 pop_event split "african to aa" 5 3 7.0
 pop_event split "asian and european split" 1 4 2000
 pop_event split "out of Africa" 5 1 3500</code></pre>
 
-<pre><code>#pop_event sweep &lt;label&gt; &lt;pop id&gt; &lt;end time&gt; &lt;selection coefficient&gt; &lt;position of<br/> selected allele (as fraction)&gt; &lt;final frequency&gt;
+<pre><code># pop_event sweep &lt;label&gt; &lt;pop id&gt; &lt;end time&gt; &lt;selection coefficient&gt; &lt;position of<br/> selected allele (as fraction)&gt; &lt;final frequency&gt;
 pop_event sweep "selective sweep" 5 10000 .02 .5 .4</code></pre>
 
 <h2><a name="output">Output files</a></h2>
