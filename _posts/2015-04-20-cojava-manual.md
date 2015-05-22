@@ -8,20 +8,20 @@ The program must be invoked with the following command-line arguments
 <pre><code>"-p" (REQUIRED) specifies the parameter file, which is a text file that describes the demographic model to be simulated.<br/>"-o" (REQUIRED) specify the base name for output files.  Output consists of a pair of files for each sampled population, one containing a list of all variant sites (with position and allele frequencies), the other containing the haplotypes for that population.<br/>"-l" specify the log file that<br/>"-s" specify the seg file that<br/>"-proc" (REQUIRED) specify </code></pre>
 
 <h2>Set up parameters</h2>
-<pre><code>
-# The parameter file defines the population structure and other input parameters, using keywords.  
+You can directly copy and paste the context below into a parameter file.<pre><code>
+# The parameter file defines the population structure and other input parameters, using keywords.<br/>  
 # Comments are indicated by "#" at the beginning of a line.
 # newlines don't matter.
 
-#-- options that could be uncommented
-#infinite_sites yes
-#The default is a finite sites simulation, in that mutations occur at discrete sites; if multiple mutations occur at a single site, only the first one is retained.  Setting "infinite_sites" to yes converts the output positions to floating point, with all mutations retained.
+# Options that could be uncommented
+# infinite_sites yes
+# The default is a finite sites simulation, in that mutations occur at discrete sites; if multiple mutations occur <br/>at a single site, only the first one is retained.  Setting "infinite_sites" to yes converts the output positions to <br/>floating point, with all mutations retained.
 
-#number_mutation_sites 2000  # Fixed number of mutation sites
+# number_mutation_sites 2000  
+# Fixed number of mutation sites
 
-#random_seed 183122717   # Specifies a particular random number seed
-# Useful for debugging or recreating a previous run.  If a seed of zero is supplied, or the keyword is not found, a random seed will be generated from the 
-time and process id of the job. 
+# random_seed 183122717   
+# A particular random number seedUseful for debugging or recreating a previous run. If a seed of zero is supplied, <br/>or the keyword is not found, a random seed will be generated from the time and process id of the job. 
 
 # length &lt;sequence length in bp (base pair)&gt;.
 length 200
