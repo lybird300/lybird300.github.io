@@ -54,10 +54,4 @@ ol.posts {
 ol.posts li {
     list-style: none;
 }
-.post pre,
-.post code {
-  background-color: #fff8c0;
-  font-size: 15px;
-    white-space: pre-wrap;       /* CSS 3 */
-    padding: 10px;
-}
+code{background:#F8F8FF; border:black dashed 1px; padding:6px; white-space: pre-wrap;}
