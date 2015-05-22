@@ -111,7 +111,7 @@ pop_event sweep "selective sweep" 5 10000 .02 .5 .4</code></pre>
 <h2><a name="output">Output files</a></h2>
 <p>cosi provides two output files for each simulated population, named out.hap-? and out.pos-? (replace the '?' with a specific population index --  1 european, 3 african-american, 4 asian, 5 african).</p>
 <p>The out.hap-? file contains the simulated samples (chromosomes/haplotypes). Each line corresponds to a sample, including ID of the chromosome (sample ID), label of the population this chromosome belongs to, and then the simulated sequence (sites separated by a blank space). The original state and the mutation are represented by "2" and "1" respectively. The file is formatted as below:</p>
-<table border="0">
+<pre><table border="0">
   <tr>
     <th>Chrom #</th>
     <th>Pop #</th> 
@@ -207,9 +207,9 @@ pop_event sweep "selective sweep" 5 10000 .02 .5 .4</code></pre>
     <td>2</td>
     <td>2</td>
   </tr>
-</table>
+</table></pre>
 <p>The out.pos-? file contains the information for each segregating site (i.e., SNP), includling its ID (starting from 0), ID of the chromosome (i.e., sample ID) the SNP is on, chromosome position of the SNP, and the frequency of each allelic state of the SNP. The file has the following format:</p>
-<table border="0">
+<pre><table border="0">
   <tr>
     <th>SNP #</th>
     <th>Chrom #</th> 
@@ -264,6 +264,6 @@ pop_event sweep "selective sweep" 5 10000 .02 .5 .4</code></pre>
     <td>2</td>
     <td>0.8462</td>
   </tr>
-</table>
+</table></pre>
 
 <a href="">Java Doc</a>
