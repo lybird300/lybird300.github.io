@@ -21,7 +21,7 @@ The program must be invoked with the following command-line arguments
 # Use this option is you prefer a fixed number of mutation sites
 
 # random_seed 183122717   
-# This option specifies a particular random number seedUseful for debugging or recreating a previous run. If a seed of zero is supplied, <br/>or the keyword is not found, a random seed will be generated from the time and process id of the job. 
+# This option specifies a particular random number seedUseful for debugging or recreating a previous run. If a seed <br/>of zero is supplied, <br/>or the keyword is not found, a random seed will be generated from the time and process id of <br/>the job. 
 
 # length &lt;sequence length in bp (base pair)&gt;.
 length 200
