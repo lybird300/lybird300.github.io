@@ -15,7 +15,7 @@ nav ul, footer ul {
 }
 nav ul li, footer ul li {
     margin-right: 20px;
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 a {
     text-decoration: none;
@@ -29,8 +29,8 @@ h1 {
     font-family:'Helvetica', 'Arial', 'Sans-Serif';
 }
 p {
-    font-size: 1.5em;
-    line-height: 1.4em;
+    font-size: 1.2em;
+    line-height: 1em;
     color: #333;
 }
 footer {
@@ -40,20 +40,20 @@ footer {
 
 ul.posts { 
     margin: 20px auto 40px; 
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 ul.posts li {
 list-style: none;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 ol.posts { 
     margin: 20px auto 40px; 
-    font-size: 1.2em;
+    font-size: 1em;
 }
 ol.posts li {
 list-style: none;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 pre, code{
 	direction: ltr;
