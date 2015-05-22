@@ -88,7 +88,7 @@ pop_event change_size "agriculture - asian" 4 400 7700
 pop_event change_size "african pop size" 5 17000 12500</code></pre>
 
 <code>exp_change_size</code> is used to indicate an exponential change. The following example specifies an exponential population increase in population 1 that started 500 generations ago and ended 50 generations ago, increasing from 1000 to 10000. Prior to 500 generations, the size remains at 1000 (unless changed by another pop_event parameter); more recently than 50 generations ago, the population size is whatever was set by the pop_size command.
-<pre><code>pop_event exp_change_size &lt;label&gt; &lt;pop id&gt; &lt;Tend&gt; &lt;Tstart&gt; &lt;final size&gt; &lt;start size&gt;
+<pre><code># pop_event exp_change_size &lt;label&gt; &lt;pop id&gt; &lt;Tend&gt; &lt;Tstart&gt; &lt;final size&gt; &lt;start size&gt;
 pop_event exp_change_size "expansion" 1 50 500 10000 1000</code></pre>
 
 <pre><code>#pop_event bottleneck &lt;label&gt; &lt;pop id&gt; &lt;T&gt; &lt;inbreeding coefficient&gt; 
@@ -105,10 +105,10 @@ pop_event split "african to aa" 5 3 7.0
 pop_event split "asian and european split" 1 4 2000
 pop_event split "out of Africa" 5 1 3500</code></pre>
 
-<pre><code>#pop_event sweep &lt;label&gt; &lt;pop id&gt; &lt;end time&gt; &lt;selection coefficient&gt; &lt;position of selected allele (as fraction)&gt; &lt;final frequency&gt;
+<pre><code>#pop_event sweep &lt;label&gt; &lt;pop id&gt; &lt;end time&gt; &lt;selection coefficient&gt; &lt;position of<br/> selected allele (as fraction)&gt; &lt;final frequency&gt;
 pop_event sweep "selective sweep" 5 10000 .02 .5 .4</code></pre>
 
-<a name="output"></a><h2>Output files</h2>
+<h2><a name="output">Output files</a></h2>
 <p>cosi provides two output files for each simulated population, named out.hap-? and out.pos-? (replace the '?' with a specific population index --  1 european, 3 african-american, 4 asian, 5 african).</p>
 <p>The out.hap-? file contains the simulated samples (chromosomes/haplotypes). Each line corresponds to a sample, including ID of the chromosome (sample ID), label of the population this chromosome belongs to, and then the simulated sequence (sites separated by a blank space). The original state and the mutation are represented by "2" and "1" respectively. The file is formatted as below:</p>
 <table border="0">
