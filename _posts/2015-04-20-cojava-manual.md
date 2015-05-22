@@ -119,8 +119,7 @@ pop_event split "asian and european split" 1 4 2000
 pop_event split "out of Africa" 5 1 3500
 
 #pop_event sweep &lt;label&gt; &lt;pop id&gt; &lt;end time&gt; &lt;selection coefficient&gt; &lt;position of selected allele (as fraction)&gt; &lt;final frequency&gt;
-pop_event sweep "selective sweep" 5 10000 .02 .5 .4
-</code></pre>
+pop_event sweep "selective sweep" 5 10000 .02 .5 .4</code></pre>
 
 <a name="output"></a><h2>Output files</h2>
 <p>cosi provides two output files for each simulated population, named out.hap-? and out.pos-? (replace the '?' with a specific population index --  1 european, 3 african-american, 4 asian, 5 african).</p>
