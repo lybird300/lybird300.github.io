@@ -37,19 +37,16 @@ Gene conversion is specified by the following parameters:
 gene_conversion_rate 4.5e-9</code></pre>
 You can also use <code>gene_conversion_relative_rate</code> to indicate the rate of gene conversion initiation relative to crossover recombination rate per generation, and <code>gene_conversion_mean_tract_length</code> to indicate the mean length of gene conversion tract in bp (the default value is 500 bp).
 
-Define rare event rates 
+Define rare event rates: 
 <pre><code>inversion_rate 1.0e-7
 insertion_rate 1.0e-7
 deletion_rate 1.0e-7</code></pre>
 
 Any population that appears in the simulation, either as a source of samples or in the history of those samples, must be defined in the file; at least one sampled population is required. The syntax for defining a population is:
-<pre><code>pop_define &lt;pop id&gt; &lt;label&gt;</code></pre>
-# <i>pop id</i> is an integer ID of the population, used to refer to the population when specifying demographic events.
-# <i>label</i> is human-readable name for the population (a string with no spaces and not put in quotes).
-# pop_size &lt;pop id&gt; &lt;size&gt;
-# <i>pop_size</i> indicates the effective present-day population size
-# sample_size &lt;pop id&gt; &lt;n sample&gt;
-# <i>sample_size</i> indicates the number of sampled 
+<pre><code>pop_define &lt;pop id&gt; &lt;label&gt;
+pop_size &lt;pop id&gt; &lt;size&gt;
+sample_size &lt;pop id&gt; &lt;n sample&gt;</code></pre>
+<code>pop id</code> is an integer ID of the population, used to refer to the population when specifying demographic events. <code>label</code> is human-readable name for the population (a string with no spaces and not put in quotes).<code>pop_size</code> indicates the effective present-day population size. <code>sample_size</code> indicates the number of sampled individuals. For example,
 <pre><code>pop_define 1 european
 pop_define 3 african-american
 pop_define 4 asian
