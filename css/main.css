@@ -1,7 +1,6 @@
 body {
     margin: 60px auto;
     width: 70%;
-    font-size: 1.2em;
 }
 #term{
     display: block;
@@ -10,10 +9,6 @@ body {
 }
 nav ul li, footer ul li {
     display: inline;
-    margin-right: 20px;
-    font-size: 1.5em;
-}
-ul li, ol li {
     margin-right: 20px;
     font-size: 1.2em;
 }
