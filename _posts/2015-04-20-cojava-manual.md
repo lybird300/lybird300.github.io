@@ -34,20 +34,16 @@ The first column gives a base-pair position; the second column sets the crossove
 
 Gene conversion is specified by the following parameters:
 <pre><code>#gene_conversion_rate &lt;rate of initiation per bp per generation&gt;
-gene_conversion_rate 4.5e-9
-#gene_conversion_relative_rate &lt;rate of gene conversion initiation relative to crossover recombination rate per generation&gt;
-#gene_conversion_mean_tract_length &lt;the mean length of gene conversion tract in bp&gt;
-#Default value is 500 bp</code></pre>
+gene_conversion_rate 4.5e-9</code></pre>
+You can also use <code>gene_conversion_relative_rate</code> to indicate the rate of gene conversion initiation relative to crossover recombination rate per generation, and <code>gene_conversion_mean_tract_length</code> to indicate the mean length of gene conversion tract in bp (the default value is 500 bp).
 
-# rare event rates 
-inversion_rate 1.0e-7
+Define rare event rates 
+<pre><code>inversion_rate 1.0e-7
 insertion_rate 1.0e-7
-deletion_rate 1.0e-7
+deletion_rate 1.0e-7</code></pre>
 
-# Population info
-# Any population that appears in the simulation, either as a source of samples or in the history of those samples, must be defined in the file; at least one sampled population is required.  
-# The syntax for defining a population is:
-# pop_define &lt;pop id&gt; &lt;label&gt;
+Any population that appears in the simulation, either as a source of samples or in the history of those samples, must be defined in the file; at least one sampled population is required. The syntax for defining a population is:
+<pre><code>pop_define &lt;pop id&gt; &lt;label&gt;</code></pre>
 # <i>pop id</i> is an integer ID of the population, used to refer to the population when specifying demographic events.
 # <i>label</i> is human-readable name for the population (a string with no spaces and not put in quotes).
 # pop_size &lt;pop id&gt; &lt;size&gt;
