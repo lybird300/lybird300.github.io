@@ -10,7 +10,7 @@ I first installed R-3.2.0 on the server and then used "read.table" to obtain the
 
 <h2>Useful Unix Commands (Bash commands)</h2>
 Extract gz files
-<pre><code>$ gzip -d file.gz</code></pre><br/>
+<pre><code>$ gzip -d file.gz</code></pre>
 Extract tar.gz files
 <pre><code>tar options file.tar.gz
 e.g., tar -xvf file.tar.gz </code></pre>, where
@@ -23,10 +23,10 @@ e.g., tar -xvf file.tar.gz </code></pre>, where
 </ul>
 Find out the number of rows and columns of a large file<br/>
 Columns: 
-<pre><code>awk: awk '{if( NF > max ) max = NF} END {print max}' filename</code></pre><br/>
+<pre><code>awk: awk '{if( NF > max ) max = NF} END {print max}' filename</code></pre>
 Rows:
 <pre><code>wc -l filename</code></pre>
-<blockquote>If the file is not that big, you can simply open it using the internal text editor of MobaXterm and then put the cursor on the last element of a line (wrap view). The row and column information of that position will be displayed at the bottom of the text editor. Be careful though. The number of columns may not be the number of meaningful items per line due to possible whitespaces. Once I miscalculated the number of items and used the wrong number as a default parameter value. Then it took me almost an entire day trying to figure out why the program did not produce expected results. Of course it couldn't, because it was fed wrong data!</blockquote>
+<blockquote>If the file is not that big, you can simply open it using the internal text editor of MobaXterm and then put the cursor on the last element of a line (wrap view). The row and column information of that position will be displayed at the bottom of the text editor. Be careful though. The number of columns may not be the number of meaningful items per line due to possible whitespaces. Once I miscalculated the number of items and used the wrong number as a default parameter value. Then I spent almost a day trying to figure out why the program did not produce expected results and eventually relized that the program was fed with wrong data!</blockquote>
 Display specific lines (based on line number) of a file using sed command
 <pre><code></code></pre>
 <pre><code></code></pre>
