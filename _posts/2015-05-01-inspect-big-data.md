@@ -9,8 +9,11 @@ To me, exploratory data analysis (EDA) is the most intriguing component of data 
 I first installed R-3.2.0 on the server and then used "read.table" to obtain the first line of "output.hap-1.test". Fifteen minutes later nothing was returned. It was still reading that single line!!! It seems that the only option left for me is to use Unix commands for EDA. Luckily, I'm not the only one who has encountered such a problem (see the references of this post). 
 
 <h2>Useful Unix Commands (Bash commands)</h2>
-Extract gz files:<code>$ gzip -d file.gz</code><br/>
-Extract tar.gz files:<code>tar options file.tar.gz</code>. For example, <code>tar -xvf file.tar.gz </code>, where
+Extract gz files
+<pre><code>$ gzip -d file.gz</code></pre><br/>
+Extract tar.gz files
+<pre><code>tar options file.tar.gz
+e.g., tar -xvf file.tar.gz </code></pre>, where
 <ul>
 <li>-z : Work on gzip compression automatically when reading archives.</li>
 <li>-x : Extract archives.</li>
@@ -20,10 +23,15 @@ Extract tar.gz files:<code>tar options file.tar.gz</code>. For example, <code>ta
 </ul>
 Find out the number of rows and columns of a large file<br/>
 Columns: 
-<code>awk: awk '{if( NF > max ) max = NF} END {print max}' filename</code><br/>
+<pre><code>awk: awk '{if( NF > max ) max = NF} END {print max}' filename</code></pre><br/>
 Rows:
-<code>wc -l filename</code>
-
+<pre><code>wc -l filename</code></pre>
+Display specific lines (based on line number) of a file using sed command
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
 <h2>References</h2>
 <ul>
 <li><a href="http://www.cureffi.org/2014/01/15/running-r-batch-mode-linux/">Running R in batch mode on Linux</a></li>
