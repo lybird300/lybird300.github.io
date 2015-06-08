@@ -33,14 +33,18 @@ $sed -n M,Np FILENAME</code></pre>
 The first example below prints out the 1st, 2nd, and 1050th lines. The second example below prints out the first two lines of the same file
 <pre><code>$sed -n -e 1p -e 2p -e 1050p /var/log/syslog
 $sed -n -e 1,2p /var/log/syslog</code></pre>
+If you want to output these lines to a new file, use something like
+<pre><code>sed -n -e '10,100p' input.txt > output.txt</code></pre>
 You can also display first N lines of a file using head command.
 <pre><code>$head -n N FILENAME
 e.g., $ head -n 15 /var/log/maillog</code></pre>
 Display last N lines of the file using tail command
 <pre><code>$tail -n N FILENAME
 e.g., $ tail -n 50 /var/log/messages</code></pre>
+print the number of characters in each line of a file
+<pre><code>awk '{ print length($0); }' FILENAME</code></pre>
 Count the number of specific characters in a line
-<pre><code></code></pre>
+
 <pre><code></code></pre>
 <h2>References</h2>
 <ul>
