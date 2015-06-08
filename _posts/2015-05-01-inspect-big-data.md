@@ -10,6 +10,8 @@ I first installed R-3.2.0 on the server and then used "read.table" to obtain the
 
 <h2>Useful Unix Commands (Bash commands)</h2>
 Stop an ongoing process: ctrl+z
+Examine the contents of a tarfile without unpacking it
+<pre><code>$ tar tvf project.tar</code></pre>
 Extract gz files
 <pre><code>$ gzip -d file.gz</code></pre>
 Extract tar.gz files
