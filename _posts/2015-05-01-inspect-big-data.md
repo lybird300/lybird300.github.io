@@ -29,9 +29,9 @@ Rows:
 <blockquote>If the file is not that big, you can simply open it using the internal text editor of MobaXterm and then put the cursor on the last element of a line (wrap view). The row and column information of that position will be displayed at the bottom of the text editor. Be careful though. The number of columns may not be the number of meaningful items per line due to possible whitespaces. Once I miscalculated the number of items and used the wrong number as a default parameter value. Then I spent almost a day trying to figure out why the program did not produce expected results and eventually relized that the program was fed with wrong data!</blockquote>
 Display specific lines (based on line number) of a file using sed command
 <pre><code>$ sed -n -e Xp -e Yp FILENAME
-$sed -n M,Np FILENAME</code></pre>
+$ sed -n M,Np FILENAME</code></pre>
 The first example below prints out the 1st, 2nd, and 1050th lines. The second example below prints out the first two lines of the same file
-<pre><code>$sed -n -e 1p -e 2p -e 1050p /var/log/syslog
+<pre><code>$ sed -n -e 1p -e 2p -e 1050p /var/log/syslog
 $sed -n -e 1,2p /var/log/syslog</code></pre>
 If you want to output these lines to a new file, use something like
 <pre><code>sed -n -e '10,100p' input.txt > output.txt</code></pre>
