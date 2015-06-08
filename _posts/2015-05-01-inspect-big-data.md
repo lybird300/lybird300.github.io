@@ -39,6 +39,7 @@ e.g., $ head -n 15 /var/log/maillog</code></pre>
 Display last N lines of the file using tail command
 <pre><code>$tail -n N FILENAME
 e.g., $ tail -n 50 /var/log/messages</code></pre>
+Count the number of specific characters in a line
 <pre><code></code></pre>
 <pre><code></code></pre>
 <h2>References</h2>
