@@ -9,6 +9,7 @@ To me, exploratory data analysis (EDA) is the most intriguing part of data scien
 I first installed R-3.2.0 on the server and then used "read.table" to obtain the first line of "output.hap-1.test". Fifteen minutes later nothing was returned. It was still reading that single line!!! It seems that the only option left for me is to use Unix commands for EDA. Luckily, I'm not the only one who has encountered such a problem (see the references of this post). 
 
 <h2>Useful Unix Commands (Bash commands)</h2>
+Stop an ongoing process: ctrl+z
 Extract gz files
 <pre><code>$ gzip -d file.gz</code></pre>
 Extract tar.gz files
@@ -41,8 +42,10 @@ e.g., $ head -n 15 /var/log/maillog</code></pre>
 Display last N lines of the file using tail command
 <pre><code>$tail -n N FILENAME
 e.g., $ tail -n 50 /var/log/messages</code></pre>
-print the number of characters in each line of a file
+Print the number of characters in each line of a file
 <pre><code>awk '{ print length($0); }' FILENAME</code></pre>
+Print the number of characters in a specific line (e.g., the first line) of a file
+<pre><code>awk 'NR==1{ print length($0); }' FILENAME</code></pre>
 Count the number of specific characters in a line
 
 <pre><code></code></pre>
