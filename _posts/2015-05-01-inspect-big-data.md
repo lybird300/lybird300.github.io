@@ -8,7 +8,7 @@ To me, exploratory data analysis (EDA) is the most intriguing part of data scien
 
 I first installed R-3.2.0 on the server and then used "read.table" to obtain the first line of "output.hap-1.test". Fifteen minutes later nothing was returned. It was still reading that single line!!! It seems that the only option left for me is to use Unix commands for EDA. Luckily, I'm not the only one who has encountered such a problem. After researching online I've collected some useful tips and UNIX commands, as shown below. You may also find the references of this post useful and worth reading.
 
-Notably, you may need to do many I/O opertions when exploring big files, such as reading parts of a file and then writing the contents to a new file. When this is the case, there are two things to remember. One thing is that there really isn't a good way to seek to a certain line in a file; in other words, eventually we have to read the file line by line. Thus, you may want to cut a huge file into smaller pieces and read these smaller files instead. The other thing is that parallelizing disk I/O is generally NOT a good idea. Hard disks do not like random I/O because they have to continuously seek around to get to the data. This applies ANY disk I/O on a single disk, regardless of whether there are separate files.
+You may need to do many I/O opertions when exploring big files, such as reading parts of a file and then writing the contents to a new file. When this is the case, there are two things to remember. One thing is that there really isn't a good way to seek to a certain line in a file; in other words, eventually we have to read the file line by line. Thus, you may want to cut a huge file into smaller pieces and read these smaller files instead (use bash command to split a file is more efficient than using a Java program). The other thing is that parallelizing disk I/O is generally NOT a good idea. Hard disks do not like random I/O because they have to continuously seek around to get to the data. This applies ANY disk I/O on a single disk, regardless of whether there are separate files, when different threads compete with one anohter in operating files on the same disk.
 
 Stop an ongoing process: ctrl+z
 Examine the contents of a tarfile without unpacking it
@@ -60,4 +60,5 @@ If you know the structure of a big file, instead of loading / reading the entire
 <li><a href="http://www.drbunsen.org/explorations-in-unix/">Explorations in Unix</a></li>
 <li><a href="http://blog.ouseful.info/2011/06/04/playing-with-large-ish-csv-files-and-using-them-as-a-database-edina-openurl-logs/">Playing With Large (ish) CSV Files</a></li>
 <li><a href="http://www.thegeekstuff.com/2009/08/10-awesome-examples-for-viewing-huge-log-files-in-unix/">10 Awesome Examples for Viewing Huge Log Files in Unix</a></li>
+<li><a href="http://stackoverflow.com/questions/2016894/easy-way-to-split-a-large-text-file">Easy Way to Split a Large Text File</a></li>
 </ul>
