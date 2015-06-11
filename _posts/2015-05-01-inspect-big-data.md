@@ -4,11 +4,12 @@ title: "Explore unknown big files"
 date: 2015-05-01
 ---
 <blockquote>The mechanic that would perfect his work must first sharpen his tools. -- Confucius</blockquote>
-To me, exploratory data analysis (EDA) is the most intriguing part of data science. I feel it is somewhat like autopsy -- both try to reveal the underlying story -- except that the goal of EDA is to revitalize the data. The task becomes even exiting when the data file to be inspected has unknown structure and huge size. Some of us have been searching the data set Daniel had created using CoJava and finally found them (or at least part of them) yesterday. And it is now my job to interpret the data, which include some pretty big files: one named "output.hap-1.test" of size 1.82GB and the other named "output.pos-1" of size 15.8MB. I have some clue about <a href="http://lybird300.github.io/2015/04/20/cojava-manual.html#anchor">what might be in that file </a>, but still need to be sure by peeking into them. Because of the daunting size of these files, I decided to inspect them remotely using <a href="http://mobaxterm.mobatek.net/">MobaXterm</a>, which Kirk has been using to demonstrating his CHAT program. (Did I mention that this PhD + MD is also good at computer programming?)
+To me, exploratory data analysis (EDA) is the most intriguing part of data science. I feel it is somewhat like autopsy -- both try to reveal the underlying story -- except that the goal of EDA is to revitalize the data. The task becomes even exiting when the data file to be inspected has unknown structure and huge size. Some of us have been searching the data set Daniel had created using CoJava and finally found them (or at least part of them) yesterday. And it is now my job to interpret the data, which include some pretty big files: one named "output.hap-1.test" of size 0.37TB. I have some clue about <a href="http://lybird300.github.io/2015/04/20/cojava-manual.html#anchor">what might be in that file </a>, but still need to be sure by peeking into them. Because of the daunting size of these files, I decided to inspect them remotely using <a href="http://mobaxterm.mobatek.net/">MobaXterm</a>, which Kirk has been using to demonstrating his CHAT program. (Did I mention that this PhD-MD is also good at computer programming?)
 
-I first installed R-3.2.0 on the server and then used "read.table" to obtain the first line of "output.hap-1.test". Fifteen minutes later nothing was returned. It was still reading that single line!!! It seems that the only option left for me is to use Unix commands for EDA. Luckily, I'm not the only one who has encountered such a problem (see the references of this post). 
+I first installed R-3.2.0 on the server and then used "read.table" to obtain the first line of "output.hap-1.test". Fifteen minutes later nothing was returned. It was still reading that single line!!! It seems that the only option left for me is to use Unix commands for EDA. Luckily, I'm not the only one who has encountered such a problem. After researching online I've collected some useful tips and UNIX commands, as shown below. You may also find the references of this post useful and worth reading.
 
-<h2>Useful Unix Commands (Bash commands)</h2>
+Notably, you may need to do many I/O opertions when exploring big files, such as reading parts of a file and then writing the contents to a new file. When this is the case, there are two things to remember. One thing is that there really isn't a good way to seek to a certain line in a file; in other words, eventually we have to read the file line by line. Thus, you may want to cut a huge file into smaller pieces and read these smaller files instead. The other thing is that parallelizing disk I/O is generally NOT a good idea. Hard disks do not like random I/O because they have to continuously seek around to get to the data. This applies ANY disk I/O on a single disk, regardless of whether there are separate files.
+
 Stop an ongoing process: ctrl+z
 Examine the contents of a tarfile without unpacking it
 <pre><code>$ tar tvf project.tar</code></pre>
@@ -49,8 +50,9 @@ Print the number of characters in each line of a file
 Print the number of characters in a specific line (e.g., the first line) of a file
 <pre><code>awk 'NR==1{ print length($0); }' FILENAME</code></pre>
 Count the number of specific characters in a line
-
 <pre><code></code></pre>
+
+If you know the structure of a big file, instead of loading / reading the entire file, you could split it into smaller chunks with the split command.
 <h2>References</h2>
 <ul>
 <li><a href="http://www.cureffi.org/2014/01/15/running-r-batch-mode-linux/">Running R in batch mode on Linux</a></li>
