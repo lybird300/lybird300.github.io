@@ -36,7 +36,7 @@ Display specific lines (based on line number) of a file using sed command
 $ sed -n M,Np FILENAME</code></pre>
 The first example below prints out the 1st, 2nd, and 1050th lines. The second example below prints out the first two lines of the same file
 <pre><code>$ sed -n -e 1p -e 2p -e 1050p /var/log/syslog
-$sed -n -e 1,2p /var/log/syslog</code></pre>
+$ sed -n -e 1,2p /var/log/syslog</code></pre>
 If you want to output these lines to a new file, use something like
 <pre><code>sed -n -e '10,100p' input.txt > output.txt</code></pre>
 You can also display first N lines of a file using head command.
@@ -50,9 +50,12 @@ Print the number of characters in each line of a file
 Print the number of characters in a specific line (e.g., the first line) of a file
 <pre><code>awk 'NR==1{ print length($0); }' FILENAME</code></pre>
 Count the number of specific characters in a line
-<pre><code></code></pre>
 
-If you know the structure of a big file, instead of loading / reading the entire file, you could split it into smaller chunks with the split command.
+
+If you know the structure of a big file, instead of loading / reading the entire file, you could split it into smaller chunks with the <a href="http://www.theunixschool.com/2012/10/10-examples-of-split-command-in-unix.html">split</a> command.
+<pre><code>split -l 500 -d -a 1 out.pos-1 out.pos-1_</code></pre>
+Or the <a href="http://www.theunixschool.com/2012/06/awk-10-examples-to-split-file-into.html">awk</a> command, which can handle header.
+
 <h2>References</h2>
 <ul>
 <li><a href="http://www.cureffi.org/2014/01/15/running-r-batch-mode-linux/">Running R in batch mode on Linux</a></li>
