@@ -53,8 +53,12 @@ Count the number of specific characters in a line
 
 
 If you know the structure of a big file, instead of loading / reading the entire file, you could split it into smaller chunks with the <a href="http://www.theunixschool.com/2012/10/10-examples-of-split-command-in-unix.html">split</a> command.
-<pre><code>split -l 500 -d -a 1 out.pos-1 out.pos-1_</code></pre>
+<pre><code>$ split -l 500 -d -a 1 out.pos-1 out.pos-1_</code></pre>
 Or the <a href="http://www.theunixschool.com/2012/06/awk-10-examples-to-split-file-into.html">awk</a> command, which can handle header.
+<pre><code>$ awk 'NR%500==1{x="out.pos-1_"++i;}{print > x}' fileName</code></pre>
+<pre><code>awk 'BEGIN{getline f;}NR%500==2{x="out.pos-1_"++i;print f>x;}{print > x}' out.pos-1</code></pre>
+This one is little tricky. Before the file is processed, the first line is read using getline into the variable f. NR%3 is checked with 2 instead of 1 as in the earlier case because since the first line is a header, we need to split the files at 2nd, 5th, 8th lines, and so on. All the file names are stored in the array "a" for later processing.
+    Without the END label, all the files will have the header record, but only the last file will have the trailer record. So, the END label is to precisely write the trailer record to all the files other than the last file.
 
 <h2>References</h2>
 <ul>
