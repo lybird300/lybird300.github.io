@@ -14,6 +14,10 @@ The qstat command provides the status of all jobs and queues in the cluster. The
 <li>qstat -j [job_id]: Gives the reason why the pending job (if any) is not being scheduled.</li>
 </ul>
 You can also find a good tutorial <a href="http://web.mit.edu/longjobs/www/status.html">here</a>.
+qsub -I
+top
+logout
+showq
 
 <h2>References</h2>
 <ul>
