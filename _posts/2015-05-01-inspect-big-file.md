@@ -51,6 +51,9 @@ Print the number of characters in a specific line (e.g., the first line) of a fi
 <pre><code>awk 'NR==1{ print length($0); }' FILENAME</code></pre>
 Count the number of specific characters in a line
 
+Count the number of folders recursively
+Navigate to your drive and execute
+<pre><code>ls -lR | grep ^d | wc -l</code></pre>
 
 If you know the structure of a big file, instead of loading / reading the entire file, you could split it into smaller chunks with the <a href="http://www.theunixschool.com/2012/10/10-examples-of-split-command-in-unix.html">split</a> command.
 <pre><code>$ split -l 500 -d -a 1 out.pos-1 out.pos-1_</code></pre>
