@@ -35,7 +35,14 @@ PBS_NODEFILE – the name of the file contain the list of nodes assigned to the 
 PBS_QUEUE – the name of the queue from which the job is executed.
 PBS_JOBNAME – the job name supplied by the user.
 
-<h2>Debug </h2>
+<h2>Debug using Eclipse (GUI) on a specific queue</h2>
+First get an interactive PBS session using
+<pre><code>qsub -q QUEUENAME -I -X</code></pre>
+Find out what "-q" "-I" and "-X" mean by typing
+<pre><code>man qsub</code></pre>
+Then launch Eclipse
+If you forget "-X" you will probably get a command line message saying that "Eclipse: Cannot open display" and in the error log "org.eclipse.swt.SWTError: No more handles [gtk_init_check() failed]"
+
 <h2>Monitor with qstat</h2>
 The qstat command provides the status of all jobs and queues in the cluster. The most useful options are:
 <ul>
