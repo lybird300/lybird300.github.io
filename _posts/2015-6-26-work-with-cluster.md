@@ -19,7 +19,22 @@ echo -n CWD:; /bin/pwd                  #Echo the current working directory path
 echo PBS_JOBNAME is live…               #Print to STDOUT (really, the file declared above) the job is live…
 sleep 30                                #Sleep for 30 seconds, then exit.
 </code></pre>
+Environment Variables Available to Job:
 
+You can use the following variables in your scripts as though they already exist in your environment; PBS sets them up as soon as your job starts running.
+
+PBS_O_WORKDIR – the absolute path of the current working directory of the qsub command. You must ‘cd’ to this directory if you want to work in the folder you submitted the job from.
+PBS_JOBNAME – the job name supplied by the user.
+PBS_O_HOST – the name of the host upon which the qsub command is running.
+PBS_SERVER – the hostname of the pbs_server which qsub submits the job to.
+PBS_O_QUEUE – the name of the original queue to which the job was submitted.
+PBS_ARRAYID – each member of a job array is assigned a unique identifier (see -t)
+PBS_ENVIRONMENT – set to PBS_BATCH to indicate the job is a batch job, or to PBS_INTERACTIVE to indicate the job is a PBS interactive job, see -I option.
+PBS_JOBID – the job identifier assigned to the job by the batch system.
+PBS_NODEFILE – the name of the file contain the list of nodes assigned to the job (for parallel and cluster systems). This file is particularly useful if you want to log in to remote machines for parallel debugging.
+PBS_QUEUE – the name of the queue from which the job is executed.
+
+PBS_JOBNAME – the job name supplied by the user.
 <h2>Monitor with qstat</h2>
 The qstat command provides the status of all jobs and queues in the cluster. The most useful options are:
 <ul>
