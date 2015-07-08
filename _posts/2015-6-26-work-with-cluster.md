@@ -5,6 +5,7 @@ date: 2015-06-22
 ---
 <h2>Submit jobs with qsub</h2>
 Arguments placed on the command line when calling the qsub command will take precedent over those in the script, so a general script may be built and then tested or varied by varying the options on the command line.
+<pre><code>
 #PBS -N SimpleScript                    #Give the job this name.
 #PBS -M youremailhere@*.edu             #A single user, send notification emails there.
 #PBS -V                                 #Pass the current environment variables to the job.
@@ -17,6 +18,7 @@ cd $PBS_O_WORKDIR                       #PBS starts your job in your home direct
 echo -n CWD:; /bin/pwd                  #Echo the current working directory path
 echo PBS_JOBNAME is live…               #Print to STDOUT (really, the file declared above) the job is live…
 sleep 30                                #Sleep for 30 seconds, then exit.
+</code></pre>
 
 <h2>Monitor with qstat</h2>
 The qstat command provides the status of all jobs and queues in the cluster. The most useful options are:
