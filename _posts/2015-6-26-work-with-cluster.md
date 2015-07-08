@@ -33,8 +33,9 @@ PBS_ENVIRONMENT – set to PBS_BATCH to indicate the job is a batch job, or to P
 PBS_JOBID – the job identifier assigned to the job by the batch system.
 PBS_NODEFILE – the name of the file contain the list of nodes assigned to the job (for parallel and cluster systems). This file is particularly useful if you want to log in to remote machines for parallel debugging.
 PBS_QUEUE – the name of the queue from which the job is executed.
-
 PBS_JOBNAME – the job name supplied by the user.
+
+<h2>Debug </h2>
 <h2>Monitor with qstat</h2>
 The qstat command provides the status of all jobs and queues in the cluster. The most useful options are:
 <ul>
