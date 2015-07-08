@@ -38,10 +38,11 @@ PBS_JOBNAME – the job name supplied by the user.
 <h2>Debug using Eclipse (GUI) on a specific queue</h2>
 First get an interactive PBS session using
 <pre><code>qsub -q QUEUENAME -I -X</code></pre>
-Find out what "-q" "-I" and "-X" mean by typing
+You can find out what "-q" "-I" and "-X" mean by typing
 <pre><code>man qsub</code></pre>
 Then launch Eclipse
 If you forget "-X" you will probably get a command line message saying that "Eclipse: Cannot open display" and in the error log "org.eclipse.swt.SWTError: No more handles [gtk_init_check() failed]"
+If for some reason Eclipse cannot locate JVM (Java Virtual Machine) in the current path (you may get a message saying "A java Runtime Environment (JRE) or Java Development kit (JDK) must be available in order to run Eclipse. No Java virtual machine was found after searching the following locations: /home/.../jre/bin/java in your current PATH"), take a look at <a href="http://stackoverflow.com/questions/2030434/eclipse-no-java-jre-jdk-no-virtual-machine">this post</a>.
 
 <h2>Monitor with qstat</h2>
 The qstat command provides the status of all jobs and queues in the cluster. The most useful options are:
