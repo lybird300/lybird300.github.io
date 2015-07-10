@@ -3,6 +3,7 @@ layout: post
 title: "Work with the queue"
 date: 2015-06-22
 ---
+Disclaimer: The commands introduced in this post work on the cluster I'm using, but may not on yours. (I learned this when trying to kill hundreds of batch jobs that I submitted to the queue. The common command "bkill" did not work for me and I ended up using "qdel".)
 <h2>Submit jobs with qsub</h2>
 Arguments placed on the command line when calling the qsub command will take precedent over those in the script, so a general script may be built and then tested or varied by varying the options on the command line.
 <pre><code>
@@ -59,6 +60,13 @@ The command showq
 
 <h2>Examine the completeness of jobs (and possible recovery?)</h2>
 The find command
+
+<h2>Terminate your queued jobs</h2>
+To qdel multiple jobs at once, type:
+<pre><code>qstat | grep (type-your-ID-here)</code></pre>
+After getting the range of jobs you must delete (e.g., 111 and 999), type:
+<pre><code>qdel `seq 111 999`</code></pre>
+If you see "qdel: Invalid request MSG=job cancel in progress", it probably means that the compute node is currently overloaded with concurrent jobs. The qdel will complete eventually, but may take some time, say, a few hours.
 
 <h2>References</h2>
 <ul>
