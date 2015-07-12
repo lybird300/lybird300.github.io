@@ -4,6 +4,8 @@ title: "Work with the queue"
 date: 2015-06-22
 ---
 Disclaimer: The commands introduced in this post work on the cluster I'm using, but may not on yours. (I learned this when trying to kill hundreds of batch jobs that I submitted to the queue. The common command "bkill" did not work for me and I ended up using "qdel".)
+<h2>Parallelize your code</h2>
+A very helpful <a href="http://www.omsn.de/blog/how-to-parallelize-loops-with-java-7-fork-join-framework">article</a> that compares the application of Thread, ExecutorService, and ForkJoinPool in the same problem.
 <h2>Submit jobs with qsub</h2>
 Arguments placed on the command line when calling the qsub command will take precedent over those in the script, so a general script may be built and then tested or varied by varying the options on the command line.
 <pre><code>
