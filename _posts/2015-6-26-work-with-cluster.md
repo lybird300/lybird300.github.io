@@ -12,13 +12,13 @@ Note: Your JVM and/or the host OS decide how many 'native' threads to use, and h
 <h2>Submit jobs with qsub</h2>
 Arguments placed on the command line when calling the qsub command will take precedent over those in the script, so a general script may be built and then tested or varied by varying the options on the command line.
 <pre><code>
-#PBS -N SimpleScript                    #Give the job this name.
-#PBS -M youremailhere@*.edu             #A single user, send notification emails there.
-#PBS -V                                 #Pass the current environment variables to the job.
-#PBS -l nodes=1:ppn=1                   #Request a single node, single core for this job.
-#PBS -l walltime=96:00:00               #Request a maximum wall time of 96 hours (HH:MM:SS format).
-#PBS -o output/$PBS_JOBNAME.out         #Redirect STDOUT to ./output/$PBS_JOBNAME.out
-#PBS -e error/$PBS_JOBNAME.err          #Redirect STDERR to ./output/$PBS_JOBNAME.err
+-N SimpleScript                    #Give the job this name.
+-M youremailhere@*.edu             #A single user, send notification emails there.
+-V                                 #Pass the current environment variables to the job.
+-l nodes=1:ppn=1                   #Request a single node, single core for this job.
+-l walltime=96:00:00               #Request a maximum wall time of 96 hours (HH:MM:SS format).
+-o output/$PBS_JOBNAME.out         #Redirect STDOUT to ./output/$PBS_JOBNAME.out
+-e error/$PBS_JOBNAME.err          #Redirect STDERR to ./output/$PBS_JOBNAME.err
 env                                     #Echo the environment (variables)
 cd $PBS_O_WORKDIR                       #PBS starts your job in your home directory, cd to the submit/work directory
 echo -n CWD:; /bin/pwd                  #Echo the current working directory path
@@ -49,7 +49,8 @@ You can find out what "-q" "-I" and "-X" mean by typing
 Then launch Eclipse
 If you forget "-X" you will probably get a command line message saying that "Eclipse: Cannot open display" and in the error log "org.eclipse.swt.SWTError: No more handles [gtk_init_check() failed]"
 If for some reason Eclipse cannot locate JVM (Java Virtual Machine) in the current path (you may get a message saying "A java Runtime Environment (JRE) or Java Development kit (JDK) must be available in order to run Eclipse. No Java virtual machine was found after searching the following locations: /home/.../jre/bin/java in your current PATH"), take a look at <a href="http://stackoverflow.com/questions/2030434/eclipse-no-java-jre-jdk-no-virtual-machine">this post</a>.
-
+A funny story is that I used to open another session (tab) in Mobex because once I started eclipse the command prompt was blocked and I couldn't do anything else on the same screen. Then Marcin, our Admin told me I can actually run command in the background by appending a & at the end of the command line. The & operator puts command in the background and free up your terminal. The command which runs in background is called a job. You can type other command while background command is running. The syntax is:
+<pre><code>command & (e.g., eclipse &)</code></pre>
 <h2>Monitor job conditions</h2>
 The qstat command provides the status of all jobs and queues in the cluster. Below are some useful options:
 <ul>
