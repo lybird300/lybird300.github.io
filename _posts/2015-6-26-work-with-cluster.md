@@ -15,7 +15,7 @@ Arguments placed on the command line when calling the qsub command will take pre
 -N SimpleScript                    #Give the job this name.
 -M youremailhere@*.edu             #A single user, send notification emails there.
 -V                                 #Pass the current environment variables to the job.
--l nodes=1:ppn=1                   #Request a single node, single core for this job.
+-l nodes=1:ppn=1                   #Request a single node, single core for this job. "ppn" stands for processors per node
 -l walltime=96:00:00               #Request a maximum wall time of 96 hours (HH:MM:SS format).
 -o output/$PBS_JOBNAME.out         #Redirect STDOUT to ./output/$PBS_JOBNAME.out
 -e error/$PBS_JOBNAME.err          #Redirect STDERR to ./output/$PBS_JOBNAME.err
@@ -72,9 +72,6 @@ While you are in a queue, you can monitor the conditions of all jobs dynamically
 <li>VIRT: Total amount of virtual memory used by the process, including code, data, shared libraries, pages that swapped out</li>
 <li>RES: Resident size (i.e., non-swapped physical memory a process has used) </li>
 </ul>
-If running all cores per node causes memory problems, you should request more nodes and run fewer cores per node. 
-<h2>Examine the completeness of jobs (and possible recovery?)</h2>
-The find command
 
 <h2>Terminate your queued jobs</h2>
 To qdel multiple jobs at once, type:
@@ -85,8 +82,15 @@ If you see "qdel: Invalid request MSG=job cancel in progress", it probably means
 
 <h2>Prevent performance degradation by controlling the number of jobs falling on a single node</h2>
 Virtual Memory (VM) available = physical RAM + swap space (preconfigured space on the slower hard disk). Linux divides VM and physical RAM into chunks of memory, called pages. A procedure called swapping occurs when a page of memory is copied to
-swap space to free up the page of memory in RAM. Swapping is necessary because it provides more memory than that is physically available: the kernel is able to swap out less used pages from RAM and free memory for other immediate uses. Plus, lots of pages used by an application during initialization may not be used until much later. However, swapping has drawbacks. Disks are very slow compared to memory. If the application requires more memory than is physically available on either some or all of the nodes it has been running on, then excessive swapping, or thrashing, will happen. Generally, a page is swapped out and then very soon swapped in and then swapped out again, and so on. This is indicative of insufficient RAM for the workload. 
-Therefore, if you have too many jobs landing on the same node and together they consume too many memories of that node, the node may be forced to use the swap space. Since that is hard disk I/O, job execution will dramatically slow down. Moreover, a PBS job will be killed when it uses >=60% of the swap space on one or more nodes. 
+swap space to free up the page of memory in RAM. Swapping is necessary because it provides more memory than that is physically available: the kernel is able to swap out less used pages from RAM and free memory for other immediate uses. Plus, lots of pages used by an application during initialization may not be used until much later. However, swapping has drawbacks. Disks are very slow compared to memory. If the application requires more memory than is physically available on either some or all of the nodes it has been running on, then excessive swapping, or thrashing, will happen. Generally, a page is swapped out and then very soon swapped in and then swapped out again, and so on. This is indicative of insufficient RAM for the workload. Therefore, if you have too many jobs landing on the same node and together they consume too many memories of that node, the node may be forced to use the swap space. Since that is hard disk I/O, job execution will dramatically slow down. Moreover, a PBS job will be killed when it uses >=60% of the swap space on one or more nodes.
+
+If running all cores per node causes memory problems, you should request more nodes and run fewer cores per node. To prevent the system assign too many memory-intensitve jobs to the same node, you can tune your "qsub" command by increasing the number of cores you need for each job (e.g., nodes=1;ppn=4 instead of nodes=1;ppn=1), so that when you submit multiple memory intensive jobs, no more than 3 of them will land on a 12-core node and each of them will have sufficient memory to use.
+
+<h2>Examine the completeness of jobs (and possible recovery?)</h2>
+The find command
+
+
+
 <h2>References</h2>
 <ul>
 <li><a href="http://www.toptal.com/java/hunting-memory-leaks-in-java">Hunting Memory Leaks in Java</a></li>
