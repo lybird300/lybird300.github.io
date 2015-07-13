@@ -4,12 +4,11 @@ title: "Work with the queue"
 date: 2015-06-22
 ---
 Disclaimer: The commands introduced in this post work on the cluster I'm using, but may not on yours. (I learned this when trying to kill hundreds of batch jobs that I submitted to the queue. The common command "bkill" did not work for me and I ended up using "qdel".)
-<h2>Check queue status</h2>
-List the resource limits of each queue by
-<pre><code>qstat -q</pre></code>
+
 <h2>Parallelize your code</h2>
 A very helpful <a href="http://www.omsn.de/blog/how-to-parallelize-loops-with-java-7-fork-join-framework">article</a> that compares the application of Thread, ExecutorService, and ForkJoinPool in the same problem.
 Note: Your JVM and/or the host OS decide how many 'native' threads to use, and how those threads are mapped to physical processors. Thus, when submitting your jobs to the queue, make sure you grab as many processors as possible using ppn (e.g., qsub -q largemem -l nodes=1:ppn=32)
+
 <h2>Submit jobs with qsub</h2>
 Arguments placed on the command line when calling the qsub command will take precedent over those in the script, so a general script may be built and then tested or varied by varying the options on the command line.
 <pre><code>
@@ -52,13 +51,16 @@ If you forget "-X" you will probably get a command line message saying that "Ecl
 If for some reason Eclipse cannot locate JVM (Java Virtual Machine) in the current path (you may get a message saying "A java Runtime Environment (JRE) or Java Development kit (JDK) must be available in order to run Eclipse. No Java virtual machine was found after searching the following locations: /home/.../jre/bin/java in your current PATH"), take a look at <a href="http://stackoverflow.com/questions/2030434/eclipse-no-java-jre-jdk-no-virtual-machine">this post</a>.
 
 <h2>Monitor job conditions</h2>
-The qstat command provides the status of all jobs and queues in the cluster. The most useful options are:
+The qstat command provides the status of all jobs and queues in the cluster. Below are some useful options:
 <ul>
-<li>qstat: Displays list of all jobs of the current user with no queue status information.</li>
-<li>qstat -u hpc1***: Displays list of all jobs belonging to user hpc1***</li>
+<li>qstat: Displays list of all jobs of the current user with no queue status information. Then you can monitor the conditions of all jobs dynamically using top or htop (more colorful and expressive)</li>
+<li>qstat -u USERNAME: Displays a list of jobs belonging to a specific user (identified by USERNAME)</li>
+<li>qstat -u USERNAME -n: Displays all jobs of an user with node information (i.e., which node and which processor each job is running on)</li>
 <li>qstat -u '*': Displays list of all jobs belonging to all users.</li>
 <li>qstat -f: gives full information about jobs and queues.</li>
 <li>qstat -j [job_id]: Gives the reason why the pending job (if any) is not being scheduled.</li>
+<li>qstat -q: lists the resource limits of each queue</li>
+<li>ssh NODENAME: connect to a node specified by NODENAME, so that you can check its current usage information using, for example, free -m (display memory usage in MB; if you use free -g, it will display memory usage in GB)</li>
 </ul>
 You can also find a good tutorial <a href="http://web.mit.edu/longjobs/www/status.html">here</a>.
 Another command for checking a specific job is checkjob
