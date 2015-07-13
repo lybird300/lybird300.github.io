@@ -53,8 +53,8 @@ A funny story is that I used to open another session (tab) in Mobex because once
 <pre><code>command & (e.g., eclipse &)</code></pre>
 <h2>Monitor job conditions</h2>
 The qstat command provides the status of all jobs and queues in the cluster. Below are some useful options:
-<ul>
-<li>qstat: Displays list of all jobs of the current user with no queue status information. Then you can monitor the conditions of all jobs dynamically using top or htop (more colorful and expressive)</li>
+<pre><code><ul>
+<li>qstat: Displays list of all jobs of the current user with no queue status information.</li>
 <li>qstat -u USERNAME: Displays a list of jobs belonging to a specific user (identified by USERNAME)</li>
 <li>qstat -u USERNAME -n: Displays all jobs of an user with node information (i.e., which node and which processor each job is running on)</li>
 <li>qstat -u '*': Displays list of all jobs belonging to all users.</li>
@@ -62,11 +62,17 @@ The qstat command provides the status of all jobs and queues in the cluster. Bel
 <li>qstat -j [job_id]: Gives the reason why the pending job (if any) is not being scheduled.</li>
 <li>qstat -q: lists the resource limits of each queue</li>
 <li>ssh NODENAME: connect to a node specified by NODENAME, so that you can check its current usage information using, for example, free -m (display memory usage in MB; if you use free -g, it will display memory usage in GB)</li>
-</ul>
+</ul></code></pre>
 You can also find a good tutorial <a href="http://web.mit.edu/longjobs/www/status.html">here</a>.
 Another command for checking a specific job is checkjob
 The command showq
 
+While you are in a queue, you can monitor the conditions of all jobs dynamically using top or htop (more colorful and expressive) and quit the monitoring window by typing "q". As for the dynamic/interactive list displayed in the monitoring window, there are several columns providing different information, such as:
+<ul>
+<li>VIRT: Total amount of virtual memory used by the process, including code, data, shared libraries, pages that swapped out</li>
+<li>RES: Resident size (i.e., non-swapped physical memory a process has used) </li>
+</ul>
+If running all cores per node causes memory problems, you should request more nodes and run fewer cores per node. 
 <h2>Examine the completeness of jobs (and possible recovery?)</h2>
 The find command
 
@@ -77,9 +83,14 @@ After getting the range of jobs you must delete (e.g., 111 and 999), type:
 <pre><code>qdel `seq 111 999`</code></pre>
 If you see "qdel: Invalid request MSG=job cancel in progress", it probably means that the compute node is currently overloaded with concurrent jobs. The qdel will complete eventually, but may take some time, say, a few hours.
 
+<h2>Prevent performance degradation by controlling the number of jobs falling on a single node</h2>
+Virtual Memory (VM) available = physical RAM + swap space (preconfigured space on the slower hard disk). Linux divides VM and physical RAM into chunks of memory, called pages. A procedure called swapping occurs when a page of memory is copied to
+swap space to free up the page of memory in RAM. Swapping is necessary because it provides more memory than that is physically available: the kernel is able to swap out less used pages from RAM and free memory for other immediate uses. Plus, lots of pages used by an application during initialization may not be used until much later. However, swapping has drawbacks. Disks are very slow compared to memory. If the application requires more memory than is physically available on either some or all of the nodes it has been running on, then excessive swapping, or thrashing, will happen. Generally, a page is swapped out and then very soon swapped in and then swapped out again, and so on. This is indicative of insufficient RAM for the workload. 
+Therefore, if you have too many jobs landing on the same node and together they consume too many memories of that node, the node may be forced to use the swap space. Since that is hard disk I/O, job execution will dramatically slow down. Moreover, a PBS job will be killed when it uses >=60% of the swap space on one or more nodes. 
 <h2>References</h2>
 <ul>
 <li><a href="http://www.toptal.com/java/hunting-memory-leaks-in-java">Hunting Memory Leaks in Java</a></li>
 <li><a href="https://hpcc.usc.edu/support/documentation/running-a-job-on-the-hpcc-cluster-using-pbs/">Running a Job on HPC using PBS</a> and <a href="https://hpcc.usc.edu/support/documentation/useful-pbs-commands/">Useful PBS Commands</a></li>
 <li><a href="https://kb.iu.edu/d/admm">In Unix, what is the find command, and how do I use it to search through directories for files?</a></li>
+<li></li>
 </ul>
