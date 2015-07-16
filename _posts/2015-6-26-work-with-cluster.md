@@ -11,6 +11,8 @@ Tread, thread, thread...<br/>
 Check out <a href="http://www.omsn.de/blog/how-to-parallelize-loops-with-java-7-fork-join-framework">this article</a> that compares the application of Thread, ExecutorService, and ForkJoinPool in the same problem. Here is <a href="http://blog.takipi.com/forkjoin-framework-vs-parallel-streams-vs-executorservice-the-ultimate-benchmark/">another one</a> that includes Java 8 parallel streams.
 Note: Your JVM and/or the host OS decide how many 'native' threads to use, and how those threads are mapped to physical processors. Thus, when submitting your jobs to the queue, make sure you grab as many processors as possible using ppn (e.g., qsub -q largemem -l nodes=1:ppn=32)
 
+There are several thread states, A thread can be in any one of the state at a particular point of time. It can be running state. It can be ready to run state as soon as it gets CPU time. A running thread can be suspended. A suspended thread can be resumed. A thread can be blocked when waiting for a resource. At any time a thread can be terminated. When a parent thread P executes a thread join to join one of its child threads C, which is still running, P is suspended until C terminates. Once C terminates, P resumes.
+
 <h2>Submit jobs with qsub</h2>
 Arguments placed on the command line when calling the qsub command will take precedent over those in the script, so a general script may be built and then tested or varied by varying the options on the command line.
 <pre><code>
