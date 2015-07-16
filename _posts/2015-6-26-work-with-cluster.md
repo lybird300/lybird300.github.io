@@ -7,8 +7,8 @@ Disclaimer: The commands introduced in this post work on the cluster I'm using, 
 
 <h2>Parallelize your code</h2>
 Tread, thread, thread...<br/>
-<img src="https://cloud.githubusercontent.com/assets/5496192/8731041/b29a9e8a-2bc2-11e5-9d51-f83a51f87408.jpg"/>
-Check out an<a href="http://www.omsn.de/blog/how-to-parallelize-loops-with-java-7-fork-join-framework">article</a> that compares the application of Thread, ExecutorService, and ForkJoinPool in the same problem. Here is <a href="http://blog.takipi.com/forkjoin-framework-vs-parallel-streams-vs-executorservice-the-ultimate-benchmark/">another one</a> that includes Java 8 parallel streams.
+<img src="https://cloud.githubusercontent.com/assets/5496192/8731041/b29a9e8a-2bc2-11e5-9d51-f83a51f87408.jpg"/><br/>
+Check out <a href="http://www.omsn.de/blog/how-to-parallelize-loops-with-java-7-fork-join-framework">this article</a> that compares the application of Thread, ExecutorService, and ForkJoinPool in the same problem. Here is <a href="http://blog.takipi.com/forkjoin-framework-vs-parallel-streams-vs-executorservice-the-ultimate-benchmark/">another one</a> that includes Java 8 parallel streams.
 Note: Your JVM and/or the host OS decide how many 'native' threads to use, and how those threads are mapped to physical processors. Thus, when submitting your jobs to the queue, make sure you grab as many processors as possible using ppn (e.g., qsub -q largemem -l nodes=1:ppn=32)
 
 <h2>Submit jobs with qsub</h2>
