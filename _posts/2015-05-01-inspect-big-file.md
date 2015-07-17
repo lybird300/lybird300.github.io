@@ -79,4 +79,5 @@ This one is little tricky. Before the file is processed, the first line is read 
 <li><a href="http://blog.ouseful.info/2011/06/04/playing-with-large-ish-csv-files-and-using-them-as-a-database-edina-openurl-logs/">Playing With Large (ish) CSV Files</a></li>
 <li><a href="http://www.thegeekstuff.com/2009/08/10-awesome-examples-for-viewing-huge-log-files-in-unix/">10 Awesome Examples for Viewing Huge Log Files in Unix</a></li>
 <li><a href="http://stackoverflow.com/questions/2016894/easy-way-to-split-a-large-text-file">Easy Way to Split a Large Text File</a></li>
+<li><a href="http://www.cyberciti.biz/faq/howto-search-find-file-for-text-string/">Finding a File Containing a Particular Text String In Linux Server</a></li>
 </ul>
