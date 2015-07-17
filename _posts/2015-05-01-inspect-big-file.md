@@ -55,8 +55,9 @@ Print the number of characters in a specific line (e.g., the first line) of a fi
 Count the number of specific characters in a line
 
 Finding a File Containing a Particular Text String
-<pre><code>grep [option] "text string to search” directory-path<br/>
-e.g., grep -r "redeem reward" /home/tom/ searches for a text string all files under a directory (-r means recursively)</code></pre>
+<pre><code>grep [option] "text string to search” directory-path</code></pre>
+For example, we can search for a text string in all files under a directory using below (-r means recursively):
+<pre><code>grep -r "redeem reward" /home/tom/</code></pre>
 
 Count the number of folders recursively
 Navigate to your drive and execute
