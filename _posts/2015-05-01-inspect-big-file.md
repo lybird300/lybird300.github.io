@@ -71,7 +71,7 @@ Or the <a href="http://www.theunixschool.com/2012/06/awk-10-examples-to-split-fi
 This one is little tricky. Before the file is processed, the first line is read using getline into the variable f. NR%3 is checked with 2 instead of 1 as in the earlier case because since the first line is a header, we need to split the files at 2nd, 5th, 8th lines, and so on. All the file names are stored in the array "a" for later processing.
     Without the END label, all the files will have the header record, but only the last file will have the trailer record. So, the END label is to precisely write the trailer record to all the files other than the last file.
 
-<h2></h2>
+<h2>Copy multiple files</h2>
 
 <h2>References</h2>
 <ul>
