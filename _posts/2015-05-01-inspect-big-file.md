@@ -58,6 +58,7 @@ Finding a File Containing a Particular Text String
 <pre><code>grep [option] "text string to search” directory-path</code></pre>
 For example, we can search for a text string in all files under a directory using below (-r means recursively):
 <pre><code>grep -r "redeem reward" /home/tom/</code></pre>
+-nr: get line number
 
 Count the number of unique values of a field in a tab-delimited text file
 <pre><code>cut -f 1 input_file | sort | uniq</code></pre>
