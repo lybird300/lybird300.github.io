@@ -64,7 +64,8 @@ Count the number of unique values of a field in a tab-delimited text file
 This command gets unique values in field 1 (1 is column no.), replacing 1 by 2 will give you unique values in field 2.
 To count the number of unique occurences you can make use of wc command in the chain as:
 <pre><code>cut -f 1 input_file | sort | uniq -c</code></pre>
-If you want to get a summation of all unique values (i.e., ignore redundance), use
+If you want to get the total number of only unique values (i.e., ignore redundance), use
+<pre><code>cut -f 1 input_file | sort | uniq | wc -l</code></pre>
 
 Count the number of folders recursively
 Navigate to your drive and execute
