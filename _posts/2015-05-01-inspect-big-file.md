@@ -59,6 +59,13 @@ Finding a File Containing a Particular Text String
 For example, we can search for a text string in all files under a directory using below (-r means recursively):
 <pre><code>grep -r "redeem reward" /home/tom/</code></pre>
 
+Count the number of unique values of a field in a tab-delimited text file
+<pre><code>cut -f 1 input_file | sort | uniq</code></pre>
+This command gets unique values in field 1 (1 is column no.), replacing 1 by 2 will give you unique values in field 2.
+To count the number of unique occurences you can make use of wc command in the chain as:
+<pre><code>cut -f 1 input_file | sort | uniq -c</code></pre>
+If you want to get a summation of all unique values (i.e., ignore redundance), use
+
 Count the number of folders recursively
 Navigate to your drive and execute
 <pre><code>ls -lR | grep ^d | wc -l</code></pre>
@@ -82,4 +89,5 @@ This one is little tricky. Before the file is processed, the first line is read 
 <li><a href="http://www.thegeekstuff.com/2009/08/10-awesome-examples-for-viewing-huge-log-files-in-unix/">10 Awesome Examples for Viewing Huge Log Files in Unix</a></li>
 <li><a href="http://stackoverflow.com/questions/2016894/easy-way-to-split-a-large-text-file">Easy Way to Split a Large Text File</a></li>
 <li><a href="http://www.cyberciti.biz/faq/howto-search-find-file-for-text-string/">Finding a File Containing a Particular Text String In Linux Server</a></li>
+<li><a href="http://datavu.blogspot.com/2014/08/useful-unix-commands-for-exploring-data.html">Useful Unix commands for exploring data</a></li>
 </ul>
