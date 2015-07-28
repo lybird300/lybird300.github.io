@@ -68,6 +68,12 @@ To count the number of unique occurences you can make use of wc command in the c
 If you want to get the total number of only unique values (i.e., ignore redundance), use
 <pre><code>cut -f 1 input_file | sort | uniq | wc -l</code></pre>
 
+Compare two files
+Suppose you want to compare the 1st column (field) in file1.txt and the 2nd column (field) in file2.txt and output all lines in file1.txt that does not match in file2.txt to a third file (output.txt). You can use the following code:
+<pre><code>join -1 1 -2 2 -v 1 <(sort file1.txt) <(sort file2.txt) > output.txt</code></pre>
+where -1 is a first file and 1 is the first FIELD and -2 is a second file and 2 is the second column; -v 1 means suppressing (not outputting) matched lines in file1.txt.
+In order to use join, you need to make sure that FILE1 and FILE2 are sorted on the join fields. The "sort" command by default applies an alphabetical order. Thus, sort -k2 means sorting the 2nd field alphabetically, while sort -nk2 means sorting the same field numerically. Also, sort -k1 will not sort according to from the first field to the end of the line while sort -k1,1 sorts based on the first field.
+
 Count the number of folders recursively
 Navigate to your drive and execute
 <pre><code>ls -lR | grep ^d | wc -l</code></pre>
