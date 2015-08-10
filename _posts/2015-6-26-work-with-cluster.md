@@ -3,7 +3,7 @@ layout: post
 title: "Work with the queue"
 date: 2015-06-22
 ---
-Disclaimer: The commands introduced in this post work on the cluster I'm using, but may not on yours. (I learned this when trying to kill hundreds of batch jobs that I submitted to the queue. The common command "bkill" did not work for me and I ended up using "qdel".)
+Disclaimer: The commands introduced in this post work on the cluster I'm using (torque), but may not on yours. (I learned this when trying to kill hundreds of batch jobs that I submitted to the queue. The common command "bkill" did not work for me and I ended up using "qdel".)
 
 <h2>Parallelize your code</h2>
 Tread, thread, thread...<br/>
@@ -89,6 +89,8 @@ To qdel multiple jobs at once, type:
 After getting the range of jobs you must delete (e.g., 7823111 and 7823118), type:
 <pre><code>qdel `seq -f "%.0f" 7823111 7823118`</code></pre>
 If you see "qdel: Invalid request MSG=job cancel in progress", it probably means that the compute node is currently overloaded with concurrent jobs. The qdel will complete eventually, but may take some time, say, a few hours.
+Kill all my jobs
+<pre><code>qselect -u <my user name> | xargs qdel</code></pre>
 
 <h2>Prevent performance degradation by controlling the number of jobs falling on a single node</h2>
 Virtual Memory (VM) available = physical RAM + swap space (preconfigured space on the slower hard disk). Linux divides VM and physical RAM into chunks of memory, called pages. A procedure called swapping occurs when a page of memory is copied to
