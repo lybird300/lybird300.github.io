@@ -87,7 +87,7 @@ While you are in a queue, you can monitor the conditions of all jobs dynamically
 To qdel multiple jobs at once, type:
 <pre><code>qstat | grep (type-your-ID-here)</code></pre>
 After getting the range of jobs you must delete (e.g., 111 and 999), type:
-<pre><code>qdel `seq 111 999`</code></pre>
+<pre><code>qdel `seq -f "%.0f" 7823111 7823118`</code></pre>
 If you see "qdel: Invalid request MSG=job cancel in progress", it probably means that the compute node is currently overloaded with concurrent jobs. The qdel will complete eventually, but may take some time, say, a few hours.
 
 <h2>Prevent performance degradation by controlling the number of jobs falling on a single node</h2>
