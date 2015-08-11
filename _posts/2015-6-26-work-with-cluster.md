@@ -90,8 +90,12 @@ After getting the range of jobs you must delete (e.g., 7823111 and 7823118), typ
 <pre><code>qdel `seq 7823111 7823118`</code></pre> or
 <pre><code>qdel `seq -f "%.0f" 7823111 7823118`</code></pre>
 If you see "qdel: Invalid request MSG=job cancel in progress", it probably means that the compute node is currently overloaded with concurrent jobs. The qdel will complete eventually, but may take some time, say, a few hours.
-Kill all my jobs
-<pre><code>qselect -u <my user name> | xargs qdel</code></pre>
+Kill all the jobs (both running and queued) of a specific user's
+<pre><code>qselect -u username | xargs qdel</code></pre>
+<pre><code>qstat | grep username | awk -F. '{print $1}' | xargs qdel</code></pre>
+Delete all queued jobs only. Leaves all runnings jobs alone.
+<pre><code>qstat -u username | grep ' Q ' | cut -d ' ' -f 1 | awk -F'.' '{print "qdel "$1}'</code></pre>
+<pre><code>qstat -u username | awk -F. '/ Q   --/{printf $1" " }' | xargs qdel</code></pre>
 
 <h2>Prevent performance degradation by controlling the number of jobs falling on a single node</h2>
 Virtual Memory (VM) available = physical RAM + swap space (preconfigured space on the slower hard disk). Linux divides VM and physical RAM into chunks of memory, called pages. A procedure called swapping occurs when a page of memory is copied to
