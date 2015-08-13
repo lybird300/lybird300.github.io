@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work with the queue"
+title: "Working with clusters"
 date: 2015-06-22
 ---
 Disclaimer: The commands introduced in this post work on the cluster I'm using (torque), but may not on yours. (I learned this when trying to kill hundreds of batch jobs that I submitted to the queue. The common command "bkill" did not work for me and I ended up using "qdel".)
