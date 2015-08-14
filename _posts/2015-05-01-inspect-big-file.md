@@ -15,6 +15,8 @@ Examine the contents of a tarfile without unpacking it
 <pre><code>$ tar tvf project.tar</code></pre>
 Extract gz files
 <pre><code>$ gzip -d file.gz</code></pre>
+If you want to rezip it, simply type
+<pre><code>$ gzip <name of the extracted file></code></pre>
 Extract tar.gz files
 <pre><code>tar options file.tar.gz
 e.g., tar -xvf file.tar.gz </code></pre>, where
