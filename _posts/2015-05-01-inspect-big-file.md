@@ -100,4 +100,5 @@ This one is little tricky. Before the file is processed, the first line is read 
 <li><a href="http://stackoverflow.com/questions/2016894/easy-way-to-split-a-large-text-file">Easy Way to Split a Large Text File</a></li>
 <li><a href="http://www.cyberciti.biz/faq/howto-search-find-file-for-text-string/">Finding a File Containing a Particular Text String In Linux Server</a></li>
 <li><a href="http://datavu.blogspot.com/2014/08/useful-unix-commands-for-exploring-data.html">Useful Unix commands for exploring data</a></li>
+<li><a href="http://www.theunixschool.com/2011/02/sed-replace-or-substitute-file-contents.html">sed - Replace or substitute file contents</a></li>
 </ul>
