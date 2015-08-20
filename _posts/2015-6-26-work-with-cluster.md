@@ -76,7 +76,6 @@ The qstat command provides the status of all jobs and queues in the cluster. Bel
 You can also find a good tutorial <a href="http://web.mit.edu/longjobs/www/status.html">here</a>.
 Another command for checking a specific job is checkjob
 The command showq
-
 While you are in a queue, you can monitor the conditions of all jobs dynamically using top or htop (more colorful and expressive) and quit the monitoring window by typing "q". As for the dynamic/interactive list displayed in the monitoring window, there are several columns providing different information, such as:
 <ul>
 <li>VIRT: Total amount of virtual memory used by the process, including code, data, shared libraries, pages that swapped out</li>
@@ -96,6 +95,9 @@ Kill all the jobs (both running and queued) of a specific user's
 Delete all queued jobs only. Leaves all runnings jobs alone.
 <pre><code>qstat -u username | grep ' Q ' | cut -d ' ' -f 1 | awk -F'.' '{print "qdel "$1}'</code></pre>
 <pre><code>qstat -u username | awk -F. '/ Q   --/{printf $1" " }' | xargs qdel</code></pre>
+<pre><code>qselect -u $USER -s Q | xargs qdel</code></pre>
+Delete all jobs running by one user:
+<pre><code>qselect -u $USER -s R | xargs qdel</code></pre>
 
 <h2>Prevent performance degradation by controlling the number of jobs falling on a single node</h2>
 Virtual Memory (VM) available = physical RAM + swap space (preconfigured space on the slower hard disk). Linux divides VM and physical RAM into chunks of memory, called pages. A procedure called swapping occurs when a page of memory is copied to
