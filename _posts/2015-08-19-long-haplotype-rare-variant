@@ -3,42 +3,11 @@ layout: post
 title: "Long-range haplotypes and rare variants"
 date: 2015-08-19
 ---
-<h2>Rare variants</h2>
-Although genome-wide association studies (GWAS) have revealed numerous common susceptibility variants for complex diseases, only a small fraction of disease heritability can be explained. the target sets of variants of interest for
-association studies have increasingly included rarer variants and SNPs. Following
-the logic described in Chap. 2, all variants are expected to have a single origin, and
-the specific chromosome that the variant arose upon is uniquely identifiable by
-patterns of marker variants nearby the site of origin. It follows that rare SNPs should
-be imputable on the basis of rare haplotypes of the common SNPs that are typically
-present on a GWAS array. Since rare SNPs are (in the absence of selective
-pressures) almost always of recent origin, it follows that the marker haplotype
-marking the new variant may still be unaffected by recombination occurring after
-the origin of the rare variant and thus still be recognizable. This means that the
-imputation of rare variants may be possible using common SNPs
-
 <h2>Detecting rare variants by imputation</h2>
-One of the crucial questions has to do with the necessary size of the reference
-panel needed in order to get good imputation quality. The required reference panel
-size increases as the frequency of the SNPs (or haplotypes in the above discussions)
-that are being imputed decreases. An analysis by Liu et al. [24] considered imputation of both common and rare SNPs that were genotyped in about 2,000
-subjects. They found that with this many individual samples (and withholding
-genotyped data so that “dosage R2
-,” i.e., R2 between imputed dosage variable and
-true genotype could be directly examined), a reference panel of ~2,000 samples
-could impute with R2  0.8 SNPs with minor allele frequency in the range from
-1 % to 3 %. Note that alleles with frequency 1 % would be seen an expected
-40 times in a reference panel of 2,000 individuals. This is roughly the same number
-of minor alleles that would be expected to be seen in a reference panel of 40–100
-samples (e.g., approximately HapMap sized) for SNPs in frequency range 0.2 to
-0.5, and indeed SNPs in this frequency range are generally highly imputable with
-HapMap data [25]. Naively scaling this to rarer SNPs implies that reference panels
-of size at least 20,000 samples are required to impute SNPs with minor allele
-frequencies at 1/10 of 1 % with this same level of imputation accuracy.
-In this naı¨ve scaling, however, the issue of haplotype uncertainty as embodied in
-the R2
-h calculation of Chap. 5 has been neglected. Without recombination there is a
-limit on the total number of haplotypes (and hence also a limit on the number of rare
-haplotypes), so if many rare haplotypes are to be defined by common SNPs, then
-recombination must be present. If a rare SNP falls on one or more rare haplotypes of
-common SNPs, it may not be well imputed by the common SNPs since imputation
-accuracy declines with the amount of recombination
+Although genome-wide association studies (GWAS) have revealed numerous common susceptibility variants for complex diseases, only a small fraction of disease heritability can be explained. The target sets of variants of interest for association studies have increasingly included rarer variants and SNPs. Since all variants are expected to have a single origin, and the specific chromosome that the variant arose upon is uniquely identifiable by patterns of marker variants nearby the site of origin, it follows that rare SNPs should be imputable on the basis of rare haplotypes of the common SNPs that are typically present on a GWAS array. Since rare SNPs are (in the absence of selective pressures) almost always of recent origin, it follows that the marker haplotype marking the new variant may still be unaffected by recombination occurring after the origin of the rare variant and thus still be recognizable. This means that the imputation of rare variants may be possible using common SNPs.
+One of the crucial questions has to do with the necessary size of the reference panel needed in order to get good imputation quality. The required reference panel size increases as the frequency of the SNPs (or haplotypes in the above discussions) that are being imputed decreases. An analysis by Liu et al. considered imputation of both common and rare SNPs that were genotyped in about 2,000 subjects. They found that with this many individual samples (and withholding genotyped data so that “dosage R2,” i.e., R2 between imputed dosage variable and true genotype could be directly examined), a reference panel of ~2,000 samples could impute with R2  0.8 SNPs with minor allele frequency in the range from 1 % to 3 %. Note that alleles with frequency 1 % would be seen an expected 40 times in a reference panel of 2,000 individuals. This is roughly the same number of minor alleles that would be expected to be seen in a reference panel of 40–100 samples (e.g., approximately HapMap sized) for SNPs in frequency range 0.2 to 0.5, and indeed SNPs in this frequency range are generally highly imputable with HapMap data [25]. Naively scaling this to rarer SNPs implies that reference panels of size at least 20,000 samples are required to impute SNPs with minor allele frequencies at 1/10 of 1 % with this same level of imputation accuracy.
+In this naive scaling, however, the issue of haplotype uncertainty as embodied in the R2 h calculation has been neglected. Without recombination there is a limit on the total number of haplotypes (and hence also a limit on the number of rare haplotypes), so if many rare haplotypes are to be defined by common SNPs, then recombination must be present. If a rare SNP falls on one or more rare haplotypes of common SNPs, it may not be well imputed by the common SNPs since imputation accuracy declines with the amount of recombination.
+
+Rare variants may be a major source of genetic variations that predisposes individuals to disease (both complex diseases and Mendelian disorders), but their detection is often difficult. The low penetrance or effect size of rare variants, as well as genetic heterogeneity, often means that they are unlikely to be detected by classical linkage analysis, and their low allele frequency significantly reduces the power of association studies. 
+
+Detecting shared haplotypes that are identical by descent (IBD) could facilitate discovery of these mutations. While common variants are mostly shared across ethnic groups, rare variants are more likely to be recent in history and population-specific. Some are recent founder mutations, shared by a number of individuals whose relationship may not be socially known. Recent founder mutations playing a role in a disease should aggregate more in cases than in controls and the haplotypes in which they reside should have been affected by only a limited number of recombination events, unlike haplotypes in the general population. Making use of this distinction may aid the detection of recent haplotypes among cases and facilitate detection of founder mutations.
