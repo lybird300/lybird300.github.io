@@ -1,9 +1,0 @@
----
-layout: post
-title: "Haplotyping and Imputation"
-date: 2015-07-14
----
-
-Most of current molecular genotyping techniques mix DNA pieces from two complementary chromosomes and only provide genotypes of diploid (mixture of haplotypes). Such results lead to haplotypic ambiguity/uncertainty when ≥2 makers/loci are heterozygous and their genetic phase is unknown.
-Some molecular techniques can directly measure haplotypes, but expensive (money, labor, time ….), especially for genome-wide study. Thus, currently researchers heavily rely on i
-
