@@ -66,13 +66,14 @@ The last field is a string of genotypes. After writing all CHAT data files to th
 
 The second bean "FilterChromSpecificChat" applies four filters on CHAT data files (also referred to as chromosome specific files). Users can skip any of the filters by changing its corresponding value to a negative number or by commenting out the property line. Users can also specify the order in which these filters will be applied through the values of order properties (i.e., properties named as "***Order") in CHAT_prep.xml. Before filtering, this bean also conducts regular sanity check. Any SNP record (starting from the 5th line in a CHAT data file) with more or less than 6 fields (see above) will be considered invalid and read into the memory as the following<br/>
 <i>"",-9,''invalid",-99999 (a predefined code meaning excluding this SNP from LDU map"),0 (i.e., not to be included)</i>
-Now let's get to the "real business" of this bean, which is the four filters respectively handles
+This bean also identifies and keeps records of SNPs and samples/subjects with more than 50% missing genotypes (IUPAC code "X") in the data set (referred to as "almost empty" SNPs and samples). The filtering introduced below are conducted on the rest of the data (samples and SNPs that have less than 50% missing genotypes). Now let's get to the "real business" of this bean, i.e., the four filters.
 <ul>
-<li>Hardy-Weinberg Equilibrium</li>
+<li>Hardy-Weinberg Equilibrium (not applicable for the X chromosome): this filter is . </li>
 <li>Monomorphic SNPs</li>
-<li>SNP missing</li>
-<li>Sample missing</li>
+<li>Missing SNPs: dumps SNP records whose number of missing genotypes exceeds a user-defined threshold (by changing the "include" field from 1 to 0)</li>
+<li>Missing samples: dumps sample records whose number of missing genotypes exceeds a user-defined threshold (by changing the "include" field from 1 to 0)</li>
 </ul>
-About the last two filters, this bean identifies and keeps records of SNPs and samples/subjects with more than 50% missing genotypes (IUPAC code "X") in the data set (referred to as "almost empty" SNPs and samples). Depending on user-defined thresholds, the two filters will exclude SNPs and samples that have too many missing genotypes.  
+
+
  Recall that each CHAT data file contains SNP information of a specific chromosome, one SNP record per line (starting from the 5th line). 
- 
+
