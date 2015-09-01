@@ -105,15 +105,21 @@ swap space to free up the page of memory in RAM. Swapping is necessary because i
 
 If running all cores per node causes memory problems, you should request more nodes and run fewer cores per node. To prevent the system assign too many memory-intensitve jobs to the same node, you can tune your "qsub" command by increasing the number of cores you need for each job (e.g., nodes=1;ppn=4 instead of nodes=1;ppn=1), so that when you submit multiple memory intensive jobs, no more than 3 of them will land on a 12-core node and each of them will have sufficient memory to use.
 
-<h2>Examine the completeness of jobs (and possible recovery?)</h2>
-The find command
-
-
+<h2>SLURM commands</h2>
+SLURM commands are different than previous PBS commands. Below are a few commonly used commands.
+<ul>
+<li>List contents of the queue: squeue</li>
+<li>List contents of a user's jobs in the queue: squeue -u <username></li>
+<li>Remove a job from the queue: scancel "id"</li>
+<li>Remove all jobs from a single user: scancel -u <username></li>
+<li>Submit a job: sbatch file.sh</li>
+<li>Get an interactive shell use: sinteractive -e (Note: since sinteractive blocks -X, you cannot run eclipse directly after obtaining an interactive shell. A shortcut would be to first copy the address of the compute node allocated to you by the above command, i.e., all texts inside [], for example, username@ComputeNode-1-6. Then open a new ssh session and at the command line type: ssh -X <the address you just copied>, e.g., ssh -X linly@croatan-1-6. Enter. Then you can run Eclipse. In other words, you need to open another terminal on ht0 or ht1 after you have obtained an interactive session on a node with sinteractive. Next just ssh -X <node> to the node that was reserved for you with sinteractive. Then you can run eclipse on that node. You won't be able to run eclipse through the terminal that you obtained via sinteractive.)</li>
+</ul>
+The Unix 'man' command provides more detailed information on any command, e.g., man squeue
 
 <h2>References</h2>
 <ul>
 <li><a href="http://www.toptal.com/java/hunting-memory-leaks-in-java">Hunting Memory Leaks in Java</a></li>
 <li><a href="https://hpcc.usc.edu/support/documentation/running-a-job-on-the-hpcc-cluster-using-pbs/">Running a Job on HPC using PBS</a> and <a href="https://hpcc.usc.edu/support/documentation/useful-pbs-commands/">Useful PBS Commands</a></li>
 <li><a href="https://kb.iu.edu/d/admm">In Unix, what is the find command, and how do I use it to search through directories for files?</a></li>
-<li></li>
 </ul>
