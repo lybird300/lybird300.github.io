@@ -5,7 +5,7 @@ date: 2015-06-22
 ---
 Disclaimer: The commands introduced in this post work on the clusters I'm using (PBS and SLURM), but may not on yours. (I learned that they are different when trying to kill hundreds of batch jobs I had submitted to the queue. The common command "bkill" did not work for me and I ended up using "qdel".)
 
-I also want to express my gratitude to my colleagues <a href="http://renci.org/staff/jeffrey-tilson/">Dr. Jeff Tilson</a> and <a href="http://renci.org/staff/marcin-sliwowski/">Marcin Sliwowski</a>. They helped me understand these very basic stuffs with great patience and clear instructions. Every time when they came into my office, grabbed a chair and sat beside me, I knew whatever problem I had would soon go away. Thank you guys! You are the best!
+<blockquote>I also want to express my gratitude to my colleagues <a href="http://renci.org/staff/jeffrey-tilson/">Dr. Jeff Tilson</a> and <a href="http://renci.org/staff/marcin-sliwowski/">Marcin Sliwowski</a>. They helped me understand these very basic stuffs with great patience and clear instructions. Every time when they came into my office, grabbed a chair and sat beside me, I knew whatever problem I had would soon go away. Thank you guys! You are the best!</blockquote>
 
 <h2>Parallelize your code</h2>
 Tread, thread, thread...<br/>
