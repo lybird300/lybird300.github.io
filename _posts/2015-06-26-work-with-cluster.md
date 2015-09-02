@@ -136,8 +136,9 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 <li>Also note that GUIs can be executed (e.g., when you want to run Eclipse in debug mode), but they can't be done via the shell that sinteractive drops you in (i.e., by using sinteractive -X), as the cluster I'm working on has no additional plugins that would enable proper X11 forwarding inside of sinteractive. Instead you need to open a new shell by SSH -X to the node that was allocated to you via sinteractive. So a shortcut would be to first copy the address of the compute node allocated to you by the above command, i.e., all texts inside [], for example, username@ComputeNode-1-6. Then open a new ssh session and at the command line type: ssh -X <the address you just copied>, e.g., ssh -X linly@croatan-1-6. Enter. Then you can run Eclipse. In other words, you need to open another terminal on ht0 or ht1 after you have obtained an interactive session on a node with sinteractive. Next just ssh -X <node> to the node that was reserved for you with sinteractive. Then you can run eclipse on that node. You won't be able to run eclipse through the terminal that you obtained via sinteractive.</li>
 </ul>
 </li>
+<li>The Unix 'man' command provides more detailed information on any command, e.g., man squeue</li>
 </ul>
-The Unix 'man' command provides more detailed information on any command, e.g., man squeue
+
 
 <h2>References</h2>
 <ul>
