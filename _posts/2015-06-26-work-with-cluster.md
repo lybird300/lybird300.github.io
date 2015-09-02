@@ -71,18 +71,12 @@ The qstat command provides the status of all jobs and queues in the cluster. Bel
 <li>qstat -u USERNAME -n: Displays all jobs of an user with node information (i.e., which node and which processor each job is running on)</li>
 <li>qstat -u '*': Displays list of all jobs belonging to all users.</li>
 <li>qstat -f: gives full information about jobs and queues.</li>
-<li>qstat -j [job_id]: Gives the reason why the pending job (if any) is not being scheduled.</li>
-<li>qstat -q: lists the resource limits of each queue</li>
-<li>ssh NODENAME: connect to a node specified by NODENAME, so that you can check its current usage information using, for example, free -m (display memory usage in MB; if you use free -g, it will display memory usage in GB)</li>
+<li><b>qstat -j [job_id]: Gives the reason why the pending job (if any) is not being scheduled.</b></li>
+<li>showq: displays information about active, eligible, blocked, and/or recently completed jobs.</li>
+<li>ps: shows what processes (programs) you are running with your user id</li>
 </ul></code></pre>
 You can also find a good tutorial <a href="http://web.mit.edu/longjobs/www/status.html">here</a>.
-Another command for checking a specific job is checkjob
-The command showq
-While you are in a queue, you can monitor the conditions of all jobs dynamically using top or htop (more colorful and expressive) and quit the monitoring window by typing "q". As for the dynamic/interactive list displayed in the monitoring window, there are several columns providing different information, such as:
-<ul>
-<li>VIRT: Total amount of virtual memory used by the process, including code, data, shared libraries, pages that swapped out</li>
-<li>RES: Resident size (i.e., non-swapped physical memory a process has used) </li>
-</ul>
+Another command for checking a specific job is checkjob <jobID>
 
 <h2>Terminate your queued jobs</h2>
 To qdel multiple jobs at once, type:
@@ -102,10 +96,29 @@ Delete all jobs running by one user:
 <pre><code>qselect -u $USER -s R | xargs qdel</code></pre>
 
 <h2>Prevent performance degradation by controlling the number of jobs falling on a single node</h2>
-Virtual Memory (VM) available = physical RAM + swap space (preconfigured space on the slower hard disk). Linux divides VM and physical RAM into chunks of memory, called pages. A procedure called swapping occurs when a page of memory is copied to
-swap space to free up the page of memory in RAM. Swapping is necessary because it provides more memory than that is physically available: the kernel is able to swap out less used pages from RAM and free memory for other immediate uses. Plus, lots of pages used by an application during initialization may not be used until much later. However, swapping has drawbacks. Disks are very slow compared to memory. If the application requires more memory than is physically available on either some or all of the nodes it has been running on, then excessive swapping, or thrashing, will happen. Generally, a page is swapped out and then very soon swapped in and then swapped out again, and so on. This is indicative of insufficient RAM for the workload. Therefore, if you have too many jobs landing on the same node and together they consume too many memories of that node, the node may be forced to use the swap space. Since that is hard disk I/O, job execution will dramatically slow down. Moreover, a PBS job will be killed when it uses >=60% of the swap space on one or more nodes.
+Virtual Memory (VM) available = physical RAM + swap space (preconfigured space on the slower hard disk). Linux divides VM and physical RAM into chunks of memory, called pages. A procedure called swapping occurs when a page of memory is copied to swap space to free up the page of memory in RAM. Swapping is necessary because it provides more memory than that is physically available: the kernel is able to swap out less used pages from RAM and free memory for other immediate uses. Plus, lots of pages used by an application during initialization may not be used until much later. However, swapping has drawbacks. Disks are very slow compared to memory. If the application requires more memory than is physically available on either some or all of the nodes it has been running on, then excessive swapping, or thrashing, will happen. Generally, a page is swapped out and then very soon swapped in and then swapped out again, and so on. This is indicative of insufficient RAM for the workload. Therefore, if you have too many jobs landing on the same node and together they consume too many memories of that node, the node may be forced to use the swap space. Since that is hard disk I/O, job execution will dramatically slow down. Moreover, a PBS job will be killed when it uses >=60% of the swap space on one or more nodes.
 
 If running all cores per node causes memory problems, you should request more nodes and run fewer cores per node. To prevent the system assign too many memory-intensitve jobs to the same node, you can tune your "qsub" command by increasing the number of cores you need for each job (e.g., nodes=1;ppn=4 instead of nodes=1;ppn=1), so that when you submit multiple memory intensive jobs, no more than 3 of them will land on a 12-core node and each of them will have sufficient memory to use.
+
+<h2>Checking resources usage</h2>
+Yesterday a weird thing happened: none of my jobs had any outputs, not even an error message. It turned out that that was because the folder I was writing into had reached its space limit, which is 70 TB!!! Thus, I think it would be useful to learn some Unix commands that can tell me about resource usage, for example, how much disk space or memory are being used, or how many CPU cycles are used by current running programs. So here comes a list. 
+<pre><code><ul>
+<li>qstat -q: lists the resource limits of each queue</li>
+<li>ssh NODENAME: connect to a node specified by NODENAME, so that you can check its current usage information using, for example, free -m (display memory usage in MB; if you use free -g, it will display memory usage in GB)</li>
+<li>du: prints the disk usage (in Kb) of each directory and it's sub-directories that you have execute permissions on. By default it starts from the current directory, but supplying  the name of a directory after the command will make it start from that  directory.</li>
+<li>df: tells you the amount of free space on all mounted file systems,
+or you can specify the name of a device you want to check. In the result table, Column 2 (labeled 1K-blocks) shows the total size (in Kb)  of the corresponding file system; Column 3 shows how much space has  been used; Column 4 gives the remaining space; Column five (Capacity)  shows (as a percentage) how much of the space has been used. The last column simply shows the mount folder names of that file system.</li>
+<li>free: shows you information about the machine's memory. This includes 
+physical memory (RAM), swap as well as the shared memory and buffers
+used by the kernel. All measurements are in Kb.</li>
+</ul></code></pre>
+You can monitor the conditions of all jobs dynamically using top or htop (more colorful and expressive) and quit the monitoring window by typing "q". As for the dynamic/interactive list displayed in the monitoring window, there are several columns providing different information, such as:
+<ul>
+<li>VIRT: Total amount of virtual memory used by the process, including code, data, shared libraries, pages that swapped out</li>
+<li>RES: Resident size (i.e., non-swapped physical memory a process has used) </li>
+</ul>
+The output of  "top" or "htop" is full screen, and refreshes itself frequently (or at user definable 
+intervals).
 
 <h2>SLURM commands</h2>
 SLURM commands are different than previous PBS commands. Below are a few commonly used commands.
