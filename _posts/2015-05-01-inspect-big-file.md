@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Explore unknown big files"
+title: "Explore unknown big files & Handle large number of files together"
 date: 2015-05-01
 ---
 <blockquote>The mechanic that would perfect his work must first sharpen his tools. -- Confucius</blockquote>
@@ -85,10 +85,35 @@ If you know the structure of a big file, instead of loading / reading the entire
 Or the <a href="http://www.theunixschool.com/2012/06/awk-10-examples-to-split-file-into.html">awk</a> command, which can handle header.
 <pre><code>$ awk 'NR%500==1{x="out.pos-1_"++i;}{print > x}' fileName</code></pre>
 <pre><code>awk 'BEGIN{getline f;}NR%500==2{x="out.pos-1_"++i;print f>x;}{print > x}' out.pos-1</code></pre>
-This one is little tricky. Before the file is processed, the first line is read using getline into the variable f. NR%3 is checked with 2 instead of 1 as in the earlier case because since the first line is a header, we need to split the files at 2nd, 5th, 8th lines, and so on. All the file names are stored in the array "a" for later processing.
-    Without the END label, all the files will have the header record, but only the last file will have the trailer record. So, the END label is to precisely write the trailer record to all the files other than the last file.
+This one is little tricky. Before the file is processed, the first line is read using getline into the variable f. NR%3 is checked with 2 instead of 1 as in the earlier case because since the first line is a header, we need to split the files at 2nd, 5th, 8th lines, and so on. All the file names are stored in the array "a" for later processing. Without the END label, all the files will have the header record, but only the last file will have the trailer record. So, the END label is to precisely write the trailer record to all the files other than the last file.
 
-<h2>Copy multiple files</h2>
+<h2>Copy and/or merge directories</h2>
+To copy a directory with all subdirectories and files, use a similar command as below
+<pre><code>cp -r /home/hope/files/* /home/hope/backup</code></pre>
+Another very useful command is "rsync", which is a great tool for backing up and restoring files. To sync the contents of dir1 to dir2 on the same system, type:
+<pre><code>rsync -r dir1/ dir2</code></pre>
+The -r option means recursive (i.e., it copies directories and sub directories). We could also use the -a flag instead:
+<pre><code>rsync -a dir1/ dir2</code></pre>
+Or use both of them
+<pre><code>rsync -ar dir1/ dir2</code></pre>
+The -a option stands for "archive" and syncs recursively and preserves symbolic links, special and device files, modification times, group, owner, and permissions.
+Note that there is a trailing slash (/) at the end of the first argument in the above commands. It is necessary to mean "the contents of dir1". The alternative, without the trailing slash, would place dir1, including the directory, within dir2. This would create a hierarchy that looks like ~/dir2/dir1/[files]
+If files with the same path and name exist in both directories, the command above will overwrite /dir2/SUBDIREC/SOMEFILE with /dir1/SUBDIRECT/SOMEFILE. If you want to replace only older files, add the option -u. If you want to always keep the version in /dir2, add the option --ignore-existing. If you pass the option --remove-source-files. Then rsync copies all the files in turn, and removes source files (in /dir1) when it's done. This is a lot slower than moving if the source and destination directories are on the same filesystem.
+The -P flag (upper case) is very helpful as well. It combines the flags --progress and --partial. The first of these gives you a progress bar for the transfers and the second allows you to resume interrupted transfers.
+If you wish to exclude certain files or directories located inside a directory you are syncing, you can do so by specifying them using "--exclude". If you don’t want to sync the dir3 directory (including all it’s subdirectories) from the source to the destination folder (i.e., dir3 is the EXACT name of a subdirectory of dir1), use the rsync –exclude option as shown below. You can also use wildcard to indicate the exclusion of subdirectories whose name matches a certain pattern (e.g., starting with 'dir'. The commands below implment the two scenarios
+<pre><code>
+rsync -ar --exclude 'dir3' dir1/ dir2
+rsync -ar --exclude 'dir*' dir1/ dir2
+</code></pre>
+To exclude a specific file type that has a specific extension (e.g., .txt), do the following.
+<pre><code>rsync -ar --exclude '*.txt' dir1/ dir2</code></pre>
+If we have specified a pattern to exclude, we can override that exclusion for files that match a different pattern by using the --include= option. If you only want to match a few files or directories, you need to use "--include" to include them, and every directory along the path that leads to them (for example with --include="*/"). And you ALSO need to exclude the rest with "--exclude='*'". This is because (a) excluding a directory will by default (i.e., automatically) exclude everything underneath it; (b) including a directory, however, doesn't automatically include its contents and to do so, you can use "--include='directory/***'" (in recent versions of rsync).
+For each file, the first matching rule applies (and anything never matched is included).
+About the patterns, if a pattern doesn't contain a "/", it applies to the file name without directory. If a pattern ends with "/", it applies to directories only. If a pattern starts with "/", it applies to the whole path from the directory that was passed as an argument to rsync. '*' means any substring of a single directory component; '**' operator matches any path substring.
+Use --include='*/' to include all subdirectories, and -m to not copy directories that would end up empty. 
+rsync -arvP --include='SNP_19*/***' --exclude='*' --ignore-existing dir1/ dir2
+
+rsync -av --exclude='*.FOO' --exclude='*.BAR' --exclude='*.ZIM' /source /dest
 
 <h2>References</h2>
 <ul>
@@ -101,4 +126,5 @@ This one is little tricky. Before the file is processed, the first line is read 
 <li><a href="http://www.cyberciti.biz/faq/howto-search-find-file-for-text-string/">Finding a File Containing a Particular Text String In Linux Server</a></li>
 <li><a href="http://datavu.blogspot.com/2014/08/useful-unix-commands-for-exploring-data.html">Useful Unix commands for exploring data</a></li>
 <li><a href="http://www.theunixschool.com/2011/02/sed-replace-or-substitute-file-contents.html">sed - Replace or substitute file contents</a></li>
+<li><a href="http://www.thegeekstuff.com/2011/01/rsync-exclude-files-and-folders/">6 rsync Examples to Exclude Multiple Files and Directories using exclude-from</a></li>
 </ul>
