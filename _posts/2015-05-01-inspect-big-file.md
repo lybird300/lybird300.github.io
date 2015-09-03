@@ -87,6 +87,14 @@ Or the <a href="http://www.theunixschool.com/2012/06/awk-10-examples-to-split-fi
 <pre><code>awk 'BEGIN{getline f;}NR%500==2{x="out.pos-1_"++i;print f>x;}{print > x}' out.pos-1</code></pre>
 This one is little tricky. Before the file is processed, the first line is read using getline into the variable f. NR%3 is checked with 2 instead of 1 as in the earlier case because since the first line is a header, we need to split the files at 2nd, 5th, 8th lines, and so on. All the file names are stored in the array "a" for later processing. Without the END label, all the files will have the header record, but only the last file will have the trailer record. So, the END label is to precisely write the trailer record to all the files other than the last file.
 
+<h2>Find And Remove Files With One Command On Fly</h2>
+The basic find command syntax is:
+<pre><code>find dir-name criteria action</code></pre>
+
+dir-name : - Defines the working directory such as look into /tmp/
+criteria : Use to select files such as "*.sh"
+action : The find action (what-to-do on file) such as delete the file.
+
 <h2>Copy and/or merge directories</h2>
 To copy a directory with all subdirectories and files, use a similar command as below
 <pre><code>cp -r /home/hope/files/* /home/hope/backup</code></pre>
@@ -105,15 +113,15 @@ If you wish to exclude certain files or directories located inside a directory y
 rsync -ar --exclude 'dir3' dir1/ dir2
 rsync -ar --exclude 'dir*' dir1/ dir2
 </code></pre>
-To exclude a specific file type that has a specific extension (e.g., .txt), do the following.
-<pre><code>rsync -ar --exclude '*.txt' dir1/ dir2</code></pre>
-If we have specified a pattern to exclude, we can override that exclusion for files that match a different pattern by using the --include= option. If you only want to match a few files or directories, you need to use "--include" to include them, and every directory along the path that leads to them (for example with --include="*/"). And you ALSO need to exclude the rest with "--exclude='*'". This is because (a) excluding a directory will by default (i.e., automatically) exclude everything underneath it; (b) including a directory, however, doesn't automatically include its contents and to do so, you can use "--include='directory/***'" (in recent versions of rsync).
-For each file, the first matching rule applies (and anything never matched is included).
-About the patterns, if a pattern doesn't contain a "/", it applies to the file name without directory. If a pattern ends with "/", it applies to directories only. If a pattern starts with "/", it applies to the whole path from the directory that was passed as an argument to rsync. '*' means any substring of a single directory component; '**' operator matches any path substring.
-Use --include='*/' to include all subdirectories, and -m to not copy directories that would end up empty. 
-rsync -arvP --include='SNP_19*/***' --exclude='*' --ignore-existing dir1/ dir2
-
-rsync -av --exclude='*.FOO' --exclude='*.BAR' --exclude='*.ZIM' /source /dest
+To exclude a specific file type that has a specific extension (e.g., .txt) or multiple specific file types, do the following.
+<pre><code>
+rsync -ar --exclude='*.txt' dir1/ dir2
+rsync -av --exclude='*.FOO' --exclude='*.BAR' --exclude='*.ZIM' dir1/ dir2
+</code></pre>
+If we have specified a pattern to exclude, we can override that exclusion for files that match a different pattern by using the --include= option. If you only want to match a few files or directories, you need to use "--include" to include them, and every directory along the path that leads to them (for example with --include="*/"). And you ALSO need to exclude the rest with "--exclude='*'". This is because (a) excluding a directory will by default (i.e., automatically) exclude everything underneath it; (b) including a directory, however, doesn't automatically include its contents and to do so, you can use "--include='directory/***'" (in recent versions of rsync). For each file, the first matching rule applies (and anything never matched is included). For example, the following command will copy certain subdirectories (and their subdirectories) from dir1 to dir2 and each of these subdirectories should have a name start with "SNP_19".
+<pre><code>rsync -arvP --include='SNP_19*/***' --exclude='*' --ignore-existing dir1/ dir2</code></pre>
+About the patterns, if a pattern doesn't contain a "/", it applies to the file name without directory. If a pattern ends with "/", it applies to directories only. If a pattern starts with "/", it applies to the whole path from the directory that was passed as an argument to rsync. Use --include='*/' to include all subdirectories (add -m to not copy directories that would end up empty). '*' means any substring of a single directory component; '**' operator matches any path substring. For example, the following command will copy every file and subdirectories (because of -r) from dir1 to dir2, excepet for the contents of any third-level subdirectories whose name starts with "Imputation_Mini" or ".sh" file in any of the third-level subdirectories.
+<pre><code>rsync -arvP --exclude='SNP_*/*/Imputation_Mini*/*' --exclude='SNP_*/*/*/*.sh' --ignore-existing dir1/ dir2</code></pre>
 
 <h2>References</h2>
 <ul>
