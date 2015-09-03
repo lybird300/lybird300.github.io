@@ -89,12 +89,13 @@ This one is little tricky. Before the file is processed, the first line is read 
 
 <h2>Find And Remove Files With One Command On Fly</h2>
 The basic find command syntax is:
-<pre><code>find dir-name criteria action</code></pre>
-
-dir-name : - Defines the working directory such as look into /tmp/
-criteria : Use to select files such as "*.sh"
-action : The find action (what-to-do on file) such as delete the file.
-
+<pre><code>find dir-name criteria action
+<ul>
+<li>dir-name : - Defines the working directory such as look into /tmp/</li>
+<li>criteria : Use to select files such as "*.sh"</li>
+<li>action : The find action (what-to-do on file) such as delete the file</li>
+</ul>
+</code></pre>
 <h2>Copy and/or merge directories</h2>
 To copy a directory with all subdirectories and files, use a similar command as below
 <pre><code>cp -r /home/hope/files/* /home/hope/backup</code></pre>
