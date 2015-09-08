@@ -139,4 +139,5 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 <li><a href="http://www.toptal.com/java/hunting-memory-leaks-in-java">Hunting Memory Leaks in Java</a></li>
 <li><a href="https://hpcc.usc.edu/support/documentation/running-a-job-on-the-hpcc-cluster-using-pbs/">Running a Job on HPC using PBS</a> and <a href="https://hpcc.usc.edu/support/documentation/useful-pbs-commands/">Useful PBS Commands</a></li>
 <li><a href="https://kb.iu.edu/d/admm">In Unix, what is the find command, and how do I use it to search through directories for files?</a></li>
+<li><a href="http://www.codecoffee.com/tipsforlinux/articles/22.html">How to find size of a directory & Free disk space</a></li>
 </ul>
