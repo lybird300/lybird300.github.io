@@ -105,10 +105,9 @@ Yesterday a weird thing happened: none of my jobs had any outputs, not even an e
 <pre><code><ul>
 <li>qstat -q: lists the resource limits of each queue</li>
 <li>ssh NODENAME: connect to a node specified by NODENAME, so that you can check its current usage information using, for example, free -m (display memory usage in MB; if you use free -g, it will display memory usage in GB)</li>
-<li>du: prints the disk usage (in Kb) of each directory and it's sub-directories that you have execute permissions on. By default it starts from the current directory, but supplying  the name of a directory after the command will make it start from that  directory.</li>
+<li>du: prints the disk usage (in Kb) of each directory and it's sub-directories that you have execute permissions on. By default it starts from the current directory, but supplying  the name of a directory after the command will make it start from that directory. Use -h option to make it human-readable (i.e., in terms of Kb, Mb, Gb, Tb, etc.)</li>
 <li>df: tells you the amount of free space on all mounted file systems, or you can specify the name of a device you want to check. In the result table, Column 2 (labeled 1K-blocks) shows the total size (in Kb)  of the corresponding file system; Column 3 shows how much space has  been used; Column 4 gives the remaining space; Column five (Capacity)  shows (as a percentage) how much of the space has been used. The last column simply shows the mount folder names of that file system.</li>
 <li>free: shows you information about the machine's memory. This includes  physical memory (RAM), swap as well as the shared memory and buffers used by the kernel. All measurements are in Kb.</li>
-<li></li>
 </ul></code></pre>
 You can monitor the conditions of all jobs dynamically using top or htop (more colorful and expressive) and quit the monitoring window by typing "q". The output is full-screen and refreshes itself frequently (or at user definable intervals). There are several columns providing different information, such as:
 <ul>
@@ -134,7 +133,6 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 </li>
 <li>The Unix 'man' command provides more detailed information on any command, e.g., man squeue</li>
 </ul>
-
 
 <h2>References</h2>
 <ul>
