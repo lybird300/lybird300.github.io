@@ -140,6 +140,14 @@ Please note that JobName is a field contained in the output while username is a 
 <li>Also note that GUIs can be executed (e.g., when you want to run Eclipse in debug mode), but they can't be done via the shell that sinteractive drops you in (i.e., by using sinteractive -X), as the cluster I'm working on has no additional plugins that would enable proper X11 forwarding inside of sinteractive. Instead you need to open a new shell by SSH -X to the node that was allocated to you via sinteractive. So a shortcut would be to first copy the address of the compute node allocated to you by the above command, i.e., all texts inside [], for example, username@ComputeNode-1-6. Then open a new ssh session and at the command line type: ssh -X <the address you just copied>, e.g., ssh -X linly@croatan-1-6. Enter. Then you can run Eclipse. In other words, you need to open another terminal on ht0 or ht1 after you have obtained an interactive session on a node with sinteractive. Next just ssh -X <node> to the node that was reserved for you with sinteractive. Then you can run eclipse on that node. You won't be able to run eclipse through the terminal that you obtained via sinteractive.</li>
 </ul>
 </li>
+<li>Job arrays offer a mechanism for submitting and managing collections of similar jobs quickly and easily; job arrays with millions of tasks can be submitted in milliseconds (subject to configured size limits). All jobs must have the same initial options (e.g. size, time limit, etc.). Job arrays are only supported for batch jobs and the array index values are specified using the --array or -a option of the sbatch command. A maximum number of simultaneously running tasks from the job array may be specified using a "%" separator. For example "--array=0-15%4" will limit the number of simultaneously running tasks from this job array to 4.
+<pre><code># Submit a job array with index values between 0 and 31
+$ sbatch --array=0-31
+# Submit a job array with index values of 1, 3, 5 and 7
+$ sbatch --array=1,3,5,7
+# Submit a job array with index values between 1 and 7 with a step size of 2 (i.e. 1, 3, 5 and 7)
+$ sbatch --array=1-7:2</code></pre>
+</li>
 <li>The Unix 'man' command provides more detailed information on any command, e.g., man squeue</li>
 </ul>
 
