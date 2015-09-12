@@ -124,7 +124,8 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 <li>List contents of the queue: squeue</li>
 <li>List contents of a user's jobs in the queue: squeue -u <username></li>
 <li>Remove a job from the queue: scancel "id"</li>
-<li>Remove all jobs from a single user: scancel -u <username></li>
+<li>Remove all jobs from a specific user: scancel -u <username></li>
+<li>Cancel all pending jobs belonging to a specific user: scancel --state=PENDING --user=<username></li>
 <li>Submit a job: sbatch file.sh</li>
 <li>Get an interactive shell use: sinteractive 
 <ul>
