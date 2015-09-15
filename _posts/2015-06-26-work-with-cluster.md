@@ -129,7 +129,7 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 <li>Submit a job: sbatch file.sh</li>
 <li>Monitor your jobs
 <ul>
-<li>
+<li>Use the sacct command you can see all your jobs (including completed) and you can customize how the job list is displayed by using the "fileds" option as below
 <pre><code>sacct --fields=jobid,jobname,state</code></pre>
 </li>
 <li>Show job details: scontrol show job <jobID>
