@@ -127,10 +127,17 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 <li>Remove all jobs from a specific user: scancel -u <username></li>
 <li>Cancel all pending jobs belonging to a specific user: scancel --state=PENDING --user=<username></li>
 <li>Submit a job: sbatch file.sh</li>
+<li>Monitor your jobs
+<ul>
+<li>
+<pre><code>sacct --fields=jobid,jobname,state</code></pre>
+</li>
 <li>Show job details: scontrol show job <jobID>
 If you want to see job name (by default the name of job script file), you can use
 <pre><code>scontrol show job | grep -e JobName -e 'username'</code></pre>
 Please note that JobName is a field contained in the output while username is a string and therefore needs to be quoted
+</li>
+</ul>
 </li>
 <li>Get an interactive shell use: sinteractive 
 <ul>
