@@ -129,8 +129,8 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 <li>Submit a job: sbatch file.sh</li>
 <li>Monitor your jobs
 <ul>
-<li>Use the sacct command you can see all your jobs (including completed) and you can customize how the job list is displayed by using the "fileds" option as below
-<pre><code>sacct --fields=jobid,jobname,state</code></pre>
+<li>Use the sacct command you can see all your jobs (including completed) and you can customize how the job list is displayed by using the "fileds" option as below. Showing jobname is useful as it is by default the filename of corresponding job script. The 'state" option helps specify what types of jobs you would like to view, such as CA (CANCELLED), CD (COMPLETED), F (FAILED), PD (PENDING; i.e., awaiting resource allocation), R (RUNNING), and S (SUSPENDED; e.g., give way to jobs with higher priority).
+<pre><code>sacct --state=RUNNING --fields=jobid,jobname,state</code></pre>
 </li>
 <li>Show job details: scontrol show job <jobID>
 If you want to see job name (by default the name of job script file), you can use
