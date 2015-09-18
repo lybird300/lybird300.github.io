@@ -155,9 +155,10 @@ $ sbatch --array=1,3,5,7
 # Submit a job array with index values between 1 and 7 with a step size of 2 (i.e. 1, 3, 5 and 7)
 $ sbatch --array=1-7:2</code></pre>
 </li>
-<li>You can use "sinfo" command to view information about Slurm nodes and partitions. It is similar to "showq" of PBS. For example, 
-<pre><code>
-</code></pre>
+<li>You can use "sinfo" command to view information about Slurm nodes and partitions. It is similar to "showq" of PBS. For example, to view summary information of each partition (Partitions represent group of nodes with specific characteristics (similar resources, priority, job limits, access controls, etc)):
+<pre><code>sinfo -s</code></pre>
+All the queues have maximum durations and maximum amount of nodes that a job can use. You can check these limits with command
+<pre><code>sinfo -l</code></pre>
 </li>
 <li>The Unix 'man' command provides more detailed information on any command, e.g., man squeue</li>
 <li>Lastly, the command "sview" is available to inspect and modify jobs via a graphical user interface. To identify your jobs among the many ones in the list, select either the "specific user's jobs" or the "job ID" item from the menu "Actions -> Search". By right-clicking on a job of yours and selecting "Edit job" in the context menu, you can obtain a window which allows to modify the job settings. Please be careful about committing your changes.</li>
