@@ -115,6 +115,7 @@ You can monitor the conditions of all jobs dynamically using top or htop (more c
 <ul>
 <li>VIRT: Total amount of virtual memory used by the process, including code, data, shared libraries, pages that swapped out</li>
 <li>RES: Resident size (i.e., non-swapped physical memory a process has used) </li>
+<li>%CPU: the CPU usage of a process. If it is more than 100%, e.g., 700%, it probably means that the job is actually using multiple CPUs on the node. In this situation, the process often runs very slowing because it is trashing the caches. The solution is to assign more cores (processors) to this job</li>
 </ul>
 
 <h2>SLURM commands</h2>
