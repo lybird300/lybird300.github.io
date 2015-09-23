@@ -132,10 +132,13 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 <li>Use the sacct command you can see all your jobs (including completed) and you can customize how the job list is displayed by using the "fileds" option as below. Showing jobname is useful as it is by default the filename of corresponding job script. The 'state" option helps specify what types of jobs you would like to view, such as CA (CANCELLED), CD (COMPLETED), F (FAILED), PD (PENDING; i.e., awaiting resource allocation), R (RUNNING), and S (SUSPENDED; e.g., give way to jobs with higher priority).
 <pre><code>sacct --state=RUNNING --fields=jobid,jobname,state</code></pre>
 </li>
-<li>Show job details: scontrol show job <jobID>
-If you want to see job name (by default the name of job script file), you can use
+<li>Show job details: scontrol show job <jobID>. The last line "WorkDir" tells you the path of job script (i.e., from where the job was submitted)
+<li>If the name of your job (by default the name of job script file) is too long to be seen. There are two solutions. One is to show only the job name using
 <pre><code>scontrol show job | grep -e JobName -e 'username'</code></pre>
-Please note that JobName is a field contained in the output while username is a string and therefore needs to be quoted
+Please note that the quotes around "username" is necessary because JobName is a field contained in the output but username is a string you specify.
+The other is to tweak the display format of squeue command. The default formats is "%.7i %.9P %.8j %.8u %.2t %.10M %.6D %R". "%[.][size]type" is used to indicate every output field and its display size. "i" stands for job id, "j" for job name. You can increase the number before j, which indicates the display size of that field, to leave more space for showing complete job name. An example command would be
+<pre><code>squeue -u linly --format="%.7i %.9P %.20j %.8u %.2t %.10M %.6D %R"</code></pre>
+Note that I keep all other default setting while changing the size of jobname field from the default value 8 to 20. It suits the size of my monitor screen but you may need a different value.
 </li>
 </ul>
 </li>
