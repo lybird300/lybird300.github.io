@@ -133,7 +133,7 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 <li>Use the sacct command you can see all your jobs (including completed) and you can customize how the job list is displayed by using the "fileds" option as below. Showing jobname is useful as it is by default the filename of corresponding job script. The 'state" option helps specify what types of jobs you would like to view, such as CA (CANCELLED), CD (COMPLETED), F (FAILED), PD (PENDING; i.e., awaiting resource allocation), R (RUNNING), and S (SUSPENDED; e.g., give way to jobs with higher priority).
 <pre><code>sacct --state=RUNNING --fields=jobid,jobname,state</code></pre>
 </li>
-<li>Show job details: scontrol show job <jobID>. The last line "WorkDir" tells you the path of job script (i.e., from where the job was submitted)
+<li>Show job details: scontrol show job <jobID>. The "WorkDir" line tells you the path of the parent directory of your job script (i.e., from where the job was submitted). The "Command" line tells you the path of your job script file (including file name).</li>
 <li>If the name of your job (by default the name of job script file) is too long to be seen. There are two solutions. One is to show only the job name using
 <pre><code>scontrol show job | grep -e JobName -e 'username'</code></pre>
 Please note that the quotes around "username" is necessary because JobName is a field contained in the output but username is a string you specify.
