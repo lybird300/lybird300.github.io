@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Working with clusters--SLURM version"
+title: "Working with clusters--the SLURM version"
 date: 2015-10-01
 ---
 SLURM commands are different than previous PBS commands. Below are a few commonly used commands.
