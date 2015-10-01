@@ -11,6 +11,7 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 <li>Remove all jobs from a specific user: scancel -u <username></li>
 <li>Cancel all pending jobs belonging to a specific user: scancel --state=PENDING --user=<username></li>
 </ul>
+
 <h2>Submit a job<h2>
 A typical command is
 <pre><code>sbatch file.sh</code></pre>
@@ -47,7 +48,6 @@ Note that I keep all other default setting while changing the size of jobname fi
 <li>Also note that GUIs can be executed (e.g., when you want to run Eclipse in debug mode), but they can't be done via the shell that sinteractive drops you in (i.e., by using sinteractive -X), as the cluster I'm working on has no additional plugins that would enable proper X11 forwarding inside of sinteractive. Instead you need to open a new shell by SSH -X to the node that was allocated to you via sinteractive. So a shortcut would be to first copy the address of the compute node allocated to you by the above command, i.e., all texts inside [], for example, username@ComputeNode-1-6. Then open a new ssh session and at the command line type: ssh -X <the address you just copied>, e.g., ssh -X linly@croatan-1-6. Enter. Then you can run Eclipse. In other words, you need to open another terminal on ht0 or ht1 after you have obtained an interactive session on a node with sinteractive. Next just ssh -X <node> to the node that was reserved for you with sinteractive. Then you can run eclipse on that node. You won't be able to run eclipse through the terminal that you obtained via sinteractive.</li>
 <li>It is often preferrable to use the interactive mode (i.e., use an interactive node in the cluster) to diagnose a problematic job when you don't know the causes.</li>
 </ul>
-</li>
 <h2>Get more informations</h2>
 You can use "sinfo" command to view information about Slurm nodes and partitions. It is similar to "showq" of PBS. For example, to view summary information of each partition (Partitions represent group of nodes with specific characteristics (similar resources, priority, job limits, access controls, etc)):
 <pre><code>sinfo -s</code></pre>
