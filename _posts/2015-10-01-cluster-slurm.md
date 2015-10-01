@@ -3,7 +3,6 @@ layout: post
 title: "Working with clusters--SLURM version"
 date: 2015-10-01
 ---
-<h2>Useful SLURM commands</h2>
 SLURM commands are different than previous PBS commands. Below are a few commonly used commands.
 <ul>
 <li>List contents of the queue: squeue</li>
@@ -11,7 +10,10 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 <li>Remove a job from the queue: scancel "id"</li>
 <li>Remove all jobs from a specific user: scancel -u <username></li>
 <li>Cancel all pending jobs belonging to a specific user: scancel --state=PENDING --user=<username></li>
-<li>Submit a job using sbatch file.sh
+</ul>
+<h2>Submit a job<h2>
+A typical command is
+<pre><code>sbatch file.sh</code></pre>
 Again there are many flags (i.e., options) that you can use to fit your special needs. For example,
 <ul>
 <li>-t: specify the walltime</li>
@@ -21,8 +23,7 @@ Again there are many flags (i.e., options) that you can use to fit your special 
 <li>--exclusive: sometimes it is good to have the entire compute node reserved for your own use (i.e., not sharing with other people and this flag is for this purpose (note it starts with two slashes instead of one slash)</li>
 <li>-mem=<MB>: specify the real memory required per node in MegaBytes</li>
 </ul>
-</li>
-<li>Monitor your jobs
+<h2>Monitor your jobs</h2>
 <ul>
 <li>Use the sacct command you can see all your jobs (including completed) and you can customize how the job list is displayed by using the "fileds" option as below. Showing jobname is useful as it is by default the filename of corresponding job script. The 'state" option helps specify what types of jobs you would like to view, such as CA (CANCELLED), CD (COMPLETED), F (FAILED), PD (PENDING; i.e., awaiting resource allocation), R (RUNNING), and S (SUSPENDED; e.g., give way to jobs with higher priority).
 <pre><code>sacct --state=RUNNING --fields=jobid,jobname,state</code></pre>
@@ -36,8 +37,7 @@ The other is to tweak the display format of squeue command. The default formats 
 Note that I keep all other default setting while changing the size of jobname field from the default value 8 to 20. It suits the size of my monitor screen but you may need a different value.
 </li>
 </ul>
-</li>
-<li>Get an interactive shell use: sinteractive 
+<h2>Get an interactive shell use using sinteractive</h2>
 <ul>
 <li>If you pass the -e flag to sinteractive it will reserve an entire node, i.e., using
 <pre><code>sinteractive -e</code></pre>
@@ -48,14 +48,15 @@ Note that I keep all other default setting while changing the size of jobname fi
 <li>It is often preferrable to use the interactive mode (i.e., use an interactive node in the cluster) to diagnose a problematic job when you don't know the causes.</li>
 </ul>
 </li>
-<li>You can use "sinfo" command to view information about Slurm nodes and partitions. It is similar to "showq" of PBS. For example, to view summary information of each partition (Partitions represent group of nodes with specific characteristics (similar resources, priority, job limits, access controls, etc)):
+<h2>Get more informations</h2>
+You can use "sinfo" command to view information about Slurm nodes and partitions. It is similar to "showq" of PBS. For example, to view summary information of each partition (Partitions represent group of nodes with specific characteristics (similar resources, priority, job limits, access controls, etc)):
 <pre><code>sinfo -s</code></pre>
 All the queues have maximum durations and maximum amount of nodes that a job can use. You can check these limits with command
 <pre><code>sinfo -l</code></pre>
-</li>
-<li>The Unix 'man' command (e.g., man squeu) provides more detailed information on any command by bringing out the man page of that command. To search for a specific string in a man page. Type slash / and then type the string to search for. Then keep pressing the "n" bottom to get to the next item.</li>
-<li>Lastly, the command "sview" is available to inspect and modify jobs via a graphical user interface. To identify your jobs among the many ones in the list, select either the "specific user's jobs" or the "job ID" item from the menu "Actions -> Search". By right-clicking on a job of yours and selecting "Edit job" in the context menu, you can obtain a window which allows to modify the job settings. Please be careful about committing your changes.</li>
-</ul>
+
+The Unix 'man' command (e.g., man squeu) provides more detailed information on any command by bringing out the man page of that command. To search for a specific string in a man page. Type slash / and then type the string to search for. Then keep pressing the "n" bottom to get to the next item.
+
+The command "sview" is available to inspect and modify jobs via a graphical user interface. To identify your jobs among the many ones in the list, select either the "specific user's jobs" or the "job ID" item from the menu "Actions -> Search". By right-clicking on a job of yours and selecting "Edit job" in the context menu, you can obtain a window which allows to modify the job settings. Please be careful about committing your changes.
 
 <h2>References</h2>
 <ol>
