@@ -127,7 +127,17 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 <li>Remove a job from the queue: scancel "id"</li>
 <li>Remove all jobs from a specific user: scancel -u <username></li>
 <li>Cancel all pending jobs belonging to a specific user: scancel --state=PENDING --user=<username></li>
-<li>Submit a job: sbatch file.sh</li>
+<li>Submit a job using sbatch file.sh
+Again there are many flags (i.e., options) that you can use to fit your special needs. For example,
+<ul>
+<li>-t: specify the walltime</li>
+<li>-p: specify the queue you want to use</li>
+<li>-N: specify the number of compute nodes you would like to reserve</li>
+<li>-n: specify the number of cores on each compute node that you would like to reserve</li>
+<li>--exclusive: sometimes it is good to have the entire compute node reserved for your own use (i.e., not sharing with other people and this flag is for this purpose (note it starts with two slashes instead of one slash)</li>
+<li>-mem=<MB>: specify the real memory required per node in MegaBytes</li>
+</ul>
+</li>
 <li>Monitor your jobs
 <ul>
 <li>Use the sacct command you can see all your jobs (including completed) and you can customize how the job list is displayed by using the "fileds" option as below. Showing jobname is useful as it is by default the filename of corresponding job script. The 'state" option helps specify what types of jobs you would like to view, such as CA (CANCELLED), CD (COMPLETED), F (FAILED), PD (PENDING; i.e., awaiting resource allocation), R (RUNNING), and S (SUSPENDED; e.g., give way to jobs with higher priority).
@@ -166,7 +176,7 @@ $ sbatch --array=1-7:2</code></pre>
 All the queues have maximum durations and maximum amount of nodes that a job can use. You can check these limits with command
 <pre><code>sinfo -l</code></pre>
 </li>
-<li>The Unix 'man' command provides more detailed information on any command, e.g., man squeue</li>
+<li>The Unix 'man' command (e.g., man squeu) provides more detailed information on any command by bringing out the man page of that command. To search for a specific string in a man page. Type slash / and then type the string to search for. Then keep pressing the "n" bottom to get to the next item.</li>
 <li>Lastly, the command "sview" is available to inspect and modify jobs via a graphical user interface. To identify your jobs among the many ones in the list, select either the "specific user's jobs" or the "job ID" item from the menu "Actions -> Search". By right-clicking on a job of yours and selecting "Edit job" in the context menu, you can obtain a window which allows to modify the job settings. Please be careful about committing your changes.</li>
 </ul>
 <h2>References</h2>
