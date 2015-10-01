@@ -12,7 +12,7 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 <li>Cancel all pending jobs belonging to a specific user: scancel --state=PENDING --user=<username></li>
 </ul>
 
-<h2>Submit a job<h2>
+<h2>Submit a job</h2>
 A typical command is
 <pre><code>sbatch file.sh</code></pre>
 Again there are many flags (i.e., options) that you can use to fit your special needs. For example,
