@@ -1,4 +1,9 @@
-<h2>SLURM commands</h2>
+---
+layout: post
+title: "Working with clusters--SLURM version"
+date: 2015-10-01
+---
+<h2>Useful SLURM commands</h2>
 SLURM commands are different than previous PBS commands. Below are a few commonly used commands.
 <ul>
 <li>List contents of the queue: squeue</li>
