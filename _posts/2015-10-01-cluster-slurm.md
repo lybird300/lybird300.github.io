@@ -62,6 +62,6 @@ The command "sview" is available to inspect and modify jobs via a graphical user
 
 <h2>References</h2>
 <ol>
-<li>A nice <a href="http://ecs.rutgers.edu/slurm_commands.html">cheatsheet</a> found by my colleague Ruhi Rai (she's gonna be a great bioinformaticist in the future></li>
+<li>A nice <a href="http://ecs.rutgers.edu/slurm_commands.html">cheatsheet</a> found by my colleague Ruhi Rai (She's gonna be a great bioinformaticist in the future)</li>
 <li><a href="https://amigotechnotes.wordpress.com/2014/02/17/how-multi-core-processors-accelerate-your-lamp-applications/">https://amigotechnotes.wordpress.com/2014/02/17/how-multi-core-processors-accelerate-your-lamp-applications/</a></li>
 </ol>
