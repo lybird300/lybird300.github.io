@@ -3,8 +3,11 @@ layout: post
 title: "Working with clusters--the SLURM version"
 date: 2015-10-01
 ---
-Before the real stuffs in this post, let's talk about how to set up the PATH environment variables. In Linux system (such as a cluster), you can add new paths to the .bashrc file in your home directory (e.g., /home/linly). Suppose you want to add a new path "~/opt/bin" (~means the current directory). Depending on whether you want to add it at the end (to be searched after all other directories, in case there is a program by the same name in multiple directories) or at the beginning (to be searched before all other directories), you can do
-<pre><code></code></pre>
+Before the real stuffs in this post, let's talk about how to set up the PATH environment variables. First where to put new paths. In Linux system (such as a cluster), you should define environment variables such as PATH in the ~/.profile file (or the ~/.bash_profile file if you don't care about shells other than bash) in your home directory (e.g., /home/linly). The ~/.bash_rc is not read by any program, and ~/.bashrc is the configuration file of interactive instances of bash. Here is <a href="http://superuser.com/questions/183870/difference-between-bashrc-and-bash-profile/183980#183980">a good discussion on their differences</a>.Now Suppose you want to add a new path "~/opt/bin" (~means the current directory). Depending on whether you want to add it at the end (to be searched after all other directories, in case there is a program by the same name in multiple directories) or at the beginning (to be searched before all other directories), you can do
+<pre><code>PATH=$PATH:~/opt/bin
+PATH=~/opt/bin:$PATH</code></pre>
+You can add multiple entries at the same time (with variations on the ordering work just fine).
+<pre><code>PATH=$PATH:~/opt/bin:~/opt/node/bin</code></pre>
 Another useful thing (please bear with me) is to set up alias for long directory path. Take a look at <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions">this tutorial</a>.
 SLURM commands are different than previous PBS commands. Below are a few commonly used commands.
 <ul>
