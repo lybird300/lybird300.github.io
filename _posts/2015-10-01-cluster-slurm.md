@@ -5,7 +5,7 @@ date: 2015-10-01
 ---
 Before the real stuffs in this post, let's talk about how to set up the PATH environment variables. In Linux system (such as a cluster), you can add new paths to the .bashrc file in your home directory (e.g., /home/linly). Suppose you want to add a new path "~/opt/bin" (~means the current directory). Depending on whether you want to add it at the end (to be searched after all other directories, in case there is a program by the same name in multiple directories) or at the beginning (to be searched before all other directories), you can do
 <pre><code></code></pre>
-
+Another useful thing (please bear with me) is to set up alias for long directory path. Take a look at <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions">this tutorial</a>.
 SLURM commands are different than previous PBS commands. Below are a few commonly used commands.
 <ul>
 <li>List contents of the queue: squeue</li>
