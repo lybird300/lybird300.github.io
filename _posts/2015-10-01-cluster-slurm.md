@@ -8,7 +8,7 @@ Before the real stuffs in this post, let's talk about how to set up the PATH env
 PATH=~/opt/bin:$PATH</code></pre>
 You can add multiple entries at the same time (with variations on the ordering work just fine).
 <pre><code>PATH=$PATH:~/opt/bin:~/opt/node/bin</code></pre>
-Another useful thing (please bear with me) is to set up alias for long directory path. Take a look at <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions">this tutorial</a>.
+BTW, in unix system an absolute path starts with "/". If you need to indicate a relative path in the current directory, give its name without "/". For example, "cd siwGWAS/...". For more take a look at one of the references. Another useful thing (please bear with me) is to set up alias for long directory path. Take a look at <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions">this tutorial</a>.
 SLURM commands are different than previous PBS commands. Below are a few commonly used commands.
 <ul>
 <li>List contents of the queue: squeue</li>
@@ -71,4 +71,5 @@ The command "sview" is available to inspect and modify jobs via a graphical user
 <li>A nice <a href="http://ecs.rutgers.edu/slurm_commands.html">cheatsheet</a> found by my colleague Ruhi Rai (She's gonna be a great bioinformaticist in the future)</li>
 <li>A <a href="http://www.arc.ox.ac.uk/content/slurm-job-scheduler">tutorial</a> on how to write a shell script with SLURM commands</li>
 <li><a href="https://amigotechnotes.wordpress.com/2014/02/17/how-multi-core-processors-accelerate-your-lamp-applications/">https://amigotechnotes.wordpress.com/2014/02/17/how-multi-core-processors-accelerate-your-lamp-applications/</a></li>
+<li><a href="http://www.linuxnix.com/abslute-path-vs-relative-path-in-linuxunix/">Absloute path vs relative path in Linux/Unix</a></li>
 </ol>
