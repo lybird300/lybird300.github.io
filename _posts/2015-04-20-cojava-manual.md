@@ -6,7 +6,7 @@ date: 2015-04-20
 <h2>Initiate CoJava</h2>
 The program must be invoked with the following command-line arguments
 <ul><li>"-p" (REQUIRED) specifies the parameter file, which is a text file that describes the demographic model to be simulated.</li>
-<li>"-o" (REQUIRED) specify the base name for output files. Output consists of a pair of files for each sampled population, one containing a list of all variant sites (with position and allele frequencies), the other containing the haplotypes for that population.</li><li>"-l" specify the log file that</li><li>"-s" specify the seg file that</li><li>"-proc" (REQUIRED) specify the number of processors used in the fork/join framework of Java 8</li></ul>
+<li>"-o" (REQUIRED) specify the base name for output files. Output consists of a pair of files for each sampled population, one containing a list of all variant sites (with position and allele frequencies), the other containing the haplotypes for that population.</li><li>"-l" specify the log file that</li><li>"-s" specify the seg file that</li><li>"-proc" specify the number of processors used in the fork/join framework of Java 8 (it is 1 by default)</li></ul>
 
 <h2>Set up parameters</h2>
 The parameter file defines the population structure and other input parameters, using keywords. In this file, comments are indicated by "#" at the beginning of a line. Newlines don't matter. The file includes the following options, which you can comment out by adding "#" to the beginning of each line.
