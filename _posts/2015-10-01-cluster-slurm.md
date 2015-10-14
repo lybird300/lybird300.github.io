@@ -3,13 +3,17 @@ layout: post
 title: "Working with clusters--the SLURM version"
 date: 2015-10-01
 ---
+<h2>Set environment variables</h2>
 Before the real stuffs in this post, let's talk about how to set up your environment (e.g., modify variables such as PATH) so that you can better work with the cluster. First, which file to put the command for customization. All the commands written in this file can be typed in a terminal session to customize your environment, but to make permanent changes it is better to put everything in such a file. In Linux system (such as a cluster), you should define environment variables such as PATH in the "~/.profile" file (or the "~/.bash_profile" file if you don not care about shells other than bash) in your home directory (e.g., /home/linly). The ~/.bash_rc is not read by any program, and ~/.bashrc is the configuration file of interactive instances of bash. Here is <a href="http://superuser.com/questions/183870/difference-between-bashrc-and-bash-profile/183980#183980">a good discussion on their differences</a>. 
-PATH is an environment variable on Unix-like operating systems, specifying a set of directories where executable programs are located. When you run a command or type an executable’s name, the system looks into PATH to find the command/executable. If you want to find the location of an executable, 'which executableName' is the command you need. Now Suppose you want to add a new path "~/opt/bin" (~means the current directory). Depending on whether you want to add it at the end (to be searched after all other directories, in case there is a program by the same name in multiple directories) or at the beginning (to be searched before all other directories), you can do
-<pre><code>PATH=$PATH:~/opt/bin
+PATH is an environment variable on Unix-like operating systems, specifying a set of directories where executable programs are located. It is a colon-separated list of directories in which the shell looks for commands. When you run a command or type an executable’s name, the system looks into PATH to find the command/executable. If you want to find the location of an executable, 'which executableName' is the command you need. Now Suppose you want to add a new path "~/opt/bin" (~ means the HOME directory, you can change it to "$HOME/bin" or "${HOME}/bin"). Depending on whether you want to add it at the end (to be searched after all other directories, in case there is a program by the same name in multiple directories) or at the beginning (to be searched before all other directories), you can do
+<pre><code>export PATH=$PATH:~/opt/bin
 PATH=~/opt/bin:$PATH</code></pre>
 You can add multiple entries at the same time (with variations on the ordering work just fine).
 <pre><code>PATH=$PATH:~/opt/bin:~/opt/node/bin</code></pre>
 BTW, in unix system an absolute path starts with "/". If you need to indicate a relative path in the current directory, give its name without "/". For example, "cd siwGWAS/...". For more take a look at one of the references. Another useful thing (please bear with me) is that you can define alias for long directory path. Take a look at <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions">this tutorial</a>.
+In addition to PATH, there are some other commonly used shell variables. You can display their values using echo. For example, you can show HOME, the home directory of the current user, using (must use $ followed by variable name to print a variable's contents)
+<pre><code>$ echo "$HOME</code></pre>
+<h2>SLURM Usage</h2>
 SLURM commands are different than previous PBS commands. Below are a few commonly used commands.
 <ul>
 <li>List contents of the queue: squeue</li>
