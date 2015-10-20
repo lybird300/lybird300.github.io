@@ -15,11 +15,11 @@ My doctoral dissertation work addresses the theoretical and methodological chall
 <a href="http://lybird300.github.io/YLin_Defense_Dec3_14.pdf">My defense slides</a> (For those who know Chinese or are interested in ancient Chinese literature, you may find something interesting at the right margin of some slides ^_^)
 <br/>BTW, here seems to be a good place for a short list on how to upload PDF files (also other types of files such as images or videos) to Github step by step through Git Bash command line. Note that it's not a general instruction but something that suits my needs.
 <ol>
-<li>Open Terminal (for Mac users) or the command prompt (for Windows and Linux users).</li>
+<li>Open Terminal (for Mac users) or the github bash or shell (for Windows and Linux users).</li>
 <li>Make sure you already cloned the repository to which you'd like to upload the file locally on your computer. You can do so by typing<br/><pre><code>git clone https://github.com/lybird300/lybird300.github.io.git</code></pre></li>
 <li>On your computer, move the file you'd like to upload to GitHub into the corresponding local directory that was created when you cloned the repository. If you forget where it is, type the following in Git Bash command line<br/><pre><code>cd lybird300.github.io<br/>pwd<br/>Or git rev-parse --show-toplevel</code></pre>. My local directory is C:/Users/linly/lybird300.github.io</li>
 <li>At the command line, change the current working directory to your local repository. It's the same command at Step 2 (i.e., "cd path to the local repository")</li>
-<li>Add the file(s) in the local repository (windows operation) and stage (I don't know what this term means) them for commit by typing at the command line<br/><pre><code>git add filename</code></pre></li>
+<li>Add the file(s) in the local repository (windows operation) and stage (I don't know what this term means) them for commit by typing at the command line below (note that you can ask the system to complete the filename for you using the same "tab" trick)<br/><pre><code>git add filename</code></pre></li>
 <li>Now you must commit these changes that you have staged in your local repository (You can give necessary comments between the quotes). For example<pre><code>$ git commit -m "Adding a new file"</code></pre></li>
 <li>Finally, push the changes in your local repository to GitHub by <pre><code>$ git push origin master</code></pre></li>
 </ol>
