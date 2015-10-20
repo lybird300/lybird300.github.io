@@ -31,6 +31,10 @@ Permutation testing is another general approach for establishing significance in
 
 Another commonly used approach is to rely on the concept of genome-wide significance. Based on the distribution of LD in the genome for a specific population, there are an "effective" number of independent genomic regions, and thus an effective number of statistical tests that should be corrected for. For European descent populations, this threshold has been estimated at 7.2e-8 (Dudbridge & Gusnanto, 2008). This reasonable approach should be used with caution, however, as the only scenario where this correction is appropriate is when hypotheses are tested on the genome scale. Candidate gene studies or replication studies with a focused hypothesis do not require correction to this level, as the number of effective, independent statistical tests is much, much lower than what is assumed for genome-wide significance.
 
+Now let's consider the case when the multiple tests are correlated or dependent. 
+Usually, the plink software can give you raw and permuted p-values, although it uses (by default) an adaptive testing strategy with a sliding window that allows to stop running all permutations (say 1000 per SNP) if it appears that the SNP under consideration is not "interesting"; it also has option for computing maxT, see the online help.
+
+Many authors have pointed to the fact that simple multiple testing correcting methods such as the Bonferroni or Sidak are too stringent for adjusting the results for the individual SNPs. Moreover, neither of these methods take into account the correlation that exists between SNPs due to LD which tags the genetic variation across gene regions. Other alternative have bee proposed, like a derivative of Holm's method for multiple comparison (3), Hidden Markov Model (4), conditional or positive FDR (5) or derivative thereof (6), to name a few. So-called gap statistics or sliding window have been proved successful in some case, but you'll find a good review in (7) and (8). I've also heard of methods that make effective use of the haplotype structure or LD, e.g. (9), but I never used them. They seem, however, more related to estimating the correlation between markers, 
 <h2>References</h2>
 <ul>
 <li>Benjamini and Hochberg (1995) Controlling the false discovery rate: a practical and powerful approach to multiple testing. JRSS(B) 57:289-300</li>
@@ -38,4 +42,5 @@ Another commonly used approach is to rely on the concept of genome-wide signific
 <li>Hochberg Y, Benjamini Y (1990) More powerful procedures for multiple significance testing. Stat Med 9: 811–818.</li>
 <li>van den Oord EJ (2008) Controlling false discoveries in genetic studies. Am J Med Genet B Neuropsychiatr Genet 147B: 637–644.</li>
 <li>Walsh & Lynch (to be published in fall, 2015). Evolution and Selection of Quantitative Traits: I. Foundations (Version 26 March, 2014). A4. Multiple comparisons: Bonferroni Corrections and False Discovery Rates</li>
+<li><a href="http://stats.stackexchange.com/questions/2819/correcting-p-values-for-multiple-tests-where-tests-are-correlated-genetics">Correcting p values for multiple tests where tests are correlated (genetics)</a></li>
 </ul>
