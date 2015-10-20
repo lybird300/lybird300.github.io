@@ -8,19 +8,23 @@ I would like to study these phenomena using the conceptual and analytical tools 
 how parts of a system give rise to the collective behaviors of the system, and how the system interacts with its environment. There are three interrelated approaches to the modern study of complex systems, (1) how interactions give rise to patterns of behavior, (2) understanding the ways of describing complex systems, and (3) the process of formation of complex systems through pattern formation and evolution. 
 , and consequently use tools like agent-based modeling and social network analysis that foreground the interactions between individuals in a social system. 
 Methodologically, I’m interested in discovering, modeling, and visualizing the structural and dynamic patterns of a specific network and relate them with the functions and outcomes of that network. 
-
 <br/>
-
 My doctoral dissertation work addresses the theoretical and methodological challenges involved with studying how organizational members self-organize their .  The underlying motivation for my work is the desire to explore the conditions under which can achieve self-organized. balancing individual members’ exploitation (i.e., exchanging and improving existing knowledge) and exploration (i.e., creating new knowledge) activities, so that both short-term efficiency and long-term development can be guaranteed. But what should an organization do to balance these self-initiated and self-organized (social interactions unavoidably generate informal structures that regulate future interactions) activities? My dissertation study explored the conditions that these activities could be self-balanced under the impact of the emergent informal structure. Using complex adaptive system theories and agent-based modeling, I found that self-balance could be achieved under three conditions: (a) there must be someone working alone to create new knowledge, while others interact to improve existing knowledge (do not have to be the same members though); (b) there must be random knowledge exchanges that occasionally happen between people who have relatively different knowledge bases; (c) the social relations established as a result of knowledge exchanges should not last too long.</p>
 <a href="http://lybird300.github.io/YLin_dissertation_Dec2014.pdf">My dissertation</a>
 <br/>
 <a href="http://lybird300.github.io/YLin_Defense_Dec3_14.pdf">My defense slides</a> (For those who know Chinese or are interested in ancient Chinese literature, you may find something interesting at the right margin of some slides ^_^)
-BTW, here seems to be a good place for a short list on how to upload PDF files (also other types of files such as images or videos) to Github step by step through Git Bash command line. Note that it's not a general instruction but something that suits my needs.
+<br/>BTW, here seems to be a good place for a short list on how to upload PDF files (also other types of files such as images or videos) to Github step by step through Git Bash command line. Note that it's not a general instruction but something that suits my needs.
 <ol>
-<li>Open Terminal (for Mac users) or the command prompt (for Windows and Linux users).</li>
+<li>Open Terminal (for Mac users) or the github bash or shell (for Windows and Linux users).</li>
 <li>Make sure you already cloned the repository to which you'd like to upload the file locally on your computer. You can do so by typing<br/><pre><code>git clone https://github.com/lybird300/lybird300.github.io.git</code></pre></li>
 <li>On your computer, move the file you'd like to upload to GitHub into the corresponding local directory that was created when you cloned the repository. If you forget where it is, type the following in Git Bash command line<br/><pre><code>cd lybird300.github.io<br/>pwd<br/>Or git rev-parse --show-toplevel</code></pre>. My local directory is C:/Users/linly/lybird300.github.io</li>
 <li>At the command line, change the current working directory to your local repository. It's the same command at Step 2 (i.e., "cd path to the local repository")</li>
-<li></li>
+<li>Add the file(s) in the local repository (windows operation) and stage (I don't know what this term means) them for commit by typing at the command line below (note that you can ask the system to complete the filename for you using the same "tab" trick)<br/><pre><code>git add filename</code></pre></li>
+<li>Now you must commit these changes that you have staged in your local repository (You can give necessary comments between the quotes). For example<pre><code>$ git commit -m "Adding a new file"</code></pre></li>
+<li>Finally, push the changes in your local repository to GitHub by <pre><code>$ git push origin master</code></pre></li>
 </ol>
-
+Note
+<ul>
+<li>If you want to add a directory, go to the directory where the directory you want to add is located and at the command line<br/><pre><code>git add directory_name</code></pre> and then git commit -m "". Note that this will also commit the subdirectories and files present in the directory.If you want to add all changes, use <br/><pre><code>git add --all</code></pre></li>
+<li>If you are changing the same directory online in the mean time, the last step above will produce error messages like "failed to push some refs to <your remote repository address> (e.g., 'https://github.com/lybird300/lybird300.github.io.git')". As the hints will tell you, type the followingcan solve this problem. Basically, first pull to integrate remote changes with local changes and then push them together to the remote site. <br/><pre><code>$git pull origin master<br/>$git push origin master</code></pre></li>
+</ul>

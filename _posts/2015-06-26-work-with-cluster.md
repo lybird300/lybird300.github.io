@@ -3,17 +3,16 @@ layout: post
 title: "Working with clusters"
 date: 2015-06-22
 ---
-Disclaimer: The commands introduced in this post work on the clusters I'm using (PBS and SLURM), but may not on yours. (I learned that they are different when trying to kill hundreds of batch jobs I had submitted to the queue. The common command "bkill" did not work for me and I ended up using "qdel".)
-
-<blockquote>I also want to express my gratitude to my colleagues <a href="http://renci.org/staff/jeffrey-tilson/">Dr. Jeff Tilson</a> and <a href="http://renci.org/staff/marcin-sliwowski/">Marcin Sliwowski</a>. They helped me understand these very basic stuffs with great patience and clear instructions. Every time when they came into my office, grabbed a chair and sat beside me, I knew whatever problem I had would soon go away. Thank you guys! You are the best!</blockquote>
-
+<img src="https://cloud.githubusercontent.com/assets/5496192/9962833/d3a3a0c6-5df5-11e5-9106-dcd88f848996.jpg" width=30% height=30% /><br />
+Disclaimer: The commands introduced in this post work on the clusters I'm using (PBS and SLURM), but may not on yours. (I learned that they are different when trying to kill hundreds of batch jobs I had submitted to the queue. The common command "bkill" did not work for me and I ended up using "qdel".) I also want to express my gratitude to my colleagues <a href="http://renci.org/staff/jeffrey-tilson/">Dr. Jeff Tilson</a> and <a href="http://renci.org/staff/marcin-sliwowski/">Marcin Sliwowski</a>. They helped me understand these very basic stuffs with great patience and clear instructions. Every time when they came into my office, grabbed a chair and sat beside me, I knew whatever problem I had would soon go away. Thank you guys! You are the best!
+OK. Now let's roll! Happy computing everybody!
+When working with clusters, no strategy is more important than "devide and conquer," in my opinion (Recently I'm reading Season 1 scripts of CBS' "the good wife" for fun. It's a waste of time though). The first thing to consider is how to divide your tasks into several jobs and whether and WHERE you can parallelize the program used to run each of these jobs (i.e., make it multi-threaded).
 <h2>Parallelize your code</h2>
 Tread, thread, thread...<br/>
 <img src="https://cloud.githubusercontent.com/assets/5496192/8731041/b29a9e8a-2bc2-11e5-9d51-f83a51f87408.jpg"/><br/>
-Check out <a href="http://www.omsn.de/blog/how-to-parallelize-loops-with-java-7-fork-join-framework">this article</a> that compares the application of Thread, ExecutorService, and ForkJoinPool in the same problem. Here is <a href="http://blog.takipi.com/forkjoin-framework-vs-parallel-streams-vs-executorservice-the-ultimate-benchmark/">another one</a> that includes Java 8 parallel streams.
-Note: Your JVM and/or the host OS decide how many 'native' threads to use, and how those threads are mapped to physical processors. Thus, when submitting your jobs to the queue, make sure you grab as many processors as possible using ppn (e.g., qsub -q largemem -l nodes=1:ppn=32)
-
-There are several thread states, A thread can be in any one of the state at a particular point of time. It can be running state. It can be ready to run state as soon as it gets CPU time. A running thread can be suspended. A suspended thread can be resumed. A thread can be blocked when waiting for a resource. At any time a thread can be terminated. When a parent thread P executes a thread join to join one of its child threads C, which is still running, P is suspended until C terminates. Once C terminates, P resumes.
+Check out <a href="http://www.omsn.de/blog/how-to-parallelize-loops-with-java-7-fork-join-framework">this article</a> that compares the application of Thread, ExecutorService, and ForkJoinPool in the same problem. Here is <a href="http://blog.takipi.com/forkjoin-framework-vs-parallel-streams-vs-executorservice-the-ultimate-benchmark/">another one</a> that includes Java 8 parallel streams. For the fork/join framework, in practice it uses a thread pool in which a fixed number of threads are created. Each thread has a queue of tasks that are awaiting a chance to execute. When a task is started (forked), it is added to the queue of the thread that is executing its parent task.Because each thread can be executing only one task at a time, each thread's task queues can accumulate tasks which are not currently executing. Threads that have no tasks allocated to them will attempt to steal a task from a thread whose queue has at least one task - this is called work stealing. By this mechanism, tasks are distributed to all of the threads in the thread pool. By using a thread pool with work stealing, a fork/join framework can allow a relatively fine-grained division of the problem, but only create the minimum number of threads needed to fully exploit the available CPU cores. <b>Typically, the thread pool will have one thread per available CPU core</b>.
+<br/>Note: (1) Your JVM and/or the host OS decide how many 'native' threads to use, and how those threads are mapped to physical processors. Thus, when submitting your jobs to the queue, make sure you grab as many processors as needed using ppn (e.g., qsub -q largemem -l nodes=1:ppn=32)
+(2) There are several thread states, A thread can be in any one of the state at a particular point of time. It can be running state. It can be ready to run state as soon as it gets CPU time. A running thread can be suspended. A suspended thread can be resumed. A thread can be blocked when waiting for a resource. At any time a thread can be terminated. When a parent thread P executes a thread join to join one of its child threads C, which is still running, P is suspended until C terminates. Once C terminates, P resumes.
 
 <h2>Submit jobs with qsub</h2>
 Arguments placed on the command line when calling the qsub command will take precedent over those in the script, so a general script may be built and then tested or varied by varying the options on the command line.
@@ -105,40 +104,23 @@ Yesterday a weird thing happened: none of my jobs had any outputs, not even an e
 <pre><code><ul>
 <li>qstat -q: lists the resource limits of each queue</li>
 <li>ssh NODENAME: connect to a node specified by NODENAME, so that you can check its current usage information using, for example, free -m (display memory usage in MB; if you use free -g, it will display memory usage in GB)</li>
-<li>du: prints the disk usage (in Kb) of each directory and it's sub-directories that you have execute permissions on. By default it starts from the current directory, but supplying  the name of a directory after the command will make it start from that  directory.</li>
+<li>du: prints the disk usage (in Kb) of each directory and it's sub-directories that you have execute permissions on. By default it starts from the current directory, but supplying  the name of a directory after the command will make it start from that directory.</li>
 <li>df: tells you the amount of free space on all mounted file systems, or you can specify the name of a device you want to check. In the result table, Column 2 (labeled 1K-blocks) shows the total size (in Kb)  of the corresponding file system; Column 3 shows how much space has  been used; Column 4 gives the remaining space; Column five (Capacity)  shows (as a percentage) how much of the space has been used. The last column simply shows the mount folder names of that file system.</li>
 <li>free: shows you information about the machine's memory. This includes  physical memory (RAM), swap as well as the shared memory and buffers used by the kernel. All measurements are in Kb.</li>
-<li></li>
 </ul></code></pre>
-You can monitor the conditions of all jobs dynamically using top or htop (more colorful and expressive) and quit the monitoring window by typing "q". The output is full-screen and refreshes itself frequently (or at user definable intervals). There are several columns providing different information, such as:
+Please take a look at the last reference at the bottom of this page for how to use "du" and "df" to inspect a particular directory. The article introduces several commands, one of which I find very useful is
+<pre><code>du -ch | grep total</code></pre>
+Basically, "du" gives you a list of subdirectories that exist underneath the current directory along with their sizes. The last line of the output is the total size of the current directory. The option '-h' stands for human readable format. So the sizes of the files / directories are this time suffixed with a 'K' if its kilobytes and 'M' if its Megabytes and 'G' if its Gigabytes. This entire command would have only one line in its output that displays the total size of the current directory including all the subdirectories in terms of K, M, G, T, etc.
+You can monitor the conditions of all jobs dynamically using <a href="http://how-to.linuxcareer.com/learning-linux-commands-top">top</a> or htop (more colorful and expressive) and quit the monitoring window by typing "q". The output is full-screen and refreshes itself frequently (or at user definable intervals). There are several columns providing different information, such as:
 <ul>
 <li>VIRT: Total amount of virtual memory used by the process, including code, data, shared libraries, pages that swapped out</li>
 <li>RES: Resident size (i.e., non-swapped physical memory a process has used) </li>
+<li>%CPU: the CPU usage of a process. If it is more than 100%, e.g., 700%, it probably means that the job is actually using multiple CPUs on the node. In this situation, the process often runs very slowing because it is trashing the caches. The solution is to assign more cores (processors) to this job</li>
 </ul>
-
-<h2>SLURM commands</h2>
-SLURM commands are different than previous PBS commands. Below are a few commonly used commands.
-<ul>
-<li>List contents of the queue: squeue</li>
-<li>List contents of a user's jobs in the queue: squeue -u <username></li>
-<li>Remove a job from the queue: scancel "id"</li>
-<li>Remove all jobs from a single user: scancel -u <username></li>
-<li>Submit a job: sbatch file.sh</li>
-<li>Get an interactive shell use: sinteractive 
-<ul>
-<li>If you pass the -e flag to sinteractive it will reserve an entire node.</li>
-<li>If you need more than just one core (but not all cores in a node), utilize the -c option to specify the number.</li>
-<li>sinteractive --help will show you the available options.</li>
-<li>Also note that GUIs can be executed (e.g., when you want to run Eclipse in debug mode), but they can't be done via the shell that sinteractive drops you in (i.e., by using sinteractive -X), as the cluster I'm working on has no additional plugins that would enable proper X11 forwarding inside of sinteractive. Instead you need to open a new shell by SSH -X to the node that was allocated to you via sinteractive. So a shortcut would be to first copy the address of the compute node allocated to you by the above command, i.e., all texts inside [], for example, username@ComputeNode-1-6. Then open a new ssh session and at the command line type: ssh -X <the address you just copied>, e.g., ssh -X linly@croatan-1-6. Enter. Then you can run Eclipse. In other words, you need to open another terminal on ht0 or ht1 after you have obtained an interactive session on a node with sinteractive. Next just ssh -X <node> to the node that was reserved for you with sinteractive. Then you can run eclipse on that node. You won't be able to run eclipse through the terminal that you obtained via sinteractive.</li>
-</ul>
-</li>
-<li>The Unix 'man' command provides more detailed information on any command, e.g., man squeue</li>
-</ul>
-
-
 <h2>References</h2>
 <ul>
 <li><a href="http://www.toptal.com/java/hunting-memory-leaks-in-java">Hunting Memory Leaks in Java</a></li>
 <li><a href="https://hpcc.usc.edu/support/documentation/running-a-job-on-the-hpcc-cluster-using-pbs/">Running a Job on HPC using PBS</a> and <a href="https://hpcc.usc.edu/support/documentation/useful-pbs-commands/">Useful PBS Commands</a></li>
 <li><a href="https://kb.iu.edu/d/admm">In Unix, what is the find command, and how do I use it to search through directories for files?</a></li>
+<li><a href="http://www.codecoffee.com/tipsforlinux/articles/22.html">How to find size of a directory & Free disk space</a></li>
 </ul>
