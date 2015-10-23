@@ -70,8 +70,12 @@ Note that I keep all other default setting while changing the size of jobname fi
 You can use "sinfo" command to view information about Slurm nodes and partitions. It is similar to "showq" of PBS. For example, to view summary information of each partition (Partitions represent group of nodes with specific characteristics (similar resources, priority, job limits, access controls, etc)):
 <pre><code>sinfo -s</code></pre>
 All the queues have maximum durations and maximum amount of nodes that a job can use. You can check these limits with command
-<pre><code>sinfo -l</code></pre>
-
+<pre><code>$ sinfo -l</code></pre>
+If you want to know how much memory is installed in each compute node, the 7the column of the output of the following command will give you such information.
+<pre><code>sinfo -N -l</code></pre>
+If you want to know how much memory is already in use on each node, use the following command. It shows NodeName, RealMemory and AllocMem. (requires Slurm 2.6.0 or more recent)
+<pre><code>$ scontrol -o show nodes | awk '{ print $1, $13, $14}'</code></pre>
+Note: the memory size is in megabytes
 The Unix 'man' command (e.g., man squeu) provides more detailed information on any command by bringing out the man page of that command. To search for a specific string in a man page. Type slash / and then type the string to search for. Then keep pressing the "n" bottom to get to the next item.
 
 The command "sview" is available to inspect and modify jobs via a graphical user interface. To identify your jobs among the many ones in the list, select either the "specific user's jobs" or the "job ID" item from the menu "Actions -> Search". By right-clicking on a job of yours and selecting "Edit job" in the context menu, you can obtain a window which allows to modify the job settings. Please be careful about committing your changes.
