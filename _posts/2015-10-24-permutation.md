@@ -37,7 +37,8 @@ and structure of the pedigree) all of which can influence the
 distribution of the test statistics. Therefore, it is commonly
 agreed that accurate estimates of genome-wide statistical
 significance are best obtained empirically through permutation
-tests that condition on the observed data [Churchill
+tests that condition on the observed data [Churchill and Doerge, 1994; Douglas et al., 2000; Gordon et al., 2000;
+Hirschhorn et al., 2001; Ott, 1999; Sawcer et al., 1997].
 
 Permutation testing is often described as the gold-standard for determining statistical significance when performing multiple correlated tests for genetic association. 
 
