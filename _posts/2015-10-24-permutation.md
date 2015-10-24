@@ -40,7 +40,11 @@ significance are best obtained empirically through permutation
 tests that condition on the observed data [Churchill and Doerge, 1994; Douglas et al., 2000; Gordon et al., 2000;
 Hirschhorn et al., 2001; Ott, 1999; Sawcer et al., 1997].
 
-Permutation testing is often described as the gold-standard for determining statistical significance when performing multiple correlated tests for genetic association. 
+Permutation testing is often described as the gold-standard for determining statistical significance when performing multiple correlated tests for genetic association.  
+
+The aim of a permutation test is to retain the
+design of the experiment, including any heterogeneity of
+variance, and to simulate y-values under the null hypothesis
 
 In testing a null hypothesis we need a test statistic that will have different values under the null hypothesis and the alternatives we care about (eg a relative risk of diabetes). We then need to compute the sampling distribution of the test statistic when the null hypothesis is true. For some test statistics and some null hypotheses this can be done analytically. The p-value is the probability that the test statistic would be at least as extreme as we observed, if the null hypothesis is true. A permutation test gives a simple way to compute the sampling distribution for any test statistic, under the strong null hypothesis that a set of genetic variants has absolutely no effect on the outcome. It is useful when we do not know how to compute the distribution of a test statistic.
 
