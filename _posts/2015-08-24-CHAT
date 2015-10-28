@@ -83,12 +83,12 @@ The second bean "FilterChromSpecificChat" applies four filters on CHAT data file
 This bean also identifies and keeps records of SNPs and samples/subjects with more than 50% missing genotypes (IUPAC code "X") in the data set (referred to as "almost empty" SNPs and samples). The filtering introduced below are conducted on the rest of the data (samples and SNPs that have less than 50% missing genotypes). Now let's get to the "real business" of this bean, i.e., the four filters implemented by four functions. 
 <ul>
 <li>Hardy-Weinberg Equilibrium (not applicable for the X chromosome): For each SNP, the filter function first reads through samples to find out which codes (in the truth vector) represent the TWO homozygotes and one heterozygote regarding that SNP (denoted as a1, a2, and a12 in Java implementation; notably, the program assumes that all SNPs are biallelic. It will give an error message and stop once encountering a multi-allelic SNP). Then the filter function counts the occurrences of a1, a2, and a12 in all control samples (i.e., value of the "dx" field is not "2") and applies an exact test on the HWE of that SNP. The exact test for HWE has been mentioned in many articles, such as Emigh, T. H., 1980. A comparison of tests for Hardy-Weinberg equilibrium. Biometrics 36 627–642, or <a href="http://www.ncbi.nlm.nih.gov/pubmed/15789306">A note on exact tests of Hardy-Weinberg equilibrium</a>. If the test result cannot exceed a user-defined threshold, the SNP will be excluded from further analysis (set the "include" field to be 0)</li>
-<li>Monomorphic SNPs: this filter function removes SNPs whose either allele has a frequency smaller or equal to a user-defined threshold. A genotype code compatible with both a1 and a2 will be counted twice. </li>
+<li>Monomorphic SNPs: this filter function removes SNPs whose minor allele frequency (MAF) is smaller or equal to a user-defined threshold. A genotype code compatible with both a1 and a2 will be counted twice. </li>
 <li>Missing SNPs: this filter function remove any SNP record (from the map attribute of a DataSet object) whose number of missing genotypes exceeds a user-defined threshold (by changing the "include" field from 1 to 0)</li>
 <li>Missing samples: this filter function remove any sample record (from the sample attribute of a DataSet object) whose number of missing genotypes exceeds a user-defined threshold (by changing the "include" field from 1 to 0)</li>
 </ul>
 
- Recall that each CHAT data file contains SNP information of a specific chromosome, one SNP record per line (starting from the 5th line). 
+Recall that each CHAT data file contains SNP information of a specific chromosome, one SNP record per line (starting from the 5th line). 
  
 <h2>Weak points</h2>
 CHAT can only handle biallelic SNPs (check the filterHWE function in chat/common/DataSet.java). How can we improve that? Is there a HW equilibrium testing method that accommodate multiallelic SNPs?
