@@ -23,9 +23,10 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 <ul>
 <li>List contents of the queue: squeue</li>
 <li>List contents of a user's jobs in the queue: squeue -u <username></li>
-<li>Remove a job from the queue: scancel "id"</li>
-<li>Remove a seriel of jobs: scancel `seq 7823111 7823118`</li>
-<li>Remove all jobs from a specific user: scancel -u <username></li>
+<li>Remove a job from the queue by its ID: scancel "id"</li>
+<li>Remove a seriel of jobs by jobID: scancel `seq 7823111 7823118`</li>
+<li>Remove one or more jobs by job name (allowed for wildcard?): scancel --name myJobName</li>
+<li>Remove one or more jobs from a specific user: scancel -u <username></li>
 <li>Cancel all pending jobs belonging to a specific user: scancel --state=PENDING --user=<username></li>
 </ul>
 
