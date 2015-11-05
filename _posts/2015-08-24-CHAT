@@ -111,7 +111,25 @@ The last bean of this step is just to copy the CHAT data file (i.e., chromosome 
 To be completed
 
 <h3>CHAT main process</h3>
+This process is controlled by CHAT.xml file and completed by 9 beans.
 
+The first bean "ParalleRawLshRunnable"
+
+The second bean "ParalleMergeRawLshRunnable"
+
+The third bean "ParalleLshDataAdjustRunnable"
+
+The fourth bean "ParalleLshDataCalcFilterRunnable"
+
+The fifth bean "CalculatePISMORThresholdsJobsRunnable"
+
+The sixth bean "ParalleCHATSetRunnable"
+
+The seventh bean "ParalleleLSHCHATSimulationRunnable"
+
+The eighth bean "ParalleleLocalAdjustChatSetRunnable"
+
+The last bean "ParalleleGenomeAdjustChatSetRunnable"
  
 <h2>Weak points</h2>
 CHAT can only handle biallelic SNPs (check the filterHWE function in chat/common/DataSet.java). How can we improve that? Is there a HW equilibrium testing method that accommodate multiallelic SNPs?
