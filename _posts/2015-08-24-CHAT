@@ -17,7 +17,7 @@ First install maven and eclipse. You need to have a home repository for maven . 
 
 Second, create a jar with all the dependencies includes. Type 'mvn clean install assembly:assembly' at the shell command line (make sure you are in the chat root directory). You will find the .jar file in the /target sub-directory of the root directory, probably named as "chat-1.0-SNAPSHOT-bin.jar". Copy this .jar file to a place where it can be found by the envrionment variable $Path (i.e, make sure it is "in the PATH"). For example, I keep all execution files/application programs in the /bin folder of my home directory (/home/linly/bin), so I can use something like
 <pre><code>cp target/chat-1.0-SNAPSHOT-bin.jar ~/bin/chat.jar</code></pre>
-Note: do not forget to make the .jar actually executable by
+Note that you need to make the .jar actually executable by
 <pre><code>chmod +x chat.jar</code></pre>
 
 <h2>CHAT inputs</h2>
