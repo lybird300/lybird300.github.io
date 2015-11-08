@@ -53,7 +53,7 @@ You can also specify your needs at the top of the shell script (i.e., file.sh) u
 #SBATCH -o result.%J.out
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=yourEmailAddress
-</code><pre>
+</code></pre>
 <h2>Monitor your jobs</h2>
 <ul>
 <li>Use the sacct command you can see all your jobs (including completed) and you can customize how the job list is displayed by using the "fileds" option as below. Showing jobname is useful as it is by default the filename of corresponding job script. The 'state" option helps specify what types of jobs you would like to view, such as CA (CANCELLED), CD (COMPLETED), F (FAILED), PD (PENDING; i.e., awaiting resource allocation), R (RUNNING), and S (SUSPENDED; e.g., give way to jobs with higher priority).
