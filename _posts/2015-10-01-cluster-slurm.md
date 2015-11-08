@@ -42,6 +42,18 @@ Again there are many flags (i.e., options) that you can use to fit your special 
 <li>--exclusive: sometimes it is good to have the entire compute node reserved for your own use (i.e., not sharing with other people and this flag is for this purpose (note it starts with two slashes instead of one slash)</li>
 <li>-mem=<MB>: specify the real memory required per node in MegaBytes</li>
 </ul>
+You can also specify your needs at the top of the shell script (i.e., file.sh) using "#SBATCH ...", for example
+<pre><code>#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 8
+#SBATCH -t 1-20:00:00 (days-hours:minutes:seconds)
+#SBATCH -mem=200000
+#SBATCH -job-name=yourJobName
+#SBATCH -constraints=largemem (only select nodes that fit certain constraints)
+#SBATCH -o result.%J.out
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=yourEmailAddress
+</code><pre>
 <h2>Monitor your jobs</h2>
 <ul>
 <li>Use the sacct command you can see all your jobs (including completed) and you can customize how the job list is displayed by using the "fileds" option as below. Showing jobname is useful as it is by default the filename of corresponding job script. The 'state" option helps specify what types of jobs you would like to view, such as CA (CANCELLED), CD (COMPLETED), F (FAILED), PD (PENDING; i.e., awaiting resource allocation), R (RUNNING), and S (SUSPENDED; e.g., give way to jobs with higher priority).
