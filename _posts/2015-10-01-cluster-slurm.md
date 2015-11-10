@@ -39,7 +39,7 @@ Again there are many flags (i.e., options) that you can use to fit your special 
 <li>-p: specify the queue you want to use</li>
 <li>-N: specify the number of compute nodes you would like to reserve</li>
 <li>-n: specify the number of cores on each compute node that you would like to reserve. Note that "nodes" and "threads" are different concepts and their values are usually not the same in modern computing systems. <a href="https://amigotechnotes.wordpress.com/2014/02/17/how-multi-core-processors-accelerate-your-lamp-applications/">This post</a> elaborates on this issue well.</li>
-<li>--exclusive: sometimes it is good to have the entire compute node reserved for your own use (i.e., not sharing with other people and this flag is for this purpose (note it starts with two slashes instead of one slash)</li>
+<li>--exclusive (do NOT use this on RENCI machines): sometimes it is good to have the entire compute node reserved for your own use (i.e., not sharing with other people and this flag is for this purpose (note it starts with two slashes instead of one slash)</li>
 <li>-mem=<MB>: specify the real memory required per node in MegaBytes</li>
 </ul>
 You can also specify your needs at the top of the shell script (i.e., file.sh) using "#SBATCH ...", for example
@@ -70,12 +70,15 @@ Note that I keep all other default setting while changing the size of jobname fi
 </ul>
 <h2>Get an interactive shell use using sinteractive</h2>
 <ul>
-<li>If you pass the -e flag to sinteractive it will reserve an entire node, i.e., using
+<li>On RENCI machines, you can use the -w flag to specify which node you want to land on. For example, if you need a lot of memory, you can do
+<pre><code>sinteractive -w largemem-1-0</code></pre>
+</li>
+<li>(not on RENCI machines) If you pass the -e flag to sinteractive it will reserve an entire node, i.e., using
 <pre><code>sinteractive -e</code></pre>
 </li>
 <li>If you need more than just one core (but not all cores in a node), utilize the -c option to specify the number.</li>
 <li>sinteractive --help will show you the available options.</li>
-<li>Also note that GUIs can be executed (e.g., when you want to run Eclipse in debug mode), but they can't be done via the shell that sinteractive drops you in (i.e., by using sinteractive -X), as the cluster I'm working on has no additional plugins that would enable proper X11 forwarding inside of sinteractive. Instead you need to open a new shell by SSH -X to the node that was allocated to you via sinteractive. So a shortcut would be to first copy the address of the compute node allocated to you by the above command, i.e., all texts inside [], for example, username@ComputeNode-1-6. Then open a new ssh session and get onto the head node of the cluster first (for me it's ht0 or ht1) and then at the command line type: ssh -X <the address you just copied>, e.g., ssh -X linly@croatan-1-6. Enter. Then you can run Eclipse. In other words, you need to open another terminal on ht0 or ht1 after you have obtained an interactive session on a node with sinteractive. Next just ssh -X <node> to the node that was reserved for you with sinteractive. Then you can run eclipse on that node. You won't be able to run eclipse through the terminal that you obtained via sinteractive.</li>
+<li>Also note that on RENCI machines, although GUIs can be executed (e.g., when you want to run Eclipse in debug mode), they can't be done via the shell that sinteractive drops you in (i.e., by using sinteractive -X), as the cluster I'm working on has no additional plugins that would enable proper X11 forwarding inside of sinteractive. Instead you need to open a new shell by SSH -X to the node that was allocated to you via sinteractive. So a shortcut would be to first copy the address of the compute node allocated to you by the above command, i.e., all texts inside [], for example, username@ComputeNode-1-6. Then open a new ssh session and get onto the head node of the cluster first (for me it's ht0 or ht1) and then at the command line type: ssh -X <the address you just copied>, e.g., ssh -X linly@croatan-1-6. Enter. Then you can run Eclipse. In other words, you need to open another terminal on ht0 or ht1 after you have obtained an interactive session on a node with sinteractive. Next just ssh -X <node> to the node that was reserved for you with sinteractive. Then you can run eclipse on that node. You won't be able to run eclipse through the terminal that you obtained via sinteractive.</li>
 <li>It is often preferrable to use the interactive mode (i.e., open an interactive shell) to diagnose a problematic job when you don't know the causes. First open an interactive shell. Then run the progrom you plan to run in your job script from the command line directly(end with a "&". That allows you to push it to the background and run other stuffs, such as doing diagnosis, on top of the program). Then run "top" command to see the resource usage of that program and determine whether you need more CPUs or memory or disk space, etc. Another useful command in this context is "ps". The process status command (ps) displays information about all currently active processes. If the program writes into an output file over time, you can use the following command to see data appended to the output file:
 <pre><code>tail -f "name of the output file"</code></pre>
 </li>
