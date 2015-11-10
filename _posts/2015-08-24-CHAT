@@ -166,21 +166,21 @@ The first bean "ParalleRawLshRunnable" puts job plans in folders named as "RawLS
 		LSHDataElement = same as parent, but includes fitting and fixing information
 	CHATSimiliarityMatrixData = stores the LSHs at a marker position along with case control info
 
-The second bean "ParalleMergeRawLshRunnable" puts job plans in folders named as "LSHDataMergePlan0/1/2". The input directory is the output directory of the previous bean "RawLSHData" and the output directory is "LSHDataMerge". This class calls "LSHMergeRawForSubJobRunnable" to run all the planned jobs, merging the LSHs created in the first bean that overlap and have the same sample ids. 
+The second bean "ParalleMergeRawLshRunnable" puts job plans in folders named as "LSHDataMergePlan0/1/2". The input directory is the output directory of the previous bean "RawLSHData" and the output directory is "LSHDataMerge". This class calls "LSHMergeRawForSubJobRunnable" to run all the planned jobs, merging the LSHs created in the first bean that overlap and have the same sample ids. this merges the lsh from that start at  points into a single lsh
 
-The third bean "ParalleLshDataAdjustRunnable" puts job plans in folders named as "LSHDataAdjustPlan0/1/2". The input directory is the output directory of the previous bean "LSHDataMerge" and the output directory is "LSHDataAdjust". This class calls "LSHDataAdjustJobRunnable" to run all the planned jobs, trimming the ends of each LSH. 
+The third bean "ParalleLshDataAdjustRunnable" puts job plans in folders named as "LSHDataAdjustPlan0/1/2". The input directory is the output directory of the previous bean "LSHDataMerge" and the output directory is "LSHDataAdjust". This class calls "LSHDataAdjustJobRunnable" to run all the planned jobs, trimming the ends of each LSH. trims off the end a bit assuming that part of the end that could be shared is actually due to chance
 
-The fourth bean "ParalleLshDataCalcFilterRunnable" puts job plans in folders named as "LSHDataMergePlan0/1/2". The input directory is the output directory of the previous bean "LSHDataAdjust" and the output directory is "LSHDataMerge". This class calls "LSHDataCalcFilterJobRunnable" to run all the planned jobs, calculating metrics about LSH including PI smores. 
+The fourth bean "ParalleLshDataCalcFilterRunnable" puts job plans in folders named as "LSHDataMergePlan0/1/2". The input directory is the output directory of the previous bean "LSHDataAdjust" and the output directory is "LSHDataMerge". This class calls "LSHDataCalcFilterJobRunnable" to run all the planned jobs, calculating metrics about LSH including PI smores. calculates metrics about LSH including PI smores
 
-The fifth bean "CalculatePISMORThresholdsJobsRunnable" calculates statistics for PiSmore: ldu floor, median, mean, sd. These are stored to the database 
+The fifth bean "CalculatePISMORThresholdsJobsRunnable" calculates statistics for PiSmore: ldu floor, median, mean, sd. These are stored to the database. calculates means & sd of sharing of LSH
 
-The sixth bean "ParalleCHATSetRunnable" calls "BuildChatSetRunnable" to help with its jobs. "ParallelCHATSetRunnable" builds regions over which LSH cliques will be formed, while "BuildChatSetRunnable" computes cliques for a region.
+The sixth bean "ParalleCHATSetRunnable" calls "BuildChatSetRunnable" to help with its jobs. "ParallelCHATSetRunnable" builds regions over which LSH cliques will be formed, while "BuildChatSetRunnable" computes cliques for a region. does a long iterative process to decide which strand different lsh are sharing with subjects. make graphs of LSh at many spots for several models. Models allow for greater error and min pismore or LDU. gives first peek if anything interesting. Significance called at cliques for many points. Results are collapsed into representative results.
 
-The seventh bean "ParalleleLSHCHATSimulationRunnable" calls "LSHCHATSimulationJobRunnable" to help with its jobs. "ParalleleLSHCHATSimulationRunnable" constructs the list of simulations to run, while "BuildChatSetRunnable" runs each simulation and computes fisher statistic 
+The seventh bean "ParalleleLSHCHATSimulationRunnable" calls "LSHCHATSimulationJobRunnable" to help with its jobs. "ParalleleLSHCHATSimulationRunnable" constructs the list of simulations to run, while "BuildChatSetRunnable" runs each simulation and computes fisher statistic. Permutes phenotypes for cliques and calculates staticistics
 
 The eighth bean "ParalleleLocalAdjustChatSetRunnable" This class calls "LSHCHATLocalAdjustJobRunnable" to run all the planned jobs, correcting for local excess sharing. 
 
-The last bean "ParalleleGenomeAdjustChatSetRunnable" This class calls "LSHCHATGenomeAdjustJobRunnable" to run all the planned jobs, correcting for size of genome for each model. 
+The last bean "ParalleleGenomeAdjustChatSetRunnable" This class calls "LSHCHATGenomeAdjustJobRunnable" to run all the planned jobs, correcting for size of genome for each model and Corrects for multiple models (?)
  
 <h2>Weak points</h2>
 CHAT can only handle biallelic SNPs (check the filterHWE function in chat/common/DataSet.java). How can we improve that? Is there a HW equilibrium testing method that accommodate multiallelic SNPs?
