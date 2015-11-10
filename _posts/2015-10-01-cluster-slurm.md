@@ -91,7 +91,7 @@ All the queues have maximum durations and maximum amount of nodes that a job can
 If you want to know how much memory is installed in each compute node, the 7the column of the output of the following command will give you such information.
 <pre><code>sinfo -N -l</code></pre>
 Or specify the output of sinfo, such as below (the memory is in Mb)
-<pre><code>sinfo -o "%15N %10c %10m %25f %10G"</code><pre>
+<pre><code>sinfo -o "%15N %10c %10m %25f %10G"</code></pre>
 If you want to know how much memory is already in use on each node, use the following command. It shows NodeName, RealMemory and AllocMem. (requires Slurm 2.6.0 or more recent)
 <pre><code>$ scontrol -o show nodes | awk '{ print $1, $13, $14}'</code></pre>
 Note: the memory size is in megabytes
