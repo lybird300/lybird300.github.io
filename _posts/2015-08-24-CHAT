@@ -111,15 +111,18 @@ The last bean of this step is just to copy the CHAT data file (i.e., chromosome 
 To be completed
 
 <h3>CHAT main process</h3>
-This process is controlled by CHAT.xml file and completed by 9 beans, while the chat.properties file continues to be used. The corresponding classes for these beans all inherit from an abstract class (/chat-core/src/main/java/org/renci/chat/interpreter/AbstractManageJobsRunnable), which outlines a generic process of job management (runMethods()) including the following steps. Some of these steps have corresponding abstract functions defined in AbstractManageJobsRunnable.java, as indicated in the end in parentheses. These functions are overridden in bean-specific classes to fit specific needs. 
+This process is controlled by CHAT.xml file and completed by 9 beans, while the chat.properties file continues to be used. The corresponding classes for these beans all inherit from an abstract class (/chat-core/src/main/java/org/renci/chat/interpreter/AbstractManageJobsRunnable), which outlines a generic process of job management (runMethods()) including the following steps. Some of these steps correspond to abstract functions defined in the parent class (AbstractManageJobsRunnable.java) and overridden in each child class to fit bean-specific needs (as indicated in parentheses). After a step is finished, it returns a boolean value indicating whehter everything is fine and whether it is OK to proceed.
 <ol>
+<li>Get general job management settings from "chat.properties", such as the amount of memory requested for JVM (i.e., -Xmx, default 6g), the name of cluster queue requested, the number of cpu cores requested per node (default 3), the maximal number of jobs in the queue (default 200), target machine initial usage (default 512k?), the walltime for initial and resumed jobs (default increasing as 2, 4, 24 hours per job), and target Job size scale factor (default 1.0)</li>
 <li>Check to see if the err.txt file exists and terminate the process if the file exists</li>
-<li>Get chromosome specific data file, truth code, and database name
-<li>Connect to the database</li>
+<li>Get chromosome specific directory path, truth code file, job database (chatDB) path, and the list of to-be-processed chromosome IDs
 <li>Conduct bean-specific initialization steps to handle the transit between consecutive beans (uniqueStartSteps())</li>
-<li>Check whether some jobs have been planned before</li>
-<li>If no jobs have been planned before, check the existence of input data directory and input files, make output directory, make a "job plan" directory to store bean specific job files (shell script, .properties and .xml files), make initial job plans</li>
-<li>connect to the database</li>
+<li>Connect to the database</li>
+<li>Check whether there are any jobs that have been planned (checkIfPriorJobsPlanned()). The program will query the "*JobsPlan" table of the CURRENT bean (again, each bean has such a table) to get a list of missing/undone jobs and a list of completed/done jobs (either can be empty). Currently if either list is not empty, the program will switch to the error recovery mode (set a boolean variable "errorRecoveryOn" to TRUE). (Later the missing job list will be checked and if it is empty the program will output messsage saying this step has been completed and then return from the current bean) The program will also query the "*JobsPlanSub" table of the PRIOR bean (each bean has such a table, see below) to get the names of completed/done jobs for each chromosome. Since the name of a job is the prefix of all job-related files including the final output file, it amounts to getting the names of all input files. </li>
+<li>If the error recovery mode keeps ON and the "reinitialize" boolean variable is FALSE (set this variable to TRUE if you are debugging each bean separately, as what is done in the main() function of each bean), it means we are in a continuous sequential CHAT working process and the current bean was invoked before but not successfully completed. In other words, some planned jobs are not done<b>according to database records (no matter whehter involved files/directories exist)</b>. In this case, the program will </li>
+<li>If , check the existence of input data directory and input files, make output directory, make a "job plan" directory to store bean specific job files (shell script, .properties and .xml files), make initial job plans</li>
+
+<li></li>
 </ol>
 Each bean differs in their inputs, outputs, job size, and the database tables they use to store job information. As mentioned earlier, these specifications are set up by the uniqueStartSteps() function in each bean. Here, again, we use a derby database (with a folder named "chatDB" in the working directory) to store job information in multiple tables as below
 <ul>
@@ -140,9 +143,9 @@ The first bean will call the class "LSHRawJobRunnable" to actually execute all i
 
 The second bean "ParalleMergeRawLshRunnable" puts job plans in folders named as "LSHDataMergePlan0/1/2". The input directory is the output directory of the previous bean "RawLSHData" and the output directory is "LSHDataMerge". 
 
-The third bean "ParalleLshDataAdjustRunnable"
+The third bean "ParalleLshDataAdjustRunnable" puts job plans in folders named as "LSHDataAdjustPlan0/1/2". The input directory is the output directory of the previous bean "LSHDataMerge" and the output directory is "LSHDataAdjust".
 
-The fourth bean "ParalleLshDataCalcFilterRunnable"
+The fourth bean "ParalleLshDataCalcFilterRunnable" puts job plans in folders named as "LSHDataMergePlan0/1/2". The input directory is the output directory of the previous bean "LSHDataAdjust" and the output directory is "LSHDataMerge".
 
 The fifth bean "CalculatePISMORThresholdsJobsRunnable"
 
