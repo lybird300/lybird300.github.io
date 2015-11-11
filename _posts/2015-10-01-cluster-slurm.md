@@ -68,6 +68,9 @@ The other is to tweak the display format of squeue command. The default formats 
 Note that I keep all other default setting while changing the size of jobname field from the default value 8 to 20. It suits the size of my monitor screen but you may need a different value.
 </li>
 </ul>
+<h2>Update jobs</h2>
+The command below will change the wall time of the specified job to 1 day 12 hours
+<pre><code>scontrol update JobID=JOB_ID Timelimit=1-12:00:00</code></pre>
 <h2>Get an interactive shell use using sinteractive</h2>
 <ul>
 <li>On RENCI machines, you can use the -w flag to specify which node you want to land on. For example, if you need a lot of memory, you can do
