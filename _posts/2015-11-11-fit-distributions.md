@@ -20,11 +20,11 @@ The parameterization with α and β is more common in Bayesian statistics, where
 
 A random variable X that is gamma-distributed with shape α and rate β is denoted<br/>
 <img src= "https://cloud.githubusercontent.com/assets/5496192/11150608/d20480f0-89f6-11e5-8884-acdc6e482a95.png" />
-The corresponding density function in the shape-rate parametrization is <br/>
+<br/>The corresponding density function in the shape-rate parametrization is <br/>
 <img src="https://cloud.githubusercontent.com/assets/5496192/11150659/130d5ebe-89f7-11e5-9a16-0c2763e8ccb8.png" />
-The cumulative distribution function is the regularized gamma function: <br/>
+<br/>The cumulative distribution function is the regularized gamma function: <br/>
 <img src="https://cloud.githubusercontent.com/assets/5496192/11150694/54db8b36-89f7-11e5-8dd6-172f87e18a90.png" />
-If α is a positive integer (i.e., the distribution is an Erlang distribution), the cumulative distribution function has the following series expansion: <br/>
+<br/>If α is a positive integer (i.e., the distribution is an Erlang distribution), the cumulative distribution function has the following series expansion: <br/>
 <img src="https://cloud.githubusercontent.com/assets/5496192/11150715/70754a58-89f7-11e5-8801-4e21b7ec05bf.png" />
 
 
