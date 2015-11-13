@@ -53,3 +53,34 @@ To estimate the sampling distribution of the test statistic we need many samples
 Permutation testing is computationally demanding for
 large-scale genetic association studies and requires an
 optimized software implementation.
+
+Permutation provides a type-I error rate that asymptotically approaches the chosen significance level when the units being permuted are exchangeable under the null hypothesis. However, permutation is computationally intensive especially for high-throughput analyses or simulations.
+
+One further option is to use extreme tail theory to explicitly calculate the probability of detecting a test statistic as large as or larger than the observed maximum test statistic.
+
+Permutation testing, when performed appropriately, provides
+an unbiased test of the null hypothesis and is widely
+considered the gold standard with which other estimators
+and tests can be compared. Its main disadvantages are the
+time and computational resources required to obtain precise
+P value estimates, so alternative tests that provide
+similar results with less computational burden can be
+quite attractive, particularly when a large number of tests
+is involved or when data are frequently reanalyzed in light
+of new samples or genotypes.
+Whereas conventional distribution-based statistical tests
+typically require minimal computational resources, permutation
+tests are often employed when the asymptotic distribution
+of the statistic is unknown or difficult to model.
+However, for many of the tests commonly used in GWA
+studies, the asymptotic joint distribution of the test statistics
+is known, which makes analytical methods possible.
+As we show above, the asymptotic distribution of test
+statistics from association tests between correlated traits,
+markers, and models is often multivariate normal with
+known covariance matrix. However, the most significant
+test statistic from a group of multivariate normal test statistics
+has a distribution function that, although known,
+cannot be computed analytically because of the lack of a
+closed-form solution to the multivariate normal integral.
+
