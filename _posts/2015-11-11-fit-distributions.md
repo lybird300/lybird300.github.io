@@ -18,24 +18,15 @@ In each of these three forms, both parameters are positive real numbers.
 
 The parameterization with α and β is more common in Bayesian statistics, where the gamma distribution is used as a conjugate prior distribution for various types of inverse scale (aka rate) parameters, such as the λ of an exponential distribution or a Poisson distribution[3] – or for that matter, the β of the gamma distribution itself. (The closely related inverse gamma distribution is used as a conjugate prior for scale parameters, such as the variance of a normal distribution.)
 
-A random variable X that is gamma-distributed with shape α and rate β is denoted
+A random variable X that is gamma-distributed with shape α and rate β is denoted<br/>
 <img src= "https://cloud.githubusercontent.com/assets/5496192/11150608/d20480f0-89f6-11e5-8884-acdc6e482a95.png" />
-X \sim \Gamma(\alpha, \beta) \equiv \textrm{Gamma}(\alpha,\beta)
-Probability density function[edit]
-The corresponding density function in the shape-rate parametrization is
+The corresponding density function in the shape-rate parametrization is <br/>
+<img src="https://cloud.githubusercontent.com/assets/5496192/11150659/130d5ebe-89f7-11e5-9a16-0c2763e8ccb8.png" />
+The cumulative distribution function is the regularized gamma function: <br/>
+<img src="https://cloud.githubusercontent.com/assets/5496192/11150694/54db8b36-89f7-11e5-8dd6-172f87e18a90.png" />
+If α is a positive integer (i.e., the distribution is an Erlang distribution), the cumulative distribution function has the following series expansion: <br/>
+<img src="https://cloud.githubusercontent.com/assets/5496192/11150715/70754a58-89f7-11e5-8801-4e21b7ec05bf.png" /?
 
-g(x;\alpha,\beta) = \frac{\beta^{\alpha} x^{\alpha-1} e^{-x\beta}}{\Gamma(\alpha)} \quad \text{ for } x \geq 0 \text{ and } \alpha, \beta > 0
-Both parametrizations are common because either can be more convenient depending on the situation.
-
-Cumulative distribution function[edit]
-The cumulative distribution function is the regularized gamma function:
-
- F(x;\alpha,\beta) = \int_0^x f(u;\alpha,\beta)\,du= \frac{\gamma(\alpha, \beta x)}{\Gamma(\alpha)}
-where γ(α, βx) is the lower incomplete gamma function.
-
-If α is a positive integer (i.e., the distribution is an Erlang distribution), the cumulative distribution function has the following series expansion:[5]
-
-F(x;\alpha,\beta) = 1-\sum_{i=0}^{\alpha-1} \frac{(\beta x)^i}{i!} e^{-\beta x} = e^{-\beta x} \sum_{i=\alpha}^{\infty} \frac{(\beta x)^i}{i!}
 
 Set up and compute model (Summarizes uncertainties using probability)
 Inference for quantities of interest (Inference using iterative simulation (Gibbs sampler)
