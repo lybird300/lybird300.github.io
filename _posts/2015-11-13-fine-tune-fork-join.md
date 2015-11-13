@@ -6,19 +6,19 @@ date: 2015-11-13
 <blockquote>There is simply no substitute for the experience of writing and tuning your own parallel programs.</blockquote>
 How to efficiently parallelizing fork join computations in Java
 
-parallel programming rules of thumb
-Want at least as much work as parallel execution capability (e.g., program
-should probably spawn at least was much work as there are cores)
-- Want more independent work than execution capability to allow for good
-workload balance of all the work onto the cores
-- “parallel slack” = ratio of independent work to machine’s parallel execution
-capability (in practice: ~8 is a good ratio)
-- But not too much independent work so that granularity of work is too small
-(too much slack incurs overhead of managing fne-grained work)
-
+Parallel programming rules of thumb
+<ul>
+<li>Want at least as much work as parallel execution capability (e.g., program should probably spawn at least was much work as there are cores)</li>
+<li>Want more independent work than execution capability to allow for good workload balance of all the work onto the cores. “parallel slack” = ratio of independent work to machine’s parallel execution capability (in practice: ~8 is a good ratio)
+<li>But not too much independent work so that granularity of work is too small (too much slack incurs overhead of managing fne-grained work)</li>
+</ul>
 For the fork/join framework, in practice it uses a thread pool in which a fixed number of threads are created. Each thread has a queue of tasks that are awaiting a chance to execute. When a task is started (forked), it is added to the queue of the thread that is executing its parent task.Because each thread can be executing only one task at a time, each thread's task queues can accumulate tasks which are not currently executing. Threads that have no tasks allocated to them will attempt to steal a task from a thread whose queue has at least one task - this is called work stealing. By this mechanism, tasks are distributed to all of the threads in the thread pool. By using a thread pool with work stealing, a fork/join framework can allow a relatively fine-grained division of the problem, but only create the minimum number of threads needed to fully exploit the available CPU cores. <b>Typically, the thread pool will have one thread per available CPU core</b>.<br/>
 
+Most fork/join algorithms are accompanied with a sequential cutoff. When you reach a certain condition (e.g., array to determine maximum value of is of size 1000) you switch to a sequential algorithm (i.e., checking the elements one by one). 
 
+When you know on which system you have to run the algorithm you could then run a benchmark.
+
+For a sequential cutoff of x to y you run your code. Each iteration you measure how long it takes for you to apply your algorithm. Doing so you will see which configuration works best for you.
 
 
 
