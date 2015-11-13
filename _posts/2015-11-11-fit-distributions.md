@@ -19,7 +19,7 @@ In each of these three forms, both parameters are positive real numbers.
 The parameterization with α and β is more common in Bayesian statistics, where the gamma distribution is used as a conjugate prior distribution for various types of inverse scale (aka rate) parameters, such as the λ of an exponential distribution or a Poisson distribution[3] – or for that matter, the β of the gamma distribution itself. (The closely related inverse gamma distribution is used as a conjugate prior for scale parameters, such as the variance of a normal distribution.)
 
 A random variable X that is gamma-distributed with shape α and rate β is denoted
-<img src="http://mathurl.com/render.cgi?X%20%5Csim%20%5CGamma%28%5Calpha%2C%20%5Cbeta%29%20%5Cequiv%20%5Ctextrm%7BGamma%7D%28%5Calpha%2C%5Cbeta%29%5Cnocache" />
+<img src= "https://cloud.githubusercontent.com/assets/5496192/11150608/d20480f0-89f6-11e5-8884-acdc6e482a95.png" />
 X \sim \Gamma(\alpha, \beta) \equiv \textrm{Gamma}(\alpha,\beta)
 Probability density function[edit]
 The corresponding density function in the shape-rate parametrization is
