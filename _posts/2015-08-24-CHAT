@@ -3,6 +3,8 @@ layout: post
 title: "CHAT"
 date: 2015-08-24
 ---
+<blockquote>"To get good at something you've got to love what you do and you've got to put in the work. You've got to think about it every day. You've got to fight to understand every little bit. There is no way around it. -- Ben Haggerty</blockquote>
+
 Today I'm starting this post to record my thoughts while looking into Kirk's self-written software -- CHAT. Although I don't know (a) how often I will update, (b) how useful the content will be, or (c) how long it will take to complete the post, it is pretty exiting that after almost 5 months I'm finally here! ^_^
 
 During the past 6+ years Kirk has been working on CHAT alone in his spare time. Now Charles and me are helping him publicize this software. To start with let me give you a brief introduction of CHAT. CHAT stands for Convergent Haplotype Association Tagging. It is a computer program that we are developing to detect rare moderate penetrant mutations from GWA data sets. <b>The core of this method is a graph-theory based algorithm that systematically searches for subsets of individuals that share long range haplotypes</b>. The underlying assumption is that a small (but significant) subset of unrelated individuals have the same disease because they have inherited a moderate penetrant mutation from a distant common ancestor. Since the algorithm is computationally intensive (an NP-complete problem), we have been cooperating with the Renaissance Computational Institute (RENCI) and using their high-performance computing clusters. How powerful these machines are? "Consider the resources are limitless." said Erik Scott, a Senior Research Software Developer at RENCI. 
