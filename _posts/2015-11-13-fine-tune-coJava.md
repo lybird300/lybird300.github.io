@@ -4,7 +4,7 @@ title: "Fine tune CoJava"
 date: 2015-11-13
 ---
 <blockquote>There is simply no substitute for the experience of writing and tuning your own parallel programs.</blockquote>
-<img src="" /><br/>
+<img src="https://cloud.githubusercontent.com/assets/5496192/11194008/b9e11154-8c77-11e5-89ec-2d56b974c2d1.gif" /><br/>
 Since CoJava applies Java fork-join parallelism framework, this post is mostly concerned with efficiently parallelizing fork-join computations in Java. The fork/join framework uses a thread pool in which a fixed number of threads are created. Each thread has a queue of tasks that are awaiting a chance to execute. When a task is started (forked), it is added to the queue of the thread that is executing its parent task. Because each thread can be executing only one task at a time, each thread's task queues can accumulate tasks which are not currently executing. Threads that have no tasks allocated to them will attempt to steal a task from a thread whose queue has at least one task - this is called work stealing. By this mechanism, tasks are distributed to all of the threads in the thread pool. By using a thread pool with work stealing, a fork/join framework can allow a relatively fine-grained division of the problem, but only create the minimum number of threads needed to fully exploit the available CPU cores. <b>Typically, the thread pool will have one thread per available CPU core</b>. 
 There are some rules of thumb regarding general parallel programming (credit goes to <a href="http://15418.courses.cs.cmu.edu/spring2015/home">this site</a>)
 <ul>
