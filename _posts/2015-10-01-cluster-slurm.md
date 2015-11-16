@@ -73,15 +73,15 @@ The command below will change the wall time of the specified job to 1 day 12 hou
 <pre><code>scontrol update JobID=JOB_ID Timelimit=1-12:00:00</code></pre>
 <h2>Get an interactive shell use using sinteractive</h2>
 <ul>
-<li>On RENCI machines, you can use the -w flag to specify which node you want to land on. For example, if you need a lot of memory and thus a largemem computing node, you can do
-<pre><code>sinteractive -w largemem-1-0</code></pre>
+<li>If you don't know what arguments you can use along with "sinteractive", type
+<pre><code>sinteractive --help</code></pre><br/>
+On RENCI machines, I can also use the -c flag to request the number of CPU cores and the -w flag to specify which node I want to land on. For example, if you need a lot of memory and thus would like to require a largemem computing node exclusively, you can do
+<pre><code>sinteractive -c 40 -w largemem-1-0</code></pre>
 </li>
 <li>(not on RENCI machines) If you pass the -e flag to sinteractive it will reserve an entire node, i.e., using
 <pre><code>sinteractive -e</code></pre>
 </li>
-<li>If you don't know what arguments you can use along with "sinteractive", type
-<pre><code>sinteractive --help</code></pre><br/>
-On RENCI machines, I can also use "-c" to request the number of CPU cores</li>
+
 <li>If you need more than just one core (but not all cores in a node), utilize the -c option to specify the number.</li>
 <li>sinteractive --help will show you the available options.</li>
 <li>Also note that on RENCI machines, although GUIs can be executed (e.g., when you want to run Eclipse in debug mode), they can't be done via the shell that sinteractive drops you in (i.e., by using sinteractive -X), as the cluster I'm working on has no additional plugins that would enable proper X11 forwarding inside of sinteractive. Instead you need to open a new shell by SSH -X to the node that was allocated to you via sinteractive. So a shortcut would be to first copy the address of the compute node allocated to you by the above command, i.e., all texts inside [], for example, username@ComputeNode-1-6. Then open a new ssh session and get onto the head node of the cluster first (for me it's ht0 or ht1) and then at the command line type: ssh -X <the address you just copied>, e.g., ssh -X linly@croatan-1-6. Enter. Then you can run Eclipse. In other words, you need to open another terminal on ht0 or ht1 after you have obtained an interactive session on a node with sinteractive. Next just ssh -X <node> to the node that was reserved for you with sinteractive. Then you can run eclipse on that node. You won't be able to run eclipse through the terminal that you obtained via sinteractive.</li>
