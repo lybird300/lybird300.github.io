@@ -9,7 +9,11 @@ Bayesian interpretation of probability is that it represents uncertainty. Bayesi
 The quantity p(D|w) on the right-hand side of Bayes’ theorem is evaluated for the observed data set D and can be viewed as a function of the parameter vector w, in which case it is called the likelihood function. It expresses how probable the observed data set is for different settings of the parameter vector w. Note that the likelihood is not a probability distribution over w, and its integral with respect to w does not (necessarily) equal one. The denominator p(D) in the right side of the above formula is the normalization constant, which ensures that the posterior distribution on the left-hand side is a valid probability density and integrates to one. Indeed, integrating both sides of the formula with respect to w, we can express the denominator in Bayes’ theorem in terms of the prior distribution and the likelihood function p(D) = (integral sign) p(D|w)p(w)d(w). In both the Bayesian and frequentist paradigms, the likelihood function p(D|w) plays a central role. However, the manner in which it is used is fundamentally different in the two approaches. In a frequentist setting, w is considered to be a fixed parameter whose value is to be estimated, and the error bar on this estimate is obtained by considering the distribution of possible data sets D. By contrast, from the Bayesian viewpoint there is only a single data set D (namely the one that is actually observed), and the uncertainty in the parameters is expressed through a probability distribution over w.<br/>
 A widely used frequentist estimator is maximum likelihood, in which w is set to the value that maximizes the likelihood function p(D|w). This corresponds to choosing the value of w for which the probability of the observed data set is maximized. In the machine learning literature, the negative log of the likelihood function is called an error function. Because the negative logarithm is a monotonically decreasing function, maximizing the likelihood is equivalent to minimizing the error. One approach to determining frequentist error bars is the bootstrap, in which multiple data sets are created as follows. Suppose our original data set consists of N data points X = {x1, . . . , xN}. We can create a new data set XB by drawing N points at random from X, with replacement, so that some points in X may be replicated in XB, whereas other points in X may be absent from XB. This process can be repeated L times to generate L data sets each of size N and each obtained by sampling from the original data set X. The statistical accuracy of parameter estimates can then be evaluated by looking at the variability of predictions between the different bootstrap data sets.
 
-<h2>The exponential distribution family</h2>
+<h2>The exponential distribution family and their conjugate pairs</h2>
+In general, for a given probability distribution p(x|η), we can seek a prior p(η) that is
+conjugate to the likelihood function, so that the posterior distribution has the same
+functional form as the prior
+
 <h2>Gamma distribution as a conjugate prior distribution</h2>
 the gamma distribution is a two-parameter family of continuous probability distributions. The common exponential distribution and chi-squared distribution are special cases of the gamma distribution. There are three different parametrizations in common use:
 
@@ -38,6 +42,7 @@ Model checking
  Dispersed model validation (“beta-testing”)
 
 
-
+<h2>IBD and coalescent theory</h2>
+The distance between adjacent polymorphisms is inversely correlated with local TMRCA (time to most recent common ancestor); an L-base-long locus in a pairwise alignment that coalesced t generations ago is expected to contain 2*L*miu*t polymorphisms, miu being the mutation rate per generation.
 
 
