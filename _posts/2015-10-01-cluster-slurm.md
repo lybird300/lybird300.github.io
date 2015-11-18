@@ -71,6 +71,31 @@ Note that I keep all other default setting while changing the size of jobname fi
 <h2>Update jobs</h2>
 The command below will change the wall time of the specified job to 1 day 12 hours
 <pre><code>scontrol update JobID=JOB_ID Timelimit=1-12:00:00</code></pre>
+Before you do this, you can use the following command to see details about a particular job. As long as you did not specify a walltime in your submit script, you should get the default, and the following command allows you to check the default.
+<pre><code>scontrol show job jobID</code></pre>
+The output will be something like below
+<pre><code>
+JobId=13441734 JobName=interactive
+UserId=*** GroupId=external(2000)
+Priority=5052 Nice=0 Account=(null) QOS=normal
+JobState=RUNNING Reason=None Dependency=(null)
+Requeue=1 Restarts=0 BatchFlag=0 Reboot=0 ExitCode=0:0
+RunTime=1-17:55:10 <b>TimeLimit=14-00:00:00</b> TimeMin=N/A
+SubmitTime=2015-11-16T14:08:18 EligibleTime=2015-11-16T14:08:18
+StartTime=2015-11-16T14:08:18 EndTime=2015-11-30T14:08:18
+PreemptTime=None SuspendTime=None SecsPreSuspend=0
+Partition=batch AllocNode:Sid=ht0:6529
+ReqNodeList=largemem-1-0 ExcNodeList=(null)
+NodeList=largemem-1-0
+BatchHost=largemem-1-0
+NumNodes=1 NumCPUs=40 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+MinCPUsNode=1 MinMemoryCPU=2G MinTmpDiskNode=0
+Features=(null) Gres=(null) Reservation=(null)
+Shared=OK Contiguous=0 Licenses=(null) Network=(null)
+Command=(null)
+WorkDir=/../..
+</code></pre>
 <h2>Get an interactive shell use using sinteractive</h2>
 <ul>
 <li>If you don't know what arguments you can use along with "sinteractive", type
