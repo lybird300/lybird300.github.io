@@ -67,6 +67,7 @@ sample_size 4 10
 # African
 pop_size 5 100000
 sample_size 5 10</code></pre>
+If you only want to get samples from one or some, but not all of the four populations, modify sample_size accordingly (change the "sample_size" value of unneeded population to 0. Do NOT comment out that population and related population event below (starting with "pop_event").
 
 Parameters that define the demographic history of the populations are as follows and they can be supplied in any order.
 <pre><code>#pop_event migration_rate &lt;label&gt; &lt;source pop id&gt; &lt;target pop id&gt; &lt;T&gt; &lt;probability per chrom per gen&gt;
