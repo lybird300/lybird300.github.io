@@ -244,3 +244,8 @@ The last bean "ParalleleGenomeAdjustChatSetRunnable" This class calls "LSHCHATGe
 <h2>Weak points</h2>
 CHAT can only handle biallelic SNPs (check the filterHWE function in chat/common/DataSet.java). How can we improve that? Is there a HW equilibrium testing method that accommodate multiallelic SNPs?
 
+As mentioned, CHAT aims for long shared haplotypes (LSH) with error tolerence and puts LSHs into cliques based on their indiviudal hosts. A clique can include too many and too long haplotypes and therefore incur extensive computing time, given either of two conditions:
+<ul>
+<li>the tolerance for genotyping errors is set too high</li>
+<li>there are too few recombinations or mutations along the chromosome (when the data set is synthetic, it means the simulation model that generates the data set has inappropriate recombination or mutation rate)</li>
+</ul>
