@@ -167,21 +167,23 @@ Next, "LSHRawJobRunnable" will identify IBD LSHs by estimating the IBD probabili
 Bayesian fitting requires multiple iteration. Each iteration starts by filtering out extreme data points based on the LDU distance threshold above. The remaining data points are used to fit a gamma distribution using a third-party gamma-distribution fitting function <a href="http://simul.iro.umontreal.ca/ssj/doc/html/umontreal/iro/lecuyer/probdist/GammaDist.html#getInstanceFromMLE(double[], int)">umontreal.iro.lecuyer.probdist.GammaDist.getInstanceFromMLE(double[] c, int n_c)<a>, c being the set of data points used to estimate α and λ, and n_c being the size of this data set. Gamma distribution has different forms of parameterization. This function creates a new instance of the following form of gamma distribution with shape parameter α > 0 and scale parameter λ > 0 (these two parameters will also get more precise through iterations).
 Density function: <img src="https://cloud.githubusercontent.com/assets/5496192/11452159/320ef3fc-95ac-11e5-94bf-2228f25c9526.png" />
 You can tell from the name of the function that it uses maximum likelihood method to fit the Gamma distribution (i.e., to figure out the most likely values of parameters α and λ). As mentioned in the above wiki page, there are several alternative ways, yet MLE is often the most efficient method in the sense that results are as precise as is possible for a given amount of data. 
-Using the fitted gamma distribution and the assumed prior IBD probability (0.005 by default), we can calculate the IBD probability of a specific LSH based on its length as follows. Assume S is a variable indicating the length of LSH (i.e., with identical alleles at contiguous markers) and X is a predefined threshold of S. We would like to infer the probability that an observed LSH of length beyond the threshold is IBD, i.e. P(IBD│S>X) =?
+Using the fitted gamma distribution and the prior IBD probability (intially assumed to be 0.005 and getting refined through iterations), we can calculate the IBD probability of a specific LSH based on its length as follows. Assume S is a variable indicating the length of LSH (i.e., the number of contiguous markers identical alleles). We would like to infer the probability that an observed LSH of length c is IBD, i.e. P(IBD│S>c) =?
 <pre><code>
-Use Baye's theorem, P(IBD|S>X) = P(IBD & S>X)/P(S>X)
-Since P(IBD & S>X) is indeed P(IBD), we have
-P(IBD|S>X) = P(IBD)/P(S>X)
+Use Baye's theorem, P(IBD|S>c) = P(IBD & S>c)/P(S>c)
+Since P(IBD & S>c) is indeed P(IBD), we have
+P(IBD|S>c) = P(IBD)/P(S>c)
 </code></pre>
-P(IBD) is the assumed prior probability that any detected LSH is due to IBD. Denote P(IBD) = Z and P(S>X|notIBD) = Y.
+P(IBD) is the assumed prior probability that any detected LSH is due to IBD. Denote P(IBD) = Z and P(S>c|notIBD) = Y.
 <pre><code>
-Since P(IBD) + P(notIBD) = 1, P(S>x|IBD) = 1, we have
-P(S>X) = P(S>X|IBD)*P(IBD) + P(S>X|notIBD)*P(notIBD) = 1*Z + Y*(1-Z) = Z + Y*(1-Z)
-P(IBD|S>X) = P(IBD)/P(S>X) = Z/(Z+Y*(1-Z))
+Since P(IBD) + P(notIBD) = 1, P(S>c|IBD) = 1, we have
+P(S>c) = P(S>c|IBD)*P(IBD) + P(S>c|notIBD)*P(notIBD) = 1*Z + Y*(1-Z) = Z + Y*(1-Z)
+P(IBD|S>c) = P(IBD)/P(S>c) = Z/(Z+Y*(1-Z))
 </code></pre>
-As mentioned, the initial value of Z is 0.005. Y is the chance that an LSH of beyond threshold length (S>X) exists due to IBS (i.e., non-IBD linkage disequilibirum in the populationdata). Given an LSH of length c, 1 - Y is the probability that the LSH or any part of it is IBD, i.e., P(X<=c), which is the cumulative density function of the fitted Gamma distribution. CHAT estimates P(X<=c) using the<a href="http://simul.iro.umontreal.ca/ssj/doc/html/umontreal/iro/lecuyer/probdist/GammaDist.html#cdf(double)">cdf</a> function in the same Java library mentioned earlier.
-Now for every LSH (excluding extremely long ones), current gamma distribution gives its posterior IBD probability, which is then compared with aforementioned posterior IBD probability threshold to determine the number of these "alledge" IBD LSHs. Then we can get refined prior IBD probability and extreme-probability-exclusion threshold, both of which will be used in the next iteration. The former is calculated by (the number of estimated IBD LSHs + the number of extremely long LSHs)/the total number of detected LSHs, where the total number of detected LSHs equals to the total number of pairwise comparisons. The latter is calculated as follows.
+As mentioned, the initial value of Z is 0.005. Since Y = P(S>c|IBS). 1 - Y is P(S<=c|IBS), which is the value of the cumulative density function (CDF) of the fitted Gamma distribution, P(S<=X|IBS), when X = c. CHAT estimates the CDF using the<a href="http://simul.iro.umontreal.ca/ssj/doc/html/umontreal/iro/lecuyer/probdist/GammaDist.html#cdf(double)">cdf</a> function in the same Java library mentioned earlier.
+Now for every LSH (excluding extremely long ones), current gamma distribution gives its posterior IBD probability, which is then compared with aforementioned posterior IBD probability threshold to determine the number of "alledge" IBD LSHs. Then we adjust the values of prior IBD probability and extreme-probability-exclusion threshold as follows, so that they can be used in the next iteration. The former is calculated by , where the total number of detected LSHs equals to the total number of pairwise comparisons. The latter is calculated as follows.
 <pre><code>
+prior IBD probability at iteration t+1 = (number of estimated IBD LSHs + number of extremely long LSHs)/total number of detected LSHs at iteration t
+
 Denote P(IBD/S>X) = Q.
 Q = Z/(Z+Y*(1-Z))
 (Z + Y*(1-Z)) = Z/Q
