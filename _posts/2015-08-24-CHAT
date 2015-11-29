@@ -158,16 +158,17 @@ The first bean "ParalleRawLshRunnable" puts job plans in folders named as "RawLS
 
 Now let's look into the first job creator "ParalleRawLshRunnable". It determines job size based on marker density. The maximal number of markers to be processed in each job is bounded by (int) Math.round((targetJobSizeScaleFactor * TARGET_RAW_JOB_SCALE_CONSTANT * effecencyScaleFactor) / ((Num_case + Num_control) * (Num_case + Num_control))), where by default TARGET_RAW_JOB_SCALE_CONSTANT = 2.5E7, and targetJobSizeScaleFactor = effecencyScaleFactor = 1. In addtiion, the LDU distance between two consecutive markers in each job is also bounded and the default distance is 3 ldu map units. For each job, the program will create a .properties file with the following information: chromID, whether it is an X chrom, output file name (for outputting analysis results), indices of markers processed in this job ("listIndexPos"), working directory, the location of chat data file (chromosome specific data directory), the name prefix of chat data file, the genotype coding file (i.e., truth matrix), the location of raw LSH data directory, forgiveCtBase, forgiveRateLength, assumedPriorProbIBD, postProbCutOffToEstimateProbIBD. Some of these items will make more sense when I introduce the corresponding job runner class "LSHRawJobRunnable". 
 "LSHRawJobRunnable" detects IBD haplotypes from every pair of samples/subjects (i.e., pairwise comparison; order does not matter) through every marker position assigned to a job ("listIndexPos" in the job property file). The IBD probability of two individuals is positively correlated with the number of consecutive corresponding markers on which the two indiviudals have compatible genotypes (diplotype, not haplotype data). The genotype data are coded using the truth table mentioned earlier, by which their compatibility is determined too. As you can see, what matters here is the length of sharing/compatibility/similarity, so IBD segments are referred to as <b>long shared haplotypes (LSH)</b> in this bean and the rest of CHAT beans. A potential obstacle in estimating IBD, especially concerning recent demography, is that random sequencing and phasing errors will tend to break up LSH. Thus, CHAT allows for certain amount of accumulated genotyping error before it stops checking the compatibility/similarity of the rest markers (on the chromosome segment to be processed in a job). More specifically, accumulated genotype error is bounded by a threshold that considers both how many incompatible sites have been accumulated so far ("forgiveCtBase" in the property file) and how fast they are accumulated ("forgiveRateLength" in the property file). For any pair of individuals, the LHS identifying process starts at a given marker and works towards two sides. On one side (called "p" side), markers are checked in a descending order interatively (markerID--) until it hits the beginning of this chromosome segment or the accumulated number of errors has achieved the predefined threshold. On the other side (so-called "q" side), markers are checked in an ascending order (markerID++) until it hits the end of this chromosome segment or the accumulated number of errors has achieved the predefined threshold (same threshold as the p side). The checking process returns an SampleToSampleGenotypeConparisonDataElement object (also referred to as sample-to-sample CHAT bean) that stores the result of one comparion between two individuals that starts from a particular marker (i.e., information on an LHS identified via the comparsion), including the pair of individuals being compared (their IDs), the starting marker index, the pair's disease affecting status (0 - both controls, 1 - one case one control, 2 - both cases), the pair's gender (indicated by specific values defined in /chat-common/src/main/java/org/renci/chat/common/CHATUtil.java, setPairClass() function), the smallest marker ID that has been checked, the biggest marker ID checked, and LDU map distance between these two markers. The program creates a CHATSimilarityMatrixData object for each marker, storing all SampleToSampleGenotypeConparisonDataElement objects (related to different pairs of individual samples) obtained from comparisons starting at that marker, along with that marker's physical position and the number of case-case, case-control & control-control pairs involved in those comparison.<br/>
-Next, "LSHRawJobRunnable" will identify IBD LSHs by estimating the IBD probability of every detected shared haplotype based on its length (measured by LDU map distance). To this end, the program will first fit a <a href="https://en.wikipedia.org/wiki/Gamma_distribution">gamma distribution</a> to the length (LDU map distance) of all shared haplotypes around a marker, for all the markers. <a href="https://en.wikipedia.org/wiki/Distribution_fitting">This wiki page</a> explains why we do so. The empirical data CHAT uses to fit the distribution are retrieved from aforementioned CHATSimilarityMatrixData objects. Each marker has such an object storing information on LSHs detected around that marker. A CHATSimilarityMatrixData object contains a list of SampleToSampleGenotypeConparisonDataElement objects (i.e., CHAT beans), each of which records the LDU distance of haplotypes shared by a specific pair of individuals (by default they should both be controls). As long as there are totally more than 200 data points for a marker (each data point is the LDU distance of a shared haplotype obtained from one single pairwise comparison), we can go ahead fitting the length distribution of LSH around that marker. CHAT applies <a href="http://lybird300.github.io/2015/11/11/IBD-Bayesian.html">a Bayesian approach</a> with several parameters required to be predefined:
+Since the number of pairs increases quadratically with the number of individuals, pairwise comparisons on a big data set (due to many samples or high marker density) may take a long time and the similarity matrix can be huge. Thus, more efficient strategy is needed to process the data. Common ones include breaking down the original chromosome segment and/or the sample set (into subsets). CHAT uses an algorithm that first tries to build a null model -- the distribution of IBS segments around a marker -- using genotype data of control indiviudals and then uses the fitted distribution to identify IBD segments, which are supposed to fall into the tail area of the distribution. More specifically, to estimate the IBD probability of every detected shared haplotype, the program will first fit a <a href="https://en.wikipedia.org/wiki/Gamma_distribution">gamma distribution</a> to the length (measured by LDU map distance) of all shared haplotypes around a marker, for all the markers. <a href="https://en.wikipedia.org/wiki/Distribution_fitting">This wiki page</a> explains why we do so. The empirical data CHAT uses to fit the distribution are retrieved from aforementioned CHATSimilarityMatrixData objects. Each marker has such an object storing information on LSHs detected around that marker. A CHATSimilarityMatrixData object contains a list of SampleToSampleGenotypeConparisonDataElement objects (i.e., CHAT beans), each of which records the LDU distance of haplotypes shared by a specific pair of individuals (by default they should both be controls). As long as there are totally more than 200 data points for a marker (each data point is the LDU distance of a shared haplotype obtained from one single pairwise comparison), we can go ahead fitting the length distribution of LSH around that marker. 
+CHAT implements <a href="http://lybird300.github.io/2015/11/11/IBD-Bayesian.html">a Bayesian fitting</a> process that has several parameters to be predefined and/or adjusted over iterations (they will make more sense in later discussion):
 <ul>
-<li>the prior IBD probability ("assumedPriorProbIBD"), that is, the chance that any detected LSH is due to IBD. Its default value is 0.005.</li>
+<li>the prior IBD probability ("assumedPriorProbIBD"), that is, the chance that any detected LSH is due to IBD. It is current a constant with default value 0.005. Alternatively, we could estimate it from the data <span style="color:#FF0000">[future improvement]</span>.</li>
 <li>the threshold of posterior IBD probability ("postProbCutOffToEstimateProbIBD"). If an observed LSH has a posterior IBD probability exceeds this threshold, CHAT considers it as due to IBD (default is 0.9, which means 10% false positive).</li>
-<li>the threshold CHAT uses to exclude extreme outliers (referred to as "extremeProbExcludeNullDist" or "edgeInclusionThresholdFromDist" in different classes). Gamma distribution is a partially bounded distribution that theoretically extends from 0 to plus infinity, but we need to exclude extreme values at the tail (right end) to prevent them from distorting the fitted distribution. The value of this parameter is calculated by 1-(1/100*numOfIncludedControls), which is something like 0.99..9.</li>
+<li>the probability threshold CHAT uses to exclude extreme LSH from the Gamma distribution ("extremeProbExcludeNullDist"). Gamma distribution is a partially bounded distribution that theoretically extends from 0 to plus infinity. While we intend to fit a Gamma distribution for IBS segments, they are inseparable from IBD segments in the data. An extreme long segment is more likely to be IBD rather than IBS, and therefore should be excluded to prevent it from distorting the fitted distribution. The value of this parameter is calculated by 1-(1/100*numOfIncludedControls), which is something like 0.99..9.</li>
 </ul>
-Bayesian fitting requires multiple iteration. Each iteration starts by filtering out extreme data points based on the LDU distance threshold above. The remaining data points are used to fit a gamma distribution using a third-party gamma-distribution fitting function <a href="http://simul.iro.umontreal.ca/ssj/doc/html/umontreal/iro/lecuyer/probdist/GammaDist.html#getInstanceFromMLE(double[], int)">umontreal.iro.lecuyer.probdist.GammaDist.getInstanceFromMLE(double[] c, int n_c)<a>, c being the set of data points used to estimate α and λ, and n_c being the size of this data set. Gamma distribution has different forms of parameterization. This function creates a new instance of the following form of gamma distribution with shape parameter α > 0 and scale parameter λ > 0 (these two parameters will also get more precise through iterations).
+Bayesian fitting proceeds iteratively. In each iteration, the program filters out "suspicious" IBD segments (with IBD probability > "extremeProbExcludeNullDist") and uses the remaining data points fit the gamma distribution for IBS segments, until there are no more "suspicious" IBD segments. Thus, the "extremeProbExcludeNullDist" threshold determines the number of iterations. The gamma distribution fitted at the last iteration will be used for future computation. Distribution fitting applies a third-party gamma-distribution fitting function <a href="http://simul.iro.umontreal.ca/ssj/doc/html/umontreal/iro/lecuyer/probdist/GammaDist.html#getInstanceFromMLE(double[], int)">umontreal.iro.lecuyer.probdist.GammaDist.getInstanceFromMLE(double[] c, int n_c)<a>, c being the set of data points used to estimate α and λ, and n_c being the size of this data set. Gamma distribution has different forms of parameterization. This function creates a new instance of the following form of gamma distribution with shape parameter α > 0 and scale parameter λ > 0 (these two parameters will also get more precise through iterations).
 Density function: <img src="https://cloud.githubusercontent.com/assets/5496192/11452159/320ef3fc-95ac-11e5-94bf-2228f25c9526.png" />
 You can tell from the name of the function that it uses maximum likelihood method to fit the Gamma distribution (i.e., to figure out the most likely values of parameters α and λ). As mentioned in the above wiki page, there are several alternative ways, yet MLE is often the most efficient method in the sense that results are as precise as is possible for a given amount of data. 
-Using the fitted gamma distribution and the prior IBD probability (intially assumed to be 0.005 and getting refined through iterations), we can calculate the IBD probability of a specific LSH based on its length as follows. Assume S is a variable indicating the length of LSH (i.e., the number of contiguous markers identical alleles). We would like to infer the probability that an observed LSH of length c is IBD, i.e. P(IBD│S>c) =?
+Using the fitted gamma distribution and the prior IBD probability ("assumedPriorProbIBD"), we can calculate the IBD probability of each input LSH based on its length as follows. Assume S is a variable indicating the length of LSH (i.e., the number of contiguous markers identical alleles). We would like to infer the probability that an observed LSH of length c is IBD, i.e. P(IBD│S>c) =?
 <pre><code>
 Use Baye's theorem, P(IBD|S>c) = P(IBD & S>c)/P(S>c)
 Since P(IBD & S>c) is indeed P(IBD), we have
@@ -179,34 +180,35 @@ Since P(IBD) + P(notIBD) = 1, P(S>c|IBD) = 1, we have
 P(S>c) = P(S>c|IBD)*P(IBD) + P(S>c|notIBD)*P(notIBD) = 1*Z + Y*(1-Z) = Z + Y*(1-Z)
 P(IBD|S>c) = P(IBD)/P(S>c) = Z/(Z+Y*(1-Z))
 </code></pre>
-As mentioned, the initial value of Z is 0.005. Since Y = P(S>c|IBS). 1 - Y is P(S<=c|IBS), which is the value of the cumulative density function (CDF) of the fitted Gamma distribution, P(S<=X|IBS), when X = c. CHAT estimates the CDF using the<a href="http://simul.iro.umontreal.ca/ssj/doc/html/umontreal/iro/lecuyer/probdist/GammaDist.html#cdf(double)">cdf</a> function in the same Java library mentioned earlier.
-Now for every LSH (excluding extremely long ones), current gamma distribution gives its posterior IBD probability, which is then compared with aforementioned posterior IBD probability threshold to determine the number of "alledge" IBD LSHs. Then we adjust the values of prior IBD probability and extreme-probability-exclusion threshold as follows, so that they can be used in the next iteration. The former is calculated by , where the total number of detected LSHs equals to the total number of pairwise comparisons. The latter is calculated as follows.
+As mentioned, Z = 0.005. Since Y = P(S>c|IBS), 1 - Y is P(S<=c|IBS), which is the value of the cumulative density function (CDF) of the fitted Gamma distribution, P(S<=X|IBS), when X = c. CHAT estimates the CDF using the<a href="http://simul.iro.umontreal.ca/ssj/doc/html/umontreal/iro/lecuyer/probdist/GammaDist.html#cdf(double)">cdf</a> function in the same Java library mentioned earlier. Now for an input LSH of length X, current gamma distribution gives its posterior IBD probability P(IBD|S>X), which is then compared with aforementioned posterior IBD probability threshold ("postProbCutOffToEstimateProbIBD") to determine whether this LSH should be treated as IBD. <span style="color:#FF0000">[fugure improvement: if we allow prior IBD probability to self-adjust over iterations, its value at iteration t+1 = (number of estimated IBD LSHs + number of extremely long LSHs)/total number of detected LSHs at iteration t. The denominator is equivalent to the total number of pairwise comparisons]</span>
+The length threshold used to filter out extremely long shared haplotypes (and thus likely IBD) is conveniently set as Double.MAX_VALUE at the first iteration, so no segments are actually excluded at all. In each of later iterations (2nd, 3rd,...t-th), this value will be recalculated based on the gamma distribution fitted during the previous iteration (1st, 2nd,...(t-1)th respectively), so that it can actually do something. The calculation is shown below.
 <pre><code>
-prior IBD probability at iteration t+1 = (number of estimated IBD LSHs + number of extremely long LSHs)/total number of detected LSHs at iteration t
-
-Denote P(IBD/S>X) = Q.
+Recall that we have predefined the PROBABILITY threshold for exclusion ("extremeProbExcludeNullDist") to be 0.9...9. This value is by essence P(IBD|S>X). Now we need to figure out the LENGTH threshold X. Denote P(IBD|S>X) = Q, we have
 Q = Z/(Z+Y*(1-Z))
-(Z + Y*(1-Z)) = Z/Q
-Y*(1-Z) = Z/Q - Z
-Y =  inverse-CDF((Z/Q - Z)/(1-Z))
+Y = (Z/Q-Z)/(1-Z)
+Recall that 1-Y gives P(S<=X|IBS), the cumulative density function (CDF) of the fitted Gamma distribution. So we can calculate X by putting 1-Y into the inverse function of the CDF, which CHAT gets through the<a href="http://simul.iro.umontreal.ca/ssj/doc/html/umontreal/iro/lecuyer/probdist/GammaDist.html#inverseF(double)">inverseF</a> function in the same Java library as earlier mentioned 
 </pre></code> 
-t = 1-(((assumedPriorProbIBD/postProbIBDThresh)-assumedPriorProbIBD)/(1-assumedPriorProbIBD)), return the inverse distribution function of t, using the<a href="http://simul.iro.umontreal.ca/ssj/doc/html/umontreal/iro/lecuyer/probdist/GammaDist.html#inverseF(double)">inverseF</a> function in the same Java library as earlier mentioned.
-
-Iteration stops when there are no more extreme values. Thus, the extreme-probability-exclusion threshold determines the number of iterations. The gamma distribution fitted at the last iteration will be used for future computation.
-
-
-
-
-The fitting  and returns a FitCHATSharingDistributionGamma (chat-common/src/main/java/org/renci/chat/fitChatSharingDistribution/FitCHATSharingDistributionGamma.java) object. After fitting the distribution, CHAT calculates. If the <a href="http://www.stat.columbia.edu/~gelman/research/unpublished/ppc_understand2.pdf">posterior p-value</a> exceeds a predefined threshold (default is 0.5), the observed LSH will be considered as due to IBD. (Note: you can find the default values of most aforementioned parameters either in chat.properties file or in chat-common/java/org.renci.chat.Constant.java)
-
-
-
-
-
-
-So, we can answr the question at the beginning by first figuring out Y, the chance that two individuals can share a hapolype beyond certain length without being IBD, and Z, the general IBD probability in the population, and then using them to calculate P(IBD/S>X).
-Data fitting  follows a <a href="">Bayesian inference framework</a>. We introduce a prior IBD probability (i.e., a presumed value of Z), which by default is equal to 0.005 . The defult cutoff used by the program is 1.0 - (1.0/(100.0*numOfControlSamples)) 
-
+The fitting process is conducted by the FitCHATSharingDistributionGamma class (chat-common/src/main/java/org/renci/chat/fitChatSharingDistribution/FitCHATSharingDistributionGamma.java). Using marker-specific gamma distributions fitted at the last iteration, CHAT re-calculate the posterior IBD probability of every detected LSH. If the probability > 0.5 (by default; you can find the default values of most aforementioned parameters either in chat.properties file or in chat-common/java/org.renci.chat.Constant.java), that LSH will be considered as IBD. Results of the fitting process are organized by three classes: LSHData, LSHDataElement and FittingData (all in the package /chat-common/src/main/java/org/renci/chat/common). An LSHData object corresponds to a job planned by ParalleRawLshRunnable and contains two lists. One list are LSHDataElement objects each storing infomration of an LSH around a marker (including the posterior IBD probability of each LSH) for all markers handled in the job. The other list are FittingData objects each storing information of a Gamma distribution fitted for a marker. Each job also has an output file in the output directory (../RawLSHData/Chr_#/filename) with the following content.
+<pre><code>
+row 1: chromosome	"number of fitted gamma distributions"	"number of LSH"
+row 2-N: parameters of fitted gamma model, one per row
+row N+1-M: long shared haplotypes, one per row with the following fields
+0: lshid
+1: indexmapseed (index on the LDU map)
+2: indexsample1 (ID of the first subject involved in the pairwise comparison)
+3: indexsample2 (ID of the second subject involved in the pairwise comparison)
+4: subject pair class (0 control-control, 1 case-control, 2 case-case)
+5: sex pair class (1=Male-Male, 2=Female-Female, 3=Male-Female 0=unknown-?)
+6: indexmapp (the end of the LSH on the p arm)
+7: indexmapq (the end of the LSH on the q arm)
+8: ldu (LDU map distance of the LSH)
+9: isvalid
+10: p value (posterior IBD probability of the LSH)
+11: fixindexp (at this step its value is -9)
+12: fixindexq (at this step its value is -9)
+13: pismore (at this step its value is -9.0)
+</code></pre>
+The second bean "ParalleMergeRawLshRunnable" puts job plans in folders named as "LSHDataMergePlan0/1/2". The input directory is the output directory of the previous bean "RawLSHData" and the output directory is "LSHDataMerge". This class calls "LSHMergeRawForSubJobRunnable" to run all the planned jobs, merging the LSHs created in the first bean that overlap and have the same sample ids. this merges the lsh from that start at  points into a single lsh
 
 
 
@@ -219,39 +221,10 @@ Data fitting  follows a <a href="">Bayesian inference framework</a>. We introduc
 It then estimates the (posterior) IBD probability of the haplotype. 
 
 
-		LSHDataElement = same as parent, but includes fitting and fixing information
-
-
-
-
-LSH Data are organized and processed via three classes LSHData, LSHDataElement and FittingData (all in the package /chat-common/src/main/java/org/renci/chat/common). Recall that we conducted pairwise comparion of individual samples. Given big sample size and/or high density of markers, the matrix can be huge and therefore requires a different and more efficient strategy to. When sample size (the number of individuals) is very large (> 100M),  will be used (To be complete; the general idea is to break down the original chromosome segment and/or the sample set into subsets).to  in controls control pairs assumes a prior and estimates a posterior prob that subjects are IBD
-
- 
-Output:
-		one file per run
-		row 1: chromosome	"number of fitted models"	"number of LSH"
-		row 2-N: parameters of fitted gamma model, one per row
-		row N+1-M: long shared haplotypes, one per row
-			0: lshid
-			1: indexmapseed
-			2: indexsample1
-			3: indexsample2
-			4: subject pair class (0 control-control, 1 case-control, 2 case-case
-			5: sex pair class (1=Male-Male, 2=Female-Female, 3=Male-Female 0=unknown-?)
-			6: indexmapp
-			7: indexmapq
-			8: ldu
-			9: isvalid
-			10: p value
-			11: fixindexp
-			12: fixindexq
-			13: pismore
 
 	
-	Key Data Structures:
-	
 
-The second bean "ParalleMergeRawLshRunnable" puts job plans in folders named as "LSHDataMergePlan0/1/2". The input directory is the output directory of the previous bean "RawLSHData" and the output directory is "LSHDataMerge". This class calls "LSHMergeRawForSubJobRunnable" to run all the planned jobs, merging the LSHs created in the first bean that overlap and have the same sample ids. this merges the lsh from that start at  points into a single lsh
+
 
 The third bean "ParalleLshDataAdjustRunnable" puts job plans in folders named as "LSHDataAdjustPlan0/1/2". The input directory is the output directory of the previous bean "LSHDataMerge" and the output directory is "LSHDataAdjust". This class calls "LSHDataAdjustJobRunnable" to run all the planned jobs, trimming the ends of each LSH. trims off the end a bit assuming that part of the end that could be shared is actually due to chance
 
