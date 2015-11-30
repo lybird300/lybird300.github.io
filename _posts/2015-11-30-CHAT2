@@ -78,23 +78,33 @@ Recall that 1-Y gives P(S<=X|IBS), the cumulative density function (CDF) of the 
 </pre></code> 
 The fitting process is conducted by the FitCHATSharingDistributionGamma class (chat-common/src/main/java/org/renci/chat/fitChatSharingDistribution/FitCHATSharingDistributionGamma.java). Using marker-specific gamma distributions fitted at the last iteration, CHAT re-calculate the posterior IBD probability of every detected LSH. If the probability > 0.5 (by default; you can find the default values of most aforementioned parameters either in chat.properties file or in chat-common/java/org.renci.chat.Constant.java), that LSH will be considered as IBD. Results of the fitting process are organized by three classes: LSHData, LSHDataElement and FittingData (all in the package /chat-common/src/main/java/org/renci/chat/common). An LSHData object corresponds to a job planned by ParalleRawLshRunnable and contains two lists. One list are LSHDataElement objects each storing infomration of an LSH around a marker (including the posterior IBD probability of each LSH) for all markers handled in the job. The other list are FittingData objects each storing information of a Gamma distribution fitted for a marker. Each job also has an output file in the output directory (../RawLSHData/Chr_#/filename) with the following content.
 <pre><code>
-row 1: chromosome	"number of fitted gamma distributions"	"number of LSH"
-row 2-N: parameters of fitted gamma model, one per row
-row N+1-M: long shared haplotypes, one per row with the following fields
-0: lshid
-1: indexmapseed (index on the LDU map)
-2: indexsample1 (ID of the first subject involved in the pairwise comparison)
-3: indexsample2 (ID of the second subject involved in the pairwise comparison)
-4: subject pair class (0 control-control, 1 case-control, 2 case-case)
-5: sex pair class (1=Male-Male, 2=Female-Female, 3=Male-Female 0=unknown-?)
-6: indexmapp (the end of the LSH on the p arm)
-7: indexmapq (the end of the LSH on the q arm)
-8: ldu (LDU map distance of the LSH)
-9: isvalid
-10: p value (posterior IBD probability of the LSH)
-11: fixindexp (at this step its value is -9)
-12: fixindexq (at this step its value is -9)
-13: pismore (at this step its value is -9.0)
+Row 1: chromosomeID	"number of fitted gamma distributions"	"number of LSH"
+Row 2-N: parameters of fitted gamma model, one per row with the following fields separeted by comma
+	0: "Gamma"
+	1: LDU map position of the marker corresponding to the fitted gamma distribution
+	2: sex pair class (0 for non-X chromosome)
+	3: mean
+	4: standard deviation
+	5: assumed prior IBD probability (0.005)
+	6: estimated IBD probability = (number of IBD LSHs + number of extremely long LSHs)/total number of detected LSHs at the last iteration
+	7: fitted value of parameter α
+	8: fitted value of paramter λ
+
+Row N+1-M: long shared haplotypes, one per row with the following fields
+	0: LSH ID
+	1: indexmapseed (index on the LDU map)
+	2: indexsample1 (ID of the first subject involved in the pairwise comparison)
+	3: indexsample2 (ID of the second subject involved in the pairwise comparison)
+	4: subject pair class (0 control-control, 1 case-control, 2 case-case)
+	5: sex pair class (1=Male-Male, 2=Female-Female, 3=Male-Female 0=unknown-?)
+	6: indexmapp (the end of the LSH on the p arm)
+	7: indexmapq (the end of the LSH on the q arm)
+	8: ldu (LDU map distance of the LSH)
+	9: isvalid
+	10: p value (posterior IBD probability of the LSH)
+	11: fixindexp (at this step its value is -9)
+	12: fixindexq (at this step its value is -9)
+	13: pismore (at this step its value is -9.0)
 </code></pre>
 The second bean "ParalleMergeRawLshRunnable" puts job plans in folders named as "LSHDataMergePlan0/1/2". The input directory is the output directory of the previous bean "RawLSHData" and the output directory is "LSHDataMerge". This class calls "LSHMergeRawForSubJobRunnable" to run all the planned jobs, merging the LSHs created in the first bean that overlap and have the same sample ids. this merges the lsh from that start at  points into a single lsh
 
