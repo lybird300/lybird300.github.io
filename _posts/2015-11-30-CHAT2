@@ -90,13 +90,12 @@ Row 2-N: parameters of fitted gamma model, one per row with the following fields
 	6: estimated IBD probability = (number of IBD LSHs + number of extremely long LSHs)/total number of detected LSHs at the last iteration
 	7: fitted value of parameter α
 	8: fitted value of paramter λ
-
 Row N+1-M: long shared haplotypes, one per row with the following fields
 	0: LSH ID
 	1: indexmapseed (index on the LDU map)
 	2: indexsample1 (ID of the first subject involved in the pairwise comparison)
 	3: indexsample2 (ID of the second subject involved in the pairwise comparison)
-	4: subject pair class (0 control-control, 1 case-control, 2 case-case)
+	4: subject pair class (0 control-control, 1 case-control, 2 case-case; even though earlier we use only control-control pairwise comparison results to fit gamma distributions, this output file contains all comparison results including case-case and case-control)
 	5: sex pair class (1=Male-Male, 2=Female-Female, 3=Male-Female 0=unknown-?)
 	6: indexmapp (the end of the LSH on the p arm)
 	7: indexmapq (the end of the LSH on the q arm)
