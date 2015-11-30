@@ -1,6 +1,6 @@
 
 
-<h3>CHAT main process</h3>
+<h2>CHAT main process -- Part 1</h2>
 This process is controlled by CHAT.xml file (as opposed to CHAT_prep.xml) and completed by 9 beans, while the chat.properties file continues to be used. Each bean differs in their inputs, outputs, job size, and the database tables they use to store job information. Here, again, we use a derby database (with a folder named "chatDB" in the working directory) to store job information in multiple tables:
 <ul>
 <li>The "RawLSHJobsPlan" table (for the first bean), the "MergeLSHJobsPlan" table (for the second bean), the "LSHAdjustJobsPlan" table (for the third bean), store job records with three fields: chromID, job name (as the prefix of job files), and whether the job is done (0--not done, 1--done).</li>
