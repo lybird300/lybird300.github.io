@@ -1,4 +1,9 @@
-
+---
+layout: post
+title: "CHAT"
+date: 2015-11-30
+---
+<blockquote></blockquote>
 
 <h2>CHAT main process -- Part 1</h2>
 This process is controlled by CHAT.xml file (as opposed to CHAT_prep.xml) and completed by 9 beans, while the chat.properties file continues to be used. Each bean differs in their inputs, outputs, job size, and the database tables they use to store job information. Here, again, we use a derby database (with a folder named "chatDB" in the working directory) to store job information in multiple tables:
