@@ -1,17 +1,31 @@
 ---
 layout: post
-title: "Explore and Handle large number of big files"
+title: "File and directory operations on Linux"
 date: 2015-05-01
 ---
 <blockquote>The mechanic that would perfect his work must first sharpen his tools. -- Confucius</blockquote>
-To me, exploratory data analysis (EDA) is the most intriguing part of data science. I feel it is somewhat like autopsy -- both try to reveal the underlying story -- except that the goal of EDA is to revitalize the data. The task becomes even exiting when the data file to be inspected has unknown structure and huge size. Some of us have been searching the data set Daniel had created using CoJava and finally found them (or at least part of them) yesterday. And it is now my job to interpret the data, which include some pretty big files: one named "output.hap-1.test" of size 0.37TB. I have some clue about <a href="http://lybird300.github.io/2015/04/20/cojava-manual.html#anchor">what might be in that file </a>, but still need to be sure by peeking into them. Because of the daunting size of these files, I decided to inspect them remotely using <a href="http://mobaxterm.mobatek.net/">MobaXterm</a>, which Kirk has been using to demonstrating his CHAT program. (Did I mention that this PhD-MD is also good at computer programming?)
-
-I first installed R-3.2.0 on the server and then used "read.table" to obtain the first line of "output.hap-1.test". Fifteen minutes later nothing was returned. It was still reading that single line!!! It seems that the only option left for me is to use Unix commands for EDA. Luckily, I'm not the only one who has encountered such a problem. After researching online I've collected some useful tips and UNIX commands, as shown below. You may also find the references of this post useful and worth reading.
+<pre><code>[Update: this post was originally titled "Explore and Handle large number of big files" and below is the background story I wrote months ago. I will keep it here, for fun. If you come in for the juicy stuffs (at least they are for me), just ignore my "over-emotional" story.]
+To me, exploratory data analysis (EDA) is the most intriguing part of data science. I feel it is somewhat like autopsy -- both try to reveal the underlying story -- except that the goal of EDA is to revitalize the data. The task becomes even exiting when the data file to be inspected has unknown structure and huge size. Some of us have been searching the data set Daniel had created using CoJava and finally found them (or at least part of them) yesterday. And it is now my job to interpret the data, which include some pretty big files: one named "output.hap-1.test" of size 0.37TB. I have some clue about <a href="http://lybird300.github.io/2015/04/20/cojava-manual.html#anchor">what might be in that file </a>, but still need to be sure by peeking into them. Because of the daunting size of these files, I decided to inspect them remotely using <a href="http://mobaxterm.mobatek.net/">MobaXterm</a>, which Kirk has been using to demonstrating his CHAT program. (Did I mention that this PhD-MD is also good at computer programming?) I first installed R-3.2.0 on the server and then used "read.table" to obtain the first line of "output.hap-1.test". Fifteen minutes later nothing was returned. It was still reading that single line!!! It seems that the only option left for me is to use Unix commands for EDA. Luckily, I'm not the only one who has encountered such a problem. After researching online I've collected some useful tips and UNIX commands, as shown below. You may also find the references of this post useful and worth reading.</code></pre>
 
 You may need to do many I/O opertions when exploring big files, such as reading parts of a file and then writing the contents to a new file. When this is the case, there are two things to remember. One thing is that there really isn't a good way to seek to a certain line in a file; in other words, eventually we have to read the file line by line. Thus, you may want to cut a huge file into smaller pieces and read these smaller files instead (use bash command to split a file is more efficient than using a Java program). The other thing is that parallelizing disk I/O is generally NOT a good idea (if you decide to do so anyway, here is a <a href="http://stackoverflow.com/questions/8737877/reading-and-writing-multiple-files-in-parallel">post</a> on how. Please note that these days this example runs best with a fork join pool, which can be used with new ForkJoinPool(numprocs) with an await termination. Intensive processes actually work best with these pools while small processes like a fibonacci sequence may be best with a singlethread or a thread executor (better with properly managed custom code)). Hard disks do not like random I/O because they have to continuously seek around to get to the data. This applies ANY disk I/O on a single disk, regardless of whether there are separate files, when different threads compete with one anohter in operating files on the same disk.
 
 Stop an ongoing process: ctrl+z
-Examine the contents of a tarfile without unpacking it
+
+</br>Create a link to a directory
+It is often useful to change to another directory without typing its full pathname: symbolic links provide a useful shortcut to do this. A symbolic link differs from a hard link. It is a small file that contains a reference (by name) to a directory or file that already exists. Unlike normal links, symbolic links can cross filesystems and link to directories. (They are used extensively by the system.) Also unlike normal links, symbolic links are separate files; they cease to work if the file they point to is deleted or renamed, or if they are moved.
+
+Many of the files found in /bin, /lib, and /usr are actually symbolic links that point to files (of the same name) stored below /var/opt. The directories these files are located in are called ``storage sections''. Storage sections are used because they make it easier to install system upgrades. Software subsystems (such as UUCP) consist of many files, which may be installed in several directories. However, all the files in a subsystem belong to a single storage section. By overwriting the contents of the (single) storage section directory, all the files in the subsystem can be updated simultaneously.
+
+To create a symbolic link, use the ln -s option, as follows:
+<pre><code>$ ln -s directory symbolic_link</code></pre>
+For example, suppose you work in /u/workgrp/tasks/projects and your home directory is /u/me. Your normal command to work on a file would be the following:
+<pre><code>$ cd /u/workgrp/tasks/projects</code></pre>
+To reduce the typing required, enter the following command:
+<pre><code>$ ln -s /u/workgrp/tasks/projects mydata</code></pre>
+This command creates a symbolic link called mydata in your current directory. From now on, mydata and /u/workgrp/tasks/projects refer to the same location, and you can relocate to /u/workgrp/tasks/projects by typing cd mydata instead of typing in the full pathname.
+You must have write permission on a directory before you can create a link that involves that directory or a file in that directory.
+
+<br/>Examine the contents of a tarfile without unpacking it
 <pre><code>$ tar tvf project.tar</code></pre>
 Extract gz files
 <pre><code>$ gzip -d file.gz</code></pre>
@@ -193,7 +207,7 @@ If you want to copy specific subdirectories, you need to "include" all the direc
 <pre><code>rsync -arP --include='/SNP*/' --include='/SNP*/*/'  --include='SNP*/*/Imputation_MiniMacOutput_RefCtrl/' --include='SNP*/*/Imputation_MiniMacOutput_RefCtrl/***' --exclude='*' --ignore-existing --remove-source-files /projects/sequence_analysis/vol4/simGWASData/ /scratch/linly/simGWASData</code></pre>
 Lastly, you can remove the files in the source folder (i.e., the sender side) using the option "--remove-source-file"
 
-<b>UPDDATE</b>: Up till today (09/11/2015, Uh-oh, a sad date) I've gone through a 300GB+ file, 1TB memory, 70TB disk space limit, 72h cpu time, 16 cores, etc...So I no longer have the strong feelings described at the beginning of this post. To be honest, it even sounds a little bit naive to me now. Yesterday when my colleague Ruhi told me our IT group has granted her an exclusive 5TB storage space, my first response was "only 5TB?" Then I couldn't believe I did that. ^_^
+<b>UPDDATE</b>: Up till today (09/11/2015, Uh-oh, a sad date) I've gone through a 300GB+ file, 1TB memory, 70TB disk space limit, 72h cpu time, 80 cores, etc...So I no longer have the strong feelings described at the beginning of this post. To be honest, it even sounds a little bit naive to me now. Yesterday when my colleague Ruhi told me our IT group has granted her an exclusive 5TB storage space, my first response was "only 5TB?" Then I couldn't believe I actually said that...
 
 <h2>References</h2>
 <ul>
