@@ -22,9 +22,14 @@ $ typeset -F SECONDS=0; sleep 1; print "$SECONDS"
 SLURM commands are different than previous PBS commands. Below are a few commonly used commands.
 <ul>
 <li>List contents of the queue: squeue</li>
+<li>List multiple jobs in the queue that meet certain conditions (e.g., user xx's currently running on a specific node say "largemem-0-0"). You can use the "grep" command under the AND logic:
+<pre><code>squeue | grep largemem-0-0 | grep xx</code></pre>
 <li>List contents of a user's jobs in the queue: squeue -u <username></li>
-<li>Remove a job from the queue by its ID: scancel "id"</li>
-<li>Remove a seriel of jobs by jobID: scancel `seq 7823111 7823118`</li>
+<li>Remove a job from the queue by its ID: scancel JobID</li>
+<li>Remove a seriel of jobs by jobID (either one below)
+<pre><code>scancel `seq 7823111 7823118`<br/>scancel {7823111..7823118}</code></pre>
+Usually the jobIDs of multiple jobs of yours are not consecutive (i.e., they may be intermediated by others' jobs), but you don't have to identify and then delete them one by one. Just provide a range that can cover all the jobs that you would like to cancel and use the aforementioned command, only your jobs in this range will be cancelled (as long as you are not the admin ^_^).
+</li>
 <li>Remove one or more jobs by job name (allowed for wildcard?): scancel --name myJobName</li>
 <li>Remove one or more jobs from a specific user: scancel -u <username></li>
 <li>Cancel all pending jobs belonging to a specific user: scancel --state=PENDING --user=<username></li>
