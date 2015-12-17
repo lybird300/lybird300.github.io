@@ -28,7 +28,7 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 <li>Remove a job from the queue by its ID: scancel JobID</li>
 <li>Remove a seriel of jobs by jobID (either one below)
 <pre><code>scancel `seq 7823111 7823118`<br/>scancel {7823111..7823118}</code></pre>
-Usually the jobIDs of multiple jobs of yours are not consecutive (i.e., they may be intermediated by others' jobs), but you don't have to identify and then delete them one by one. Just provide a range that can cover all the jobs that you would like to cancel and use the aforementioned command, only your jobs in this range will be cancelled (as long as you are not the admin ^_^).
+Usually the jobIDs of multiple jobs of yours are not consecutive (i.e., they may be intermediated by others' jobs), but you don't have to identify and then delete them one by one. Just provide a range that can cover all the jobs that you would like to cancel and use the aforementioned command. Only your jobs in this range will be cancelled (as long as you are not the admin), even though there will be a whole bunch of error messages -- "scancel: error: Kill job error on job id 13637530: Invalid job id specified".
 </li>
 <li>Remove one or more jobs by job name (allowed for wildcard?): scancel --name myJobName</li>
 <li>Remove one or more jobs from a specific user: scancel -u <username></li>
