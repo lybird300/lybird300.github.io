@@ -64,6 +64,8 @@ Print the number of characters in each line of a file
 <pre><code>awk '{ print length($0); }' FILENAME</code></pre>
 Print the number of characters in a specific line (e.g., the first line; NR indicates line number) of a file
 <pre><code>awk 'NR==1{ print length($0); }' FILENAME</code></pre>
+Print the value of a specific column at a specific line in a file, for example, the 4th column at the 5th line:
+<pre><code>awk 'NR==5 { print $4 }' FILENAME</code></pre>
 Get the length of the shortest line
 <pre><code>awk '(NR==1||length&lt;shortest){shortest=length} END {print shortest}' filename</code></pre>
 Count the number of specific characters in a line
@@ -92,7 +94,8 @@ Method 1: <pre><code>sed -n '1~2!p' fileA > fileB</code></pre>
 It means starting from the first line and printing every other line. Thus, you will get all odd lines, i.e., whose line number is 2K+1.
 Method 2: <pre><code>sed 2~2d fileA > fileB</code></pre>
 It deletes all even lines
-The "FIRST~STEP" syntax means matching every STEP'th line starting with line FIRST. For example, "sed -n 1~2p" will print all the odd-numbered lines in the input stream, and 2~5 will match every fifth line, starting with the second.
+The "FIRST~STEP" syntax means matching every STEP'th line starting with line FIRST. For example, "sed -n 1~2p" will print all the odd-numbered lines in the input stream, and 2~5 will match every fifth line, starting with the second. "d" means delete an indicated line. For example, the following command delete the 3rd line permanently (use -i option for permanent change)
+<pre><code>sed -i '3d' filename</code></pre>
 
 Display the contents of a text file on the command line
 <ul>
