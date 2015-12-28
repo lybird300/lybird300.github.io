@@ -41,6 +41,8 @@ You can also write a script as below using a for loop to find every file then co
 <pre><code>
 for i in `find | grep -E "\.dose$|\.info$"`; do gzip "$i" ; done
 </code></pre>
+The following find command goes to all subdirectories in path1/, find each file ends with a digit number and a gz extension, and remove the ".gz" extension. In previous examples, "." after "find" means current directory. Here "path1" indicates a specific path to look into.
+<pre><code>find path1/ -type f -name "*[0-9].gz" | while read f; do mv "$f" "${f%.gz}"; done</code></pre>
 Extract tar.gz files
 <pre><code>tar options file.tar.gz
 e.g., tar -xvf file.tar.gz </code></pre>, where
