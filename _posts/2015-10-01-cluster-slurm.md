@@ -88,6 +88,12 @@ The other is to tweak the display format of squeue command. The default formats 
 <pre><code>squeue -u linly --format="%.7i %.9P %.20j %.8u %.2t %.10M %.6D %R"</code></pre>
 Note that I keep all other default setting while changing the size of jobname field from the default value 8 to 20. It suits the size of my monitor screen but you may need a different value.
 </li>
+<li>You can count how many of your jobs (with or without certain patterns) are currently running by using:
+<pre><code>
+squeue -u <yourUserID> | wc -l
+squeue -u <yourUserID> | grep <certain pattern> | wc -l
+</code></pre>
+</li>
 </ul>
 <h2>Update jobs</h2>
 The command below will change the wall time of the specified job to 1 day 12 hours
