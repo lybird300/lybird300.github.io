@@ -27,7 +27,8 @@ SLURM commands are different than previous PBS commands. Below are a few commonl
 <li>List contents of a user's jobs in the queue: squeue -u <username></li>
 <li>Remove a job from the queue by its ID: scancel JobID</li>
 <li>Remove a seriel of jobs by jobID (either one below)
-<pre><code>scancel `seq 7823111 7823118`<br/>scancel {7823111..7823118}</code></pre>
+<pre><code>scancel `seq 7823111 7823118`
+scancel {7823111..7823118}</code></pre>
 Usually the jobIDs of multiple jobs of yours are not consecutive (i.e., they may be intermediated by others' jobs), but you don't have to identify and then delete them one by one. Just provide a range that can cover all the jobs that you would like to cancel and use the aforementioned command. Only your jobs in this range will be cancelled (as long as you are not the admin), even though there will be a whole bunch of error messages -- "scancel: error: Kill job error on job id 13637530: Invalid job id specified".
 </li>
 <li>Remove one or more jobs by job name (allowed for wildcard?): scancel --name myJobName</li>
@@ -45,7 +46,22 @@ Again there are many flags (i.e., options) that you can use to fit your special 
 <li>-N: specify the number of compute nodes you would like to reserve</li>
 <li>-n: specify the number of cores on each compute node that you would like to reserve. Note that "nodes" and "threads" are different concepts and their values are usually not the same in modern computing systems. <a href="https://amigotechnotes.wordpress.com/2014/02/17/how-multi-core-processors-accelerate-your-lamp-applications/">This post</a> elaborates on this issue well.</li>
 <li>--exclusive (do NOT use this on RENCI machines): sometimes it is good to have the entire compute node reserved for your own use (i.e., not sharing with other people and this flag is for this purpose (note it starts with two slashes instead of one slash)</li>
-<li>-mem=<MB>: specify the real memory required per node in MegaBytes</li>
+<li>--mem=<MB>: specify the minimum amount real memory you require per node in MegaBytes</li>
+<li>--mem-per-cpu=<MB></li>: To allow for more precise scheduling of resources, RENCI IT implement a change in the Slurm scheduling system that will enforce job memory limits. If your job requires more than 2G of memory per CPU, you will need to specify the amount required via the –mem-per-cpu option. For example, if you need 10GB(i.e., 10*1024MB) for a serial job, then on top of the job script you should add the following (also see below for the difference between command line and job script):
+<pre><code>
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH --mem-per-cpu=10240
+</code></pre>
+If your job exceeds the limit, it will be cancelled automatically by Slurm. You will find lines like the following in your Slurm error output file:
+<pre><code>slurmstepd: Exceeded job memory limit
+slurmstepd: *** JOB 23008 ON compute-0-0 CANCELLED AT 2015-12-03T10:43:56 ***</code></pre>
+One way to determine how much memory your job will require per CPU is to use the top command. Identify your process and use the value in the "VIRT" column as a guideline for your target memory requirements. A new option has also been added to >b>sinteractive</b> to help profile your job after we implement this change. This is the –m <MEM_PER_CPU_IN_MB> option. If you find your job failing due to memory limits, use sinteractive with a generous value for –m and use top to help find your target requirement.
+<li>Each institution tends to customize SLURM commands for their own needs, you can know what is allowed for a command by using the "--help" option and if you are only interested in a certain topic, use "grep". For example, if I want to know what options I have for regulationg the memory use when submitting a job, I can type the following at the command line:<br/>
+<pre><code>
+sbatch --help | grep mem
+</code></pre>
+</li>
 </ul>
 You can also specify your needs at the top of the shell script (i.e., file.sh) using "#SBATCH ...", for example
 <pre><code>#!/bin/bash
