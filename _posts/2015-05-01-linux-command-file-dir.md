@@ -25,8 +25,6 @@ To reduce the typing required, enter the following command:
 This command creates a symbolic link called mydata in your current directory. From now on, mydata and /u/workgrp/tasks/projects refer to the same location, and you can relocate to /u/workgrp/tasks/projects by typing cd mydata instead of typing in the full pathname.
 You must have write permission on a directory before you can create a link that involves that directory or a file in that directory.
 
-<br/>Examine the contents of a tarfile without unpacking it
-<pre><code>$ tar tvf project.tar</code></pre>
 Extract gz files
 <pre><code>$ gzip -d file.gz</code></pre>
 If you want to rezip it, simply type
@@ -90,7 +88,11 @@ e.g., $ head -n 15 /var/log/maillog</code></pre>
 Display last N lines of the file using tail command
 <pre><code>$tail -n N FILENAME
 e.g., $ tail -n 50 /var/log/messages</code></pre>
-
+If you want to see specific lines of a compressed file without extracting the file, use the following (the second for a tar.gz file):
+<pre><code>
+gzip -cd GraphSet_12_00001_16915.gz | head -n 2
+tar -xzOf some_huge_file.tar.gz | head
+</code></pre><br/>
 Select every other line of a file (fileA) and put them in anohter file (fileB)
 Method 1: <pre><code>sed -n '1~2!p' fileA > fileB</code></pre>
 It means starting from the first line and printing every other line. Thus, you will get all odd lines, i.e., whose line number is 2K+1.
@@ -115,8 +117,11 @@ You can make less behave like cat when invoked on small files and behave normall
 <li>The default editor that comes with the UNIX operating system is called vi (<b>vi</b>sual editor). You can also use it to view a big file. Type ":q" then return (press the <enter> button) to quit vi.
 <pre><code>vi filename</code></pre>
 </li>
-<li>To view the content a compressed file (e.g., gz, tar.gz) without extracting it, you can use the following command. also quit by typing ":q" and return
+<li>To view the content a compressed file (e.g., gz, tar.gz) without extracting it, you can use the following command (also quit by typing ":q" and return)
 <pre><code>vim filename</code></pre>
+</li>
+<li>Examine the contents of a tar file without unpacking it
+<pre><code>$ tar tvf project.tar</code></pre>
 </li>
 </ul>
 
