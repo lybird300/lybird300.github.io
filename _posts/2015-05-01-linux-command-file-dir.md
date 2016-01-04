@@ -133,6 +133,16 @@ Finding a File Containing a Particular Text String
 For example, we can search for a text string in all files under a directory using below (-r means recursively):
 <pre><code>grep -r "redeem reward" /home/tom/</code></pre>
 -nr: get line number
+The following code find all files in the current directory that contains the string "8791 0 0" and delete them. If you would like to see which files are about to be deleted, simply remove the | xargs -0 rm -f -- part, and leave off the Z option to grep.
+<pre><code>grep -lrIZ "8791 0 0" . | xargs -0 rm -f --</code></pre>
+<ul>
+<li>-l prints file names of files matching the search pattern.</li>
+<li>-r performs a recursive search for the pattern foo in the given directory. If this doesn't work, try -R.</li>
+<li>-I (capital i) causes binary files like PDFs to be skipped.</li>
+<li>-Z ensures that file names are zero- (i.e., nul-)terminated so that a name containing white space does not get interpreted in the wrong way (i.e., as multiple names instead of one).</li>
+<li>xargs -0 feeds the file names from grep to rm -f, separating words by zero (nul) bytes (remember the -Z option from grep).</li>
+<li>-- is often forgotten but it is very important to mark the end of options and allow for removal of files whose names begin with -.</li>
+</ul>
 
 Replace a specific string in a file with another one.
 The following example replaced the string "fea" in the file "hello.txt" with the string "asd". s -- substitute; g -- global, replace any found matches; i -- realtime works with file (without it the changed result will be ouput on screen -- suppose you don't specify any output file other than standard output -- instead of actually changing the original file)
