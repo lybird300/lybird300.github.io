@@ -144,6 +144,8 @@ The following code find all files in the current directory that contains the str
 <li>-- is often forgotten but it is very important to mark the end of options and allow for removal of files whose names begin with -.</li>
 </ul>
 
+Count the n
+
 Replace a specific string in a file with another one.
 The following example replaced the string "fea" in the file "hello.txt" with the string "asd". s -- substitute; g -- global, replace any found matches; i -- realtime works with file (without it the changed result will be ouput on screen -- suppose you don't specify any output file other than standard output -- instead of actually changing the original file)
 <pre><code>sed -i 's/fea/asd/g' hello.txt</code></pre>
@@ -167,6 +169,8 @@ In order to use join, you need to make sure that FILE1 and FILE2 are sorted on t
 Count the number of folders recursively
 Navigate to your drive and execute
 <pre><code>ls -lR | grep ^d | wc -l</code></pre>
+Count the number of files with specific extension (e.g., ".info.gz"). -R is for recursive search in subdirectories.
+<pre><code>ls -lR *.info.gz | wc -l</code></pre>
 
 If you know the structure of a big file, instead of loading / reading the entire file, you could split it into smaller chunks with the <a href="http://www.theunixschool.com/2012/10/10-examples-of-split-command-in-unix.html">split</a> command.
 <pre><code>$ split -l 500 -d -a 1 out.pos-1 out.pos-1_</code></pre>
@@ -177,7 +181,9 @@ But if the original file has a header and you want to keep the header in every s
 In the code above, before the file is processed, the first line is read using getline into the variable f. NR%500 is checked with 2 instead of 1 as in the earlier case because since the first line is a header, we need to split the files at the 2nd line, and so on.
 
 <h2>Remove Files With One Command On Fly</h2>
-Let me introduce this powerful command "find", whose basic syntax is:
+First, you can remove files with different extensions altogether using the "rm" command as below. It removes files with any one of the four types of extensions.
+<pre><code>rm *.log *.rec.gz *.info.draft *.erate.gz</code></pre>
+Next, let me introduce this powerful command "find", whose basic syntax is:
 <pre><code>find dir-name criteria action
 <ul>
 <li>dir-name : - Defines the working directory such as look into /tmp/</li>
