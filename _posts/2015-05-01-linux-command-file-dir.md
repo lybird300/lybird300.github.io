@@ -88,6 +88,11 @@ e.g., $ head -n 15 /var/log/maillog</code></pre>
 Display last N lines of the file using tail command
 <pre><code>$tail -n N FILENAME
 e.g., $ tail -n 50 /var/log/messages</code></pre>
+If you want to look into a zipped file without extracting it, you can use "zcat", such as
+<pre><code>
+zcat FILENAME.gz | head
+zcat FILENAME.gz | tail
+</code></pre>
 If you want to see specific lines of a compressed file without extracting the file, use the following (the second for a tar.gz file):
 <pre><code>
 gzip -cd GraphSet_12_00001_16915.gz | head -n 2
