@@ -97,7 +97,13 @@ If you want to see specific lines of a compressed file without extracting the fi
 <pre><code>
 gzip -cd GraphSet_12_00001_16915.gz | head -n 2
 tar -xzOf some_huge_file.tar.gz | head
-</code></pre><br/>
+</code></pre>
+"zcat" can be combined with other commands mentioned in this post. For example, the first command below shows you the occurrences of a string per line in a gz file; the second command shows you the first column at the 350 line of a gz file.
+<pre><code>
+zcat filename.gz | grep -o -n 'string' | cut -d : -f 1 | uniq -c
+zcat filename.gz | awk 'NR==350 {print $1}'
+</code></pre>
+<br/>
 Select every other line of a file (fileA) and put them in anohter file (fileB)
 Method 1: <pre><code>sed -n '1~2!p' fileA > fileB</code></pre>
 It means starting from the first line and printing every other line. Thus, you will get all odd lines, i.e., whose line number is 2K+1.
