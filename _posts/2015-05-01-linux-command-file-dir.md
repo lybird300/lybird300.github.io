@@ -98,10 +98,11 @@ If you want to see specific lines of a compressed file without extracting the fi
 gzip -cd GraphSet_12_00001_16915.gz | head -n 2
 tar -xzOf some_huge_file.tar.gz | head
 </code></pre>
-"zcat" can be combined with other commands mentioned in this post. For example, the first command below shows you the occurrences of a string per line in a gz file; the second command shows you the first column at the 350 line of a gz file.
+"zcat" can be combined with other commands mentioned in this post. For example, the first command below shows you the occurrences of a string per line in a gz file; the second command shows you the first column at the 350 line of a gz file. The third command counts the occurrences of '717165' in all files meet the name pattern in the current directory
 <pre><code>
 zcat filename.gz | grep -o -n 'string' | cut -d : -f 1 | uniq -c
 zcat filename.gz | awk 'NR==350 {print $1}'
+zcat out.pos-1_*.gz | grep -c "717165"
 </code></pre>
 <br/>
 Select every other line of a file (fileA) and put them in anohter file (fileB)
@@ -157,8 +158,14 @@ The following code find all files in the current directory that contains the str
 
 Count the total occurrences of a string in a file
 <pre><code>grep -o 'needle' FILENAME | wc -l</code></pre>
+Show the occurrences of a string in a file with the line number of occurrences
+<pre><code>grep -o -n 'needle' FILENAME</code></pre>
 Count the occurrences of a string PER LINE in a file
 <pre><code>grep -o -n 'needle' FILENAME | cut -d : -f 1 | uniq -c</code></pre>
+Count all occurrences of string in lots of files with grep. However, it counts multiple occurrences on one line only once. 
+<pre><code>cat * | grep -c 'needle'</code></pre>
+Note that if you want to count the exact string (i.e., not when it is part of another string), use the following expression
+<pre><code>"\<needle\>"</code></pre>
 
 Replace a specific string in a file with another one.
 The following example replaced the string "fea" in the file "hello.txt" with the string "asd". s -- substitute; g -- global, replace any found matches; i -- realtime works with file (without it the changed result will be ouput on screen -- suppose you don't specify any output file other than standard output -- instead of actually changing the original file)
