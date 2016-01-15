@@ -149,7 +149,10 @@ The following code find all files in the current directory that contains the str
 <li>-- is often forgotten but it is very important to mark the end of options and allow for removal of files whose names begin with -.</li>
 </ul>
 
-Count the occurrences of 
+Count the total occurrences of a string in a file
+<pre><code>grep -o 'needle' FILENAME | wc -l</code></pre>
+Count the occurrences of a string PER LINE in a file
+<pre><code>grep -o -n 'needle' FILENAME | cut -d : -f 1 | uniq -c</code></pre>
 
 Replace a specific string in a file with another one.
 The following example replaced the string "fea" in the file "hello.txt" with the string "asd". s -- substitute; g -- global, replace any found matches; i -- realtime works with file (without it the changed result will be ouput on screen -- suppose you don't specify any output file other than standard output -- instead of actually changing the original file)
