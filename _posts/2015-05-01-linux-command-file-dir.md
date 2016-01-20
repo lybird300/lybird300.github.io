@@ -172,6 +172,8 @@ The following example replaced the string "fea" in the file "hello.txt" with the
 <pre><code>sed -i 's/fea/asd/g' hello.txt</code></pre>
 If you just want to replace the content of a certain column (say, change "12" in the first ID column with "8"), you can do
 <pre><code>sed -i 's/12/8/1' hello.txt</code></pre>
+If you just want to replace the matched string at a line (say, change all "0" in the second line to "1"), you can do
+<pre><code>sed -i '2s/0/1/g' geno.gz</code></pre>
 
 Count the number of unique values of a field in a tab-delimited text file
 <pre><code>cut -f 1 input_file | sort | uniq</code></pre>
