@@ -155,7 +155,8 @@ The following code find all files in the current directory that contains the str
 <li>xargs -0 feeds the file names from grep to rm -f, separating words by zero (nul) bytes (remember the -Z option from grep).</li>
 <li>-- is often forgotten but it is very important to mark the end of options and allow for removal of files whose names begin with -.</li>
 </ul>
-
+Using grep -v you can simulate the NOT conditions. -v option is for invert match. It matches all the lines except the given pattern. For example,
+<pre><code>squeue | grep -v mini</code></pre>
 Count the total occurrences of a string in a file
 <pre><code>grep -o 'needle' FILENAME | wc -l</code></pre>
 Show the occurrences of a string in a file with the line number of occurrences
