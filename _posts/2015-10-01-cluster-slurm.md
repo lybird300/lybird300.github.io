@@ -97,9 +97,13 @@ Note that I keep all other default setting while changing the size of jobname fi
 </li>
 <li>You can count how many of your jobs (with or without certain patterns) are currently running by using:
 <pre><code>
-squeue -u <yourUserID> | wc -l
-squeue -u <yourUserID> | grep <certain pattern> | wc -l
+squeue -u yourUserID | wc -l
+squeue -u yourUserID | grep certainStringPattern | wc -l
 </code></pre>
+You can also list 5 most recently submitted jobs that are running or pending using
+<pre><code>squeue -u userID | head -n 5</code></pre>
+To find 5 most recently submitted jobs that failed, use
+<pre><code>sacct -u userID | grep FAIL | tail -n 5</code></pre>
 </li>
 </ul>
 <h2>Update jobs</h2>
