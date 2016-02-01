@@ -104,6 +104,8 @@ zcat filename.gz | grep -o -n 'string' | cut -d : -f 1 | uniq -c
 zcat filename.gz | awk 'NR==350 {print $1}'
 zcat out.pos-1_*.gz | grep -c "717165"
 </code></pre>
+You can also use zgrep on renci machine. For example, the following command allows you to find recursively in the current directory gzipped files with the name pattern "Final*.gz" and contains a string with the wildcard pattern "875545[0-9]". The command will output unique lines (the entire line, not just the string) that contain the matched string, following by the path and name of the file with these lines. 
+<pre><code>find . -type f -name "Final*.gz" -exec zgrep -E "875545[0-9]" {} \; -print | sort | uniq -c</code></pre>
 <br/>
 Select every other line of a file (fileA) and put them in anohter file (fileB)
 Method 1: <pre><code>sed -n '1~2!p' fileA > fileB</code></pre>
