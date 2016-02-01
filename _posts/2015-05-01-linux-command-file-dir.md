@@ -157,6 +157,8 @@ The following code find all files in the current directory that contains the str
 </ul>
 Using grep -v you can simulate the NOT conditions. -v option is for invert match. It matches all the lines except the given pattern. For example,
 <pre><code>squeue | grep -v mini</code></pre>
+Print the entire line with the matching pattern
+<pre><code>grep -E 'needle' FILENAME</code></pre>
 Count the total occurrences of a string in a file
 <pre><code>grep -o 'needle' FILENAME | wc -l</code></pre>
 Show the occurrences of a string in a file with the line number of occurrences
