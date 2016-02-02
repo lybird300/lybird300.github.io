@@ -171,13 +171,24 @@ Count all occurrences of string in lots of files with grep. However, it counts m
 <pre><code>cat * | grep -c 'needle'</code></pre>
 Note that if you want to count the exact string (i.e., not when it is part of another string), use the following expression
 <pre><code>"\<needle\>"</code></pre>
-If the string pattern that you would like to find matches include multiple fields separated by "TAB", I find the following command work
+If the string pattern that you would like to find matches include multiple fields separated by "TAB", I find the following grep option work
 <pre><code>
 grep -P "\t1.94\t10\t1\t[0-9]," (print lines with a string of " 1.94 10 1 [0-9],"; the last field starts with a digit followed by a comma)
-A pipeline example would be: find . -type f -name "Final*.gz" -exec zgrep -P "\t1.94\t10\t1\t[0-9]," {} \; -print | sort | uniq -c
-if you would like to output the results to a file (say log.txt in the current folder) instead of displaying it on the screen, you can use
+</code></pre>
+A pipeline example would be:
+<pre><code>
+find . -type f -name "Final*.gz" -exec zgrep -P "\t1.94\t10\t1\t[0-9]," {} \; -print | sort | uniq -c
+</code></pre>
+And if you would like to output the results to a file (say log.txt in the current folder) instead of displaying it on the screen, you can use
+<pre><code>
 find . -type f -name "Final*.gz" -exec zgrep -P "\t1.94\t10\t1\t[0-9]," {} \; -print | sort | uniq -c > log.txt
 </code></pre>
+Or maybe it's better to use "awk"
+<pre><code>
+awk '$3 ~ /snow/ { print }' dummy_file
+awk '$3 == "snow"'
+</code></pre>
+
 Replace a specific string in a file with another one.
 The following example replaced the string "fea" in the file "hello.txt" with the string "asd". s -- substitute; g -- global, replace any found matches; i -- realtime works with file (without it the changed result will be ouput on screen -- suppose you don't specify any output file other than standard output -- instead of actually changing the original file)
 <pre><code>sed -i 's/fea/asd/g' hello.txt</code></pre>
