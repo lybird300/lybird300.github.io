@@ -279,6 +279,9 @@ If you want to copy specific subdirectories, you need to "include" all the direc
 <pre><code>rsync -arP --include='/SNP*/' --include='/SNP*/*/'  --include='SNP*/*/Imputation_MiniMacOutput_RefCtrl/' --include='SNP*/*/Imputation_MiniMacOutput_RefCtrl/***' --exclude='*' --ignore-existing --remove-source-files /projects/sequence_analysis/vol4/simGWASData/ /scratch/linly/simGWASData</code></pre>
 Lastly, you can remove the files in the source folder (i.e., the sender side) using the option "--remove-source-file"
 
+<h2>Move running processes to background/bring running processes to foreground</h2>
+I constantly need these two operations depending on whehter I put "&" in the end of a command. Here is <a href="http://www.kossboss.com/linux---move-running-to-process-nohup">a good reference</a> for the first operation. And <a href="http://unix.stackexchange.com/questions/45025/how-to-suspend-and-bring-a-background-process-to-foreground">this one</a> for the second operation.
+
 <b>UPDDATE</b>: Up till today (09/11/2015, Uh-oh, a sad date) I've gone through a 300GB+ file, 1TB memory, 70TB disk space limit, 72h cpu time, 80 cores, etc...So I no longer have the strong feelings described at the beginning of this post. To be honest, it even sounds a little bit naive to me now. Yesterday when my colleague Ruhi told me our IT group has granted her an exclusive 5TB storage space, my first response was "only 5TB?" Then I couldn't believe I actually said that...
 
 <h2>References</h2>
