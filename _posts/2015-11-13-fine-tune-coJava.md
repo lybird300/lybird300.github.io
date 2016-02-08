@@ -23,6 +23,16 @@ Each thread in a Java application has its own stack, which is used to hold retur
 <pre><code>java -XX:+PrintFlagsFinal -version | grep ThreadStackSize
 Or java -XX:+PrintFlagsFinal -version | grep -iE 'HeapSize|ThreadStackSize'</code></pre>
 Suppose the value is 512k, which means that if your app uses 150 threads, 75MB will be used for thread stacks. In some environments the defaults stack may be as large as 2MB. With a large number of threads, this can consume a significant amount of memory which could otherwise be used by your application or OS. The situation may become even more complicated when you are working on a cluster and need to decide how many nodes and cpus you should request. To monitor the resource usage of your program, you can log on to the cluster node (ssh username@computeNodeName) and then use "htop" command. So far I've only monitored the use of memory, swap (ideally 0), and <a href="http://blog.scoutapp.com/articles/2009/07/31/understanding-load-averages">CPU load</a>.<br/>
+You can use <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Runtime.html">the Runtime class</a> to monitor memory usage inside a java program. This class provides some useful API functions:
+<ul>
+<li>totalMemory()</li>: Returns the total amount of memory in the Java virtual machine. The value returned by this method may vary over time, depending on the host environment. Note that the amount of memory required to hold an object of any given type may be implementation-dependent.
+<li>maxMemory()</li>: Returns the maximum amount of memory that the Java virtual machine will attempt to use (equal to the -Xmx value if you set it up). If there is no inherent limit then the value Long.MAX_VALUE will be returned. <b></b>
+<li>freeMemory()</li>: Returns the amount of free memory in the Java Virtual Machine. Calling the gc method (garbage collection) may result in increasing the value returned by freeMemory. 
+</ul>
+Lets say you start your Java process as such:
+<pre><code>java -Xms64m -Xmx1024m -jar chat.jar</code></pre>
+Your process starts with 64mb of memory, and if and when it needs more (up to 1024m), it will allocate memory.  totalMemory() corresponds to the amount of memory currently allocated (and thus available) to the JVM for chat.jar. If the JVM needs more memory, it will lazily allocate it up to the maximum memory. If you run with -Xms1024m -Xmx1024m, the value you get from totalMemory() and maxMemory() will be equal.
+Note that freeMemory() returns currently allocated free memory, i.e., currently allocated space ready for new objects. It is NOT the total available free memory. To calculate the latter, you first calculate used memory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory(). Then totalfree memory = Runtime.getRuntime().maxMemory() - usedMemory;
 
 <h2>References</h2>
 <ul>
