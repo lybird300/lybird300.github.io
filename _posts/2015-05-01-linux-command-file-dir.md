@@ -211,12 +211,17 @@ Suppose you want to compare the 1st column (field) in file1.txt and the 2nd colu
 where -1 is a first file and 1 is the first FIELD and -2 is a second file and 2 is the second column; -v 1 means suppressing (not outputting) matched lines in file1.txt.
 In order to use join, you need to make sure that FILE1 and FILE2 are sorted on the join fields. The "sort" command by default applies an alphabetical order. Thus, sort -k2 means sorting the 2nd field alphabetically, while sort -nk2 means sorting the same field numerically. Also, sort -k1 will not sort according to from the first field to the end of the line while sort -k1,1 sorts based on the first field.
 
-Count the number of folders recursively
+<h2>Count the number of folders recursively</h2>
 Navigate to your drive and execute
 <pre><code>ls -lR | grep ^d | wc -l</code></pre>
 Count the number of files with specific extension (e.g., ".info.gz"). -R is for recursive search in subdirectories.
 <pre><code>ls -lR *.info.gz | wc -l</code></pre>
 
+<h2>Make multiple directories with some naming pattern</h2>
+The following command will create three sub directories "folder01" "folder02" and "folder03" inside the directory "projects/Labs"
+<pre><code>mkdir $(seq -f "projects/Labs/folder%02g" 3)</code></pre>
+The following command will create folder "11" "12" "13" until "30" in the current directory
+<pre><code>mkdir {11..30}</code></pre>
 If you know the structure of a big file, instead of loading / reading the entire file, you could split it into smaller chunks with the <a href="http://www.theunixschool.com/2012/10/10-examples-of-split-command-in-unix.html">split</a> command.
 <pre><code>$ split -l 500 -d -a 1 out.pos-1 out.pos-1_</code></pre>
 Or the "awk" command:
