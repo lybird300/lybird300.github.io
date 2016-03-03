@@ -85,7 +85,10 @@ c) Different error types and ratio between them. So not only substitution errors
 
 d) Platform specific errors. Some platform tend to introduce specific errors which are mostly dependent on the underlying sequence (e.g. homopolymers or specific patterns). 
 
+In each case where a genotyping eror was added, a homozygous genotype is converted to a hterozygote or a heterozygous genotype was converted to a randomly chosen homozygoet (i.e., either the major or minor allele homozygote, each with probability 0.5).
+
 A set of 9000 segregating sites were randomly selected from the sequence to be used as candidate QTL loci in two different ways, one a randomly sampled set and the other being a randomly sampled set with the restriction that their minor allele frequency should exceed 0.05.
+
 
 
 <h2>References</h2>
