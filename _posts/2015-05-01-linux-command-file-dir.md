@@ -115,7 +115,7 @@ It deletes all even lines
 The "FIRST~STEP" syntax means matching every STEP'th line starting with line FIRST. For example, "sed -n 1~2p" will print all the odd-numbered lines in the input stream, and 2~5 will match every fifth line, starting with the second. "d" means delete an indicated line. For example, the following command delete the 3rd line permanently (use -i option for permanent change)
 <pre><code>sed -i '3d' filename</code></pre>
 
-Display the contents of a text file on the command line
+<h2>Display the contents of a text file on the command line</h2>
 <ul>
 <li>Using cat when your file is short
 <pre><code>cat filename</code></pre>
@@ -142,7 +142,7 @@ You can make less behave like cat when invoked on small files and behave normall
 Sort based on fields/columns
 <pre><code>sort -g -k7,7 GenotypeChrom_8_Rep10.info > sortedList</code></pre>
 
-Finding a File Containing a Particular Text String
+<h2>Finding a File Containing a Particular Text String</h2>
 <pre><code>grep [option] "text string to search” directory-path</code></pre>
 For example, we can search for a text string in all files under a directory using below (-r means recursively):
 <pre><code>grep -r "redeem reward" /home/tom/</code></pre>
@@ -189,15 +189,17 @@ awk '$3 ~ /snow/ { print }' dummy_file
 awk '$3 == "snow"'
 </code></pre>
 
-Replace a specific string in a file with another one.
+<h2>Replace a specific string in a file with another one.</h2>
 The following example replaced the string "fea" in the file "hello.txt" with the string "asd". s -- substitute; g -- global, replace any found matches; i -- realtime works with file (without it the changed result will be ouput on screen -- suppose you don't specify any output file other than standard output -- instead of actually changing the original file)
 <pre><code>sed -i 's/fea/asd/g' hello.txt</code></pre>
 If you just want to replace the content of a certain column (say, change "12" in the first ID column with "8"), you can do
 <pre><code>sed -i 's/12/8/1' hello.txt</code></pre>
 If you just want to replace the matched string at a line (say, change all "0" in the second line to "1"), you can do
 <pre><code>sed -i '2s/0/1/g' geno.gz</code></pre>
+If you want to replace only if the file name matches another string or has a specific extension or is of a certain type, you can use
+<pre><code>find . -type f -name "*.sh" -exec sed -i 's/Xmx20g/Xmx12g/g' {} +</code></pre>
 
-Count the number of unique values of a field in a tab-delimited text file
+<h2>Count the number of unique values of a field in a tab-delimited text file</h2>
 <pre><code>cut -f 1 input_file | sort | uniq</code></pre>
 This command gets unique values in field 1 (1 is column no.), replacing 1 by 2 will give you unique values in field 2.
 To count the number of unique occurences you can make use of wc command in the chain as:
@@ -205,7 +207,7 @@ To count the number of unique occurences you can make use of wc command in the c
 If you want to get the total number of only unique values (i.e., ignore redundance), use
 <pre><code>cut -f 1 input_file | sort | uniq | wc -l</code></pre>
 
-Compare two files
+<h2>Compare two files</h2>
 Suppose you want to compare the 1st column (field) in file1.txt and the 2nd column (field) in file2.txt and output all lines in file1.txt that does not match in file2.txt to a third file (output.txt). You can use the following code:
 <pre><code>join -1 1 -2 2 -v 1 <(sort file1.txt) <(sort file2.txt) > output.txt</code></pre>
 where -1 is a first file and 1 is the first FIELD and -2 is a second file and 2 is the second column; -v 1 means suppressing (not outputting) matched lines in file1.txt.
@@ -301,4 +303,5 @@ I constantly need these two operations depending on whehter I put "&" in the end
 <li><a href="http://datavu.blogspot.com/2014/08/useful-unix-commands-for-exploring-data.html">Useful Unix commands for exploring data</a></li>
 <li><a href="http://www.theunixschool.com/2011/02/sed-replace-or-substitute-file-contents.html">sed - Replace or substitute file contents</a></li>
 <li><a href="http://www.thegeekstuff.com/2011/01/rsync-exclude-files-and-folders/">6 rsync Examples to Exclude Multiple Files and Directories using exclude-from</a></li>
+<li><a href="http://unix.stackexchange.com/questions/112023/how-can-i-replace-a-string-in-a-files">How can I replace a string in a file(s)?</a></li>
 </ul>
