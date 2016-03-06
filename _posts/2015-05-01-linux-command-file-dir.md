@@ -11,7 +11,7 @@ You may need to do many I/O opertions when exploring big files, such as reading 
 
 Stop an ongoing process: ctrl+z
 
-</br>Create a link to a directory
+<h2>Create a link to a directory</h2>
 It is often useful to change to another directory without typing its full pathname: symbolic links provide a useful shortcut to do this. A symbolic link differs from a hard link. It is a small file that contains a reference (by name) to a directory or file that already exists. Unlike normal links, symbolic links can cross filesystems and link to directories. (They are used extensively by the system.) Also unlike normal links, symbolic links are separate files; they cease to work if the file they point to is deleted or renamed, or if they are moved.
 
 Many of the files found in /bin, /lib, and /usr are actually symbolic links that point to files (of the same name) stored below /var/opt. The directories these files are located in are called ``storage sections''. Storage sections are used because they make it easier to install system upgrades. Software subsystems (such as UUCP) consist of many files, which may be installed in several directories. However, all the files in a subsystem belong to a single storage section. By overwriting the contents of the (single) storage section directory, all the files in the subsystem can be updated simultaneously.
@@ -25,7 +25,7 @@ To reduce the typing required, enter the following command:
 This command creates a symbolic link called mydata in your current directory. From now on, mydata and /u/workgrp/tasks/projects refer to the same location, and you can relocate to /u/workgrp/tasks/projects by typing cd mydata instead of typing in the full pathname.
 You must have write permission on a directory before you can create a link that involves that directory or a file in that directory.
 
-Extract gz files
+<h2>Extract gz files</h2>
 <pre><code>$ gzip -d file.gz</code></pre>
 If you want to rezip it, simply type
 <pre><code>$ gzip <name of the extracted file></code></pre>
@@ -51,7 +51,8 @@ e.g., tar -xvf file.tar.gz </code></pre>, where
 <li>-f : Read the archive from the archive to the specified file.</li>
 <li>-t : List the files in the archive.</li>
 </ul>
-Find out the number of rows of a large file<br/>
+
+<h2>Find out the number of rows of a large file</h2>
 <pre><code>wc -l filename</code></pre>
 You can get a range of the number of columns by running the following two commands. The second command can be useful if you are checking for any missing data (i.e., the existence of any line that is shorter than it should be). In the example below, suppose we are expecting 1959504 columns for each line.
 <pre><code>awk '{if( NF > max ) max = NF} END {print max}' filename
@@ -68,13 +69,14 @@ Print the value of a specific column at a specific line in a file, for example, 
 <pre><code>awk 'NR==5 { print $4 }' FILENAME</code></pre>
 Get the length of the shortest line
 <pre><code>awk '(NR==1||length&lt;shortest){shortest=length} END {print shortest}' filename</code></pre>
-Count the number of specific characters in a line
 
+<h2>Count the number of specific characters in a line</h2>
 <blockquote>If the file is not that big, you can simply open it using the internal text editor of MobaXterm and then put the cursor on the last element of a line (wrap view). The row and column information of that position will be displayed at the bottom of the text editor. Be careful though. The number of columns may not be the number of meaningful items per line due to possible whitespaces. Once I miscalculated the number of items and used the wrong number as a default parameter value. Then I spent almost a day trying to figure out why the program did not produce expected results and eventually relized that the program was fed with wrong data!</blockquote>
 If you would like to know the number of files in a directory, navigate to that directory, then use:
 <pre><code>ls -1 | wc -l</code></pre>
 Work like a charm.
-Display specific lines (based on line number) of a file using sed command
+
+<h2>Display specific lines (based on line number) of a file using sed command</h2>
 <pre><code>$ sed -n -e Xp -e Yp FILENAME
 $ sed -n M,Np FILENAME</code></pre>
 The first example below prints out the 1st, 2nd, and 1050th lines. The second example below prints out the first two lines of the same file
@@ -107,7 +109,7 @@ zcat out.pos-1_*.gz | grep -c "717165"
 You can also use zgrep on renci machine. For example, the following command allows you to find recursively in the current directory gzipped files with the name pattern "Final*.gz" and contains a string with the wildcard pattern "875545[0-9]". The command will output unique lines (the entire line, not just the string) that contain the matched string, following by the path and name of the file with these lines. 
 <pre><code>find . -type f -name "Final*.gz" -exec zgrep -E "875545[0-9]" {} \; -print | sort | uniq -c</code></pre>
 <br/>
-Select every other line of a file (fileA) and put them in anohter file (fileB)
+<h2>Select every other line of a file (fileA) and put them in anohter file (fileB)</h2>
 Method 1: <pre><code>sed -n '1~2!p' fileA > fileB</code></pre>
 It means starting from the first line and printing every other line. Thus, you will get all odd lines, i.e., whose line number is 2K+1.
 Method 2: <pre><code>sed 2~2d fileA > fileB</code></pre>
@@ -189,7 +191,7 @@ awk '$3 ~ /snow/ { print }' dummy_file
 awk '$3 == "snow"'
 </code></pre>
 
-<h2>Replace a specific string in a file with another one.</h2>
+<h2>Replace a specific string in a file with another one</h2>
 The following example replaced the string "fea" in the file "hello.txt" with the string "asd". s -- substitute; g -- global, replace any found matches; i -- realtime works with file (without it the changed result will be ouput on screen -- suppose you don't specify any output file other than standard output -- instead of actually changing the original file)
 <pre><code>sed -i 's/fea/asd/g' hello.txt</code></pre>
 If you just want to replace the content of a certain column (say, change "12" in the first ID column with "8"), you can do
@@ -199,6 +201,9 @@ If you just want to replace the matched string at a line (say, change all "0" in
 If you want to replace only if the file name matches another string or has a specific extension or is of a certain type and you would like to check every subdirectories recursively under the current directory, you can use
 <pre><code>find . -type f -name "*.sh" -exec sed -i 's/Xmx20g/Xmx12g/g' {} +</code></pre>
 
+<h2>Rename multiple files in a small part of their names</h2>
+The following code will find all png files in the current directory and replace the string "rep2" in their names with the string "rep0"
+<pre><code>for i in *.png; do mv $i $(echo $i | sed 's/rep2/rep0/g'); done</code></pre>
 <h2>Count the number of unique values of a field in a tab-delimited text file</h2>
 <pre><code>cut -f 1 input_file | sort | uniq</code></pre>
 This command gets unique values in field 1 (1 is column no.), replacing 1 by 2 will give you unique values in field 2.
