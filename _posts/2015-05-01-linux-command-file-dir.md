@@ -200,7 +200,10 @@ If you just want to replace the matched string at a line (say, change all "0" in
 <pre><code>sed -i '2s/0/1/g' geno.gz</code></pre>
 If you want to replace only if the file name matches another string or has a specific extension or is of a certain type and you would like to check every subdirectories recursively under the current directory, you can use
 <pre><code>find . -type f -name "*.sh" -exec sed -i 's/Xmx20g/Xmx12g/g' {} +</code></pre>
-
+A similar command can be used to add a new line in specified files. For example, the following command add a new line with the number  "8" before the original line with a number "9"
+<pre><code>find . -maxdepth 1 -type f -name "Chromo_9.txt" -exec sed -i 's/8\n9/9/g' {} +</code></pre>
+If you want to delete a line in multiple files, you can use the following command (delete the "8" line added above)
+<pre><code>find . -type f -name "Chromo_9.txt" -exec sed -i '/8/d' {} +</code></pre>
 <h2>Rename multiple files in a small part of their names</h2>
 The following code will find all png files in the current directory and replace the string "rep2" in their names with the string "rep0"
 <pre><code>for i in *.png; do mv $i $(echo $i | sed 's/rep2/rep0/g'); done</code></pre>
