@@ -299,6 +299,9 @@ I constantly need these two operations depending on whehter I put "&" in the end
 
 <b>UPDDATE</b>: Up till today (09/11/2015, Uh-oh, a sad date) I've gone through a 300GB+ file, 1TB memory, 70TB disk space limit, 72h cpu time, 80 cores, etc...So I no longer have the strong feelings described at the beginning of this post. To be honest, it even sounds a little bit naive to me now. Yesterday when my colleague Ruhi told me our IT group has granted her an exclusive 5TB storage space, my first response was "only 5TB?" Then I couldn't believe I actually said that...
 
+<h2>Working with Java on Linux</h2>
+I bet <a href="http://ice.he.net/~hedden/jrelinux.html">this post</a> is going to be a huge help someday. 
+
 <h2>References</h2>
 <ul>
 <li><a href="http://www.cureffi.org/2014/01/15/running-r-batch-mode-linux/">Running R in batch mode on Linux</a></li>
