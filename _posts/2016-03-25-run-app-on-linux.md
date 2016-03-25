@@ -112,7 +112,7 @@ packages ‘reshape2’, ‘ggplot2’ are not available (for R version 3.2.2)
 </code></pre>
 I googled it and found in <a href="https://github.com/glibiseller/IPO/issues/30">this post</a> that it happened because the repository I chose earlier (i.e., 16) did not work. I followed the solution provided in that post by typing the following and it started to download. Weird...Huh!
 <pre><code>install.packages("ggplot2", repos="http://cran.cnr.berkeley.edu")</code></pre>
-<h2>Run R scripts on Linux from the command line</h2>
+<h3>Run R scripts on Linux from the command line</h3>
 If you want the output to print to the terminal it is best to use Rscript
 <pre><code>Rscript a.R</code></pre>
 You can also use the following to run R script, but instead of displaying outputs on the terminal, this command redirects outputs to a new file called a.Rout
