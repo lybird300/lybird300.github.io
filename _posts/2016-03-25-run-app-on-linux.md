@@ -127,8 +127,10 @@ At this point you can upgrade or install a package named PACKAGE with the follow
 <pre><code>conda install PACKAGE</code></pre>
 The commands "conda list" and "conda show" will list installed and available packages, respectively. If the package is not available from conda, you can install it into your environment using pip:
 <pre><code>pip install PACKAGE</code></pre>
-Once I wanted to install from a local package (assume it's in the current directory as a compressed file snap.tar.gz), I had to do so by putting it in /usr/local/bin. Below is the command I used
+Once I wanted to install from a local package (assume it's in the current directory as a compressed file snap.tar.gz), I had to do so by putting it in $HOME/.local/lib. Below is the command I used
 <pre><code>pip install --user --install-option="--install-scripts=/usr/local/bin" ./snap.tar.gz</code></pre>
+And to make it work (i.e., allow python to find this package), I added the following line to the ".bash_profile" file in my home directory
+<pre><code>export PYTHONPATH=$PYTHONPATH:/home/linly/.local/lib/python2.6/site-packages/</code></pre>
 <h2>Working with Java</h2>
 I bet <a href="http://ice.he.net/~hedden/jrelinux.html">this post</a> is going to be a huge help someday.
 <b>"Could not reserve enough space for object heap" even though there is enough RAM</b>
