@@ -33,7 +33,7 @@ A new directory named "R-3.2.2" is created. Navigate to this directory and execu
 $ ./configure</code></pre>
 With the "configure" script you can supply a various flags to adjust the compilation to your environment. If you do not have any special requirements you can start compilation with:
 <pre><code>$ make</code></pre>
-<h3>Running R</h3>
+<h3>Interact with R</h3>
 To run R under Linux from the command line. You can simply go to wherever you would like to run it (for example, where you put data files) and type "R" at the command line and press enter. Wolla, you are now in an R environment and you can type in "q()" to get out. However, this is not the major way of launching R in a cluster if you want to execute a large set of commands in sequence and allow for inputs and outputs. For these purposes, you should write an R script (let's called example.R) and run it through batch command:
 <pre><code>R CMD BATCH example.R</code></pre>
 As other Unix command, there are several options that allow you to better control the process. For example,
@@ -131,6 +131,9 @@ Once I wanted to install from a local package (assume it's in the current direct
 <pre><code>pip install --user --install-option="--install-scripts=/usr/local/bin" ./snap.tar.gz</code></pre>
 And to make it work (i.e., allow python to find this package), I added the following line to the ".bash_profile" file in my home directory
 <pre><code>export PYTHONPATH=$PYTHONPATH:/home/linly/.local/lib/python2.6/site-packages/</code></pre>
+<h3>Interact with Python</h3>
+As with R, you can simply type "phtyon" at the command line.
+
 <h2>Working with Java</h2>
 I bet <a href="http://ice.he.net/~hedden/jrelinux.html">this post</a> is going to be a huge help someday.
 <b>"Could not reserve enough space for object heap" even though there is enough RAM</b>
