@@ -126,7 +126,7 @@ RENCI uses the Anaconda python distribution from Continuum Analytics. You can us
 At this point you can upgrade or install a package named PACKAGE with the following command (it's the same whether installing or upgrading):
 <pre><code>conda install PACKAGE</code></pre>
 The commands "conda list" and "conda show" will list installed and available packages, respectively. If the package is not available from conda, you can install it into your environment using pip:
-<pre><code>pip install PACKAGE</code></pre>
+<pre><code>pip install --user PACKAGE</code></pre>
 Once I wanted to install from a local package (assume it's in the current directory as a compressed file snap.tar.gz), I had to do so by putting it in $HOME/.local/lib. Below is the command I used
 <pre><code>pip install --user --install-option="--install-scripts=/usr/local/bin" ./snap.tar.gz</code></pre>
 And to make it work (i.e., allow python to find this package), I added the following line to the ".bash_profile" file in my home directory
