@@ -297,6 +297,10 @@ Lastly, you can remove the files in the source folder (i.e., the sender side) us
 <h2>Move running processes to background/bring running processes to foreground</h2>
 I constantly need these two operations depending on whehter I put "&" in the end of a command. Here is <a href="http://www.kossboss.com/linux---move-running-to-process-nohup">a good reference</a> for the first operation. And <a href="http://unix.stackexchange.com/questions/45025/how-to-suspend-and-bring-a-background-process-to-foreground">this one</a> for the second operation.
 
+<h2>Remove the first and the last line from file</h2>
+The most efficient way I find out is to use "more" and "head/tail" (relatively lightweight) and then output the result to a file (instead of the standard out)
+<pre><code>more lrrkPairsAtSite_8003.out | head -n -1 | tail -n +2 > lrrkPairsAtSite_8003_new.out</code></pre>
+
 <b>UPDDATE</b>: Up till today (09/11/2015, Uh-oh, a sad date) I've gone through a 300GB+ file, 1TB memory, 70TB disk space limit, 72h cpu time, 80 cores, etc...So I no longer have the strong feelings described at the beginning of this post. To be honest, it even sounds a little bit naive to me now. Yesterday when my colleague Ruhi told me our IT group has granted her an exclusive 5TB storage space, my first response was "only 5TB?" Then I couldn't believe I actually said that...
 
 <h2>References</h2>
