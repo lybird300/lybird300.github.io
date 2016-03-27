@@ -131,6 +131,16 @@ Once I wanted to install from a local package (assume it's in the current direct
 <pre><code>pip install --user --install-option="--install-scripts=/usr/local/bin" ./snap.tar.gz</code></pre>
 And to make it work (i.e., allow python to find this package), I added the following line to the ".bash_profile" file in my home directory
 <pre><code>export PYTHONPATH=$PYTHONPATH:/home/linly/.local/lib/python2.6/site-packages/</code></pre>
+<h3>Import module installed in home directory</h3>
+I don't have "sudo" permission that allows me to install packages to any compute node, but I don't want to bother Chris (our cluster admin) every time I need a new package. Fortunately, it turns out that you can do the following when you run an interactive or batch python job (for the latter, include the following commands in the script)
+<pre><code>
+#import the sys package to use one of its methods later
+import sys
+#append the path of the parent directory of your package
+sys.path.append("/home/linly/.local/lib/python2.6/site-packages/")
+#import your package
+import networkx as nx
+</code></pre>
 <h3>Interact with Python</h3>
 As with R, you can simply type "phtyon" at the command line.
 
@@ -145,26 +155,6 @@ Error: Could not create the Java Virtual Machine.
 Error: A fatal exception has occurred. Program will exit.
 </pre>
 According to <a href="http://unix.stackexchange.com/questions/109653/java-could-not-reserve-enough-space-for-object-heap-even-though-there-is-enoug">this page</a>, sometimes the system tries to allocate more than I need and a solution for this problem is to limit the chunk of memory java tries to allocate at run time with a minimum Xms or while running with maximum Xmx.
-
-<h2>Playing with Gephi on Linux</h2>
-On Linux you can try some simple scripts to get a quick intuition about the network data before plotting the entire network, which can be too large to handle easily. Bash scripts are often more convenient to use than coding with other programming languages.
-Suppose the network is stored in the following format (each line defines an edge)
-<pre>nodeA nodeB weight</pre>
-Then you can use the following command to compute node degrees (assuming indirected networks). The degree report should give you intuition about how well connected the network is.
-<pre><code>
-#Compute out-degree of all nodes in nodeA column
-cat network.vna |  " " | sort | uniq -c | sort -n
-#Compute in-degree of all nodes in nodeB column
-cat network.vna | cut -f 2 -d " " | sort | uniq -c | sort -n
-</code></pre>
-With AWK you can easily filter your network based on the weight column.
-<pre><code>
-#Only print edges which have weight larger than 20:
-awk 'NR <= 2 { print; next; } NR > 2 { if($3 >= 20) {print}}' network.vna > network-w20.vna
-#NR stands for line number - in the example we skip first 2 lines because they are usually the vna format headers (*Tie data\nfrom to weight).
-#When NR is larger than 2 the script prints the line if the third weight parameter is larger than 20.
-#Output is redirected to a file network-w20.vna.
-</code></pre>
 
 <h2>References</h2>
 <ul>
