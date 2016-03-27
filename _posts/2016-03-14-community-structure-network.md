@@ -1,8 +1,31 @@
 ---
 layout: post
-title: "Recover community structure in a dynamic network (predict missing links)"
+title: "Large-scale network analysis"
 date: 2016-03-14
 ---
+<h2>Working with a cluster</h2>
+On Linux you can try some simple scripts to get a quick intuition about the network data before plotting the entire network, which can be too large to handle easily. Bash scripts are often more convenient to use than coding with other programming languages.
+Suppose the network is stored as an edge list (each line defines an edge) as below
+<pre>nodeA nodeB weight</pre>
+Then you can use the following command to compute node degrees (assuming indirected networks). The degree report should give you intuition about how well connected the network is.
+<pre><code>
+#Compute out-degree of all nodes in nodeA column
+cat network.vna |  " " | sort | uniq -c | sort -n
+#Compute in-degree of all nodes in nodeB column
+cat network.vna | cut -f 2 -d " " | sort | uniq -c | sort -n
+</code></pre>
+With AWK you can easily filter your network based on the weight column.
+<pre><code>
+#Only print edges which have weight larger than 20:
+awk 'NR <= 2 { print; next; } NR > 2 { if($3 >= 20) {print}}' network.vna > network-w20.vna
+#NR stands for line number - in the example we skip first 2 lines because they are usually the vna format headers (*Tie data\nfrom to weight).
+#When NR is larger than 2 the script prints the line if the third weight parameter is larger than 20.
+#Output is redirected to a file network-w20.vna.
+</code></pre>
+HOWEVER, things will become a lot different (in a bad way) when the edge list is extremely big, say 10G. Why? Well, for starters, the sort command stores working data in temporary disk files (usually in /tmp). When the file to sort is large, the temporary files will soon fill up the directory! I ended up redirecting the temporary file using -T option, so that the sorting process can finish. For example, I used the following command to find out the list of unique nodes from the 10G edge list file (lrrkPairsAtSite_3999.out, the separator is comma rather than tab) and output the results to the file 3999_node.tmp.
+<pre><code><lrrkPairsAtSite_3999.out <lrrkPairsAtSite_3999.out awk -F',' '{ print $1; print $2; }' | sort -n -T /scratch/linly --buffer-size=500M | uniq > 3999_node.tmp</code></pre>
+
+<h2>Recover community structure in a dynamic network (predict missing links)</h2>
 In general, very little is known about the community
 structure of a graph. It is uncommon to know the number
 of clusters in which the graph is split, or other indications
