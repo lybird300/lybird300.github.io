@@ -108,6 +108,11 @@ zcat out.pos-1_*.gz | grep -c "717165"
 </code></pre>
 You can also use zgrep on renci machine. For example, the following command allows you to find recursively in the current directory gzipped files with the name pattern "Final*.gz" and contains a string with the wildcard pattern "875545[0-9]". The command will output unique lines (the entire line, not just the string) that contain the matched string, following by the path and name of the file with these lines. 
 <pre><code>find . -type f -name "Final*.gz" -exec zgrep -E "875545[0-9]" {} \; -print | sort | uniq -c</code></pre>
+Sometimes you may want to search the file for a specific string pattern and then print the line above or below the matching line. For example, the pajek .net file of a large network starts with a huge list of vertices and after that there is a line "Edges" indicating the start of the edge list. For BSD or GNU grep you can use -B num to set how many lines before the match and -A num for the number of lines after the match, such as
+<pre><code>grep -B 3 -A 2 foo README.txt</code></pre>
+If you want the same number of lines before and after you can use -C num. The following will show 3 lines before and 3 lines after.
+<pre><code>grep -C 3 foo README.txt</code></pre>
+
 <br/>
 <h2>Select every other line of a file (fileA) and put them in anohter file (fileB)</h2>
 Method 1: <pre><code>sed -n '1~2!p' fileA > fileB</code></pre>
