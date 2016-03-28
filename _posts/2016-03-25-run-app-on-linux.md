@@ -110,8 +110,10 @@ Warning: unable to access index for repository https://cran.revolutionanalytics.
 Warning message:
 packages ‘reshape2’, ‘ggplot2’ are not available (for R version 3.2.2)
 </code></pre>
-I googled it and found in <a href="https://github.com/glibiseller/IPO/issues/30">this post</a> that it happened because the repository I chose earlier (i.e., 16) did not work. I followed the solution provided in that post by typing the following and it started to download. Weird...Huh!
+I googled it and found in <a href="https://github.com/glibiseller/IPO/issues/30">this post</a> that it happened because the repository I chose earlier (i.e., 16) did not work. I followed the solution provided in that post by typing the following and it started to download. Weird...Huh! But I guess it simply means trying another repository if one does not work...
 <pre><code>install.packages("ggplot2", repos="http://cran.cnr.berkeley.edu")</code></pre>
+When you are running R on a cluster and need to install a package, better download it to your own library (say, in the home directory). You can use the "lib" argument for this purpose.
+<pre><code>install.packages("igraph", lib ="/home/linly/bin/R-3.2.2/library/", repos='http://cran.us.r-project.org')</code></pre>
 <h3>Run R scripts on Linux from the command line</h3>
 If you want the output to print to the terminal it is best to use Rscript
 <pre><code>Rscript a.R</code></pre>
