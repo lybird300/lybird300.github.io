@@ -245,7 +245,7 @@ But if the original file has a header and you want to keep the header in every s
 <pre><code>awk 'BEGIN{getline f;}NR%500==2{x="out.pos-1_"i++;print f>x;}{print > x}' out.pos-1</code></pre>
 In the code above, before the file is processed, the first line is read using getline into the variable f. NR%500 is checked with 2 instead of 1 as in the earlier case because since the first line is a header, we need to split the files at the 2nd line, and so on.
 
-<h2>Remove Files With One Command On Fly</h2>
+<h2>Remove Files efficiently</h2>
 First, you can remove files with different extensions altogether using the "rm" command as below. It removes files with any one of the four types of extensions.
 <pre><code>rm *.log *.rec.gz *.info.draft *.erate.gz</code></pre>
 Next, let me introduce this powerful command "find", whose basic syntax is:
@@ -260,6 +260,10 @@ Using "find", we can, for example, find all files having .bak (*.bak) extension 
 <pre><code>$ find . -type f -name "*.bak" -exec rm -f {} \;</code></pre>
 Or to be safe, removes these files with confirmation from user:
 <pre><code>$ find . -type f -name "*.bak" -exec rm -i {} \;</code></pre>
+Sometimes the files you would like to find are distributed in multiple different directories that have a certain path pattern. The find command allows you to limit the search to these directories. For example,
+<pre><code>find . -wholename 'Case500_Control500_GRR20.0_BDR*/ChatInput_tagSNP/Rep[5-9]/ChromosomeSpecificData/GenotypeChrom_09.gz' -exec rm -i {} \;</code></pre>
+Similarly, sometimes you would like to exclude some paths from searching to save time, you can use the following
+<pre><code>find -name "*.js" -not -path "./directory/*"</code></pre>
 Sometimes you may need to know whether certain subdirectories are empty or not. For example, the following command will list all non-empty subdirectories of the current working directory whose names end with "abc"
 <pre><code>find . ! -empty -type d -name "*abc" </code></pre>
 
