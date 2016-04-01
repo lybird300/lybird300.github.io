@@ -311,6 +311,14 @@ I constantly need these two operations depending on whehter I put "&" in the end
 The most efficient way I find out is to use "more" and "head/tail" (relatively lightweight) and then output the result to a file (instead of the standard out)
 <pre><code>more lrrkPairsAtSite_8003.out | head -n -1 | tail -n +2 > lrrkPairsAtSite_8003_new.out</code></pre>
 
+<h2>Split a large .gz file</h2>
+The first command below would grabs the first 4000000 lines of the file and output it to another one. The second command splits a large .gz file (GenotypeChrom_09.gz) into smaller files each with 6004 lines. These smaller files will be named as "GenotypeChrom_09_partaa", "GenotypeChrom_09_partab", and so on.
+<pre><code>
+gunzip -c hugefile.txt.gz | head -n 4000000 > log.file
+zcat GenotypeChrom_09.gz | split -l 6004 - GenotypeChrom_09_part
+</code></pre>
+The following command is an improvement to the second one above as it allows you to immediately zip the resultant files, which are often quite large too.
+<pre><code>zcat biglogfile.gz | split -l 500000 --filter='gzip > $FILE.gz'</code></pre>
 <b>UPDDATE</b>: Up till today (09/11/2015, Uh-oh, a sad date) I've gone through a 300GB+ file, 1TB memory, 70TB disk space limit, 72h cpu time, 80 cores, etc...So I no longer have the strong feelings described at the beginning of this post. To be honest, it even sounds a little bit naive to me now. Yesterday when my colleague Ruhi told me our IT group has granted her an exclusive 5TB storage space, my first response was "only 5TB?" Then I couldn't believe I actually said that...
 
 <h2>References</h2>
