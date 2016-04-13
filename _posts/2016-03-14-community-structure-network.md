@@ -3,7 +3,7 @@ layout: post
 title: "Large-scale network analysis"
 date: 2016-03-14
 ---
-<h2>Working with a cluster</h2>
+<h2>Network analysis on a cluster</h2>
 On Linux you can try some simple scripts to get a quick intuition about the network data before plotting the entire network, which can be too large to handle easily. Bash scripts are often more convenient to use than coding with other programming languages.
 Suppose the network is stored as an edge list (each line defines an edge) as below
 <pre>nodeA nodeB weight</pre>
@@ -24,7 +24,15 @@ awk 'NR <= 2 { print; next; } NR > 2 { if($3 >= 20) {print}}' network.vna > netw
 </code></pre>
 HOWEVER, things will become a lot different (in a bad way) when the edge list is extremely big, say 10G. Why? Well, for starters, the sort command stores working data in temporary disk files (usually in /tmp). When the file to sort is large, the temporary files will soon fill up the directory! I ended up redirecting the temporary file using -T option, so that the sorting process can finish. For example, I used the following command to find out the list of unique nodes from the 10G edge list file (lrrkPairsAtSite_3999.out, the separator is comma rather than tab) and output the results to the file 3999_node.tmp.
 <pre><code><lrrkPairsAtSite_3999.out <lrrkPairsAtSite_3999.out awk -F',' '{ print $1; print $2; }' | sort -n -T /scratch/linly --buffer-size=500M | uniq > 3999_node.tmp</code></pre>
+<h3>igraph</h3>
 
+<h3>networkX</h3>
+I use the following Python command to read a graph from a gzipped edge list file with a header like "hap1,hap2,3999"
+<pre><code>g <- networkx.read_weighted_edgelist("/projects/.../lrrkPairsAtSite_3999.out.gz",comments='h',delimiter=",", nodetype=str)</code></pre>
+Then I use the following Python command to export the graph as a pajek format file so that it can be used in other programs.
+<pre><code>networkx.write_pajek(g, "/projects/.../lrrkPairsAtSite_3999.net")</code></pre>
+In the generated .net file, there is useless coordinate information for visualization (0.0 0.0 ellipse) after the definition of each vertex (per line). I use the following Linux command to remove this information from EVERY .net file
+<pre><code>find . -type f -name "lrrkPairsAtSite_*.net" -exec sed -i 's/ 0.0 0.0 ellipse//g' {} +</code></pre>
 <h2>Recover community structure in a dynamic network (predict missing links)</h2>
 In general, very little is known about the community
 structure of a graph. It is uncommon to know the number
