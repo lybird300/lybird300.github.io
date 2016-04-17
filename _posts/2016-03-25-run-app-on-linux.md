@@ -158,6 +158,9 @@ Error: A fatal exception has occurred. Program will exit.
 </pre>
 According to <a href="http://unix.stackexchange.com/questions/109653/java-could-not-reserve-enough-space-for-object-heap-even-though-there-is-enoug">this page</a>, sometimes the system tries to allocate more than I need and a solution for this problem is to limit the chunk of memory java tries to allocate at run time with a minimum Xms or while running with maximum Xmx.
 
+<h2>Working with C++ packages</h2>
+Type "make" to compile the code assuming it exists in the current directory
+
 <h2>References</h2>
 <ul>
 <li><a href="https://rc.fas.harvard.edu/resources/documentation/software-on-odyssey/modules/">Modules HowTo</a></li>
