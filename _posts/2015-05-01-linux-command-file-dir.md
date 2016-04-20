@@ -267,6 +267,11 @@ Similarly, sometimes you would like to exclude some paths from searching to save
 <pre><code>find -name "*.js" -not -path "./directory/*"</code></pre>
 Sometimes you may need to know whether certain subdirectories are empty or not. For example, the following command will list all non-empty subdirectories of the current working directory whose names end with "abc"
 <pre><code>find . ! -empty -type d -name "*abc" </code></pre>
+Sometimes you would like to limit the span of the search (otherwise it will go through the first level and all subdirectories of your specified directory!!)
+If you just want to limit the find to the first level you can add the -maxdepth option, for example
+<pre><code>find /dev -maxdepth 1 -name 'abc-*'</code></pre>
+If you want to exclude a particular subdirectory named ".udev", you can do:
+<pre><code>find /dev -name '.udev' -prune -o -name 'abc-*'</code></pre>
 
 <h2>Copy and/or merge directories</h2>
 To copy multiple files (e.g., file1, file2, file3, and file4) from one directory to another
