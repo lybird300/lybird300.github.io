@@ -259,7 +259,7 @@ Next, let me introduce this powerful command "find", whose basic syntax is:
 </code></pre>
 Using "find", we can, for example, find all files having .bak (*.bak) extension in the current directory ("." means the current directory) and its subdirectories and remove them:
 <pre><code>$ find . -type f -name "*.bak" -exec rm -f {} \;</code></pre>
-Or to be safe, removes these files with confirmation from user:
+"-f" will suppress warning messages and confirmation requests. If you would like to play safe, "-i" allows you to remove these files with confirmation requests:
 <pre><code>$ find . -type f -name "*.bak" -exec rm -i {} \;</code></pre>
 Sometimes the files you would like to find are distributed in multiple different directories that have a certain path pattern. The find command allows you to limit the search to these directories. For example,
 <pre><code>find . -wholename './Case500_Control500_GRR20.0_BDR*/ChatInput_tagSNP/Rep[5-9]/ChromosomeSpecificData/GenotypeChrom_09.gz' -exec rm -i {} \;
