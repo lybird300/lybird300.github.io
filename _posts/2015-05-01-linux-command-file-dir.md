@@ -263,7 +263,8 @@ Using "find", we can, for example, find all files having .bak (*.bak) extension 
 <pre><code>$ find . -type f -name "*.bak" -exec rm -i {} \;</code></pre>
 Sometimes the files you would like to find are distributed in multiple different directories that have a certain path pattern. The find command allows you to limit the search to these directories. For example,
 <pre><code>find . -wholename './Case500_Control500_GRR20.0_BDR*/ChatInput_tagSNP/Rep[5-9]/ChromosomeSpecificData/GenotypeChrom_09.gz' -exec rm -i {} \;
-find . -wholename './Rep[0-9]/ChromosomeSpecificData/GenotypeChrom_[0-1][!8].gz' -exec rm -i {} \;</code></pre>
+find . -wholename './Rep[0-9]/ChromosomeSpecificData/GenotypeChrom_[0-1][!8].gz' -exec rm -i {} \;
+find . -wholename './Case100_*/Imputation_MiniMacOutput_RefCtrl/*.info.draft' -exec rm -f {} \;</code></pre>
 Note that these two commands won't work if you miss the "." at the beginning of the path.
 Similarly, sometimes you would like to exclude some paths from searching to save time, you can use the following
 <pre><code>find -name "*.js" -not -path "./directory/*"</code></pre>
