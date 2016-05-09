@@ -43,7 +43,7 @@ Eigenpairs are a lot like the roots of a polynomial. It is difficult to describe
 Eigenvectors are much the same. If you have a line or plane which is invariant then there is only so much you can do to the surrounding space without breaking the limitations. So in a sense eigenvectors are not important because they themselves are fixed but rather they limit the behavior of the linear transformation. Each eigenvector is like a skewer which helps to hold the linear transformation into place.
 Very (very, very) roughly then, the eigenvalues of a linear mapping is a measure of the distortion induced by the transformation and the eigenvectors tell you about how the distortion is oriented. It is precisely this rough picture which makes PCA very useful.
 Suppose you have a set of data which is distributed as an ellipsoid oriented in 33-space. If this ellipsoid was very flat in some direction, then in a sense we can recover much of the information that we want even if we ignore the thickness of the ellipse. This what PCA aims to do. The eigenvectors tell you about how the ellipse is oriented and the eigenvalues tell you where the ellipse is distorted (where it's flat). If you choose to ignore the "thickness" of the ellipse then you are effectively compressing the eigenvector in that direction; you are projecting the ellipsoid into the most optimal direction to look at. To quote wiki:
-<b>PCA can supply the user with a lower-dimensional picture, a "shadow" of this object when viewed from its (in some sense) most informative viewpoint<b></blockquote>
+<b>PCA can supply the user with a lower-dimensional picture, a "shadow" of this object when viewed from its (in some sense) most informative viewpoint</b></blockquote>
 <blockquote>First let us think what a square matrix does to a vector. Consider a matrix A∈Rn×n. Let us see what the matrix A acting on a vector x does to this vector. By action, we mean multiplication i.e. we get a new vector y=Ax.
 The matrix acting on a vector x does two things to the vector x.
 It scales the vector.
@@ -137,4 +137,6 @@ consider a related measure, in the context of deciding when two personal home pa
 “related.” To do this, they compute features of the pages, and define the similarity between two
 pages to be This refines the simple counting of common features by weighting rarer features more heavily.
 
+<h3>Clustering on a graph with negative edge weights</h3>
+The need of doing so is conveyed in <a href="http://math.stackexchange.com/questions/1547225/cluster-into-communities-a-graph-with-negative-edge-weights-representing-repulsi">this post</a>.
 <h2>References</h2>
