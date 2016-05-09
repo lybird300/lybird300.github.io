@@ -138,5 +138,5 @@ consider a related measure, in the context of deciding when two personal home pa
 pages to be This refines the simple counting of common features by weighting rarer features more heavily.
 
 <h3>Clustering on a graph with negative edge weights</h3>
-The need of doing so is conveyed in <a href="http://math.stackexchange.com/questions/1547225/cluster-into-communities-a-graph-with-negative-edge-weights-representing-repulsi">this post</a>.
+The need to do so has been conveyed <a href="http://math.stackexchange.com/questions/1547225/cluster-into-communities-a-graph-with-negative-edge-weights-representing-repulsi">here</a> and <a href="http://stats.stackexchange.com/questions/177507/graph-clustering-algorithms-which-consider-negative-weights">there</a>.
 <h2>References</h2>
