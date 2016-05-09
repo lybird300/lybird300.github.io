@@ -36,30 +36,20 @@ In the generated .net file, there is useless coordinate information for visualiz
 
 <h2>Theories and algorithms</h2>
 <h3>Adjacency matrix</h3>
-First I'd like to cite some very good intuitions on eigenvectors and eigenvalues from <a href="http://math.stackexchange.com/questions/243533/how-to-intuitively-understand-eigenvalue-and-eigenvector">this post</a>.
-<blockquote>Personally, I feel that intuition isn't something which is easily explained. Intuition in mathematics is synonymous with experience and you gain intuition by working numerous examples. With my disclaimer out of the way, let me try to present a very informal way of looking at eigenvalues and eigenvectors.
-
+First I'd like to cite some very good intuitions on eigenvectors and eigenvalues from <a href="http://math.stackexchange.com/questions/243533/how-to-intuitively-understand-eigenvalue-and-eigenvector">this post</a>. I think the first one below centers on the matrix, while the second one centers on the vector.
+<blockquote>Personally, I feel that intuition isn't something which is easily explained. <b>Intuition in mathematics is synonymous with experience and you gain intuition by working numerous examples</b>. With my disclaimer out of the way, let me try to present a very informal way of looking at eigenvalues and eigenvectors.
 First, let us forget about principal component analysis for a little bit and ask ourselves exactly what eigenvectors and eigenvalues are. A typical introduction to spectral theory presents eigenvectors as vectors which are fixed in direction under a given linear transformation. The scaling factor of these eigenvectors is then called the eigenvalue. Under such a definition, I imagine that many students regard this as a minor curiosity, convince themselves that it must be a useful concept and then move on. It is not immediately clear, at least to me, why this should serve as such a central subject in linear algebra.
-
 Eigenpairs are a lot like the roots of a polynomial. It is difficult to describe why the concept of a root is useful, not because there are few applications but because there are too many. If you tell me all the roots of a polynomial, then mentally I have an image of how the polynomial must look. For example, all monic cubics with three real roots look more or less the same. So one of the most central facts about the roots of a polynomial is that they ground the polynomial. A root literally roots the polynomial, limiting it's shape.
-
 Eigenvectors are much the same. If you have a line or plane which is invariant then there is only so much you can do to the surrounding space without breaking the limitations. So in a sense eigenvectors are not important because they themselves are fixed but rather they limit the behavior of the linear transformation. Each eigenvector is like a skewer which helps to hold the linear transformation into place.
-
 Very (very, very) roughly then, the eigenvalues of a linear mapping is a measure of the distortion induced by the transformation and the eigenvectors tell you about how the distortion is oriented. It is precisely this rough picture which makes PCA very useful.
-
 Suppose you have a set of data which is distributed as an ellipsoid oriented in 33-space. If this ellipsoid was very flat in some direction, then in a sense we can recover much of the information that we want even if we ignore the thickness of the ellipse. This what PCA aims to do. The eigenvectors tell you about how the ellipse is oriented and the eigenvalues tell you where the ellipse is distorted (where it's flat). If you choose to ignore the "thickness" of the ellipse then you are effectively compressing the eigenvector in that direction; you are projecting the ellipsoid into the most optimal direction to look at. To quote wiki:
-
-PCA can supply the user with a lower-dimensional picture, a "shadow" of this object when viewed from its (in some sense) most informative viewpoint</blockquote>
-<blockquote>First let us think what a square matrix does to a vector. Consider a matrix A∈Rn×nA∈Rn×n. Let us see what the matrix AA acting on a vector xx does to this vector. By action, we mean multiplication i.e. we get a new vector y=Axy=Ax.
-
-The matrix acting on a vector xx does two things to the vector xx.
-
+<b>PCA can supply the user with a lower-dimensional picture, a "shadow" of this object when viewed from its (in some sense) most informative viewpoint<b></blockquote>
+<blockquote>First let us think what a square matrix does to a vector. Consider a matrix A∈Rn×n. Let us see what the matrix A acting on a vector x does to this vector. By action, we mean multiplication i.e. we get a new vector y=Ax.
+The matrix acting on a vector x does two things to the vector x.
 It scales the vector.
 It rotates the vector.
-However, for any matrix AA, there are some favored vectors/directions. When the matrix acts on these favored vectors, the action essentially results in just scaling the vector. There is no rotation. These favored vectors are precisely the eigenvectors and the amount by which each of these favored vectors stretches or compresses is the eigenvalue.
-
-So why are these eigenvectors and eigenvalues important? Consider the eigenvector corresponding to the maximum (absolute) eigenvalue. If we take a vector along this eigenvector, then the action of the matrix is maximum. No other vector when acted by this matrix will get stretched as much as this eigenvector.
-
+However, for any matrix A, there are some favored vectors/directions. When the matrix acts on these favored vectors, the action essentially results in just scaling the vector. There is no rotation. These favored vectors are precisely the eigenvectors and the amount by which each of these favored vectors stretches or compresses is the eigenvalue.
+So why are these eigenvectors and eigenvalues important? Consider the eigenvector corresponding to the maximum (absolute) eigenvalue. If we take a vector along this eigenvector, then the action of the matrix is maximum. <b>No other vector when acted by this matrix will get stretched as much as this eigenvector</b>.
 Hence, if a vector were to lie "close" to this eigen direction, then the "effect" of action by this matrix will be "large" i.e. the action by this matrix results in "large" response for this vector. The effect of the action by this matrix is high for large (absolute) eigenvalues and less for small (absolute) eigenvalues. Hence, the directions/vectors along which this action is high are called the principal directions or principal eigenvectors. The corresponding eigenvalues are called the principal values.</blockquote>
 <h3>Recover community structure in a dynamic network (predict missing links)</h3>
 In general, very little is known about the community
@@ -146,3 +136,5 @@ Adamic-Adar measure of node similarity [1] performed best. Adamic and Adar [1]
 consider a related measure, in the context of deciding when two personal home pages are strongly
 “related.” To do this, they compute features of the pages, and define the similarity between two
 pages to be This refines the simple counting of common features by weighting rarer features more heavily.
+
+<h2>References</h2>
