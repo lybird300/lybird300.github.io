@@ -275,7 +275,8 @@ If you just want to limit the find to the first level you can add the -maxdepth 
 <pre><code>find /dev -maxdepth 1 -name 'abc-*'</code></pre>
 If you want to exclude a particular subdirectory named ".udev", you can do:
 <pre><code>find /dev -name '.udev' -prune -o -name 'abc-*'</code></pre>
-
+When attempting to remove a directory using a command such as the rmdir command, you may receive a prompt such as "rmdir: 'dir': Directory not empty" and be unable to delete the directory. Thus, to remove a directory that contains other files or directories, use the following command ("-r" means doing it recursively; "-f" means suppressing prompts for approval to delete each of the files and it also forces removal despite errors such as non-existent files or directories)
+<pre><code>rm -rf mydir</code></pre>
 <h2>Copy and/or merge directories</h2>
 To copy multiple files (e.g., file1, file2, file3, and file4) from one directory to another
 <pre><code>cp /home/usr/dir/{file1,file2,file3,file4} /home/usr/destination/</code></pre>
