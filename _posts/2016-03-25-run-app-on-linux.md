@@ -144,7 +144,7 @@ sys.path.append("/home/linly/.local/lib/python2.6/site-packages/")
 import networkx as nx
 </code></pre>
 <h3>Interact with Python</h3>
-As with R, you can simply type "phtyon" at the command line.
+As with R, you can simply type "python" at the command line. However, type "exit()" when you want to quit (for R you type "q()").
 
 <h2>Working with Java</h2>
 I bet <a href="http://ice.he.net/~hedden/jrelinux.html">this post</a> is going to be a huge help someday.
