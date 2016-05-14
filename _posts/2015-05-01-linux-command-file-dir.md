@@ -210,6 +210,8 @@ A similar command can be used to add a new line in specified files. For example,
 <pre><code>find . -maxdepth 1 -type f -name "Chromo_9.txt" -exec sed -i 's/8\n9/9/g' {} +</code></pre>
 If you want to delete a line in multiple files, you can use the following command (delete the "8" line added above)
 <pre><code>find . -type f -name "Chromo_9.txt" -exec sed -i '/8/d' {} +</code></pre>
+The "sed" command is very flexible, if there is "/" in the string that you would like to replace or use for replacement, you can Use another character as delimiter in the s command, as shown below
+<pre><code></code></pre>
 <h2>Rename multiple files in a small part of their names</h2>
 The following code will find all png files in the current directory and replace the string "rep2" in their names with the string "rep0"
 <pre><code>for i in *.png; do mv $i $(echo $i | sed 's/rep2/rep0/g'); done</code></pre>
