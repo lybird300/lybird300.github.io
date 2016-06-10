@@ -147,6 +147,7 @@ import networkx as nx
 As with R, you can simply type "python" at the command line. However, type "exit()" when you want to quit (for R you type "q()").
 
 <h2>Working with Java</h2>
+This is a nice <a href="http://docs.oracle.com/javase/tutorial/getStarted/cupojava/unix.html">tutorial</a> and a good <a href="http://docs.oracle.com/javase/tutorial/getStarted/problems/index.html">Q&A</a> for newbies like me.
 I bet <a href="http://ice.he.net/~hedden/jrelinux.html">this post</a> is going to be a huge help someday.
 <b>"Could not reserve enough space for object heap" even though there is enough RAM</b>
 I often get the following error message, so today I decide to do some research on it.
