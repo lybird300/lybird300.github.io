@@ -157,7 +157,7 @@ Could not reserve enough space for object heap
 Error: Could not create the Java Virtual Machine.
 Error: A fatal exception has occurred. Program will exit.
 </pre>
-According to <a href="http://unix.stackexchange.com/questions/109653/java-could-not-reserve-enough-space-for-object-heap-even-though-there-is-enoug">this page</a>, sometimes the system tries to allocate more than I need and a solution for this problem is to limit the chunk of memory java tries to allocate at run time with a minimum Xms or while running with maximum Xmx.
+According to <a href="http://unix.stackexchange.com/questions/109653/java-could-not-reserve-enough-space-for-object-heap-even-though-there-is-enoug">this page</a>, sometimes the system tries to allocate more than I need. The author said that a solution for this problem is to limit the chunk of memory java tries to allocate at run time with a minimum Xms or maximum Xmx. When you run Java application on a compute node. Type "htop" and you can see the "VIRT" and "RES" values of the running application. The former is whatever Xmx you predefined plus other memory needed to launch the application, while the latter is closer to what the application is actually using. 
 
 <h2>Working with C++ packages</h2>
 Type "make" to compile the code assuming it exists in the current directory
