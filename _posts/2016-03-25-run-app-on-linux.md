@@ -134,7 +134,7 @@ Once I wanted to install from a local package (assume it's in the current direct
 And to make it work (i.e., allow python to find this package), I added the following line to the ".bash_profile" file in my home directory
 <pre><code>export PYTHONPATH=$PYTHONPATH:/home/linly/.local/lib/python2.6/site-packages/</code></pre>
 To launch a python code script (e.g., p.py), type the following at the command line:
-<pre><code>python <path to the code scripy>/p.py <argument list></code></pre>
+<pre><code>python (path to the code scripy)/p.py (argument list)</code></pre>
 <h3>Interact with Python</h3>
 As with R, you can simply type "python" at the command line. However, type "exit()" when you want to quit (for R you type "q()").
 <h3>Import module installed in home directory</h3>
