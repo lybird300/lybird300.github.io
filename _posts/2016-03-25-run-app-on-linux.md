@@ -133,6 +133,10 @@ Once I wanted to install from a local package (assume it's in the current direct
 <pre><code>pip install --user --install-option="--install-scripts=/usr/local/bin" ./snap.tar.gz</code></pre>
 And to make it work (i.e., allow python to find this package), I added the following line to the ".bash_profile" file in my home directory
 <pre><code>export PYTHONPATH=$PYTHONPATH:/home/linly/.local/lib/python2.6/site-packages/</code></pre>
+To launch a python code script (e.g., p.py), type the following at the command line:
+<pre><code>python <path to the code scripy>/p.py <argument list></code></pre>
+<h3>Interact with Python</h3>
+As with R, you can simply type "python" at the command line. However, type "exit()" when you want to quit (for R you type "q()").
 <h3>Import module installed in home directory</h3>
 I don't have "sudo" permission that allows me to install packages to any compute node, but I don't want to bother Chris (our cluster admin) every time I need a new package. Fortunately, it turns out that you can do the following when you run an interactive or batch python job (for the latter, include the following commands in the script)
 <pre><code>
@@ -143,9 +147,6 @@ sys.path.append("/home/linly/.local/lib/python2.6/site-packages/")
 #import your package
 import networkx as nx
 </code></pre>
-<h3>Interact with Python</h3>
-As with R, you can simply type "python" at the command line. However, type "exit()" when you want to quit (for R you type "q()").
-
 <h2>Working with Java</h2>
 This is a nice <a href="http://docs.oracle.com/javase/tutorial/getStarted/cupojava/unix.html">tutorial</a> and a good <a href="http://docs.oracle.com/javase/tutorial/getStarted/problems/index.html">Q&A</a> for newbies like me.
 I bet <a href="http://ice.he.net/~hedden/jrelinux.html">this post</a> is going to be a huge help someday.
