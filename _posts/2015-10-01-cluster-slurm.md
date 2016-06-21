@@ -87,6 +87,49 @@ You can also specify your needs at the top of the shell script (i.e., file.sh) u
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=yourEmailAddress
 </code></pre>
+<h2>Submit large numbers of jobs using job array</h2>
+My script for running hundreds of CHAT replicate datasets was adapted from those in <a href="https://rc.fas.harvard.edu/resources/documentation/submitting-large-numbers-of-jobs-to-odyssey/">this tutorial</a>.
+Basically, I created three files:
+<ul>
+<li>jobArrayList.txt: containing the working directory of all datasets, each per line. Its contents look like below:
+<pre><code>
+/projects/sequence_analysis/vol4/CHAT_simGWAS/newSimGWASData/SNP_8308741_1.0E-4_0.001/Case100_Control100_GRR20.0_BDR0.3/ChatInput_tagSNP/Rep2
+/projects/sequence_analysis/vol4/CHAT_simGWAS/newSimGWASData/SNP_8308741_1.0E-4_0.001/Case100_Control100_GRR20.0_BDR0.3/ChatInput_tagSNP/Rep3
+/projects/sequence_analysis/vol4/CHAT_simGWAS/newSimGWASData/SNP_8308741_1.0E-4_0.001/Case100_Control100_GRR20.0_BDR0.3/ChatInput_tagSNP/Rep4
+/projects/sequence_analysis/vol4/CHAT_simGWAS/newSimGWASData/SNP_8308741_1.0E-4_0.001/Case100_Control100_GRR20.0_BDR0.3/ChatInput_tagSNP/Rep5
+...</code></pre>
+</li>
+<li>preChatJobArrayRun.sh: it reads in the working directories from the above file, puts them into a bash array, and exports the name of the array as an environment variable ${DIRS} so that the array is visible to the shell script below. This file has the following cotents:
+<pre><code>
+#!/bin/bash
+# read a list of working directories stored in jobArrayList.ext into a bash array
+readarray DIRS < ./jobArrayList.txt
+export DIRS
+# get size of array
+NUMFASTQ=${#DIRS[@]}
+# now subtract 1 as we have to use zero-based indexing (first cell is 0)
+ZBNUMFASTQ=$(($NUMFASTQ - 1))
+# now submit to SLURM
+if [ $ZBNUMFASTQ -ge 0 ]; then
+sbatch --array=0-$ZBNUMFASTQ chatJobArraySubmit.sh
+fi
+</code></pre>
+</li>
+<li>chatJobArraySubmit.sh: it loops through the array created above, navigates to corresponding working directories and launch chat.jar. This file has the following cotents. Note that ${SLURM_ARRAY_TASK_ID} is a specific shell variable that is set when the job runs, and it is substituted into the parameter to generate the proper filename which is passed on
+<pre><code>
+#!/bin/bash
+#SBATCH -J chat                    # A single job name for the array
+#SBATCH -n 1                       # Number of cores
+#SBATCH -N 1                       # All cores on one machine
+#SBATCH --mem-per-cpu=10240        # Memory request (10Gb)
+#SBATCH -o chat_%A_%a.out        # Standard output
+#SBATCH -e chat_%A_%a.err        # Standard error
+#module load java/jdk1.8.0_05
+cd ${DIRS[$SLURM_ARRAY_TASK_ID]}
+java -Xmx6g -cp ~/bin/chat.jar org.renci.chat.Main /projects/sequence_analysis/vol4/CHAT_simGWAS/newSimGWASData/CHATResources/CHAT_prep.xml
+java -Xmx6g -cp ~/bin/chat.jar org.renci.chat.Main /projects/sequence_analysis/vol4/CHAT_simGWAS/newSimGWASData/CHATResources/CHAT.xml
+</code></pre></li>
+</ul>
 <h2>Monitor your jobs</h2>
 <ul>
 <li>Use the sacct command you can see all your jobs (including completed) and you can customize how the job list is displayed by using the "fileds" option as below. Showing jobname is useful as it is by default the filename of corresponding job script. The 'state" option helps specify what types of jobs you would like to view, such as CA (CANCELLED), CD (COMPLETED), F (FAILED), PD (PENDING; i.e., awaiting resource allocation), R (RUNNING), and S (SUSPENDED; e.g., give way to jobs with higher priority).
