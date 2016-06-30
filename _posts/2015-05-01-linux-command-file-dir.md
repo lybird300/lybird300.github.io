@@ -289,6 +289,11 @@ If you want to exclude a particular subdirectory named ".udev", you can do:
 <pre><code>find /dev -name '.udev' -prune -o -name 'abc-*'</code></pre>
 When attempting to remove a directory using a command such as the rmdir command, you may receive a prompt such as "rmdir: 'dir': Directory not empty" and be unable to delete the directory. Thus, to remove a directory that contains other files or directories, use the following command ("-r" means doing it recursively; "-f" means suppressing prompts for approval to delete each of the files and it also forces removal despite errors such as non-existent files or directories)
 <pre><code>rm -rf mydir</code></pre>
+
+<h2>Copy the files but not subdirectories</h2>
+Suppose you would like to copy a content of directory 1 to directory 2. However, you only want to copy files (and not directories) from directory 1. You can use the "cp" command as below. cp will not copy directories unless explicitly told to do so (i.e., use "-r" option). Note that cp expects the last parameter to be a single file name or directory. There really should be no wildcard * after the name of the target directory.
+<pre><code>cp dir1/* dir2</code></pre>
+
 <h2>Copy and/or merge directories</h2>
 To copy multiple files (e.g., file1, file2, file3, and file4) from one directory to another
 <pre><code>cp /home/usr/dir/{file1,file2,file3,file4} /home/usr/destination/</code></pre>
