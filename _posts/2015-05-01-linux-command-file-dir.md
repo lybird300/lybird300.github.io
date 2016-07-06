@@ -220,7 +220,8 @@ Another example below removes the string "batchRunChat* &" in the file "jobList.
 If you want to delete empty lines in a file, you can use the first command below. However, sometimes it does not work because there are space/tabs in the seemingly "empty" lines. In the latter case, you should use the second command below, which also works in the former scenario (i.e., it is more general).
 <pre><code>sed -i '/^$/d' filename
 sed -i '/^\s*$/d' filename</code></pre>
-
+If you want to change the entire column, you can use "awk" command. The following example change the 3th and 4th columns of the input file from "9999" and output the result to a new file. Note that you need to set Output Field Separator to tab "\t" and one way to do it is with -v option
+<pre><code>awk -vOFS='\t' '{$3="9999"; $4="9999"; print}' DataMerge_testcase_Set1.fam > DataMerge_testcase_Set2.fam</code></pre>
 
 <h2>Rename multiple files in a small part of their names</h2>
 The following code will find all png files in the current directory and replace the string "rep2" in their names with the string "rep0"
