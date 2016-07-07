@@ -22,7 +22,22 @@ To unload all modules currently loaded, run:
 <pre><code>module purge</code></pre>
 
 <h2>Working with Eclipse</h2>
+The first thing to remember is that, to run an executable by issuing a command from the terminal, if the executable is not on the path (i.e., environment variable $PATH), you need to specify the directory - even if it is the current directory. Linux is different than Windows in that regard. Thus, even if you have been "cd.." to the eclipse folder where the ecplise executable file exists, you still need to run the following command
+<pre><code>./eclipse</code></pre>
+instead of just typing
+<pre><code>eclipse</code></pre>
+And this is true for all executables, not just Eclipse!!!
+I wrote a shortcut script as below, named it as "runClips" and put it in my home directory bin folder (path in $PATH), so that whenever I need to run Eclipse, I only need to type "runClips" at the command line.
+<pre><code>
+#!/bin/bash
+cd /home/linly/eclipse
+./eclipse -vm /usr/java/jdk1.7.0_60/bin/java &
+</code></pre>
+The -vm option is recommended, as it specifies a specific JVM for Eclipse to run on.Doing this ensures that you are absolutely certain which JVM Eclipse will run in and insulates you from system changes that can alter the "default" JVM for your system.
 
+Eclipse startup is also controlled by the options in eclipse.ini . eclipse.ini is a text file (often in your Eclipse installation directory) containing command-line options that are added to the command line used when Eclipse is started up. There are <a href="http://help.eclipse.org/mars/index.jsp?topic=/org.eclipse.platform.doc.isv/reference/misc/runtime-options.html">many options</a> available. However, it is recommanded that you experiment with changes to the launch command from your Command Prompt/Terminal before changing the eclipse.ini itself. Only the changes that you are pretty certain should go in eclipse.ini.
+
+If you want to disconnect a project with its SVN repository, right click the project name in "Package Explorer", choose "Team > Disconnect" in the drop-down menu.
 
 <h2>Working with R</h2>
 Although R is pretty amazing, ever since I started working on Renci clusters I've been avoiding it, because according to some of my colleagues, the installation process is painful and because the last several months I was working on really large data sets and R is not very good at dealing with them. But today I think I'm gonna give it a try.
