@@ -21,6 +21,9 @@ To unload a module, run:
 To unload all modules currently loaded, run:
 <pre><code>module purge</code></pre>
 
+<h2>Working with Eclipse</h2>
+
+
 <h2>Working with R</h2>
 Although R is pretty amazing, ever since I started working on Renci clusters I've been avoiding it, because according to some of my colleagues, the installation process is painful and because the last several months I was working on really large data sets and R is not very good at dealing with them. But today I think I'm gonna give it a try.
 <h3>Install R</h3>
