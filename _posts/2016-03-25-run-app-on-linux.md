@@ -34,6 +34,11 @@ cd /home/linly/eclipse
 ./eclipse -vm /usr/java/jdk1.7.0_60/bin/java &
 </code></pre>
 The -vm option is recommended, as it specifies a specific JVM for Eclipse to run on.Doing this ensures that you are absolutely certain which JVM Eclipse will run in and insulates you from system changes that can alter the "default" JVM for your system.
+Some useful options when you need to clean up a mess are
+<ul>
+<li>-clean: Cleans cached data used by the OSGi framework and Eclipse runtime. Try to run Eclipse once with this option if you observe startup errors after install, update, or using a shared configuration.</li>
+<li>-initialize: Initializes the configuration being run. All runtime related data structures and caches are refreshed. Handy with shared installs: running Eclipse once with this option from an account with write privileges will improve startup performance.</li>
+</ul>
 
 Eclipse startup is also controlled by the options in eclipse.ini . eclipse.ini is a text file (often in your Eclipse installation directory) containing command-line options that are added to the command line used when Eclipse is started up. There are <a href="http://help.eclipse.org/mars/index.jsp?topic=/org.eclipse.platform.doc.isv/reference/misc/runtime-options.html">many options</a> available. However, it is recommanded that you experiment with changes to the launch command from your Command Prompt/Terminal before changing the eclipse.ini itself. Only the changes that you are pretty certain should go in eclipse.ini.
 
