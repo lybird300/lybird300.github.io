@@ -40,7 +40,34 @@ Some useful options when you need to clean up a mess are
 <li>-initialize: Initializes the configuration being run. All runtime related data structures and caches are refreshed. Handy with shared installs: running Eclipse once with this option from an account with write privileges will improve startup performance.</li>
 </ul>
 
-Eclipse startup is also controlled by the options in eclipse.ini . eclipse.ini is a text file (often in your Eclipse installation directory) containing command-line options that are added to the command line used when Eclipse is started up. There are <a href="http://help.eclipse.org/mars/index.jsp?topic=/org.eclipse.platform.doc.isv/reference/misc/runtime-options.html">many options</a> available. However, it is recommanded that you experiment with changes to the launch command from your Command Prompt/Terminal before changing the eclipse.ini itself. Only the changes that you are pretty certain should go in eclipse.ini.
+Eclipse startup is also controlled by the options in eclipse.ini . eclipse.ini is a text file (often in your Eclipse installation directory) containing command-line options that are added to the command line used when Eclipse is started up. There are <a href="http://help.eclipse.org/mars/index.jsp?topic=/org.eclipse.platform.doc.isv/reference/misc/runtime-options.html">many options</a> available. However, it is recommanded that you experiment with changes to the launch command from your Command Prompt/Terminal before changing the eclipse.ini itself. Only the changes that you are pretty certain should go in eclipse.ini. The default setting of the JVM I used (indicated a few lines above) is as follows.
+<pre><code>
+JVM terminated. Exit code=1
+/usr/java/jdk1.7.0_60/bin/java
+-Dosgi.requiredJavaVersion=1.7
+-XX:MaxPermSize=256m
+-Xms256m
+-Xmx1024m
+-jar /home/linly/eclipse//plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar
+-os linux
+-ws gtk
+-arch x86_64
+-showsplash /home/linly/eclipse//plugins/org.eclipse.platform_4.5.2.v20160212-1500/splash.bmp
+-launcher /home/linly/eclipse/eclipse
+-name Eclipse
+--launcher.library /home/linly/eclipse//plugins/org.eclipse.equinox.launcher.gtk.linux.x86_64_1.1.300.v20150602-1417/eclipse_1612.so
+-startup /home/linly/eclipse//plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar
+--launcher.appendVmargs
+-exitdata 80001
+-product org.eclipse.epp.package.java.product
+-vm /usr/java/jdk1.7.0_60/bin/java
+-vmargs
+-Dosgi.requiredJavaVersion=1.7
+-XX:MaxPermSize=256m
+-Xms256m
+-Xmx1024m
+-jar /home/linly/eclipse//plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar 
+</code></pre>
 
 If you want to disconnect a project with its SVN repository, right click the project name in "Package Explorer", choose "Team > Disconnect" in the drop-down menu.
 
