@@ -239,6 +239,8 @@ Suppose you want to compare the 1st column (field) in file1.txt and the 2nd colu
 <pre><code>join -1 1 -2 2 -v 1 <(sort file1.txt) <(sort file2.txt) > output.txt</code></pre>
 where -1 is a first file and 1 is the first FIELD and -2 is a second file and 2 is the second column; -v 1 means suppressing (not outputting) matched lines in file1.txt.
 In order to use join, you need to make sure that FILE1 and FILE2 are sorted on the join fields. The "sort" command by default applies an alphabetical order. Thus, sort -k2 means sorting the 2nd field alphabetically, while sort -nk2 means sorting the same field numerically. Also, sort -k1 will not sort according to from the first field to the end of the line while sort -k1,1 sorts based on the first field.
+Suppose you have two files file1 and file2. You want to compare file1 with file2 and generate a file3 which contains the lines in file1 which are not present in file2. You can use "comm", which compares two <b>sorted files</b>(yes, they must be sorted first, see the example command below) line by line. The option "-1" "-2" and "-3" suppress lines unique to FILE1, FILE2, and lines that appear in both files respectively. So the following command will do the job. Note that there should not be any space between "<" and "("!!
+<pre><code>comm -23 <(sort FILE1) <(sort FILE2) > FILE3</code></pre>
 
 <h2>Count the number of folders recursively</h2>
 Navigate to your drive and execute
