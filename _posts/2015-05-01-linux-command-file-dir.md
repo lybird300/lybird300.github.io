@@ -222,7 +222,14 @@ If you want to delete empty lines in a file, you can use the first command below
 sed -i '/^\s*$/d' filename</code></pre>
 If you want to change the entire column, you can use "awk" command. The following example change the 3th and 4th columns of the input file from "9999" and output the result to a new file. Note that you need to set Output Field Separator to tab "\t" and one way to do it is with -v option
 <pre><code>awk -vOFS='\t' '{$3="9999"; $4="9999"; print}' DataMerge_testcase_Set1.fam > DataMerge_testcase_Set2.fam</code></pre>
-If you want to change the value of a specific field (i.e., column) at a specific line, 
+If you want to change the value of a specific field (i.e., column) at a specific line, say, change the first two columns of the first line to 10000, you can use the following command ("awk" command is easier to understand than "sed" command, although "sed" can do in-line edit in the original file by specify the "-i" option)
+<pre><code>
+awk -vOFS='\t' 'NR==1{$1="10000";$2="10000"}1' DataMerge_testcase_commVar.ped > tmp #the field separator in this file is '\t' tab
+awk -vOFS='\t' 'NR==1{print $1, $2, $3, $4}' tmp #now check the tmp file. See whether it is indeed as we want
+mv tmp DataMerge_testcase_commVar.ped #if so, use the tmp file to replace the original file
+</code></pre>
+You can also use the following combined command
+<pre><code>awk -vOFS='\t' 'NR==1{$1="10000";$2="10000"}1' DataMerge_testcase_commVar.ped > tmp && mv tmp DataMerge_testcase_commVar.ped</code></pre>
 
 <h2>Rename multiple files in a small part of their names</h2>
 The following code will find all png files in the current directory and replace the string "rep2" in their names with the string "rep0"
