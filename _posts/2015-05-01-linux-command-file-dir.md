@@ -250,6 +250,23 @@ In order to use join, you need to make sure that FILE1 and FILE2 are sorted on t
 Suppose you have two files file1 and file2. You want to compare file1 with file2 and generate a file3 which contains the lines in file1 which are not present in file2. You can use "comm", which compares two <b>sorted files</b>(yes, they must be sorted first, see the example command below) line by line. The option "-1" "-2" and "-3" suppress lines unique to FILE1, FILE2, and lines that appear in both files respectively. So the following command will do the job. Note that there should not be any space between "<" and "("!!
 <pre><code>comm -23 <(sort FILE1) <(sort FILE2) > FILE3</code></pre>
 
+<h2>Compare two directories recursively</h2>
+If you just want to quickly compare the "structure" of the two directories not the actual content of files inside (the latter takes much more time), you can use "rsync -n" to do a dry run
+<pre><code>rsync -nav --delete DIR1/ DIR2</code></pre>
+<b>Caution</b>: (a) Always use the -n, aka --dry-run, option, or it will synchronize (change the contents of) the directories. (b) Put a / at the end of DIR1; otherwise it will compare the directory DIR1 with the contents of DIR2
+The output will show you which files/directories differ. Files/directories present in DIR2 and not in DIR1 will be prefaced with the word deleting.
+Or you can use the following command (but rsync will be faster if you've got a significant number of files/directories to compare). Basically, it prints out all of the directories including subdirectory paths relative to the base directoryN directories. <b>If you only care about directories, add "-type d" between "directory#" and "-printf"</b>
+<pre><code>
+find directory1 -printf "%P\n" | sort > file1
+find directory2 -printf "%P\n" | sort | diff - file1
+</code></pre>
+The following command will give you a nice side-by-side display of the two directory hierarchies with any common sections folded.
+<pre><code>vimdiff <(cd dir1; find . | sort) <(cd dir2; find . | sort)</code></pre>
+If you also need to compare the contents of files, the following command will let you know if there are any diferences in directory structure and file contents, but it's gonna take a while...
+<pre><code>diff -qry dir1 dir2</code></pre>
+"-q" switch reports only whether the files differ, not the details of the difference. "-r" means recursively. "-y" outputs in two columns side by side. It reports which files are only in dir1 and those only in dir2 and also the changes of the files present in both directories if any. 
+The following variant reports which files are only in dir1
+<pre><code>diff -qr dir1 dir2 | grep dir1 | awk '{print $4}' > difference1.txt</code></pre>
 <h2>Count the number of folders recursively</h2>
 Navigate to your drive and execute
 <pre><code>ls -lR | grep ^d | wc -l</code></pre>
