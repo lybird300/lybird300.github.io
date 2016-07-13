@@ -114,6 +114,9 @@ Yesterday a weird thing happened: none of my jobs had any outputs, not even an e
 Please take a look at the last reference at the bottom of this page for how to use "du" and "df" to inspect a particular directory. The article introduces several commands, one of which I find very useful is
 <pre><code>du -ch | grep total</code></pre>
 Basically, "du" gives you a list of subdirectories that exist underneath the current directory along with their sizes. The last line of the output is the total size of the current directory. The option '-h' stands for human readable format. So the sizes of the files / directories are this time suffixed with a 'K' if its kilobytes and 'M' if its Megabytes and 'G' if its Gigabytes. This entire command would have only one line in its output that displays the total size of the current directory including all the subdirectories in terms of K, M, G, T, etc.
+If you want to know the total storage size of a directory without more details, use
+<pre><code>du -sh yourDir</code></pre>
+-h has the same meaning as indicated above, -s means summary
 You can monitor the conditions of all jobs dynamically using <a href="http://how-to.linuxcareer.com/learning-linux-commands-top">top</a> or htop (more colorful and expressive) and quit the monitoring window by typing "q". The output is full-screen and refreshes itself frequently (or at user definable intervals). There are several columns providing different information, such as:
 <ul>
 <li>VIRT: Total amount of virtual memory used by the process, including code, data, shared libraries, pages that swapped out</li>
