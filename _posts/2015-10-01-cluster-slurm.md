@@ -32,7 +32,9 @@ scancel {7823111..7823118}</code></pre>
 Usually the jobIDs of multiple jobs of yours are not consecutive (i.e., they may be intermediated by others' jobs), but you don't have to identify and then delete them one by one. Just provide a range that can cover all the jobs that you would like to cancel and use the aforementioned command. Only your jobs in this range will be cancelled (as long as you are not the admin), even though there will be a whole bunch of error messages -- "scancel: error: Kill job error on job id 13637530: Invalid job id specified".
 </li>
 <li>Remove one or more jobs by job name (allowed for wildcard?): scancel --name myJobName</li>
-<li>Remove one or more jobs from a specific user: scancel -u <username></li>
+<li>Remove all jobs from a specific user, say linly
+<pre><code>squeue | grep linly | awk '{print $1}' | xargs scancel</code></pre>
+</li>
 <li>Cancel all pending jobs belonging to a specific user: scancel --state=PENDING --user=<username></li>
 </ul>
 
@@ -154,6 +156,8 @@ To find 5 most recently submitted jobs that failed, use
 <pre><code>sacct -u userID | grep FAIL | tail -n 5</code></pre>
 </li>
 </ul>
+The following script will show you in one line how many of your jobs are running, paused, idle, and finished. I "stole" it from Kirk, so credits all go to him.
+<pre><code></code><pre>
 <h2>Update jobs</h2>
 The command below will change the wall time of the specified job to 1 day 12 hours
 <pre><code>scontrol update JobID=JOB_ID Timelimit=1-12:00:00</code></pre>
@@ -161,6 +165,13 @@ Before you do this, you can use the following command to see details about a par
 <pre><code>scontrol show job jobID</code></pre>
 The output will be something like below
 <pre><code>
+RUNNING=`squeue | grep linly | grep "R $1"| wc -l`
+SUSPENDED=`squeue |grep linly | grep "S $1"| wc -l`
+PENDING=`squeue | grep linly | grep "PD $2" | wc -l`
+COMPLETED=`sacct -u linly | grep "COMPLETE $1" | wc -l`
+FAILED=`sacct -u linly | grep "FAIL $1" | wc -l`
+echo "$RUNNING running, $SUSPENDED suspended, $PENDING pending, $COMPLETED completed, $FAILED failed"
+</code></pre>
 JobId=13441734 JobName=interactive
 UserId=*** GroupId=external(2000)
 Priority=5052 Nice=0 Account=(null) QOS=normal
