@@ -234,6 +234,7 @@ You can also use the following combined command
 <h2>Rename multiple files in a small part of their names</h2>
 The following code will find all png files in the current directory and replace the string "rep2" in their names with the string "rep0"
 <pre><code>for i in *.png; do mv $i $(echo $i | sed 's/rep2/rep0/g'); done</code></pre>
+
 <h2>Count the number of unique values of a field in a tab-delimited text file</h2>
 <pre><code>cut -f 1 input_file | sort | uniq</code></pre>
 This command gets unique values in field 1 (1 is column no.), replacing 1 by 2 will give you unique values in field 2.
@@ -241,6 +242,7 @@ To count the number of unique occurences you can make use of wc command in the c
 <pre><code>cut -f 1 input_file | sort | uniq -c</code></pre>
 If you want to get the total number of only unique values (i.e., ignore redundance), use
 <pre><code>cut -f 1 input_file | sort | uniq | wc -l</code></pre>
+If your file is not tab-delimited, you will have to specify the delimiter using -d, e.g., -d','
 
 <h2>Compare two files</h2>
 Suppose you want to compare the 1st column (field) in file1.txt and the 2nd column (field) in file2.txt and output all lines in file1.txt that does not match in file2.txt to a third file (output.txt). You can use the following code:
