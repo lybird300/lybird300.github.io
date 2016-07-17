@@ -231,6 +231,13 @@ mv tmp DataMerge_testcase_commVar.ped #if so, use the tmp file to replace the or
 You can also use the following combined command
 <pre><code>awk -vOFS='\t' 'NR==1{$1="10000";$2="10000"}1' DataMerge_testcase_commVar.ped > tmp && mv tmp DataMerge_testcase_commVar.ped</code></pre>
 
+<h2>Add an extra column in the middle of a file</h2>
+You can use the following command to add a third column (with the content '0') to the middle of a pre-existing tab-delimited text file. In this command, $2 means the second column, and we replace it with $2 FS "0", where "FS" is the delimiter used in this file and "0" is the content of the added column. mv -i can avoid creating a backup file
+<pre><code>
+awk -F'\t' '{$2 = $2 FS "0"; print}' DataMerge_testcase_reference.map > tmp
+mv -i tmp DataMerge_testcase_reference.map
+</code></pre>
+
 <h2>Rename multiple files in a small part of their names</h2>
 The following code will find all png files in the current directory and replace the string "rep2" in their names with the string "rep0"
 <pre><code>for i in *.png; do mv $i $(echo $i | sed 's/rep2/rep0/g'); done</code></pre>
