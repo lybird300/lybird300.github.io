@@ -237,6 +237,13 @@ You can use the following command to add a third column (with the content '0') t
 awk -F'\t' '{$2 = $2 FS "0"; print}' DataMerge_testcase_reference.map > tmp
 mv -i tmp DataMerge_testcase_reference.map
 </code></pre>
+You can also swap two columns using a similar command. Suppose you would like the swap the first and the second columns in a comma delimited file
+<pre><code>awk -F',' '{print $2,$1,$3}' OFS=, file </code></pre>
+You can combine these two operations together by
+<pre><code>
+awk -F'\t' '{$2 = $2 FS "0"; print $2,$1,$3}' DataMerge_testcase_reference.map > tmp
+</code></pre>
+
 
 <h2>Rename multiple files in a small part of their names</h2>
 The following code will find all png files in the current directory and replace the string "rep2" in their names with the string "rep0"
