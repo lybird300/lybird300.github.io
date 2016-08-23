@@ -290,6 +290,7 @@ Count the number of files with specific extension (e.g., ".info.gz"). -R is for 
 <pre><code>ls -lR *.info.gz | wc -l</code></pre>
 
 <h2>Make multiple directories with some naming pattern</h2>
+The basic command for making a directory is "mkdir". If you want to make nested directories (i.e., parent directories do not exist yet), you can use the "-p" flag, i.e., "mkdir -p <path to the new directory>".
 The following command will create three sub directories "folder01" "folder02" and "folder03" inside the directory "projects/Labs"
 <pre><code>mkdir $(seq -f "projects/Labs/folder%02g" 3)</code></pre>
 The following command will create folder "11" "12" "13" until "30" in the current directory
