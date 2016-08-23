@@ -392,8 +392,18 @@ The following command is an improvement to the second one above as it allows you
 <pre><code>zcat biglogfile.gz | split -l 500000 --filter='gzip > $FILE.gz'</code></pre>
 <b>UPDDATE</b>: Up till today (09/11/2015, Uh-oh, a sad date) I've gone through a 300GB+ file, 1TB memory, 70TB disk space limit, 72h cpu time, 80 cores, etc...So I no longer have the strong feelings described at the beginning of this post. To be honest, it even sounds a little bit naive to me now. Yesterday when my colleague Ruhi told me our IT group has granted her an exclusive 5TB storage space, my first response was "only 5TB?" Then I couldn't believe I actually said that...
 
+<h2>Remotely transfer files using scp</h2>
+The scp command allows you to copy files over ssh connections. This is pretty useful if you want to transport files between computers, for example to backup something. The scp command uses the ssh command and they are very much alike. However, there are some important differences.
+The scp command can be used in three* ways: to copy from a (remote) server to your computer, to copy from your computer to a (remote) server, and to copy from a (remote) server to another (remote) server. In the third case, the data is transferred directly between the servers; your own computer will only tell the servers what to do. The first command below will transfer the file “examplefile” to the directory “/home/yourusername/” at the server “yourserver”, trying to get ssh acces with the username “yourusername”. The second command copy the file “/home/yourusername/examplefile” to the current directory on your own computer (indicated by the "." in the end), provided that the username and password are correct and that the file actually exists. The third command uses a "-r" option, which will copy the entire directory from the remote server to your current location. The last command copies a file from a (remote) server to another (remote) server. (Note: usually a request for password will pompt up.)
+<pre><code>scp examplefile yourusername@yourserver:/home/yourusername/
+scp yourusername@yourserver:/home/yourusername/examplefile .
+scp -r yourusername@yourserver:/home/yourusername/exampledirectory .
+scp yourusername@yourserver:/home/yourusername/examplefile yourusername2@yourserver2:/home/yourusername2/
+</code></pre>
+
 <h2>References</h2>
 <ul>
+<li><a href="https://linuxacademy.com/blog/linux/ssh-and-scp-howto-tips-tricks/">SSH and SCP: Howto, tips & tricks</a></li>
 <li><a href="http://www.cureffi.org/2014/01/15/running-r-batch-mode-linux/">Running R in batch mode on Linux</a></li>
 <li><a href="http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html">Reading large tables into R</a></li>
 <li><a href="http://www.drbunsen.org/explorations-in-unix/">Explorations in Unix</a></li>
