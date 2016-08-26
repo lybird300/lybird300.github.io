@@ -172,6 +172,10 @@ You can also use the following to run R script, but instead of displaying output
 # Check the output
 cat a.Rout</code></pre>
 
+The source() function causes R to accept its input from the named file or URL or connection. Input is read and parsed from that file until the end of the file is reached, then the parsed expressions are evaluated sequentially in the chosen environment. However, when the URL is provided by Https, it is only supported on Windows system. On linux, you will get the error "https:// URLs are not supported". You should use the following command instead.
+<pre><code>source(pipe(paste("wget -O -", "https://bioconductor.org/biocLite.R")))</code></pre>
+
+
 <h2>Running Python</h2>
 RENCI uses the Anaconda python distribution from Continuum Analytics. You can use Python and Anaconda by running:
 <pre><code>module load python</code></pre>
