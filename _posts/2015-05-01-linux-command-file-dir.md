@@ -203,7 +203,8 @@ The following example replaced the string "fea" in the file "hello.txt" with the
 If you just want to replace the content of a certain column (say, change "12" in the first ID column with "8"), you can do
 <pre><code>sed -i 's/12/8/1' hello.txt</code></pre>
 If you just want to replace the matched string at a line (say, change all "0" in the second line to "1"), you can do
-<pre><code>sed -i '2s/0/1/g' geno.gz</code></pre>
+<pre><code>sed -i '2s/0/1/g' geno.txt</code></pre>
+Note that sed cannot be directly used on gz file. You have to unzip the file ("gzip -d filename"), do the change (with "sed -i") and rezip the file ("gzip samefile").
 If you want to replace only if the file name matches another string or has a specific extension or is of a certain type and you would like to check every subdirectories recursively under the current directory, you can use
 <pre><code>find . -type f -name "*.sh" -exec sed -i 's/Xmx20g/Xmx12g/g' {} +</code></pre>
 A similar command can be used to add a new line in specified files. For example, the following command add a new line with the number  "8" before the original line with a number "9"
