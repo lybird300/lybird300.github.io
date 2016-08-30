@@ -264,6 +264,15 @@ Suppose you want to compare the 1st column (field) in file1.txt and the 2nd colu
 <pre><code>join -1 1 -2 2 -v 1 <(sort file1.txt) <(sort file2.txt) > output.txt</code></pre>
 where -1 is a first file and 1 is the first FIELD and -2 is a second file and 2 is the second column; -v 1 means suppressing (not outputting) matched lines in file1.txt.
 In order to use join, you need to make sure that FILE1 and FILE2 are sorted on the join fields. The "sort" command by default applies an alphabetical order. Thus, sort -k2 means sorting the 2nd field alphabetically, while sort -nk2 means sorting the same field numerically. Also, sort -k1 will not sort according to from the first field to the end of the line while sort -k1,1 sorts based on the first field.<br/>
+Take a look at another example. It sees if there were any matches between column 2 of file1 and column 6 of file2. Any match will be printed along with the respective string in column 14 of file2, saved onto a different file, file3.
+<pre><code>join -1 2 -2 6 -o 1.2,2.14 <(sort -k2 file1) <(sort -k6 file2 ) > file3</code></pre>
+<ul>
+<li>-1 2 defines that in file1 field 2 is the join field.</li>
+<li>-2 6 defines that in file2 field 6 is the join field.</li>
+<li>-o 1.2,2.14 is the output format file1 field 2 followed by file2 field 14.</li>
+<li><(sort ...) the two files must be sorted at the join field -k for join to work properly. Note that <b>there should not be a space between "<" and "(". Otherwise the command will fail.</b></li>
+</ul>
+<br/>
 Suppose you have two files file1 and file2. You want to compare file1 with file2 and generate a file3 which contains the lines in file1 which are not present in file2. You can use "comm", which compares two <b>sorted files</b>(yes, they must be sorted first, see the example command below) line by line. The option "-1" "-2" and "-3" suppress lines unique to FILE1, FILE2, and lines that appear in both files respectively. So the following command will do the job. Note that there should not be any space between "<" and "("!!
 <pre><code>comm -23 <(sort FILE1) <(sort FILE2) > FILE3</code></pre>
 
