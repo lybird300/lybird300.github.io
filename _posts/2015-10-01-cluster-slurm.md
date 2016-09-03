@@ -163,13 +163,6 @@ To find 5 most recently submitted jobs that failed, use
 </li>
 </ul>
 The following script will show you in one line how many of your jobs are running, paused, idle, and finished. I "stole" it from Kirk, so credits all go to him.
-<pre><code></code><pre>
-<h2>Update jobs</h2>
-The command below will change the wall time of the specified job to 1 day 12 hours
-<pre><code>scontrol update JobID=JOB_ID Timelimit=1-12:00:00</code></pre>
-Before you do this, you can use the following command to see details about a particular job. As long as you did not specify a walltime in your submit script, you should get the default, and the following command allows you to check the default.
-<pre><code>scontrol show job jobID</code></pre>
-The output will be something like below
 <pre><code>
 RUNNING=`squeue | grep linly | grep "R $1"| wc -l`
 SUSPENDED=`squeue |grep linly | grep "S $1"| wc -l`
@@ -178,6 +171,13 @@ COMPLETED=`sacct -u linly | grep "COMPLETE $1" | wc -l`
 FAILED=`sacct -u linly | grep "FAIL $1" | wc -l`
 echo "$RUNNING running, $SUSPENDED suspended, $PENDING pending, $COMPLETED completed, $FAILED failed"
 </code></pre>
+<h2>Update jobs</h2>
+The command below will change the wall time of the specified job to 1 day 12 hours
+<pre><code>scontrol update JobID=JOB_ID Timelimit=1-12:00:00</code></pre>
+Before you do this, you can use the following command to see details about a particular job. As long as you did not specify a walltime in your submit script, you should get the default, and the following command allows you to check the default.
+<pre><code>scontrol show job jobID</code></pre>
+The output will be something like below
+<pre><code>
 JobId=13441734 JobName=interactive
 UserId=*** GroupId=external(2000)
 Priority=5052 Nice=0 Account=(null) QOS=normal
