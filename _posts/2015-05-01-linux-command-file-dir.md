@@ -11,6 +11,13 @@ You may need to do many I/O opertions when exploring big files, such as reading 
 
 Stop an ongoing process: ctrl+z
 
+<h2>Download files from external sources</h2>
+If you want to get something from an ftp server, use wget as follows (m for mirroring).
+<pre><code>wget ftp://....
+wget -m ftp://username:password@server/path</code></pre>
+If your username or password contains special characters, you may need to use the format:
+wget -m --user=username --password=password ftp://...
+
 <h2>Create a link to a directory</h2>
 It is often useful to change to another directory without typing its full pathname: symbolic links provide a useful shortcut to do this. A symbolic link differs from a hard link. It is a small file that contains a reference (by name) to a directory or file that already exists. Unlike normal links, symbolic links can cross filesystems and link to directories. (They are used extensively by the system.) Also unlike normal links, symbolic links are separate files; they cease to work if the file they point to is deleted or renamed, or if they are moved.
 
@@ -410,6 +417,13 @@ scp yourusername@yourserver:/home/yourusername/examplefile .
 scp -r yourusername@yourserver:/home/yourusername/exampledirectory .
 scp yourusername@yourserver:/home/yourusername/examplefile yourusername2@yourserver2:/home/yourusername2/
 </code></pre>
+
+<h2>Change file/directory access permission</h2>
+To change all the subdirectories to 755 (-rwxr-xr-x):
+<pre><code>find . -type d -exec chmod 755 {} \;</code></pre>
+To change all the files to 644 (-rw-r--r--):
+<pre><code>find /opt/lampp/htdocs -type f -exec chmod 644 {} \;</code></pre>
+
 
 <h2>References</h2>
 <ul>
