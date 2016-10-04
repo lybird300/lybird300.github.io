@@ -17,9 +17,9 @@ So in both linkage and association studies, what actually matters is the underly
 
 In exploring some quick and dirty ways to understand/determine patterns of LD across the genome, here’s a simple tutorial for plotting LD in R (with a little help from <a href="https://www.cog-genomics.org/plink2/ld">PLINK linkage disequilibrium analysis</a>). To calculate LD statistics r2, we can use PLINK at the Unix command line as follows:
 <pre><code>
-plink --file DataMerge_testcase_commVar --r2 --allow-no-sex
+plink --file DataMerge_testcase_commVar --r2 --allow-no-sex --out DataMerge_testcase_commVar
 </code></pre>
-This commands create a file called plink.ld that contains pairwise LD estimates (in terms of R-squared values) among SNPs (by default pairs with r2 values less than 0.2 are normally filtered out of the report; this threshold can be adjusted using --ld-window-r2).
+This commands create a file called DataMerge_testcase_commVar.ld that contains pairwise LD estimates (in terms of R-squared values) among SNPs (by default pairs with r2 values less than 0.2 are normally filtered out of the report; this threshold can be adjusted using --ld-window-r2).
 Then we can plot the values in plink.ld using R
 <pre><code>
 sim<-read.table("DataMerge_testcase_commVar.ld",header=TRUE)
@@ -27,5 +27,7 @@ sim<-sim[order(sim$BP_B-sim$BP_A),]
 hist(sim$R2, xlab="r2 among 43880 common snps", xlim=c(0.2,1))
 plot(sim$BP_B-sim$BP_A,sim$R2,type="l",col="red",ylim=c(0,max(sim$R2)),lwd=2,xlab="Distance between SNPs (bp)", ylab="LD statistic R2")
 </code></pre>
-
 Haploview seems to be a widely used LD visualization tool. 
+You can also take a look at <a href="http://www.stat-gen.org/tut/tut_post.html">this tutorial about using the R package (LDheatMap)</a> (the "HeatMap" section). Some of the R codes are copied below.
+<pre><code>
+</code></pre>
