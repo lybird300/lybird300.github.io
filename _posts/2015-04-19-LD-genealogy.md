@@ -27,7 +27,5 @@ sim<-sim[order(sim$BP_B-sim$BP_A),]
 hist(sim$R2, xlab="r2 among 43880 common snps", xlim=c(0.2,1))
 plot(sim$BP_B-sim$BP_A,sim$R2,type="l",col="red",ylim=c(0,max(sim$R2)),lwd=2,xlab="Distance between SNPs (bp)", ylab="LD statistic R2")
 </code></pre>
-Haploview seems to be a widely used LD visualization tool. 
+Haploview seems to be a widely used LD visualization tool, but it is terribly slow!!!
 You can also take a look at <a href="http://www.stat-gen.org/tut/tut_post.html">this tutorial about using the R package (LDheatMap)</a> (the "HeatMap" section). Some of the R codes are copied below.
-<pre><code>
-</code></pre>
