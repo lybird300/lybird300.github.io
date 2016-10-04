@@ -14,3 +14,18 @@ Traditional linkage analysis relies on well-characterized pedigrees to locate th
 In contrast, association studies focus on unrelated individuals with the same disease. These individuals are unrelated in the sense that they are genetically distant after many generations, so there will be much more meiosis and much more opportunities for recombination to take place. Thus, association analysis allows for finer-scale localization/mapping of human disease loci than linkage analysis. Association studies can find surrounding segments measured in KBs.
 
 So in both linkage and association studies, what actually matters is the underlying genealogy. LD mapping essentially utilizes the genealogical distance between unrelated individuals, and it assumes the distance resulted from pure genetic events such as mutation and recombination. However, when we talk about population-wide gene evolution over tens of hundreds of generations, some other influential factors come into the picture, for example, natural selection, population structure, historical events such as migration and bottleneck. These factors jointly produce background expectations about human genome sequence variations that needed to be distinguished from common disease mutations.
+
+In exploring some quick and dirty ways to understand/determine patterns of LD across the genome, here’s a simple tutorial for plotting LD in R (with a little help from <a href="https://www.cog-genomics.org/plink2/ld">PLINK linkage disequilibrium analysis</a>). To calculate LD statistics r2, we can use PLINK at the Unix command line as follows:
+<pre><code>
+plink --file DataMerge_testcase_commVar --r2 --allow-no-sex
+</code></pre>
+This commands create a file called plink.ld that contains pairwise LD estimates (in terms of R-squared values) among SNPs (by default pairs with r2 values less than 0.2 are normally filtered out of the report; this threshold can be adjusted using --ld-window-r2).
+Then we can plot the values in plink.ld using R
+<pre><code>
+sim<-read.table("DataMerge_testcase_commVar.ld",header=TRUE)
+sim<-sim[order(sim$BP_B-sim$BP_A),]
+hist(sim$R2, xlab="r2 among 43880 common snps", xlim=c(0.2,1))
+plot(sim$BP_B-sim$BP_A,sim$R2,type="l",col="red",ylim=c(0,max(sim$R2)),lwd=2,xlab="Distance between SNPs (bp)", ylab="LD statistic R2")
+</code></pre>
+
+Haploview seems to be a widely used LD visualization tool. 
