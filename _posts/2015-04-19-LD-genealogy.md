@@ -26,7 +26,7 @@ Then we can plot the values in plink.ld using R
 <pre><code>
 sim<-read.table("DataMerge_testcase_commVar.ld",header=TRUE)
 sim<-sim[order(sim$BP_B-sim$BP_A),]
-hist(sim$R2, xlab="r2 among 43880 common snps", xlim=c(0.2,1))
+hist(sim$R2, xlab="r2 among 43880 common snps", xlim=c(0.2,1), ylim=c(0,5000))
 If you want, you can also do the following plot
 plot(sim$BP_B-sim$BP_A,sim$R2,type="l",col="red",ylim=c(0,max(sim$R2)),lwd=2,xlab="Distance between SNPs (bp)", ylab="LD statistic R2")
 </code></pre>
