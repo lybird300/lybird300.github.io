@@ -18,6 +18,8 @@ So in both linkage and association studies, what actually matters is the underly
 In exploring some quick and dirty ways to understand/determine patterns of LD across the genome, here’s a simple tutorial for plotting LD in R (with a little help from <a href="https://www.cog-genomics.org/plink2/ld">PLINK linkage disequilibrium analysis</a>). To calculate LD statistics r2, we can use PLINK at the Unix command line as follows:
 <pre><code>
 plink --file DataMerge_testcase_commVar --r2 --allow-no-sex --out DataMerge_testcase_commVar
+You can also use long format files
+plink --lfile DataMerge_testcase_Set2_noErr --r2 --allow-no-sex --out DataMerge_testcase_Set2
 </code></pre>
 This commands create a file called DataMerge_testcase_commVar.ld that contains pairwise LD estimates (in terms of R-squared values) among SNPs (by default pairs with r2 values less than 0.2 are normally filtered out of the report; this threshold can be adjusted using --ld-window-r2).
 Then we can plot the values in plink.ld using R
@@ -30,7 +32,7 @@ plot(sim$BP_B-sim$BP_A,sim$R2,type="l",col="red",ylim=c(0,max(sim$R2)),lwd=2,xla
 Haploview seems to be a widely used LD visualization tool, but it is terribly slow!!! While Haploview accepts plink ped/map files, it requires the following:
 <pre><code>
 Output files from PLINK can be loaded into Haploview using the PLINK tab on the initial loading screen. PLINK files must contain a header and at least one column header must be titled "SNP" and contain the marker IDs for the results in the file. PLINK loading also requires a standard PLINK map or binary map file corresponding to the markers in the output file. The map file can be either three or four headerless columns (the Morgan distance column is optional). The map file can also be embedded in the results file as the first few columns of the file using the "Integrated Map Info" checkbox.
-<code></pre>
+</code></pre>
 It is actually easier to convert plink files to haploview "linkage format" inputs as follows.
 <pre><code>
 #Suppose you have test.bim, test.bed, and test.fam for PLINK. You need to convert them into generate ped/map files using:
