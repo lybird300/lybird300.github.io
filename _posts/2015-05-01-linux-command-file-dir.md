@@ -439,4 +439,5 @@ To change all the files to 644 (-rw-r--r--):
 <li><a href="http://www.theunixschool.com/2011/02/sed-replace-or-substitute-file-contents.html">sed - Replace or substitute file contents</a></li>
 <li><a href="http://www.thegeekstuff.com/2011/01/rsync-exclude-files-and-folders/">6 rsync Examples to Exclude Multiple Files and Directories using exclude-from</a></li>
 <li><a href="http://unix.stackexchange.com/questions/112023/how-can-i-replace-a-string-in-a-files">How can I replace a string in a file(s)?</a></li>
+<li><a href="http://unix.stackexchange.com/questions/11343/linux-tools-to-treat-files-as-sets-and-perform-set-operations-on-them">Linux tools to treat files as sets and perform set operations on them</a></li>
 </ul>
