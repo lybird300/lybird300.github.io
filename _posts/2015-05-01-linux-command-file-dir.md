@@ -21,7 +21,7 @@ wget -m --user=username --password=password ftp://...
 <h2>Create a link to a directory</h2>
 It is often useful to change to another directory without typing its full pathname: symbolic links provide a useful shortcut to do this. A symbolic link differs from a hard link. It is a small file that contains a reference (by name) to a directory or file that already exists. Unlike normal links, symbolic links can cross filesystems and link to directories. (They are used extensively by the system.) Also unlike normal links, symbolic links are separate files; they cease to work if the file they point to is deleted or renamed, or if they are moved.
 
-Many of the files found in /bin, /lib, and /usr are actually symbolic links that point to files (of the same name) stored below /var/opt. The directories these files are located in are called ``storage sections''. Storage sections are used because they make it easier to install system upgrades. Software subsystems (such as UUCP) consist of many files, which may be installed in several directories. However, all the files in a subsystem belong to a single storage section. By overwriting the contents of the (single) storage section directory, all the files in the subsystem can be updated simultaneously.
+Many of the files found in /bin, /lib, and /usr are actually symbolic links that point to files (of the same name) stored below /var/opt. The directories these files are located in are called "storage sections". Storage sections are used because they make it easier to install system upgrades. Software subsystems (such as UUCP) consist of many files, which may be installed in several directories. However, all the files in a subsystem belong to a single storage section. By overwriting the contents of the (single) storage section directory, all the files in the subsystem can be updated simultaneously.
 
 To create a symbolic link, use the ln -s option, as follows:
 <pre><code>$ ln -s directory symbolic_link</code></pre>
@@ -277,7 +277,8 @@ Take a look at another example. It sees if there were any matches between column
 <li>-1 2 defines that in file1 field 2 is the join field.</li>
 <li>-2 6 defines that in file2 field 6 is the join field.</li>
 <li>-o 1.2,2.14 is the output format file1 field 2 followed by file2 field 14.</li>
-<li><(sort ...) the two files must be sorted at the join field -k for join to work properly. Note that <b>there should not be a space between "<" and "(". Otherwise the command will fail.</b></li>
+<li><(sort ...) the two files must be sorted at the join field -k for join to work properly. Note that <b>there should not be a space between "<" and "(". Otherwise the command will fail.</b>
+</li>
 </ul>
 <br/>
 Suppose you have two files file1 and file2. You want to compare file1 with file2 and generate a file3 which contains the lines in file1 which are not present in file2. You can use "comm", which compares two <b>sorted files</b>(yes, they must be sorted first, see the example command below) line by line. The option "-1" "-2" and "-3" suppress lines unique to FILE1, FILE2, and lines that appear in both files respectively. So the following command will do the job. Note that there should not be any space between "<" and "("!!
@@ -424,6 +425,8 @@ To change all the subdirectories to 755 (-rwxr-xr-x):
 To change all the files to 644 (-rw-r--r--):
 <pre><code>find /opt/lampp/htdocs -type f -exec chmod 644 {} \;</code></pre>
 
+<h2>Arithmetic operations</h2>
+Sometimes you need to combine file/dir operations with simple arithmetic operations. Take a look at <a href="http://thegenomefactory.blogspot.com/2011/09/counting-sequences-with-unix-tools.html">this post</a>.
 
 <h2>References</h2>
 <ul>
