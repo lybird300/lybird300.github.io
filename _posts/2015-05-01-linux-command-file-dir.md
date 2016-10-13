@@ -33,6 +33,13 @@ This command creates a symbolic link called mydata in your current directory. Fr
 You must have write permission on a directory before you can create a link that involves that directory or a file in that directory.
 If you would like to see the actual path of a symbolic link, use the following
 <pre><code>readlink -f [symbolic link name]</code></pre>
+
+<h2>Give privileges to files and directories</h2>
+To recursively give directories read&execute privileges:
+<pre><code>find /path/to/base/dir -type d -exec chmod 755 {} +</code></pre>
+To recursively give files read privileges:
+<pre><code>find /path/to/base/dir -type f -exec chmod 644 {} +</code></pre>
+
 <h2>Extract gz files</h2>
 <pre><code>$ gzip -d file.gz</code></pre>
 If you want to rezip it, simply type
