@@ -39,12 +39,25 @@ You can monitor the conditions of all jobs dynamically using <a href="http://how
 <li>%CPU: the CPU usage of a process. If it is more than 100%, e.g., 700%, it probably means that the job is actually using multiple CPUs on the node. In this situation, the process often runs very slowing because it is trashing the caches. The solution is to assign more cores (processors) to this job</li>
 </ul>
 
-<h2>Give privileges to files and directories</h2>
-To recursively give directories read&execute privileges:
-<pre><code>find /path/to/base/dir -type d -exec chmod 755 {} +</code></pre>
-To recursively give files read privileges:
-<pre><code>find /path/to/base/dir -type f -exec chmod 644 {} +</code></pre>
-
+<h2>Know about your linux system as a user</h2>
+On Linux based system most of the hardware information can be extracted from /proc file system, for example display basic CPU information, enter:
+<pre><code>
+lscpu
+</code></pre>
+To see free and used memory in the system, use either of the following
+<pre><code>
+cat /proc/meminfo
+free
+</code></pre>
+Find out information about the Linux distribution and version
+<pre><code>
+cat /etc/*release*
+lsb_release -a
+</code></pre>
+List all block devices (hard disks, cdrom, and others)
+<pre><code>
+lsblk
+</code></pre>
 
 <h2>Submit jobs with qsub</h2>
 Arguments placed on the command line when calling the qsub command will take precedent over those in the script, so a general script may be built and then tested or varied by varying the options on the command line.
