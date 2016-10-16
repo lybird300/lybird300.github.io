@@ -74,7 +74,9 @@ If you want to disconnect a project with its SVN repository, right click the pro
 <h2>Working with R</h2>
 Although R is pretty amazing, ever since I started working on Renci clusters I've been avoiding it, because according to some of my colleagues, the installation process is painful and because the last several months I was working on really large data sets and R is not very good at dealing with them. But today I think I'm gonna give it a try.
 <h3>Install R</h3>
-It is said that we can install R on Redhat Linux and other Redhat like distribution spins (RENCI Hatteras uses Centros) using the "yum" command. The below command will install R along with all its prerequisites:
+The distribution version of the linux system used by our cluster is CentOS 6.5, which is built from the source packages of RHEL 6 update 5 (also known as RHEL version 6.5), which is a so-called "point release" of RHEL 6. According to this <a href="http://cran.us.r-project.org/">instruction</a> (R RPMS for Fedora, Red Hat Enterprise Linux and Derivatives), to install R on Redhat Linux and other Redhat like distribution spins (RENCI Hatteras uses Centros), I should use the followng command
+<pre><code>su -c 'rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm'</code></pre>
+Then I can install R using the "yum" command. The below command will install R along with all its prerequisites:
 <pre><code>$ sudo yum install R</code></pre>
 Unfortunately, I cannot use this fully automatic installation choice but have to install from R source code, because as a cluster user, I don't have root privileges to install new software on the system. I downloaded the latest source code package (looks like R-3.2.2.tar.gz) and uploaded to my home directory. Then I navigate to where I put the file and decompress it:
 <pre><code>tar xzf R-3.2.2.tar.gz</code></pre>
