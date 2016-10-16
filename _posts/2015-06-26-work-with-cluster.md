@@ -49,7 +49,7 @@ To see free and used memory in the system, use either of the following
 cat /proc/meminfo
 free
 </code></pre>
-Find out information about the Linux distribution and version
+Find out information about the Linux distribution and version (I'm currently using CentOS release 6.5)
 <pre><code>
 cat /etc/*release*
 lsb_release -a
