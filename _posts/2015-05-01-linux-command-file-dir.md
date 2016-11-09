@@ -163,6 +163,8 @@ You can make less behave like cat when invoked on small files and behave normall
 
 Sort based on fields/columns
 <pre><code>sort -g -k7,7 GenotypeChrom_8_Rep10.info > sortedList</code></pre>
+Sort can be used in the following pipeline to print out the one single record that has the largest numerical value at the 8th column
+<pre><code>zcat ***.gz | sort -nrk8 | head -n 1</code></pre>
 
 <h2>Finding a File Containing a Particular Text String</h2>
 <pre><code>grep [option] "text string to search” directory-path</code></pre>
