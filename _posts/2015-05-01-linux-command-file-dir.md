@@ -248,6 +248,11 @@ mv tmp DataMerge_testcase_commVar.ped #if so, use the tmp file to replace the or
 You can also use the following combined command
 <pre><code>awk -vOFS='\t' 'NR==1{$1="10000";$2="10000"}1' DataMerge_testcase_commVar.ped > tmp && mv tmp DataMerge_testcase_commVar.ped</code></pre>
 
+<h2>Add a prefix string to beginning of each line</h2>
+<pre><code>sed -e 's/^/rs/' DataMerge_testcase_ShuffledSNPs_Set1.txt > markersPlannedToChangeGeno.txt</code></pre>
+If you want to remove this prefix, use
+<pre><code> sed -e 's/rs//' markersPlannedToChangeGeno.txt > markersPlannedToChangeGeno_removed.txt </code></pre>
+
 <h2>Add an extra column in the middle of a file</h2>
 You can use the following command to add a third column (with the content '0') to the middle of a pre-existing tab-delimited text file. In this command, $2 means the second column, and we replace it with $2 FS "0", where "FS" is the delimiter used in this file and "0" is the content of the added column. mv -i can avoid creating a backup file
 <pre><code>
