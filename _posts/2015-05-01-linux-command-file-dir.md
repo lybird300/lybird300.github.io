@@ -137,12 +137,26 @@ It deletes all even lines
 The "FIRST~STEP" syntax means matching every STEP'th line starting with line FIRST. For example, "sed -n 1~2p" will print all the odd-numbered lines in the input stream, and 2~5 will match every fifth line, starting with the second. "d" means delete an indicated line. For example, the following command delete the 3rd line permanently (use -i option for permanent change)
 <pre><code>sed -i '3d' filename</code></pre>
 
+<h2>Check whether a file is tab or space delimited</h2>
+<pre><code>
+if awk '{exit !/\t/}' $1
+then
+    echo "Tab delimited"
+else
+    echo "Space delimited"
+fi
+</code></pre>
+Change between tab and space delimiters
+<pre><code>change from space to tab: sed -i 's/ /\t/g' DataMerge_testcase_reference1.map</code></pre>
+Read a csv file (delimited by comma) and output the same columns delimited by tab
+<pre><code></code></pre>
+
 <h2>Display the contents of a text file on the command line</h2>
 <ul>
 <li>Using cat when your file is short
 <pre><code>cat filename</code></pre>
 </li>
-<li>Using more when examining a large file as it displays the file contents one page at a time, allowing each page to be examined at will. You can press <PgUp> and <PgDn> buttons on the keyboard to page forwards and backwards in the file. To terminate more at any time, press <q>.
+<li>Using more when examining a large file as it displays the file contents one page at a time, allowing each page to be examined at will. You can press "PgUp" and "PgDn" buttons on the keyboard to page forwards and backwards in the file. To terminate more at any time, press.
 <pre><code>more filename</code></pre>
 </li>
 <li>less is similar to more.
@@ -150,7 +164,7 @@ The "FIRST~STEP" syntax means matching every STEP'th line starting with line FIR
 You can make less behave like cat when invoked on small files and behave normally otherwise by passing it the -F and -X flags.
 <pre><code>less -FX filename</code></pre>
 </li>
-<li>The default editor that comes with the UNIX operating system is called vi (<b>vi</b>sual editor). You can also use it to view a big file. Type ":q" then return (press the <enter> button) to quit vi.
+<li>The default editor that comes with the UNIX operating system is called vi (<b>vi</b>sual editor). You can also use it to view a big file. Type ":q" then return (press the "enter" button) to quit vi.
 <pre><code>vi filename</code></pre>
 </li>
 <li>To view the content a compressed file (e.g., gz, tar.gz) without extracting it, you can use the following command (also quit by typing ":q" and return)
