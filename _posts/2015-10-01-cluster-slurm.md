@@ -214,7 +214,7 @@ On RENCI machines, I can also use the -c flag to request the number of CPU cores
 
 <li>If you need more than just one core (but not all cores in a node), utilize the -c option to specify the number.</li>
 <li>sinteractive --help will show you the available options.</li>
-<li>Also note that on RENCI machines, although GUIs can be executed (e.g., when you want to run Eclipse in debug mode), they can't be done via the shell that sinteractive drops you in (i.e., by using sinteractive -X), as the cluster I'm working on has no additional plugins that would enable proper X11 forwarding inside of sinteractive. Instead you need to open a new shell by SSH -X to the node that was allocated to you via sinteractive. So a shortcut would be to first copy the address of the compute node allocated to you by the above command, i.e., all texts inside [], for example, username@ComputeNode-1-6. Then open a new ssh session and get onto the head node of the cluster first (for me it's ht0 or ht1) and then at the command line type: ssh -X <the address you just copied>, e.g., ssh -X linly@croatan-1-6. Enter. Then you can run Eclipse. In other words, you need to open another terminal on ht0 or ht1 after you have obtained an interactive session on a node with sinteractive. Next just ssh -X <node> to the node that was reserved for you with sinteractive. Then you can run eclipse on that node. You won't be able to run eclipse through the terminal that you obtained via sinteractive.</li>
+<li>Also note that on RENCI machines, although GUIs can be executed (e.g., when you want to run Eclipse in debug mode), they can't be done via the shell that sinteractive drops you in (i.e., by using sinteractive -X), as the cluster I'm working on has no additional plugins that would enable proper X11 forwarding inside of sinteractive. Instead you need to open a new shell by SSH -X to the node that was allocated to you via sinteractive. So a shortcut would be to first copy the address of the compute node allocated to you by the above command, i.e., all texts inside [], for example, username@ComputeNode-1-6. Then open a new ssh session and get onto the head node of the cluster first (for me it's ht0 or ht1) and then at the command line type: ssh <the address you just copied> -X, e.g., ssh linly@croatan-1-6 -X. Enter. Then you can run Eclipse. In other words, you need to open another terminal on ht0 or ht1 after you have obtained an interactive session on a node with sinteractive. Next just "ssh <node> -X" to the node that was reserved for you with sinteractive. Then you can run eclipse on that node. You won't be able to run eclipse through the terminal that you obtained via sinteractive.</li>
 <li>It is often preferrable to use the interactive mode (i.e., open an interactive shell) to diagnose a problematic job when you don't know the causes. First open an interactive shell. Then run the progrom you plan to run in your job script from the command line directly(end with a "&". That allows you to push it to the background and run other stuffs, such as doing diagnosis, on top of the program). Then run "top" command to see the resource usage of that program and determine whether you need more CPUs or memory or disk space, etc. Another useful command in this context is "ps". The process status command (ps) displays information about all currently active processes. If the program writes into an output file over time, you can use the following command to see data appended to the output file:
 <pre><code>tail -f "name of the output file"</code></pre>
 </li>
@@ -241,10 +241,26 @@ Check last modified time of a file
 In the output, the "Access" line shows the time of last data access. "Modify" shows the time of last data modification. "Change" shows the time the file status last changed. If you want just the last modified date (in human-readable form), use
 <pre><code>stat -c '%y' file</code></pre>
 
+<h2>Job dependencies</h2>
+Currently when I tested the latest version of CHAT (V3) on multiple simulated datasets in parallele, there is a high rate of job failure and we suspected that it was because the cluster cannot handle such high demands of threads. As a solution, we decided to run ChatV3 on each replicate set sequentially, meaning a new master job would not be launched until the current one has stopped. And that requires using slurm job dependencies.
+
+Job dependencies are used to defer the start of a job until the specified dependencies have been satisfied. They are specified with the --dependency option to sbatch in the format
+<pre><code>sbatch --dependency=<type:job_id[:job_id][,type:job_id[:job_id]]> ...</code></pre>
+Dependency types:
+after:jobid[:jobid...]     job can begin after the specified jobs have started
+afterany:jobid[:jobid...]     job can begin after the specified jobs have terminated
+afternotok:jobid[:jobid...]     job can begin after the specified jobs have failed
+afterok:jobid[:jobid...]     job can begin after the specified jobs have run to completion with an exit code of zero.
+singleton     jobs can begin execution after all previously launched jobs with <b>the same name and user</b> have ended. This is useful to collate results of a swarm or to send a notification at the end of a swarm.
+
+
+
+
 <h2>References</h2>
 <ol>
 <li>A nice <a href="http://ecs.rutgers.edu/slurm_commands.html">cheatsheet</a> found by my colleague Ruhi Rai (She's gonna be a great bioinformaticist in the future)</li>
 <li>A <a href="http://www.arc.ox.ac.uk/content/slurm-job-scheduler">tutorial</a> on how to write a shell script with SLURM commands</li>
 <li><a href="https://amigotechnotes.wordpress.com/2014/02/17/how-multi-core-processors-accelerate-your-lamp-applications/">https://amigotechnotes.wordpress.com/2014/02/17/how-multi-core-processors-accelerate-your-lamp-applications/</a></li>
 <li><a href="http://www.linuxnix.com/abslute-path-vs-relative-path-in-linuxunix/">Absloute path vs relative path in Linux/Unix</a></li>
+<li><a href="https://hpc.nih.gov/docs/job_dependencies.html">Building pipelines using slurm dependencies</a></li>
 </ol>
