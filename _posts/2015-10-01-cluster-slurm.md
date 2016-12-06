@@ -235,6 +235,9 @@ The Unix 'man' command (e.g., man squeu) provides more detailed information on a
 
 The command "sview" is available to inspect and modify jobs via a graphical user interface. To identify your jobs among the many ones in the list, select either the "specific user's jobs" or the "job ID" item from the menu "Actions -> Search". By right-clicking on a job of yours and selecting "Edit job" in the context menu, you can obtain a window which allows to modify the job settings. Please be careful about committing your changes.
 
+Sometimes you may get an error message saying that file output failed (i.e., cannot find the file) because "No space left on device". It pays to doublecheck the space that is left, with a df command. It turns out that you can get the same error message if there are not enough inodes. IF that is the case, take a look at <a href="https://www.ivankuznetsov.com/2010/02/no-space-left-on-device-running-out-of-inodes.html">this post</a> for how to diagnose and fix it. If you are a cluster user, you need help from your IT people.
+
+
 <h2>Work with directory</h2>
 Check last modified time of a file
 <pre><code>stat filename</code></pre>
@@ -250,11 +253,39 @@ Dependency types:
 after:jobid[:jobid...]     job can begin after the specified jobs have started
 afterany:jobid[:jobid...]     job can begin after the specified jobs have terminated
 afternotok:jobid[:jobid...]     job can begin after the specified jobs have failed
-afterok:jobid[:jobid...]     job can begin after the specified jobs have run to completion with an exit code of zero.
+afterok:jobid[:jobid...]     job can begin after the specified jobs have run to completion with an exit code of zero. When the previous job ends with an exit code of zero, the next job will become eligible for scheduling. However, if the previous job fails (ends with a non-zero exit code), the next job will not be scheduled but will remain in the queue and needs to be canceled manually.
 singleton     jobs can begin execution after all previously launched jobs with <b>the same name and user</b> have ended. This is useful to collate results of a swarm or to send a notification at the end of a swarm.
+Below is an exemplary bash script that builds pipelines using slurm job dependencies that I borrowed from <a href="https://hpc.nih.gov/docs/job_dependencies.html">this webpage</a>.
+<pre><code>
+#! /bin/bash
 
+# first job - no dependencies
+jid1=$(sbatch  --mem=12g --cpus-per-task=4 job1.sh)
 
+# multiple jobs can depend on a single job
+jid2=$(sbatch  --dependency=afterany:$jid1 --mem=20g job2.sh)
+jid3=$(sbatch  --dependency=afterany:$jid1 --mem=20g job3.sh)
 
+# a single job can depend on multiple jobs
+jid4=$(sbatch  --dependency=afterany:$jid2:$jid3 job4.sh)
+
+# swarm can use dependencies
+jid5=$(swarm --dependency=afterany:$jid4 -t 4 -g 4 -f job5.sh)
+
+# a single job can depend on an array job
+# it will start executing when all arrayjobs have finished
+jid6=$(sbatch --dependency=afterany:$jid5 job6.sh)
+
+# a single job can depend on all jobs by the same user with the same name
+jid7=$(sbatch --dependency=afterany:$jid6 --job-name=dtest job7.sh)
+jid8=$(sbatch --dependency=afterany:$jid6 --job-name=dtest job8.sh)
+sbatch --dependency=singleton --job-name=dtest job9.sh
+
+# show dependencies in squeue output:
+squeue -u $USER -o "%.8A %.4C %.10m %.20E"
+</code></pre>
+
+Eventually I used "singleton" to control chat jobs.
 
 <h2>References</h2>
 <ol>
