@@ -182,6 +182,7 @@ The source() function causes R to accept its input from the named file or URL or
 We should all applaud for the person who went through it and shared it online. Here is <a href="http://pj.freefaculty.org/blog/?p=315">the post</a>. Although it is originally for building R-devel on RedHat Linux 6, I found it also suitable for installng high-version R on RENCI cluster that uses Centos 6 (exactly the same errors!!). For details you can take a look at the post. Here I will simply repeat the procedure and essential bash commands I used, as well as potential traps. Note that I did not use "builddir" or $HOME/package as suggested in the post, which may be a better and cleaner way. I simply put everything in $HOME/bin
 <pre><code>
 $ cd ~/bin
+$ wget http://cran.rstudio.com/src/base/R-3/R-3.3.2.tar.gz
 $ tar xzf R-3.3.2.tar.gz
 $ cd R-3.3.2
 $ ./configure --prefix=/home/linly/bin/R-3.3.2 '--with-cairo' '--with-jpeglib' '--with-readline' '--with-tcltk' '--with-blas' '--with-lapack' '--enable-R-profiling' '--enable-R-shlib' '--enable-memory-profiling'
@@ -239,6 +240,12 @@ $ make install
 $ cd ../R-3.3.2
 $ ./configure --prefix=/home/linly/bin/R-3.3.2/ '--with-cairo' '--with-jpeglib' '--with-readline' '--with-tcltk' '--with-blas' '--with-lapack' '--enable-R-profiling' '--enable-R-shlib' '--enable-memory-profiling'
 $ make
+</code></pre>
+
+<h3>Install RStudio on Redhat/CentOS Linux</h3>
+I checked out the version that I would like to install on <a href="https://www.rstudio.com/products/rstudio/download3/">this page</a> and then use the following code on linux command line
+<pre><code>wget https://download1.rstudio.org/rstudio-1.0.44-x86_64.rpm
+
 </code></pre>
 
 <h3>Use bioconductor</h3>
