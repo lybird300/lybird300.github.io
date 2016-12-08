@@ -242,6 +242,27 @@ $ make
 </code></pre>
 
 <h3>Use bioconductor</h3>
+I found <a href="https://www.r-bloggers.com/where-do-i-start-using-bioconductor/">this post</a> very useful for starters. In particular, it indicates two great learning sources: bioconductor <a href="http://www.bioconductor.org/help/workflows/">workflows</a> and <a href="http://www.bioconductor.org/help/course-materials/">courses</a>
+Below are some useful commands. Note that they need to be executed in R environment.
+<pre><code>
+#Get started
+source("https://bioconductor.org/biocLite.R")
+biocLite()
+library(BiocInstaller)
+#Download a specific package and explore its vignette
+biocLite("hapFabia")
+browseVignettes("hapFabia")
+</code></pre>
+You can extract all of the R code from a vignette source file (these files are in Sweave format) as shown below. The result will be a .R file for each vignette source file written to your current working directory. You can use these R files to cut and paste into an R session so that you can work the examples in the vignette yourself.
+<pre><code>
+library("tools")
+vigSrc = list.files(pattern = "Rnw$",
+                    system.file("doc", package = "Biostrings"),
+                    full.names = TRUE)
+vigSrc
+for (v in vigSrc) Stangle(v)
+</code></pre>
+
 
 <h2>Running Python</h2>
 RENCI uses the Anaconda python distribution from Continuum Analytics. You can use Python and Anaconda by running:
