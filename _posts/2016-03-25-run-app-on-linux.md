@@ -244,8 +244,11 @@ $ make
 
 <h3>Install RStudio on Redhat/CentOS Linux</h3>
 I checked out the version that I would like to install on <a href="https://www.rstudio.com/products/rstudio/download3/">this page</a> and then use the following code on linux command line
-<pre><code>wget https://download1.rstudio.org/rstudio-1.0.44-x86_64.rpm
-
+<pre><code>
+cd ~/bin
+wget https://download1.rstudio.org/rstudio-1.0.44-x86_64.rpm
+rpm2cpio rstudio-1.0.44-x86_64.rpm | cpio -idv
+(I have to use the above command instead of "rpm -Uvh rstudio-1.0.44-x86_64.rpm" or "rpm -Uvh rstudio-1.0.44-x86_64.rpm --prefix=$HOME/bin" because as a cluster user I don't have root permission)
 </code></pre>
 
 <h3>Use bioconductor</h3>
