@@ -179,7 +179,7 @@ The source() function causes R to accept its input from the named file or URL or
 
 <h3>Install higher-versions of R (e.g., 3.3.2)</h3>
 #####Spoiler alert: the following process that you are going to observe or try if you dare is EXTREMELY long and painful##########
-We should all applaude for the person who went through it and shared it online. Here is <a href="http://pj.freefaculty.org/blog/?p=315">the post</a>. Although it is originally for building R-devel on RedHat Linux 6, I found it also suitable for installng high-version R on RENCI cluster that uses Centos 6 (exactly the same errors!!). For details you can take a look at the post. Here I will simply repeat the procedure and essential bash commands I used, as well as potential traps. Note that I did not use "builddir" or $HOME/package as suggested in the post, which may be a better and cleaner way. I simply put everything in $HOME/bin
+We should all applaud for the person who went through it and shared it online. Here is <a href="http://pj.freefaculty.org/blog/?p=315">the post</a>. Although it is originally for building R-devel on RedHat Linux 6, I found it also suitable for installng high-version R on RENCI cluster that uses Centos 6 (exactly the same errors!!). For details you can take a look at the post. Here I will simply repeat the procedure and essential bash commands I used, as well as potential traps. Note that I did not use "builddir" or $HOME/package as suggested in the post, which may be a better and cleaner way. I simply put everything in $HOME/bin
 <pre><code>
 $ cd ~/bin
 $ tar xzf R-3.3.2.tar.gz
@@ -241,6 +241,7 @@ $ ./configure --prefix=/home/linly/bin/R-3.3.2/ '--with-cairo' '--with-jpeglib' 
 $ make
 </code></pre>
 
+<h3>Use bioconductor</h3>
 
 <h2>Running Python</h2>
 RENCI uses the Anaconda python distribution from Continuum Analytics. You can use Python and Anaconda by running:
