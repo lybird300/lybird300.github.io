@@ -78,11 +78,11 @@ The distribution version of the linux system used by our cluster is CentOS 6.5, 
 <pre><code>su -c 'rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm'</code></pre>
 Then I can install R using the "yum" command. The below command will install R along with all its prerequisites:
 <pre><code>$ sudo yum install R</code></pre>
-Unfortunately, I cannot use this fully automatic installation choice but have to install from R source code, because as a cluster user, I don't have root privileges to install new software on the system. I downloaded the latest source code package (looks like R-3.2.2.tar.gz) and uploaded to my home directory. Then I navigate to where I put the file and decompress it:
+Unfortunately, I cannot use this fully automatic installation choice but have to install from R source code, because as a cluster user, I don't have root privileges to install new software on the system. I downloaded the latest source code package (looks like R-3.2.2.tar.gz) and uploaded to my home directory (or you can use "". Then I navigate to where I put the file and decompress it:
 <pre><code>tar xzf R-3.2.2.tar.gz</code></pre>
 A new directory named "R-3.2.2" is created. Navigate to this directory and execute the pre-compilation script "configure":
 <pre><code>$ cd R-3.2.2
-$ ./configure</code></pre>
+$ ./configure --prefix=$HOME/bin/R-3.2.2</code></pre>
 With the "configure" script you can supply a various flags to adjust the compilation to your environment. If you do not have any special requirements you can start compilation with:
 <pre><code>$ make</code></pre>
 <h3>Interact with R</h3>
@@ -176,6 +176,70 @@ cat a.Rout</code></pre>
 
 The source() function causes R to accept its input from the named file or URL or connection. Input is read and parsed from that file until the end of the file is reached, then the parsed expressions are evaluated sequentially in the chosen environment. However, when the URL is provided by Https, it is only supported on Windows system. On linux, you will get the error "https:// URLs are not supported". You should use the following command instead.
 <pre><code>source(pipe(paste("wget -O -", "https://bioconductor.org/biocLite.R")))</code></pre>
+
+<h3>Install higher-versions of R (e.g., 3.3.2)</h3>
+#####Spoiler alert: the following process that you are going to observe or try if you dare is EXTREMELY long and painful##########
+We should all applaude for the person who went through it and shared it online. Here is <a href="http://pj.freefaculty.org/blog/?p=315">the post</a>. Although it is originally for building R-devel on RedHat Linux 6, I found it also suitable for installng high-version R on RENCI cluster that uses Centos 6 (exactly the same errors!!). For details you can take a look at the post. Here I will simply repeat the procedure and essential bash commands I used, as well as potential traps. Note that I did not use "builddir" or $HOME/package as suggested in the post, which may be a better and cleaner way. I simply put everything in $HOME/bin
+<pre><code>
+$ cd ~/bin
+$ tar xzf R-3.3.2.tar.gz
+$ cd R-3.3.2
+$ ./configure --prefix=/home/linly/bin/R-3.3.2 '--with-cairo' '--with-jpeglib' '--with-readline' '--with-tcltk' '--with-blas' '--with-lapack' '--enable-R-profiling' '--enable-R-shlib' '--enable-memory-profiling'
+$ make
+$ make install
+########Error message (partial) ###########################################
+    checking if zlib version >= 1.2.5... no
+    checking whether zlib support suffices... configure: error: zlib library and headers are required
+##########################################################################
+$ cd ~/bin (or cd .. if your R directory is already inside /bin)
+$ wget http://zlib.net/zlib-1.2.8.tar.gz
+$ tar xzvf zlib-1.2.8.tar.gz
+$ cd zlib-1.2.8
+$ ./configure --prefix=$HOME/bin
+$ make
+$ make install
+
+$ cd ~/bin
+$ wget http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz
+$ tar xzvf bzip2-1.0.6.tar.gz
+$ cd bzip2-1.0.6
+$ make -f Makefile-libbz2_so
+$ make clean
+$ make
+$ make -n install PREFIX=/home/linly/bin/
+$ make install PREFIX=/home/linly/bin/
+(Go into the bzip2 directory and inserted -fPIC as a CFLAG in the Makefile as follows. Then run make and make install...again)
+Line 24 Change from "CFLAGS=-Wall -Winline -O2 -g $(BIGFILES)" to "CFLAGS=-Wall -fPIC -Winline -O2 -g $(BIGFILES)"
+
+$ cd ~/bin
+$ wget http://tukaani.org/xz/xz-5.2.2.tar.gz
+$ tar xzvf xz-5.2.2.tar.gz
+$ cd xz-5.2.2
+$ ./configure --prefix=/home/linly/bin/
+$ make -j3
+$ make install
+
+$ cd ~/bin
+$ wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.38.tar.gz
+$ tar xzvf pcre-8.38.tar.gz
+$ cd /home/linly/bin/pcre-8.38/
+$ ./configure --prefix=/home/linly/bin/ --enable-utf8
+$ make -j3
+$ make install
+
+$ cd ~/bin
+$ wget --no-check-certificate https://curl.haxx.se/download/curl-7.47.1.tar.gz
+$ tar xzvf curl-7.47.1.tar.gz
+$ cd curl-7.47.1
+$ env LDFLAGS=-R$HOME/openssl/lib ./configure --prefix=$HOME/bin -with-ssl=$HOME/openssl -with-zlib=$HOME/bin
+(make sure all "-" in the above command is hyphen not minus)
+$ make
+$ make install
+
+$ cd ../R-3.3.2
+$ ./configure --prefix=/home/linly/bin/R-3.3.2/ '--with-cairo' '--with-jpeglib' '--with-readline' '--with-tcltk' '--with-blas' '--with-lapack' '--enable-R-profiling' '--enable-R-shlib' '--enable-memory-profiling'
+$ make
+</code></pre>
 
 
 <h2>Running Python</h2>
