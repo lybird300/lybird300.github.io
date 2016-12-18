@@ -67,8 +67,15 @@ e.g., tar -xvf file.tar.gz </code></pre>, where
 <li>-t : List the files in the archive.</li>
 </ul>
 
-<h2>Find out the number of rows of a large file</h2>
+<h2>Find out the number of rows of one or more files</h2>
+If you only need to know this information about one file, you can simply use
 <pre><code>wc -l filename</code></pre>
+However, if you would like to know this information for multiple files in all subdirectories (BTW, this is a typical use case if one would like to count the lines of code for a program. There can be multiple packages each corresponds to a subdirectory and has multiple source files inside), first "cd" to the highest level of the program directory and then use either of the following commands (give you same results.
+<pre><code>
+find . -type f -name '*.java' | xargs wc -l
+find . -name "*.java" -print | xargs wc -l
+</code></pre>
+<h2>Find out the number of columns of a large file</h2>
 You can get a range of the number of columns by running the following two commands. The second command can be useful if you are checking for any missing data (i.e., the existence of any line that is shorter than it should be). In the example below, suppose we are expecting 1959504 columns for each line.
 <pre><code>awk '{if( NF > max ) max = NF} END {print max}' filename
 awk '{if( NF&lt;1959504||NF&lt;min ) min = NF} END {print min}' filename</code></pre>
