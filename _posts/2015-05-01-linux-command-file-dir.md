@@ -248,7 +248,9 @@ A similar command can be used to add a new line in specified files. For example,
 <pre><code>find . -maxdepth 1 -type f -name "Chromo_9.txt" -exec sed -i 's/8\n9/9/g' {} +</code></pre>
 If you want to delete a line in multiple files, you can use the following commands (the first one deletes the "8" line added above). Be careful when the file or directory name contains "_", as two "__" are difficult to distinguish from one "_" yet the difference totally matters when you try to find something!
 <pre><code>find . -type f -name "Chromo_9.txt" -exec sed -i '/8/d' {} +
- find . -wholename './chatset_*/09_0000[3-4]*.sh' -exec sed -i '/#SBATCH -t/d' {} +</code></pre>
+ find . -wholename './chatset_*/09_0000[3-4]*.sh' -exec sed -i '/#SBATCH -t/d' {} +
+ Another example: find . -wholename './Rep[0-9]/Chromo.txt' -exec sed -i '/1/d' {} +
+ </code></pre>
 The "sed" command is very flexible, if there is "/" in the string that you would like to replace or use for replacement, you can Use another character as delimiter in the s command, as shown below
 <pre><code></code></pre>
 Note that you need to escape specific characters when using "sed" (See <a href="http://unix.stackexchange.com/questions/32907/what-characters-do-i-need-to-escape-when-using-sed-in-a-sh-script">here</a>). For example, the following command tries to replace "largemem-[0-1]-0" with "largemem-0-0,largemem-1-0"
