@@ -84,5 +84,28 @@ has a distribution function that, although known,
 cannot be computed analytically because of the lack of a
 closed-form solution to the multivariate normal integral.
 
+<h2>Permutation for CHAT</h2>
+BiasedUrn (Epstein et al., 2012), a permutation procedure to adjust covariates in rare variant association test.
+biased urn permutation test (BiasePerm) developed for rare variants. 
 
+To adjust for population stratification for the C-alpha test with PCs as covariates, we used the biasedUrn sampling method [Epstein et al., 2012], which treats the PCs as modeled population substructure and permutes the data set in a way to preserve the modeled substructure under the null for association testing. That is, if the PCs completely captures the subpopulation structure, the biasedUrn method could adjust for population stratification in nonregression-based approaches, such as the C-alpha test.
 
+In the presence of covariates,
+As the comparison baseline, we performed logistic regression with and without the PCs
+364 as covariates, and permutation tests with a minimum of 1,000 permutations in PLINK
+365 1.08 [1,3,33]. We performed a linear mixed model implementation, EMMAX, using the
+366 package released on March 2007 with default parameters [4,19], and Biased Urn using
+367 the R ‘BiasedUrn’ package in CRAN with recommended revisions from the paper
+368 [8,10,24]. Other methods discussed are:
+
+Permutation within cluster. This approach divides samples into clusters based on their
+370 genetic similarity. In this study, the similarity was calculated as the Euclidian distance
+371 using the 1st principal component. Within each cluster, we assume population
+372 homogeneity and shuffle samples with uniform probability. Clusters with only case or
+373 control samples are ignored. The number of clusters was chosen such that the genomic
+374 control has achieved a satisfactory level
+
+Further development:
+Furthermore, recently developed BiasePerm28 is based on linear combinations of PCs on logistic scale if we use PCs as covariate vector28. The relationships between trait values and PCs can be highly nonlinear and population effects cannot be corrected by simply using linear functions23. Figure 1 shows the relationships between trait values and the first two PCs of genotypes at 10,000 genomic markers in two structured populations. This figure shows that the relationships between trait values and PCs are highly nonlinear and the forms of the relationships are different in different populations. When the relationships are highly nonlinear and the forms of relationships are unknown, we should use more flexible regression methods rather than use linear regression. Nonparametric regression is a very flexible regression method and it does not require the form of regression function.
+
+Or how about using LMM
