@@ -108,4 +108,10 @@ Permutation within cluster. This approach divides samples into clusters based on
 Further development:
 Furthermore, recently developed BiasePerm28 is based on linear combinations of PCs on logistic scale if we use PCs as covariate vector28. The relationships between trait values and PCs can be highly nonlinear and population effects cannot be corrected by simply using linear functions23. Figure 1 shows the relationships between trait values and the first two PCs of genotypes at 10,000 genomic markers in two structured populations. This figure shows that the relationships between trait values and PCs are highly nonlinear and the forms of the relationships are different in different populations. When the relationships are highly nonlinear and the forms of relationships are unknown, we should use more flexible regression methods rather than use linear regression. Nonparametric regression is a very flexible regression method and it does not require the form of regression function.
 
-Or how about using LMM
+Or how about using LMM: valid permutation to assess significance in the context of dependent samples (such as with related samples or population stratification) is not straightforward. Others have explored permutation in this setting and have proposed modified permutation procedures.
+
+<h2>References</h2>
+<ol>
+<li></li>
+<li></li>
+</ol>
