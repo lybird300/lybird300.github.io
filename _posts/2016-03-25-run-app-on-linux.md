@@ -81,7 +81,12 @@ jconsole has been installed in RENCI cluster, so I can launch it simply by typin
 </code></pre>
 Below is an example of including the above options in java launching command
 <pre><code>
-java -Dcom.sun.management.jmxremote.port=7009 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.local.only=false -Xmx6g -jar /home/linly/bin/chatV3_best.jar /projects/sequence_analysis/vol4/CHAT_simGWAS/newSimGWASData/CHATResources/CHAT_prep.xml
+java -Dcom.sun.management.jmxremote \
+ -Dcom.sun.management.jmxremote.port=7009 \
+ -Dcom.sun.management.jmxremote.ssl=false \
+ -Dcom.sun.management.jmxremote.authenticate=false \
+ -Dcom.sun.management.jmxremote.local.only=false \
+ -Xmx6g -jar /home/linly/bin/chatV3_best.jar /projects/sequence_analysis/vol4/CHAT_simGWAS/newSimGWASData/CHATResources/CHAT_prep.xml
 </code></pre>
 
 <h2>Working with R</h2>
