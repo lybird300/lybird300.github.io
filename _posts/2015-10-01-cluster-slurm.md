@@ -69,7 +69,7 @@ You can also include this option in your job script by adding a line at the top 
 </li>
 <li>--exclusive (do NOT use this on RENCI machines): sometimes it is good to have the entire compute node reserved for your own use (i.e., not sharing with other people and this flag is for this purpose (note it starts with two slashes instead of one slash)</li>
 <li>--mem=<MB>: specify the minimum amount real memory you require per node in MegaBytes</li>
-<li>--mem-per-cpu=<MB></li>: To allow for more precise scheduling of resources, RENCI IT implement a change in the Slurm scheduling system that will enforce job memory limits. If your job requires more than 2G of memory per CPU, you will need to specify the amount required via the –mem-per-cpu option. For example, if you need 10GB(i.e., 10*1024MB) for a serial job, then on top of the job script you should add the following (also see below for the difference between command line and job script):
+<li>--mem-per-cpu=<MB></li>: To allow for more precise scheduling of resources, RENCI IT urges us to use this handle. If your job requires more than 2G of memory per CPU, you will need to specify the amount required via the –mem-per-cpu option. For example, if you need 10GB(i.e., 10*1024MB) for a serial job, then on top of the job script you should add the following (also see below for the difference between command line and job script):
 <pre><code>
 #SBATCH -N 1
 #SBATCH -n 1
