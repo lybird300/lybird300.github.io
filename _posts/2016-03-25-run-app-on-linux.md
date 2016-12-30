@@ -337,6 +337,7 @@ Type "make" to compile the code assuming it exists in the current directory
 
 <h2>References</h2>
 <ul>
+<li>http://jagadesh4java.blogspot.com/2014/09/analyzing-jvm-crash.html</li>
 <li><a href="https://rc.fas.harvard.edu/resources/documentation/software-on-odyssey/modules/">Modules HowTo</a></li>
 <li><a href="http://how-to.linuxcareer.com/introduction-to-gnu-r-on-linux-operating-system">Introduction to GNU R on Linux Operating System</a></li>
 <li><a href="http://how-to.linuxcareer.com/running-gnu-r-on-linux-operating-system">Running GNU R on Linux Operating System</a></li>
