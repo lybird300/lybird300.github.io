@@ -144,6 +144,9 @@ java -Xmx6g -cp ~/bin/chat.jar org.renci.chat.Main /projects/sequence_analysis/v
 <ul>
 <li>Use the sacct command you can see all your jobs (including completed) and you can customize how the job list is displayed by using the "fileds" option as below. Showing jobname is useful as it is by default the filename of corresponding job script. The 'state" option helps specify what types of jobs you would like to view, such as CA (CANCELLED), CD (COMPLETED), F (FAILED), PD (PENDING; i.e., awaiting resource allocation), R (RUNNING), and S (SUSPENDED; e.g., give way to jobs with higher priority).
 <pre><code>sacct --state=RUNNING --fields=jobid,jobname,state</code></pre>
+Also, once your job has completed, you can get detailed information about the job using the command below. 
+<pre><code>sacct -j {jobID} --format="JobID,user,account,elapsed,Timelimit,MaxRSS,ReqMem,MaxVMSize,ncpus,ExitCode"</code></pre>
+The --format option allows a user to customize output of job usage statistics. We would suggest create an alias for running a customized version of sacct. For instance, the elapsed and Timelimit arguments allow for a comparison of allocated vs. actual wall time. MaxRSS and MaxVMSize shows maximum RAM and virtual memory usage information for a job, respectively, while ReqMem reports the amount of RAM requested.You can find the complete list of available information in <a href="https://slurm.schedmd.com/sacct.html">slurm sacct mannual</a> under "-l --long".
 </li>
 <li>Show job details: scontrol show job <jobID>. The "WorkDir" line tells you the path of the parent directory of your job script (i.e., from where the job was submitted). The "Command" line tells you the path of your job script file (including file name).</li>
 <li>If the name of your job (by default the name of job script file) is too long to be seen. There are two solutions. One is to show only the job name using
