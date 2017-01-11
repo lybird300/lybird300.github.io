@@ -71,23 +71,7 @@ JVM terminated. Exit code=1
 
 If you want to disconnect a project with its SVN repository, right click the project name in "Package Explorer", choose "Team > Disconnect" in the drop-down menu.
 
-<h2>Use jconsole</h2>
-jconsole has been installed in RENCI cluster, so I can launch it simply by typing "jconsole" at the command line, which opens its GUI. If you have launched the java application (using java -jar #.jar) with sbatch command, you need to choose "Remote Process" and input the hostname of the machine, the port of the application, and probably your credentials (i.e., username and password). To get the hostname of the machine, first do a "squeue" or "scontrol show job" to see which machine the application is running on. Suppose it is "croatan-0-1", you need to log onto the machine using "ssh username@machineName" and then at the command line run "hostname". The port number was specified when launching the application, as part of the Java command. In order to get jConsole connected to a JVM, you must start the JVM enabling JMX by specifying the following options within the Java command (see the port number?) It seems that the last option is not required but may be necessary for Ubuntu: without it sometimes an java IOException may occur.
-<pre><code>
--Dcom.sun.management.jmxremote.port=7009
--Dcom.sun.management.jmxremote.ssl=false
--Dcom.sun.management.jmxremote.authenticate=false
--Dcom.sun.management.jmxremote.local.only=false
-</code></pre>
-Below is an example of including the above options in java launching command
-<pre><code>
-java -Dcom.sun.management.jmxremote \
- -Dcom.sun.management.jmxremote.port=7009 \
- -Dcom.sun.management.jmxremote.ssl=false \
- -Dcom.sun.management.jmxremote.authenticate=false \
- -Dcom.sun.management.jmxremote.local.only=false \
- -Xmx6g -jar /home/linly/bin/chatV3_best.jar /projects/sequence_analysis/vol4/CHAT_simGWAS/newSimGWASData/CHATResources/CHAT_prep.xml
-</code></pre>
+
 
 <h2>Working with R</h2>
 Although R is pretty amazing, ever since I started working on Renci clusters I've been avoiding it, because according to some of my colleagues, the installation process is painful and because the last several months I was working on really large data sets and R is not very good at dealing with them. But today I think I'm gonna give it a try.
@@ -337,7 +321,6 @@ Type "make" to compile the code assuming it exists in the current directory
 
 <h2>References</h2>
 <ul>
-<li>http://jagadesh4java.blogspot.com/2014/09/analyzing-jvm-crash.html</li>
 <li><a href="https://rc.fas.harvard.edu/resources/documentation/software-on-odyssey/modules/">Modules HowTo</a></li>
 <li><a href="http://how-to.linuxcareer.com/introduction-to-gnu-r-on-linux-operating-system">Introduction to GNU R on Linux Operating System</a></li>
 <li><a href="http://how-to.linuxcareer.com/running-gnu-r-on-linux-operating-system">Running GNU R on Linux Operating System</a></li>
