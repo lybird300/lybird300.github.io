@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Fine tune CoJava"
+title: "Fine tune Java programs"
 date: 2015-11-13
 ---
 <blockquote>There is simply no substitute for the experience of writing and tuning your own parallel programs.</blockquote>
-Well, as you will probably find out, the stuffs presented here are a little unorganized. My apology! I simply dumped things that I thought useful over the time here. Hopefully in the future I will find some time to sort them out.
+Well, as you will very soon find out, the stuffs presented here are a little unorganized. My apology! For one thing, I've been dumping things that I thought useful over the time here. Hopefully in the future I will find some time to sort them out. For another, I feel the experience/knowledge I gained related to the contents presented here has come into the spectrum of "tacit knowledge", which is well known for being hard to explain (imagine teaching people how to swim or ride a bike). 
 <h2>Multi-thread and parallele programming</h2>
 <img src="https://cloud.githubusercontent.com/assets/5496192/11194008/b9e11154-8c77-11e5-89ec-2d56b974c2d1.gif" /><br/>
 Since CoJava applies Java fork-join parallelism framework, this post is mostly concerned with efficiently parallelizing fork-join computations in Java. The fork/join framework uses a thread pool in which a fixed number of threads are created. Each thread has a queue of tasks that are awaiting a chance to execute. When a task is started (forked), it is added to the queue of the thread that is executing its parent task. Because each thread can be executing only one task at a time, each thread's task queues can accumulate tasks which are not currently executing. Threads that have no tasks allocated to them will attempt to steal a task from a thread whose queue has at least one task - this is called work stealing. By this mechanism, tasks are distributed to all of the threads in the thread pool. By using a thread pool with work stealing, a fork/join framework can allow a relatively fine-grained division of the problem, but only create the minimum number of threads needed to fully exploit the available CPU cores. <b>Typically, the thread pool will have one thread per available CPU core</b>. 
@@ -56,6 +56,7 @@ java -Dcom.sun.management.jmxremote \
 
 <h2>References</h2>
 <ul>
+<li><a href="http://www.cs.mun.ca/java-api-1.5/guide/management/jconsole.html">Using Jconsole</a></li>
 <li>http://jagadesh4java.blogspot.com/2014/09/analyzing-jvm-crash.html</li>
 <li><a href="http://www.vogella.com/tutorials/EclipseMemoryAnalyzer/article.html#memory">Eclipse Memory Analyzer (MAT) - Tutorial</a></li>
 <li><a href="http://homes.cs.washington.edu/~djg/teachingMaterials/spac/grossmanSPAC_forkJoinFramework.html">Beginner's Introduction to Java's ForkJoin Framework</a></li>
