@@ -86,7 +86,9 @@ closed-form solution to the multivariate normal integral.
 
 <h2>Permutation for CHAT</h2>
 BiasedUrn (Epstein et al., 2012), a permutation procedure to adjust covariates in rare variant association test.
-biased urn permutation test (BiasePerm) developed for rare variants. 
+biased urn permutation test (BiasePerm) developed for rare variants.
+
+(See <a href="https://github.com/lybird300/lybird300.github.io/blob/master/YLin_Jan17_biasedUrnPermutation.pdf">my current group presentation</a> on this paper)
 
 To adjust for population stratification for the C-alpha test with PCs as covariates, we used the biasedUrn sampling method [Epstein et al., 2012], which treats the PCs as modeled population substructure and permutes the data set in a way to preserve the modeled substructure under the null for association testing. That is, if the PCs completely captures the subpopulation structure, the biasedUrn method could adjust for population stratification in nonregression-based approaches, such as the C-alpha test.
 
