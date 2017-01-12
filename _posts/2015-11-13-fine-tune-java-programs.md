@@ -54,6 +54,9 @@ java -Dcom.sun.management.jmxremote \
  -Xmx6g -jar /home/linly/bin/chatV3_best.jar /projects/sequence_analysis/vol4/CHAT_simGWAS/newSimGWASData/CHATResources/CHAT_prep.xml
 </code></pre>
 
+<h2>Trade-off between using inner-program multi-thread vs submitting jobs to HPC</h2>
+One of the senior members in our group, Dr. Chris Bizon, is helping me optimize CHAT. He told me for every job that I submit to the cluster, I should aim for hour-ish wall time. Otherwise, with so many CHAT jobs (the order of millions) finishing so quickly (in minutes), the cluster scheduler is hustling to keep up. I think a "syndrom" of this problem would be when you use "squeue" to check for job status, you either get a "time-out" error or see many jobs with a "CG" condition (which means "COMPLETING").
+
 <h2>References</h2>
 <ul>
 <li><a href="http://www.cs.mun.ca/java-api-1.5/guide/management/jconsole.html">Using Jconsole</a></li>
