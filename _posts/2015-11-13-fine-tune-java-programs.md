@@ -54,8 +54,10 @@ java -Dcom.sun.management.jmxremote \
  -Xmx6g -jar /home/linly/bin/chatV3_best.jar /projects/sequence_analysis/vol4/CHAT_simGWAS/newSimGWASData/CHATResources/CHAT_prep.xml
 </code></pre>
 
-<h2>Trade-off between using inner-program multi-thread vs submitting jobs to HPC</h2>
+<h2>Run Java-program-based jobs on HPC</h2>
 One of the senior members in our group, Dr. Chris Bizon, is helping me optimize CHAT. He told me for every job that I submit to the cluster, I should aim for hour-ish wall time. Otherwise, with so many CHAT jobs (the order of millions) finishing so quickly (in minutes), the cluster scheduler is hustling to keep up. I think a "syndrom" of this problem would be when you use "squeue" to check for job status, you either get a "time-out" error or see many jobs with a "CG" condition (which means "COMPLETING").
+
+An HPC machine is shared by multiple users and usually has many cores, which ironically can sometimes cause JVM to fail. As a result, you get an error message typically saying "there is insufficient memory for the Java Runtime Environment to continue. Cannot create GC thread. Out of system resources" and the system dumps a hs_err_pid#.log file to where your shell script is. The ironical part is that it may actually be because the system has too many resources...See <a href="https://confluence.csiro.au/pages/viewpage.action?pageId=278167841">this post</a>.
 
 <h2>References</h2>
 <ul>
