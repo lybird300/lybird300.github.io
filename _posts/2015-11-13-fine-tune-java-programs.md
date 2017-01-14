@@ -63,6 +63,15 @@ With -XX:ParallelGCThreads=<value> we can specify the number of GC threads to us
 
 Using the default setting makes most sense when the JVM uses the system and its processors exclusively. However, if more than one JVM (or other CPU-hungry systems) are all running on the same machine, we should use -XX:ParallelGCThreads in order to reduce the number of GC threads to an adequate value. For example, if four server JVMs are running on a machine with 16 processor cores, then -XX:ParallelGCThreads=4 is a sensible choice so that GCs of different JVMs don’t interfere with each other.
 
+I also got the following error messages  for some job failure:
+<pre><code>
+Java HotSpot(TM) 64-Bit Server VM warning: Insufficient space for shared memory file:
+   /tmp/hsperfdata_linly/22248
+Try using the -Djava.io.tmpdir= option to select an alternate temp location.
+</code></pre>
+The file /tmp/hsperfdata_linly/22248 was created by JVM by default to export its statistics. It keeps creating /tmp/hsperfdata_username directories. There are cases that the JVM statistics caused garbage collection pauses because the JVM modifies its statistics during garbage collection and safepoints by memory mapping to  /tmp/hsperfdata_username, which could be blocked for hundreds of milliseconds until disk I/O completes. Based on this <a href="http://stackoverflow.com/questions/76327/how-can-i-prevent-java-from-creating-hsperfdata-files">post</a>, we can use "-XX:+PerfDisableSharedMem=false" to prevent JVM from creating the statistics and thus suppresses the creation of the hsperfdata_userid directories. This option is recommended by Sun for causing less performance issues than turning off "-XX:-UsePerfData" option. 
+ 
+
 <h2>References</h2>
 <ul>
 <li><a href="http://www.cs.mun.ca/java-api-1.5/guide/management/jconsole.html">Using Jconsole</a></li>
