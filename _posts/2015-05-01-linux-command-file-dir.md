@@ -187,7 +187,10 @@ Sort based on fields/columns
 Sort can be used in the following pipeline to print out the one single record that has the largest numerical value at the 8th column
 <pre><code>zcat ***.gz | sort -nrk8 | head -n 1</code></pre>
 
-<h2>Finding a File Containing a Particular Text String</h2>
+<h2>Find files bigger than a specified size</h2>
+Use find and its -size flag
+<pre><code>find . -type f -size +100M</code></pre>
+<h2>Find a File Containing a Particular Text String</h2>
 <pre><code>grep [option] "text string to search” directory-path</code></pre>
 For example, we can search for a text string in all files under a directory using below (-r means recursively):
 <pre><code>grep -r "redeem reward" /home/tom/</code></pre>
