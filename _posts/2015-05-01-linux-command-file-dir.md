@@ -255,7 +255,7 @@ If you want to delete a line in multiple files, you can use the following comman
  Another example: find . -wholename './Rep[0-9]/Chromo.txt' -exec sed -i '/1/d' {} +
  </code></pre>
 The "sed" command is very flexible, if there is "/" in the string that you would like to replace or use for replacement, you can Use another character as delimiter in the s command, as shown below
-<pre><code></code></pre>
+<pre><code>find . -wholename './Rep[5-9]/chatSim.sh' -exec sed -i 's/8g/8g\nmodule load java\/jdk1.8.0_05/g' {} \;</code></pre>
 Note that you need to escape specific characters when using "sed" (See <a href="http://unix.stackexchange.com/questions/32907/what-characters-do-i-need-to-escape-when-using-sed-in-a-sh-script">here</a>). For example, the following command tries to replace "largemem-[0-1]-0" with "largemem-0-0,largemem-1-0"
 <pre><code>find . -wholename './Rep[2-9]/batchRunChat.sh' -exec sed -i 's/largemem-\[0-1\]-0/largemem-0-0,largemem-1-0/g' {} +</code></pre>
 Another example below removes the string "batchRunChat* &" in the file "jobList.txt"
