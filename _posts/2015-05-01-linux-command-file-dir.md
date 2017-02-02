@@ -40,6 +40,9 @@ To recursively give directories read&execute privileges:
 To recursively give files read privileges:
 <pre><code>find /path/to/base/dir -type f -exec chmod 644 {} +</code></pre>
 
+<h2>Create multiple directories with certain name pattern that involves a range of numbers</h2>
+<pre><code>mkdir Rep{0..9}</code></pre>
+
 <h2>Extract gz files</h2>
 <pre><code>$ gzip -d file.gz</code></pre>
 If you want to rezip it, simply type
