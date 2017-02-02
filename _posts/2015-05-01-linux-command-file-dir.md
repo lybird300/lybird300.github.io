@@ -43,6 +43,9 @@ To recursively give files read privileges:
 <h2>Create multiple directories with certain name pattern that involves a range of numbers</h2>
 <pre><code>mkdir Rep{0..9}</code></pre>
 
+<h2>Copy a file to multiple folders with certain name pattern</h2>
+<pre><code>echo ./Rep[0-9] | xargs -n 1 cp filename</code></pre>
+
 <h2>Extract gz files</h2>
 <pre><code>$ gzip -d file.gz</code></pre>
 If you want to rezip it, simply type
