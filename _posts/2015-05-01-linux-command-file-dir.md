@@ -302,6 +302,9 @@ awk -F'\t' '{$2 = $2 FS "0"; print $2,$1,$3}' DataMerge_testcase_reference.map >
 <h2>Rename multiple files in a small part of their names</h2>
 The following code will find all png files in the current directory and replace the string "rep2" in their names with the string "rep0"
 <pre><code>for i in *.png; do mv $i $(echo $i | sed 's/rep2/rep0/g'); done</code></pre>
+You can also use a one-liner including find and sed in order to get more flexibility in handling multiple directories.
+To remove the string "_flipErr12" in the filename of multiple files with certain name pattern in different directories
+<pre><code>find . -wholename './Rep[0-9]/*_Set1_flipErr12.lgen' | sed -e "p;s/_flipErr12//" | xargs -n2 mv</code></pre>
 
 <h2>Count the number of unique values of a field in a tab-delimited text file</h2>
 <pre><code>cut -f 1 input_file | sort | uniq</code></pre>
