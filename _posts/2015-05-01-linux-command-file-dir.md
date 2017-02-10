@@ -254,7 +254,7 @@ Note that sed cannot be directly used on gz file. You have to unzip the file ("g
 If you want to replace only if the file name matches another string or has a specific extension or is of a certain type and you would like to check every subdirectories recursively under the current directory, you can use
 <pre><code>find . -type f -name "*.sh" -exec sed -i 's/Xmx20g/Xmx12g/g' {} +</code></pre>
 A similar command can be used to add a new line in specified files. For example, the following command add a new line with the number  "8" before the original line with a number "9"
-<pre><code>find . -maxdepth 1 -type f -name "Chromo_9.txt" -exec sed -i 's/8\n9/9/g' {} +</code></pre>
+<pre><code>find . -maxdepth 1 -type f -name "Chromo_9.txt" -exec sed -i 's/9/8\n9/g' {} +</code></pre>
 If you want to delete a line in multiple files, you can use the following commands (the first one deletes the "8" line added above). Be careful when the file or directory name contains "_", as two "__" are difficult to distinguish from one "_" yet the difference totally matters when you try to find something!
 <pre><code>find . -type f -name "Chromo_9.txt" -exec sed -i '/8/d' {} +
  find . -wholename './chatset_*/09_0000[3-4]*.sh' -exec sed -i '/#SBATCH -t/d' {} +
