@@ -37,7 +37,9 @@ Usually the jobIDs of multiple jobs of yours are not consecutive (i.e., they may
 <li>Remove all jobs from a specific user, say linly
 <pre><code>squeue | grep linly | awk '{print $1}' | xargs scancel</code></pre>
 </li>
-<li>Cancel all pending jobs belonging to a specific user: scancel --state=PENDING --user=<username></li>
+<li>Cancel all pending jobs belonging to a specific user</li>
+<pre><code>scancel -t PENDING -u <username></code></pre>
+<li>Also note that "scancel" job array big ID will cancel all sub jobs in the array</li>
 <li>Cancel a specific process on the head node (not shown in squeue) using the commands below in turn
 <pre><code>
 ps -efl | grep -i 'linly' #first check the pid of all your jobs (at the fourth field of the displayed list)
