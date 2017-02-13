@@ -298,7 +298,6 @@ You can combine these two operations together by
 awk -F'\t' '{$2 = $2 FS "0"; print $2,$1,$3}' DataMerge_testcase_reference.map > tmp
 </code></pre>
 
-
 <h2>Rename multiple files in a small part of their names</h2>
 The following code will find all png files in the current directory and replace the string "rep2" in their names with the string "rep0"
 <pre><code>for i in *.png; do mv $i $(echo $i | sed 's/rep2/rep0/g'); done</code></pre>
@@ -362,6 +361,9 @@ The following command will create three sub directories "folder01" "folder02" an
 <pre><code>mkdir $(seq -f "projects/Labs/folder%02g" 3)</code></pre>
 The following command will create folder "11" "12" "13" until "30" in the current directory
 <pre><code>mkdir {11..30}</code></pre>
+You can also make nested directories using different name patterns. For example, the following command makes Ref1000, Ref1500, and Ref6000 sub directories in every Test# sub directories inside the sub directory of ImputedByminimac in the current directory
+<pre><code>mkdir -p ImputedByminimac/Test{0..9}/Ref{1000,1500,6000}</code></pre>
+<h2>Split a file</h2>
 If you know the structure of a big file, instead of loading / reading the entire file, you could split it into smaller chunks with the <a href="http://www.theunixschool.com/2012/10/10-examples-of-split-command-in-unix.html">split</a> command.
 <pre><code>$ split -l 500 -d -a 1 out.pos-1 out.pos-1_</code></pre>
 Or the "awk" command:
