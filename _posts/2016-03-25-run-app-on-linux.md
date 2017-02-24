@@ -304,6 +304,8 @@ sys.path.append("/home/linly/.local/lib/python2.6/site-packages/")
 import networkx as nx
 </code></pre>
 <h2>Working with Java</h2>
+Suppose you want to figure out which jdk you are using on a linux system. if the java command works, you can use the following command to find the location of the java command, which will give you an idea on the jdk version you are using
+<pre><code>readlink -f $(which java)</code></pre>
 This is a nice <a href="http://docs.oracle.com/javase/tutorial/getStarted/cupojava/unix.html">tutorial</a> and a good <a href="http://docs.oracle.com/javase/tutorial/getStarted/problems/index.html">Q&A</a> for newbies like me.
 I bet <a href="http://ice.he.net/~hedden/jrelinux.html">this post</a> is going to be a huge help someday.
 <b>"Could not reserve enough space for object heap" even though there is enough RAM</b>
