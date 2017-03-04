@@ -292,6 +292,9 @@ squeue -u $USER -o "%.8A %.4C %.10m %.20E"
 
 Eventually I used "singleton" to control chat jobs.
 
+<h2>Make jobs go background/foreground and unattach them from terminals</h2>
+http://www.unix.com/unix-for-advanced-and-expert-users/78975-make-foreground-running-process-run-background-without-hang-up.html
+
 <h2>References</h2>
 <ol>
 <li>A nice <a href="http://ecs.rutgers.edu/slurm_commands.html">cheatsheet</a> found by my colleague Ruhi Rai (She's gonna be a great bioinformaticist in the future)</li>
