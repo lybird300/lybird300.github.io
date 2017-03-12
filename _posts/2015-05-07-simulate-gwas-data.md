@@ -42,7 +42,7 @@ Disease frequency can be measured in terms of prevalence and incidence, both of 
 For a diallelic locus with alleles A and a, there are three genotypes -- AA, Aa, and aa. We usually take on e of these, say aa, as reference and express <b>genotype relative risks</b> as GRR(AA) = Risk for AA genotype/Risk for aa genotype, and GRR(Aa) = Risk for Aa genotype/Risk for aa genotype. For a rare disease, these relative risks can be estimated by odds ratios in case-control data (with aa as reference genotype): GRR(AA) = (Case(with AA)/Control(with AA))/(Case(with aa)/Control(with aa)), GRR(Aa) = (Case(with Aa)/Control(with Aa))/(Case(with aa)/Control(with aa))
 
 Odds ratio and risk ratio (relative risk)<br/>
-The odds of an event are defined as P(event)/P(not event). 
+The odds of an event are defined as P(event)/P(not event). Given the following 2-by-2 contingency table,
 <table>
 <tr>
 <td>
@@ -77,7 +77,52 @@ d
 </td>
 </tr>
 </table>
+The odds ratio (OR) is the ratio of the odds of cancer in smokers to the odds of cancer in non-smokers.
+OR = (a/b)/(c/d) = (ad)/(bc)
+The risk ratio (RR), also called the relative risk, is the ratio of the probability of cancer in smokers to the probability of cancer in non-smokers.
+RR = (a/(a+b))/(c/(c+d)) = (a(c+d))/(c(a+b))
+Given that you know a, b, c, and d, you can compute either of these metrics. Yet odds ratio is strongly preferred as the “right” metric to report in almost all scenarios. That seems to be because the quantity that it measures is more fundamental to the biology of what you’re studying, and less likely to change depending on how you’re studying it. See <a href="http://www.cureffi.org/2014/05/15/the-difference-between-odds-ratio-and-risk-ratio/">this post</a> for some examples to illustrate that.
+So in cases where you ascertain on a behavior (or genotype) and then check for a disease phenotype, the RR is a valid measurement – we’ve measured the real probability of getting a disease given that you have a risk factor, rather than cherry-picking people who have the disease. For this reason, the use of RR is mostly confined to longitudinal studies, where a group of individuals is followed for many years to see whether they develop a disease.
 
+In genetics, the “exposure” is usually a bi-allelic genotype, where the alt allele count in one individual can have three values: 0/1/2. So how do we compute OR in genetics? Intuitively, you can imagine two ways of doing it. You could dichotomize the genotype into a binary exposure variable: “has an alt allele”/”doesn’t have an alt allele”. That would correspond to a dominant model. Or you could count the alleles themselves instead of the people carrying the alleles. That would correspond to an additive (allelic) model. The allelic model is more commonly used. The contingency table should look like this:
+<table>
+<tr>
+<td>
+</td>
+<td>
+affected
+</td>
+<td>
+unaffected
+</td>
+</tr>
+<tr>
+<td>
+minor allele count
+</td>
+<td>
+a
+</td>
+<td>
+b
+</td>
+</tr>
+<tr>
+<td>
+major allele count
+</td>
+<td>
+c
+</td>
+<td>
+d
+</td>
+</tr>
+</table>
+OR = (a/b)/(c/d) = (minor allele count in cases / minor allele count in controls) / (major allele count in cases / major allele count in controls)
+MAF(cases)/MAF(controls) = (a/(a+c))/(b/(b+d))
+RR = (a/(a+b))/(c/(c+d)) 
+For very rare alleles, a « c and b «d, so (a/(a+c))/(b/(b+d)) ≈ (a/c)/(b/d) = (ad)/(bc).
 Coalescent simulations are widely used to simulate genotypes under complex demographies with recent extensions to include recombination hotspots [6] and selection [7], or to simulate whole genomes. Simulations are often used to test population genetic hypotheses by comparing simulated and observed data. However, such simulations produce only genotypes but not phenotypes, which are also required to test methods for detecting significant associations between genetic and phenotypic variation. Although some tools provide an option to map phenotypes onto simulated genotypes, they only allow the simulation of qualitative phenotypes or require time-consuming forward-in-time simulations to create genotypes from complex demographic scenarios .
 
 The software <i>phenosim</i> is a tool written in Python that was designed to add a phenotype to genotypes simulated by coalescent-based simulation tools. Simulated phenotypes may either be qualitative or quantitative traits with different effect sizes and may show epistatic interactions. Hence, the simulation of case/control studies as well as the search for quantitative trait nucleotides (QTNs) of a complex trait with a user-defined architecture is possible.
