@@ -30,16 +30,53 @@ In recent years, genome-wide association studies (GWAS) became widely used to un
 
 Next-generation sequencing (NGS) has become a popular technique for identifying novel rare variants associated with complex diseases [6]. Statistical association tests that can account for rare variants have also been developed rapidly [7-10]. These tests aim to identify multiple rare causal variants in a group of variants selected by biological functions, such as exons, genes, and pathways. A common approach is to pool all the variants in the group to increase the statistical power for associations. To evaluate the statistical power for new tests, a simulation tool that can simulate multiple rare casual variants based on sequence data is necessary. However, simulation programs developed for GWAS may not be appropriate for evaluating statistical properties for NGS studies, because they were designed to simulate common variants based on GWAS panels (e.g., Illumina and Affymetrix) or HapMap project data [11]. Thus, computer software that can simulate sequence data based on realistic models with phenotypes becomes important.
 
-Quantitative/qualitative traits
+<h3>Quantitative/qualitative traits</h3>
 additive effects between mutiple quantitative trait nucleotides (QTNs): Besenbacher et al (2009)
 
 Qualtitative traits are analyzed in case/control studies. In a Genome-Wide disease association study the genomes of a large group of individuals are examined to establish the presence of a significant association between a disease and particular genes. The group of individuals is divided in cases (people with the disease) and controls (people without). Randomly pairing haplotypes to form diplotypes, we prospectively generated case-control data sets. We can simulate diploid individuals with a qualitative phenotype with three different probabilities P(affected|wildtype homozygous), P(affected|wildtype & mutant heterozygous), and P(affected|mutant homozygous).
 Note: The term "wild type" allele is sometimes used to describe an allele that is thought to contribute to the typical phenotypic character as seen in "wild" populations of organisms, such as fruit flies (Drosophila melanogaster). A "wild type" allele was historically regarded as dominant, common, and normal, in contrast to "mutant" alleles regarded as recessive, rare, and frequently deleterious. It was formerly thought that most individuals were homozygous for the "wild type" allele at most gene loci, and that any alternative "mutant" allele was found in homozygous form in a small minority of "affected" individuals, often as genetic diseases, and more frequently in heterozygous form in "carriers" for the mutant allele. It is now appreciated that most or all gene loci are highly polymorphic, with multiple alleles, whose frequencies vary from population to population, and that a great deal of genetic variation is hidden in the form of alleles that do not produce obvious phenotypic differences.
 
-Constraints/Measures/Criteria
+<h3>Constraints/Measures/Criteria</h3>
 Disease frequency can be measured in terms of prevalence and incidence, both of which are probability measures. <b>Prevalence</b> is defined as the probablity that an individual has disease at some specified point in time, in other words, is the probability that a randomly sampled individual is affected by the disease. <b>Incidence</b> is defined either in terms of the probability of developing the disease over a fixed period, or of the probability rate per unit time. Another important measure is <b>relative risk</b>, defined as some measure of disease risk in exposed subjects divided by the same measure of risk in unexposed subject. In genetic epidemiology, relative risks may be defined for genotypes, alleles, or haplotypes.
 
 For a diallelic locus with alleles A and a, there are three genotypes -- AA, Aa, and aa. We usually take on e of these, say aa, as reference and express <b>genotype relative risks</b> as GRR(AA) = Risk for AA genotype/Risk for aa genotype, and GRR(Aa) = Risk for Aa genotype/Risk for aa genotype. For a rare disease, these relative risks can be estimated by odds ratios in case-control data (with aa as reference genotype): GRR(AA) = (Case(with AA)/Control(with AA))/(Case(with aa)/Control(with aa)), GRR(Aa) = (Case(with Aa)/Control(with Aa))/(Case(with aa)/Control(with aa))
+
+Odds ratio and risk ratio (relative risk)<br/>
+The odds of an event are defined as P(event)/P(not event). 
+<table>
+<tr>
+<td>
+</td>
+<td>
+cancer
+</td>
+<td>
+no cancer
+</td>
+</tr>
+<tr>
+<td>
+smoker
+</td>
+<td>
+a
+</td>
+<td>
+b
+</td>
+</tr>
+<tr>
+<td>
+non-smoker
+</td>
+<td>
+c
+</td>
+<td>
+d
+</td>
+</tr>
+</table>
 
 Coalescent simulations are widely used to simulate genotypes under complex demographies with recent extensions to include recombination hotspots [6] and selection [7], or to simulate whole genomes. Simulations are often used to test population genetic hypotheses by comparing simulated and observed data. However, such simulations produce only genotypes but not phenotypes, which are also required to test methods for detecting significant associations between genetic and phenotypic variation. Although some tools provide an option to map phenotypes onto simulated genotypes, they only allow the simulation of qualitative phenotypes or require time-consuming forward-in-time simulations to create genotypes from complex demographic scenarios .
 
@@ -47,9 +84,7 @@ The software <i>phenosim</i> is a tool written in Python that was designed to ad
 
 Once data are generated, it is straightforward to produce a SNP panel similar to a genotype chip by ascertaining common SNPs and to mask a random SNP with the desired disease allele frequency.
 
-
 In case-control association studies, the sample is highly nonrandom. Ascertainment of individuals that exhibit a disease enriches the sample for an underlying disease mutation, increasing its frequency in the sample, relative either to that in the population or to that expected in a random sample.
-
 
 Increasing evidence has suggested that rare and generally deleterious genetic variants might have a strong impact on the risk of not only rare Mendelian diseases, but also many common human diseases and related traits. According to the Common Disease/Many Rare Variants hypothesis, a common disease might be caused by multiple rare variants that are under relatively strong selection pressures. However, identifying such rare variants underlying the diseases remains to be challenging and is still an active research area. While genomewide association studies (GWAS) are incapable of identifying rare variants due to usually insufficient sample size, new methods keep emerging. Since simulation is widely used to evaluate, refine, and validate new methods, it is necessary to generate simulated data sets that can reflect realistic and critical characteristics of rare variants.
 
@@ -97,4 +132,5 @@ A set of 9000 segregating sites were randomly selected from the sequence to be u
 <li>Chen, Gary K., Paul Marjoram, and Jeffrey D. Wall. "Fast and flexible simulation of DNA sequence data." Genome research 19.1 (2009): 136-142.</li>
 <li>Peng, Bo, and Xiaoming Liu. "Simulating sequences of the human genome with rare variants." Human heredity 70.4 (2010): 287.</li>
 <li>Wang, Ying, and Bruce Rannala. "In silico analysis of disease-association mapping strategies using the coalescent process and incorporating ascertainment and selection." The American Journal of Human Genetics 76.6 (2005): 1066-1073.</li>
+<li><a href="http://www.cureffi.org/2014/05/15/the-difference-between-odds-ratio-and-risk-ratio/">The difference between odds ratio and risk ratio</a></li>
 </ul>
