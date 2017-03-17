@@ -237,10 +237,14 @@ And if you would like to output the results to a file (say log.txt in the curren
 <pre><code>
 find . -type f -name "Final*.gz" -exec zgrep -P "\t1.94\t10\t1\t[0-9]," {} \; -print | sort | uniq -c > log.txt
 </code></pre>
-Or maybe it's better to use "awk"
+Or maybe it's better to use "awk" to print lines that match a string (==) or a pattern (~)
 <pre><code>
 awk '$3 ~ /snow/ { print }' dummy_file
 awk '$3 == "snow"'
+</code></pre>
+If you want to print out lines that do NOT match a pattern, use grep is better than awk. The first example below print all lines that do not start with #
+<pre><code>
+grep -v '^#' file
 </code></pre>
 
 <h2>Replace a specific string in a file with another one</h2>
