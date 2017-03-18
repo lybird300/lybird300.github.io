@@ -114,7 +114,7 @@ REngine engine = REngine.engineForClass("org.rosuda.REngine.JRI.JRIEngine", Args
 </code></pre>
 What you should end up with looks something like this at runtime, if you instantiate with the callback argument (new REngineStdOutput () ); otherwise if you just instantiate with the String engineForClass("org.rosuda.REngine.JRI.JRIEngine"), you'll wont get the below output from R on startup/elsewise, depending on if you want it or not:
 <pre><code>
-    /**R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
+    R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
     Copyright (C) 2016 The R Foundation for Statistical Computing
     Platform: x86_64-apple-darwin15.5.0 (64-bit)
 
@@ -130,7 +130,7 @@ What you should end up with looks something like this at runtime, if you instant
 
     Type 'demo()' for some demos, 'help()' for on-line help, or
     'help.start()' for an HTML browser interface to help.
-    Type 'q()' to quit R.**/
+    Type 'q()' to quit R.
     </code></pre>
     </li>
     </ol>
