@@ -90,23 +90,30 @@ Steps:
 <li>Install R</li>
 <li>Install rJava with R</li>
 <pre><code>install.packages("rJava")</code></pre>
-<li>Add rJava/jri to java.library.path classpath, add R_HOME to environment variables (where you installed R). Note that if you're trying to run this in your IDE, it won't inherit the path you set in ~/.bash_profile, you need to set it in your run configuration.
+<li>Add rJava/jri to java.library.path classpath
 <pre><code>
 -Djava.library.path="/usr/local/lib/R/3.3/site-library/rJava/jri/"
-R_HOME=/usr/local/Cellar/r/3.3.1_2/R.framework/Resources
  </code></pre>
  </li>
-Ensure maven has dependency for JRIEngine in pom.xml
+<li>Add R_HOME to environment variables (where you installed R). Note that if you're trying to run this in your IDE, it won't inherit the path you set in ~/.bash_profile, you need to set it in your run configuration.
+In Eclipse, select the run or debug configuration of your project. Click the Environment tab. Add new environment variable such as
+R_HOME=/usr/local/Cellar/r/3.3.1_2/
+</li>
+<li>Ensure maven has dependency for JRIEngine in pom.xml
+<pre><code>
 <dependency>
     <groupId>com.github.lucarosellini.rJava</groupId>
     <artifactId>JRIEngine</artifactId>
     <version>0.9-7</version>
 </dependency>
-Instantiate REngine (I need this version in order to pass dataframe to R from java)
+</code></pre>
+<li>Instantiate REngine (I need this version in order to pass dataframe to R from java)
+<pre><code>
 String[] Args = {"--vanilla"};
 REngine engine = REngine.engineForClass("org.rosuda.REngine.JRI.JRIEngine", Args, new REngineStdOutput (), false);
+</code></pre>
 What you should end up with looks something like this at runtime, if you instantiate with the callback argument (new REngineStdOutput () ); otherwise if you just instantiate with the String engineForClass("org.rosuda.REngine.JRI.JRIEngine"), you'll wont get the below output from R on startup/elsewise, depending on if you want it or not:
-
+<pre><code>
     /**R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
     Copyright (C) 2016 The R Foundation for Statistical Computing
     Platform: x86_64-apple-darwin15.5.0 (64-bit)
@@ -124,6 +131,8 @@ What you should end up with looks something like this at runtime, if you instant
     Type 'demo()' for some demos, 'help()' for on-line help, or
     'help.start()' for an HTML browser interface to help.
     Type 'q()' to quit R.**/
+    </code></pre>
+    </li>
     </ol>
 
 <h2>References</h2>
