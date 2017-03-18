@@ -77,8 +77,54 @@ Try using the -Djava.io.tmpdir= option to select an alternate temp location.
 The file /tmp/hsperfdata_linly/22248 was created by JVM by default to export its statistics. It keeps creating /tmp/hsperfdata_username directories. There are cases that the JVM statistics caused garbage collection pauses because the JVM modifies its statistics during garbage collection and safepoints by memory mapping to  /tmp/hsperfdata_username, which could be blocked for hundreds of milliseconds until disk I/O completes. For details, take a look at this <a href="http://www.evanjones.ca/jvm-mmap-pause.html">article</a>. Based on this <a href="http://stackoverflow.com/questions/76327/how-can-i-prevent-java-from-creating-hsperfdata-files">post</a>, we can use "-XX:+PerfDisableSharedMem=false" to prevent JVM from creating the statistics and thus suppresses the creation of the hsperfdata_userid directories. This option is recommended by Sun for causing less performance issues than turning off "-XX:-UsePerfData" option. 
  
  <h2>Integrate other languages into Java program</h2>
+ <h3>Set up java.library.path in Eclipse IDE</h3>
+ Take a look at <a href="http://javarevisited.blogspot.com/2013/04/what-is-javalibrarypath-how-to-set-in-Eclipse.html">this post</a>
+ 
  <h3>With R</h3>
- JRI: if you are compiling your java program using Maven, you must see <a href="http://stackoverflow.com/questions/32170664/running-jar-built-using-maven-causes-java-lang-noclassdeffounderror-org-rosuda?noredirect=1&lq=1">this post</a>
+ JRI: if you are compiling your java program using Maven, you must see <a href="http://stackoverflow.com/questions/32170664/running-jar-built-using-maven-causes-java-lang-noclassdeffounderror-org-rosuda?noredirect=1&lq=1">this post</a>. I copied the contents below in case the post gets lost in the future.
+ 
+Strictly speaking both R and rJava need to be installed on the machine in order to resolve the "Cannot find JRI native library!" issue when instantiating your org.rosuda.REngine.REngine object, and this cannot be done exclusively by way of adding the JRIEngine dependency in your pom.xml.
+
+Steps:
+<ol>
+<li>Install R</li>
+<li>Install rJava with R</li>
+<pre><code>install.packages("rJava")</code></pre>
+<li>Add rJava/jri to java.library.path classpath, add R_HOME to environment variables (where you installed R). Note that if you're trying to run this in your IDE, it won't inherit the path you set in ~/.bash_profile, you need to set it in your run configuration.
+<pre><code>
+-Djava.library.path="/usr/local/lib/R/3.3/site-library/rJava/jri/"
+R_HOME=/usr/local/Cellar/r/3.3.1_2/R.framework/Resources
+ </code></pre>
+ </li>
+Ensure maven has dependency for JRIEngine in pom.xml
+<dependency>
+    <groupId>com.github.lucarosellini.rJava</groupId>
+    <artifactId>JRIEngine</artifactId>
+    <version>0.9-7</version>
+</dependency>
+Instantiate REngine (I need this version in order to pass dataframe to R from java)
+String[] Args = {"--vanilla"};
+REngine engine = REngine.engineForClass("org.rosuda.REngine.JRI.JRIEngine", Args, new REngineStdOutput (), false);
+What you should end up with looks something like this at runtime, if you instantiate with the callback argument (new REngineStdOutput () ); otherwise if you just instantiate with the String engineForClass("org.rosuda.REngine.JRI.JRIEngine"), you'll wont get the below output from R on startup/elsewise, depending on if you want it or not:
+
+    /**R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
+    Copyright (C) 2016 The R Foundation for Statistical Computing
+    Platform: x86_64-apple-darwin15.5.0 (64-bit)
+
+    R is free software and comes with ABSOLUTELY NO WARRANTY.
+    You are welcome to redistribute it under certain conditions.
+    Type 'license()' or 'licence()' for distribution details.
+
+      Natural language support but running in an English locale
+
+    R is a collaborative project with many contributors.
+    Type 'contributors()' for more information and
+    'citation()' on how to cite R or R packages in publications.
+
+    Type 'demo()' for some demos, 'help()' for on-line help, or
+    'help.start()' for an HTML browser interface to help.
+    Type 'q()' to quit R.**/
+    </ol>
 
 <h2>References</h2>
 <ul>
