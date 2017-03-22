@@ -73,6 +73,12 @@ e.g., tar -xvf file.tar.gz </code></pre>, where
 <li>-t : List the files in the archive.</li>
 </ul>
 
+<h2>Modify multiple zipped files using awk</h2>
+If you have a list of names of these files, you can do the following 
+<pre><code>
+for i in $(seq 1 626); do curJob=`head -n ${i} jobList.txt | tail -n 1`; zcat ${curJob}.out | awk '{if ($5>=0.5) print}' > tmp; gzip tmp; mv tmp.gz ${curJob}.out.gz; done
+</code></pre>
+
 <h2>Find out the number of rows of one or more files</h2>
 If you only need to know this information about one file, you can simply use
 <pre><code>wc -l filename</code></pre>
@@ -188,7 +194,7 @@ You can make less behave like cat when invoked on small files and behave normall
 </li>
 </ul>
 
-Sort based on fields/columns
+<h2>Sort based on fields/columns</h2>
 <pre><code>sort -g -k7,7 GenotypeChrom_8_Rep10.info > sortedList</code></pre>
 Sort can be used in the following pipeline to print out the one single record that has the largest numerical value at the 8th column
 <pre><code>zcat ***.gz | sort -nrk8 | head -n 1</code></pre>
@@ -196,6 +202,7 @@ Sort can be used in the following pipeline to print out the one single record th
 <h2>Find files bigger than a specified size</h2>
 Use find and its -size flag
 <pre><code>find . -type f -size +100M</code></pre>
+
 <h2>Find a File Containing a Particular Text String</h2>
 <pre><code>grep [option] "text string to search” directory-path</code></pre>
 For example, we can search for a text string in all files under a directory using below (-r means recursively):
