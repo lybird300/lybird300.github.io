@@ -178,6 +178,8 @@ COMPLETED=`sacct -u linly | grep "COMPLETE $1" | wc -l`
 FAILED=`sacct -u linly | grep "FAIL $1" | wc -l`
 echo "$RUNNING running, $SUSPENDED suspended, $PENDING pending, $COMPLETED completed, $FAILED failed"
 </code></pre>
+squeue has a useful --sort flag that allows you to change the order that jobs are displayed. The following script displays jobs with the earliest submission time first (specified by 'v') and then in the ascending order of job id (specified by 'i')
+<pre><code>squeue -u linly --sort=v,i</code></pre>
 <h2>Update jobs</h2>
 The command below will change the wall time of the specified job to 1 day 12 hours
 <pre><code>scontrol update JobID=JOB_ID Timelimit=1-12:00:00</code></pre>
