@@ -119,6 +119,20 @@ What you should end up with looks something like this at runtime, if you instant
 </li>
 </ol>
 
+<h2>Figure out the logging system</h2>
+Kirk's old code has been using apache.commons.logging and my current modification involves using apache flink, which depends on log4j. And I got the following error message
+<pre><code>
+log4j:WARN No appenders could be found for logger (org.apache.flink.api.java.ExecutionEnvironment).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+</code></pre>
+First of all, what is the difference between log4j and apache.commons.logging? According to <a href="http://stackoverflow.com/questions/8488762/relation-between-log4j-and-apache-commons-logging">this post</a>, log4j is a logging framework, i.e. it provides the code to log messages. Commons-logging is an abstraction layer for logging frameworks, it doesn't log anything itself. In other words, Apache Commons Logging can use log4j (or other logging implementation of the specific library you use), if present and configured. 
+Then, why did I get the error message? I went to <a href="http://logging.apache.org/log4j/1.2/faq.html#a3.5">the website</a> mentioned in the error message, where I found the following.
+<pre><code>
+<i>Why do I see a warning about "No appenders found for logger" and "Please configure log4j properly"?</i>
+This occurs when the default configuration files log4j.properties and log4j.xml can not be found and the application performs no explicit configuration. log4j uses Thread.getContextClassLoader().getResource() to locate the default configuration files and does not directly check the file system. Knowing the appropriate location to place log4j.properties or log4j.xml requires understanding the search strategy of the class loader in use. log4j does not provide a default configuration since output to the console or to the file system may be prohibited in some environments. Also see FAQ: Why can't log4j find my properties in a J2EE or WAR application?.
+</code></pre>
+I figure it means I need to set up log4j.properties and log4j.xml files if I want to keep using apache flink. OK...
 <h2>References</h2>
 <ul>
 <li><a href="http://www.cs.mun.ca/java-api-1.5/guide/management/jconsole.html">Using Jconsole</a></li>
