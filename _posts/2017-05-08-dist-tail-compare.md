@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Compare the tail of two empirical distributions"
+title: "Compare the tails of empirical distributions"
 date: 2017-05-08
 ---
 <img src="https://cloud.githubusercontent.com/assets/5496192/25811920/b94568f8-33e2-11e7-8022-35c5663aa2f2.png" />
