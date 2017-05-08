@@ -14,11 +14,23 @@ Some Notes
 <h2>Possible solution 1</h2>
 
 <h2>Possible solution 2</h2>
-See (Gao et al., 2008) in the reference
+<p>See (Gao et al., 2008) in the reference. Important excerpt copied below</p>
 The Wang-Allison tests (Wang et al., 2004) test the following null hypothesis:
 H0,A : P (Y > τ|X = 1) = P(Y > τ|X = 0).
-A problem with the Wang-Allison tests is that, hypothetically, P (Y > τ|X = 1) may equal to P (Y > τ|X = 0) and yet the average magnitude by which Y exceed τ when X = 1 may be radically different than when X = 0. This is exemplified in the hypothetical frequency distributions depicted below.
+A problem with the Wang-Allison tests is that, hypothetically, P (Y > τ|X = 1) may equal to P (Y > τ|X = 0) and yet the average magnitude by which Y exceed τ when X = 1 may be radically different than when X = 0. This is exemplified in the hypothetical frequency distributions depicted below. In this figure, The left graph is the density for control group (X = 0), 0.9*Weibull(5.73, 106.6)*I(X ≤ 130) + 0.1*Weibull(5.40,100.06)*I(X > 130), and the right graph is the density for treatment group (X = 1), 0.9*Weibull(5.73, 106.6)*I(X ≤130) + 0.1*Weibull(5.45, 130.06)*I(X > 130), where P(Y > τ|X = 1) = P(Y > τ|X = 0) and yet the average magnitude by which Y exceeds τ when X = 1 is different than when X = 0. τ is 90th percentile of the all observations in treatment and control groups.
 <img src="https://cloud.githubusercontent.com/assets/5496192/25804501/13916cee-33ca-11e7-92ea-4eed45e55661.png" /> 
+An alternative to testing H0,A is to test the following conceptually related but mathematically distinct null hypothesis:
+H0,B : μ (Y|Y > τ ∩ X = 1) = μ (Y|Y > τ ∩ X = 0),
+where μ (•) denotes the population mean (or expectation) of (•). Though appealing, a problem with testing H0,B is that when P (Y > τ|X = 1) >> P (Y > τ|X = 0) or P (Y > τ|X = 1) << P (Y > τ|X = 0), for any finite sample with equal initial assignment to the two groups, E [n0] <<E [n1] or E [n0] >> E [n1], where E [n0] denotes the expected number of observations in the control group for which Y > τ, and E [n1] denotes the expected number of observations in the treatment group for which Y > τ. This imbalance between E [n0] and E [n1] will greatly reduce the power to reject H0,B. In fact, in the extreme, when either P (Y > τ|X = 1) or P (Y > τ|X = 0) equals to 0, there will be zero power to reject H0,B (actually, it is appropriate to say that H0,B is undefined in such cases). Such a situation is exemplified
+in the hypothetical frequency distributions depicted below. In this figure, the left graph is the density for control group (X = 0), 0.9*Weibull(5.07, 93.52)*I(X ≤ 130) + 0.1*Weibull(5.40, 100.06)*I(X > 130), and the right graph for treatment group (X = 1), 0.6*Weibull(5.07, 93.52)*I(X ≤ 130) + 0.4*Weibull(5.40, 100.06)*I(X > 130), where P(Y > τ|X = 1) ≠ P(Y > τ|X = 0), μ (Y |Y > τ ∩ X = 1) = μ (Y |Y > τ ∩ X = 0), and μ (•) denotes the population mean of (•). τ is 90th percentile of the all observations in treatment and control groups.
+<img src="https://cloud.githubusercontent.com/assets/5496192/25804879/6a6b2b8a-33cb-11e7-8f7d-2bc5d94aec37.png" />
+(Gao et al., 2008) propose a single-step union-intersection test [8] of the following compound null hypothesis:
+H0,C : [P(Y > τ|X = 1) = P(Y > τ|X = 0)] ∩ [μ(Y|Y > τ ∩ X = 1) = μ (Y|Y > τ ∩ X = 0)].
+The test of H0,C can be constructed with the following simple procedure. Define a new variable Z such that Zi ≡ I(Yi >
+τ)Yi, where I(•) denotes the indicator function taking on values of one if (•) is true and zero otherwise. One can then simply conduct an appropriate test (several candidates will be considered below) of whether the population mean of Z is significantly different between the treatment and control groups (X = 0 or 1). This approach has the desired property that when H0,C is true, it will only be rejected 100*α% of the time at the nominal α level even if f(Y|Y ≤ τ ∩ X = 1) ≠ f(Y|Y ≤ τ ∩ X = 0), where f(•) denotes the probability density function of (•) (i.e., the bulk part of the distribution is different)
+Note that the expectation (or population mean) of Z, μ(Z) = P(Y > τ) μ(Y | Y > τ). Therefore the new test for H0,C is really testing whether P(Y > τ | X = 1) μ (Y | Y > τ ∩ X = 1) = P(Y > τ | X = 0) μ (Y | Y > τ ∩ X = 0), while the method for H0,B is testing whether μ (Y | Y > τ ∩ X = 1) = μ(Y | Y > τ ∩ X = 0) and the method for H0,A is testing whether P(Y > τ | X = 1) = P(Y > τ | X = 0). The mean difference of μ(Z) between two groups consists of two components: the difference between probabilities P(Y > τ | X = 1) and P(Y > τ | X = 0) and the difference between expectations μ (Y | Y > τ ∩ X = 1) and μ (Y | Y > τ ∩ X = 0). The test for H0,A focuses on the first component and the test for H0,B focuses on the second one, while the test for H0,C is related to both components.
+
+
 <h2>Reference</h2>
 <ul>
 <li>Wang C, Li Q, Redden DT, Weindruch R, Allison DB: Statistical methods for testing effects on "maximum lifespan". Mech Ageing Dev 2004, 125(9):629-32. Erratum in: Mech Ageing Dev 2006, 127(7):652</li>
