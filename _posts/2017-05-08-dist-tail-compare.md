@@ -5,16 +5,7 @@ date: 2015-05-08
 ---
 <img src="https://cloud.githubusercontent.com/assets/5496192/25811920/b94568f8-33e2-11e7-8022-35c5663aa2f2.png" />
 <h2>Motivation</h2>
-We know when considering a suject's IBD haplotype sharing with two other subjects (k=2), using empirically fitted subject-specific distribution of maxSumWtSmor is better than fitting a general distribution of pair sharing (i.e., collect the ). But what about when k=3? Will S = 0, 1, 2 lead CHAT to have different performances in sensitivity and specificity? If so, how and to what extent? In this experiment, we try to answer these questions using non-carrier subjects. Our hypothesis is distributions are not subject specific when K = 3, i.e., they are the same across different subjects. If this hypothesis is valid, then we would no longer have to fit subject-specific distributions when k = 3; otherwise we probably have to live with k=2 because fitting subject-specific distributions would be very time consuming when k = 3 (s can be 1 or 2).									
-									
-									
-									
-									
-									
-									
-									
-									
-
+We would like to know whehter the sensitivity and specificity of CHAT would be different using empirically fitted subject-specific distributions of maxSumWtSmor (one per subject) from using a global (also empirically fitted) distribution of pair sharing (i.e., randomly collect two IBD sharing pairs that have one suject in common and fit the global distribution of maxSumWtSmor). This is an important question relevant to improving the efficiency of CHAT, as fittng the latter distribution would require tremedously less computing efforts thatn fittng the former distribution set. A first step towards answering this question is to understand the difference between these two types of distributions. To be more specific, are there some subject-specific distributions that would be very different from the globally fitted distributions? We could imagine that the existence of such outliers would become less and less likely as the number of sharing to be simultaneously considered increases (from pair sharing to trio sharing to quartet sharing and so on), but exactly at which point, in terms of the number of sharing simultaneously considered (k), will this (the said difference becomes trivial) happen? Thus, in the next several weeks my task is to investigate this issue for different values of k. In our case, there is one thing that makes this task very daunting to me: it is the tail part that matters. In oter words, potential outliers would be defined based on their tail events, not the whole distribution. Although there are various statistical metrics/tests for comparing two or more distributions as a whole, not many exist for comparing distribution tails, as far as I'm concerned.			
 <h2>The problem and relevant issues</h2>
 By constructing a threshold, saying lambda, we can test equality of two means or variances of the two distributions restricted on the tail region (\lambda, infinity) based on two data sets of observations falling in this tail region. One relevant issue would be using which tests to compare the mean or variance (elaborate below). Another issue would be how to define the threshold and therefore the "tail region". I suspect both issues would vary with specific contexts. If we are not sure, perhaps we should simulate several reasonable thresholds and try different tests when assessing every possible solutions (introduced below)<br/>
 <ul>
