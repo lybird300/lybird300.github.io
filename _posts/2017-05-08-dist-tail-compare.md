@@ -4,16 +4,18 @@ title: "Compare the tail of two empirical distributions"
 date: 2015-05-08
 ---
 <h2>The problem and relevant issues</h2>
-By constructing a threshold, saying lambda, we can test equality of two means or variances of the two distributions restricted on the tail region (\lambda, infinity) based on two data sets of observations falling in this tail region. Now the problem would be how to compare the mean or variance. The two sample t-test or F-test may be OK but not be poweful since random variable restricted on this tail region is not normal even the original ones are. <b>A tail may have practically any distribution. </b>
-The Chi Square test (Goodness-of-Fit test) may not be appropriate for identifying differences in tails. The Chi Square test is structured to compare two distributions by buckets of values (graphically represented by a histogram). And, the tails will consist in the far most buckets. If the tails are covered by many bins, then--because they are tails!--there may be few data in any of the bins, invalidating the chi-squared approximation (The chi-squared test is based on a Normal-theory approximation to the true distribution of the chi-squared statistic. Typically this approximation gets poor when bin populations drop below 5). If the tails are covered by few bins, then you lose almost all power to discriminate their shapes, and what you do manage to discriminate might not be relevant or useful.
-Some Notes
+By constructing a threshold, saying lambda, we can test equality of two means or variances of the two distributions restricted on the tail region (\lambda, infinity) based on two data sets of observations falling in this tail region. One relevant issue would be using which tests to compare the mean or variance (elaborate below). Another issue would be how to define the threshold and therefore the "tail region". I suspect both issues would vary with specific contexts. If we are not sure, perhaps we should simulate several reasonable thresholds and try different tests when assessing every possible solutions (introduced below)<br/>
+Some Notes:
 <ul>
 <li>(In case you, like me, errorously thought that extreme value distributions had some magic power on this issue...) Extreme value theory actually says little about the tails: it focuses on the distribution of the maxima (or minima) of iid samples</li>
+<li>The two sample t-test or F-test may be OK but not be poweful since random variable restricted on this tail region is not normal even the original ones are. <b>A tail may have practically any distribution. </b></li>
+<li>The Chi Square test (Goodness-of-Fit test) may not be appropriate for identifying differences in tails. The Chi Square test is structured to compare two distributions by buckets of values (graphically represented by a histogram). And, the tails will consist in the far most buckets. If the tails are covered by many bins, then--because they are tails!--there may be few data in any of the bins, invalidating the chi-squared approximation (The chi-squared test is based on a Normal-theory approximation to the true distribution of the chi-squared statistic. Typically this approximation gets poor when bin populations drop below 5). If the tails are covered by few bins, then you lose almost all power to discriminate their shapes, and what you do manage to discriminate might not be relevant or useful.</li>
 </ul>
 
-<h2>Possible solution 1</h2>
+<h2>Possible solution 1: use a threshold to select data points and then only compare these data points</h2>
+We may have to use non-parametric tests such as the Wilcoxon-Mann-Whitney (exact) test [11,12] or even a permutation test (with t-statistic) as described by Good [13] to test for differences in the values that exceed a certain threshold.
 
-<h2>Possible solution 2</h2>
+<h2>Possible solution 2: define a threshold but compare all data points</h2>
 <p>See (Gao et al., 2008) in the reference. Important excerpt copied below</p>
 The Wang-Allison tests (Wang et al., 2004) test the following null hypothesis:
 H0,A : P (Y > τ|X = 1) = P(Y > τ|X = 0).
