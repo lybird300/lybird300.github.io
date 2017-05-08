@@ -18,7 +18,7 @@ See (Gao et al., 2008) in the reference
 The Wang-Allison tests (Wang et al., 2004) test the following null hypothesis:
 H0,A : P (Y > τ|X = 1) = P(Y > τ|X = 0).
 A problem with the Wang-Allison tests is that, hypothetically, P (Y > τ|X = 1) may equal to P (Y > τ|X = 0) and yet the average magnitude by which Y exceed τ when X = 1 may be radically different than when X = 0. This is exemplified in the hypothetical frequency distributions depicted below.
-
+<img src="https://cloud.githubusercontent.com/assets/5496192/25804501/13916cee-33ca-11e7-92ea-4eed45e55661.png" /> 
 <h2>Reference</h2>
 <ul>
 <li>Wang C, Li Q, Redden DT, Weindruch R, Allison DB: Statistical methods for testing effects on "maximum lifespan". Mech Ageing Dev 2004, 125(9):629-32. Erratum in: Mech Ageing Dev 2006, 127(7):652</li>
