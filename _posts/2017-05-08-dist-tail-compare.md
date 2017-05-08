@@ -13,6 +13,12 @@ By constructing a threshold, saying lambda, we can test equality of two means or
 </ul>
 
 <h2>Possible solutions</h2>
+<h3>Base on sample kurtosis</h3>
+(This solution is not suitable for our case as the distribution to be compared with is supposed to be normal/Gaussian.)
+According to <a href="">the wikipedia page of kurtosis</a>, kurtosis is a measure of the "tailedness" of the probability distribution of a real-valued random variable relative to a normal distribution. That is, data sets with high kurtosis tend to have heavy tails, or outliers. Data sets with low kurtosis tend to have light tails, or lack of outliers. The drawback of using kurtosis is that it allows to draw conclusions only jointly for both of the tails of the distribution and is best suited for symmetrical distribution.
+If you have a single tailed empirical distribution, you may want to consider the following. Suppose the distribution has a right tail, you can discard all of the observations below the mean, transform all of the remaining observations symmetrically with respect to the mean and create a perfectly symmetrical data sample by combining the non-discarded observations and their symmetrical transformations. Then you can calculate the Kurtosis of this "new" distribution.
+
+
 <h3>Use a threshold to select data points (observations) and then only compare the empirical distributions of these data points</h3>
 <h3>Use a statistic that considers a threshold but allows in all data points (good for permutation tests)</h3>
 <p>See (Gao et al., 2008) in the reference. They definedefining a new variable Z such that Zi ≡ I (Yi > τ)Yi for each observation and then applying Wilcoxon-Mann-Whitney test or better still a permutation test to Z, the new methods achieve far better performance when considered across a broad range of circumstances in terms of both Type-1 error rates and power. One could <b>extend this method to more than two groups</b>. For example, one could use the Kruskal-Wallis Test to replace the Wilcoxon-Mann-Whitney test, or use permutation testing for multiple groups to replace that for two groups. Important excerpt copied below</p>
