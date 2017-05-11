@@ -155,6 +155,8 @@ Method 2: <pre><code>sed 2~2d fileA > fileB</code></pre>
 It deletes all even lines
 The "FIRST~STEP" syntax means matching every STEP'th line starting with line FIRST. For example, "sed -n 1~2p" will print all the odd-numbered lines in the input stream, and 2~5 will match every fifth line, starting with the second. "d" means delete an indicated line. For example, the following command delete the 3rd line permanently (use -i option for permanent change)
 <pre><code>sed -i '3d' filename</code></pre>
+If you want to delete all the lines in a file that does NOT contain a certan string using "!d" instead of "d". In the following example, we delete lines that does not contain a dot (note that an escape symbol needs to be used before ".")
+<pre><code>sed -i '/\./!d' filename</code></pre>
 
 <h2>Check whether a file is tab or space delimited</h2>
 <pre><code>
