@@ -502,6 +502,7 @@ Sometimes you need to combine file/dir operations with simple arithmetic operati
 
 <h2>References</h2>
 <ul>
+<li><a href="http://ryanstutorials.net/bash-scripting-tutorial/bash-functions.php">A site introducing bash functions that I found useful for beginners (by which I mean myself)</a></li>
 <li><a href="https://linuxacademy.com/blog/linux/ssh-and-scp-howto-tips-tricks/">SSH and SCP: Howto, tips & tricks</a></li>
 <li><a href="http://www.cureffi.org/2014/01/15/running-r-batch-mode-linux/">Running R in batch mode on Linux</a></li>
 <li><a href="http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html">Reading large tables into R</a></li>
