@@ -114,6 +114,6 @@ Or how about using LMM: valid permutation to assess significance in the context 
 
 <h2>References</h2>
 <ol>
-<li></li>
+<li><a href="https://brainder.org/tag/permutation-test/">a nice simple blog post</a></li>
 <li></li>
 </ol>
