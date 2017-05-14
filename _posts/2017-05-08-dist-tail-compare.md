@@ -104,6 +104,7 @@ Then we can find any existing outliers by comparing the parameters of GPDs. One 
 
 <h2>Reference</h2>
 <ul>
+<li><a href="https://stats.stackexchange.com/questions/132652/how-to-determine-which-distribution-fits-my-data-best">Another high-quality cross validated post</a> (on a relevant topic and the analysis is beautiful)</li>
 <li>Wang C, Li Q, Redden DT, Weindruch R, Allison DB: Statistical methods for testing effects on "maximum lifespan". Mech Ageing Dev 2004, 125(9):629-32. Erratum in: Mech Ageing Dev 2006, 127(7):652</li>
 <li>Gao, Guimin, et al. "Testing for differences in distribution tails to test for differences in'maximum'lifespan." BMC medical research methodology 8.1 (2008): 49.</li>
 <li>Koronkiewicz, Grzegorz and Jamroz, Pawel, Comparison of the Tails of Market Return Distributions (December 15, 2014). OPTIMUM. STUDIA EKONOMICZNE NR 5 (71) 2014. Available at SSRN: https://ssrn.com/abstract=2873880</li>
