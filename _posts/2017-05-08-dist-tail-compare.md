@@ -12,6 +12,54 @@ Basically, plotting the data out. Dr. Xianyong Yin just made a very interesting 
 The qq  plot is an exploratory graphical device used to check the validity of a distributional assumption for a data set. In general, the basic idea is to compute the theoretically expected value for each data point based on the distribution in question. If the data indeed follow the assumed distribution, then the points on the q-q plot will fall approximately on a straight line.
 Because the cumulative distribution function of the uniform density was a straight line, the q-q plot was very easy to construct. For data that are not uniform, the theoretical quantiles must be computed in a different manner.
 For general density functions, the so-called probability integral transform takes a random variable X and maps it to the interval (0, 1) through the CDF of X itself, which has been shown to be a uniform density. This explains why the q-q plot on standardized data is always close to the line y = x when the model is correct.
+The bottom line is, QQ plot can be used to compare two empirical distributions, but only visually. Below are some of my code (which I may create a repository to store when I have some spare time and the motivation to do so...no promise though. The real gem in the following crap is the "quantile" funtion)
+<pre><code>
+###Calculate Quantile
+library(data.table)
+args         <- commandArgs(TRUE)
+panel_dir    <- args[1]
+cv_dir_name  <- args[2]
+kValue       <- args[3]
+source       <- args[4]
+chr          <- args[5]
+
+work_dir=paste(panel_dir,"/",cv_dir_name,sep="")
+subDist_dir <- paste("K", kValue, "Fitting/", source, "/Chr_0", chr, sep="")
+globDist_dir <- paste("K", kValue, "Sampling/", source, "/Chr_0", chr, sep="")
+dist_filename <- "merge.out.gz"
+
+##READ GLOBAL DISTRIBUTION FILE
+glob_dist <- fread(paste0("zcat < ", work_dir , "/", globDist_dir, "/", dist_filename, sep=""))
+exp <- sort(as.numeric(unlist(glob_dist)))
+probs=seq(0,1,length=10000)
+q.exp=data.frame(id=formatC(probs,format="e",digits=3), value=quantile(exp,probs),row.names=NULL)
+
+##READ ALL SUB-SPEC DISTRIBUTIONS INTO A MATRIX
+q.obs.mat=NULL
+sub_dist_set <- fread(paste0("zcat < ", work_dir, "/", subDist_dir, "/", dist_filename, sep=""), sep="?", header=F,blank.lines.skip=T)[[1L]]
+for(i in seq_along(sub_dist_set)){
+    sub_dist=unlist(strsplit(sub_dist_set[i], split=","))
+    obs=sort(as.numeric(sub_dist[-1]))
+    q.obs=quantile(obs,probs)
+    q.obs.mat=rbind(q.obs.mat,q.obs)
+    if(i%%400==0){
+      cat(paste(i,"..",sep=""))
+    }
+}
+cat(paste(i,"..",sep=""))
+
+q.obs.max=apply(q.obs.mat,2,max)
+q.obs.min=apply(q.obs.mat,2,min)
+q.obs.95ci=apply(q.obs.mat,2, quantile, c(.025,.975))
+
+##OUTPUT q.exp, q.obs.max and q.obs.min
+df <- cbind(q.exp,q.obs.max,q.obs.min,t(q.obs.95ci))
+colnames(df)=c("Quantile","Global_dist","Sub_dist_max","Sub_dist_min","Sub_dist_95ci_lo", "Sub_dist_95ci_hi")
+rownames(df)=NULL
+out_file=paste(panel_dir,"/",unlist(strsplit(cv_dir_name,split="_"))[2],"_K",kValue,"_",source,"_Ch",chr,".txt",sep="")
+write.table(df, file=out_file, row.names=F, quote=F)
+print(paste(out_file,"written",sep=" "))
+</code></pre>
 
 
 <h2>The problem and relevant issues of using statistical tests</h2>
