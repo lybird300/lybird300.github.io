@@ -60,7 +60,8 @@ out_file=paste(panel_dir,"/",unlist(strsplit(cv_dir_name,split="_"))[2],"_K",kVa
 write.table(df, file=out_file, row.names=F, quote=F)
 print(paste(out_file,"written",sep=" "))
 </code></pre>
-
+<p>Below is one of the result plots</p>
+<img src="https://cloud.githubusercontent.com/assets/5496192/26171012/7566c326-3b11-11e7-84fd-ccabdd07b57a.png" />
 
 <h2>The problem and relevant issues of using statistical tests</h2>
 By constructing a threshold, saying lambda, we can test equality of two means or variances of the two distributions restricted on the tail region (\lambda, infinity) based on two data sets of observations falling in this tail region. One relevant issue would be using which tests to compare the mean or variance (elaborate below). Another issue would be how to define the threshold and therefore the "tail region". I suspect both issues would vary with specific contexts. If we are not sure, perhaps we should simulate several reasonable thresholds (better use specfic values instead of certain percentiles of a data set as the latter is relative to each data set) and try different tests when assessing every possible solutions (introduced below)<br/>
