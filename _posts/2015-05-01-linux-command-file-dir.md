@@ -282,6 +282,11 @@ Another example below removes the string "batchRunChat* &" in the file "jobList.
 If you want to delete empty lines in a file, you can use the first command below. However, sometimes it does not work because there are space/tabs in the seemingly "empty" lines. In the latter case, you should use the second command below, which also works in the former scenario (i.e., it is more general).
 <pre><code>sed -i '/^$/d' filename
 sed -i '/^\s*$/d' filename</code></pre>
+"\" is the escape character. If you want to remove lines where there are not decimal numbers for example, you can do
+<pre><code>sed -i '/\./!d' $output</code></pre>
+If you want to remove redundant lines, do the following (better use awk although it cannot change the file in the fly)
+<pre><code>awk '!seen[$0]++' $markerPsOut > ${markerPsOut}.tmp
+mv ${markerPsOut}.tmp $markerPsOut</code></pre>
 If you want to change the entire column, you can use "awk" command. The following example change the 3th and 4th columns of the input file from "9999" and output the result to a new file. Note that you need to set Output Field Separator to tab "\t" and one way to do it is with -v option
 <pre><code>awk -vOFS='\t' '{$3="9999"; $4="9999"; print}' DataMerge_testcase_Set1.fam > DataMerge_testcase_Set2.fam</code></pre>
 If you want to change the value of a specific field (i.e., column) at a specific line, say, change the first two columns of the first line to 10000, you can use the following command ("awk" command is easier to understand than "sed" command, although "sed" can do in-line edit in the original file by specify the "-i" option)
