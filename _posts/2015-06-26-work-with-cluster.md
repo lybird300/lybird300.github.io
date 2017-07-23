@@ -102,6 +102,9 @@ If for some reason Eclipse cannot locate JVM (Java Virtual Machine) in the curre
 A funny story is that I used to open another session (tab) in Mobex because once I started eclipse the command prompt was blocked and I couldn't do anything else on the same screen. Then Marcin, our Admin told me I can actually run command in the background by appending a & at the end of the command line. The & operator puts command in the background and free up your terminal. The command which runs in background is called a job. You can type other command while background command is running. The syntax is:
 <pre><code>command & (e.g., eclipse &)</code></pre>
 
+<h2>Use the screen command</h2>
+screen is a full-screen window manager that multiplexes a physical terminal between several processes (typically interactive shells). Everything you type is sent to the program running in the current window. The only exception to this is the one keystroke that is used to initiate a command to the window manager. By default, each command begins with a control-a (abbreviated C-a from now on), and is followed by one other keystroke.
+The standard way to create a new window is to type "C-a c". This creates a new window running a shell and switches to that window immediately, regardless of the state of the process running in the current window.
 
 <h2>Monitor job conditions</h2>
 The qstat command provides the status of all jobs and queues in the cluster. Below are some useful options:
