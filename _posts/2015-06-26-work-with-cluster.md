@@ -104,7 +104,7 @@ A funny story is that I used to open another session (tab) in Mobex because once
 
 <h2>Use the screen command</h2>
 screen is a full-screen window manager that multiplexes a physical terminal between several processes (typically interactive shells). Everything you type is sent to the program running in the current window. The only exception to this is the one keystroke that is used to initiate a command to the window manager. By default, each command begins with a control-a (abbreviated C-a from now on), and is followed by one other keystroke.
-The standard way to create a new window is to type "C-a c". This creates a new window running a shell and switches to that window immediately, regardless of the state of the process running in the current window.
+<a href="https://www.tecmint.com/screen-command-examples-to-manage-linux-terminals/">This</a> is a helpful post for beginners.
 
 <h2>Monitor job conditions</h2>
 The qstat command provides the status of all jobs and queues in the cluster. Below are some useful options:
