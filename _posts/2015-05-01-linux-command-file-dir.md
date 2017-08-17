@@ -279,6 +279,7 @@ Note that you need to escape specific characters when using "sed" (See <a href="
 <pre><code>find . -wholename './Rep[2-9]/batchRunChat.sh' -exec sed -i 's/largemem-\[0-1\]-0/largemem-0-0,largemem-1-0/g' {} +</code></pre>
 Another example below removes the string "batchRunChat* &" in the file "jobList.txt"
 <pre><code>sed -i 's/ batchRunChat\* \&//g' jobList.txt</code></pre>
+
 If you want to delete empty lines in a file, you can use the first command below. However, sometimes it does not work because there are space/tabs in the seemingly "empty" lines. In the latter case, you should use the second command below, which also works in the former scenario (i.e., it is more general).
 <pre><code>sed -i '/^$/d' filename
 sed -i '/^\s*$/d' filename</code></pre>
@@ -380,6 +381,10 @@ Navigate to your drive and execute
 <pre><code>ls -lR | grep ^d | wc -l</code></pre>
 Count the number of files with specific extension (e.g., ".info.gz"). -R is for recursive search in subdirectories.
 <pre><code>ls -lR *.info.gz | wc -l</code></pre>
+
+<h2>Check the number of subdirectories</h2>
+Use the result of the following command minus 1, as "find" also prints out the global directory itself
+<pre><code>find ./ -maxdepth 1 -type d -print| wc -l</code></pre>
 
 <h2>Make multiple directories with some naming pattern</h2>
 The basic command for making a directory is "mkdir". If you want to make nested directories (i.e., parent directories do not exist yet), you can use the "-p" flag, i.e., "mkdir -p <path to the new directory>".
