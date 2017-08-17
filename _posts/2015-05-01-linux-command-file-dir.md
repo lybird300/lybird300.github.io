@@ -384,7 +384,7 @@ Count the number of files with specific extension (e.g., ".info.gz"). -R is for 
 
 <h2>Check the number of subdirectories</h2>
 Use the result of the following command minus 1, as "find" also prints out the global directory itself
-<pre><code>find ./ -maxdepth 1 -type d -print| wc -l</code></pre>
+<pre><code>find ./ -maxdepth 1 -type d | wc -l</code></pre>
 
 <h2>Make multiple directories with some naming pattern</h2>
 The basic command for making a directory is "mkdir". If you want to make nested directories (i.e., parent directories do not exist yet), you can use the "-p" flag, i.e., "mkdir -p <path to the new directory>".
