@@ -73,6 +73,11 @@ e.g., tar -xvf file.tar.gz </code></pre>, where
 <li>-t : List the files in the archive.</li>
 </ul>
 
+<h2>Compress a directory</h2>
+<pre><code>
+tar -czf name_of_archive_file.tar.gz name_of_directory_to_tar
+</code></pre>
+
 <h2>Modify multiple zipped files using awk</h2>
 If you have a list of names of these files, you can do the following 
 <pre><code>
